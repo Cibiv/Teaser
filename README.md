@@ -1,2 +1,2 @@
 # Teaser
-A tool to benchmark mappers and different parameters within minutes
+Please see our github wiki for more information: https://github.com/Cibiv/Teaser/wiki
