@@ -10,7 +10,7 @@ For every benchmark Teaser generates an interactive HTML report summarizing the 
 http://teaser.cibiv.univie.ac.at/static/dataset_gallery/D3_n.html
 
 ## Web Application
-To quickly get started with testing mappers for your personalized data set, Teaser is available as a public web application. No registration is required.
+To quickly get started with testing mappers for your personalized data set, Teaser is available as a public web application, requiring no registration.
 
 http://teaser.cibiv.univie.ac.at
 
@@ -33,6 +33,7 @@ Requirements:
 Installation:
 ```
 git clone https://github.com/Cibiv/Teaser.git
+cd Teaser
 ./install.sh
 ```
 
