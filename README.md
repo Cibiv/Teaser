@@ -1,8 +1,10 @@
 # Teaser
 This is the official github page for Teaser, an analytical framework for benchmarking NGS read mappers. Teaser allows researchers to identify the optimal mapper, parameter set and mapping quality thresholds for data sets that mimic their real data. Teaser is easy-to-use, flexible and fast thanks to its genome subsampling process, allowing users to test a variety of scenarios within minutes.
 
+http://teaser.cibiv.univie.ac.at
+
 # Quickstart
-Getting started with Teaser takes just a few minutes. The following sections contain next steps for beginners and advanced users.
+Getting started with Teaser takes just a few minutes. The following sections contain possible next steps for beginners and advanced users.
 
 ## Example Report
 For every benchmark Teaser generates an interactive HTML report summarizing the accuracy and performance of each mapper. In the following example, Teaser was used to test five mappers on a D. melanogaster Ion Torrent resequencing data set:
@@ -36,4 +38,7 @@ git clone https://github.com/Cibiv/Teaser.git
 cd Teaser
 ./install.sh
 ```
+#License
+Teaser is made available under the MIT License.
 
+Copyright &copy; 2015 CIBIV, The Authors.
