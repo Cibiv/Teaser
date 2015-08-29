@@ -10,7 +10,7 @@ For every benchmark Teaser generates an interactive HTML report summarizing the 
 http://teaser.cibiv.univie.ac.at/static/dataset_gallery/D3_n.html
 
 ## Web Application
-To quickly get started with testing mappers for your personalized data set, Teaser is available as a public web application, requiring no registration.
+To quickly get started with testing mappers for your personalized data set, Teaser is available as a public web application that requires no registration:
 
 http://teaser.cibiv.univie.ac.at
 
@@ -24,7 +24,7 @@ If you want to provide your own simulated or real data set or reference genome, 
 The Teaser virtual machine image will be made available soon.
 
 ## Advanced Users: Installation
-For advanced users we recommend installing Teaser directly on your computer. Teaser supports UNIX systems and is bundled with an automatic installation script that will automatically download and install a predefined set of read mappers and read simulators.
+For advanced users we recommend installing Teaser directly on your computer. Teaser is bundled with an installation script that will download and install a predefined set of read mappers and read simulators.
 
 Requirements:
 * UNIX-like Operating System
@@ -41,6 +41,13 @@ Running the built-in E. coli example benchmark:
 ```
 ./teaser.py default
 ```
+
+Starting the web interface:
+```
+./server.py
+```
+
+Accessing the web interface: `http://localhost:8888`
 
 Teaser by default places results in the `reports` directory.
 
