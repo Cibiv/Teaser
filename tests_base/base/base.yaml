@@ -1,0 +1,21 @@
+#Base for all tests
+title: Base
+description: Sets default values
+is_basic: Yes
+run: Yes
+working_directory: .
+
+base: ~
+tags: ~
+
+#Set to Yes if the ultimate result of this test depends on the comparison of the results
+#of this with another mapper version
+is_version_relative: No
+
+#Test pipeline
+pipeline:
+   init: []
+   main: []
+   report_overview: []
+   report_detail: []
+   cleanup: []

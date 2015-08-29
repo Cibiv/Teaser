@@ -1,0 +1,37 @@
+title: Test Runner Setup
+description: ''
+
+cache_results: Yes
+cache_directory: ./cache
+
+#Output return codes, stdout, stderr of invoked subprocesses in console
+#0=Silent, 1=Minimal console report, 2=Default, 3=Very verbose (includes subprocess output)
+debug_level: 2
+debug_out_console: Yes
+
+#Events
+onReport:
+   - make_html_report.py
+
+#Tests having any of these tags will be executed, or all if null.
+include_tags: ~
+
+#Tests having anz of these tags will not be ran
+#This overrides the include_tags settings
+ignore_tags: ~
+
+#The "main" mapper version that is subject to testing
+mapper_testee: ""
+
+#Base mapper version the test version should be compared to
+#(The results of some test cases, like basic_mapping, depend on the comparison to the results of the last version)
+mapper_base: ""
+
+#Thread count for tasks that can be parallelized
+threads: 1
+
+#Maximum memory usage for subprocesses in MB
+sub_max_memory: 0
+
+#Maximum runtime for subprocesses in seconds
+sub_max_runtime: 0

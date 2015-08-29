@@ -1,0 +1,9 @@
+include:
+  - base_teaser.yaml
+
+teaser:
+   tests:
+      ecoli_test:
+         reference: E_coli.fasta
+
+report: {name: default}

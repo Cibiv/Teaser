@@ -1,0 +1,86 @@
+base: base_mapping
+is_basic: Yes
+
+pipeline:
+   init:
+     - base_mapping/init
+
+   main:
+     - base_mapping/map
+     - base_mapping/sort_prepare
+     - calc_stats
+
+   report_overview:
+     - base_mapping/report_overview
+
+   report_detail:
+     - base_mapping/report_detail
+
+   cleanup:
+     - base_mapping/cleanup
+
+#################################################################################
+#################################################################################
+
+title: A Basic Real Mapping Test
+description: "Maps real data, computes and visualizes mapping statistics"
+
+input_info:
+  simulator: This is real data
+  platform: Unknown
+  read_length: Unknown
+  read_count: Unknown
+  divergence: Unknown
+
+report:
+  mapq_overview_steps: [0] #[0,5,10,15,20,25,30,40,50,60,70,80,90,100,110,120,130,140,150,170,190,210,225,250]
+
+#################################################################################
+#################################################################################
+
+#Default parameters specific to base_mapping
+
+#Statistics configuration
+#Maximum position distance of a mapping relative to the one in input:mapping_comparison to be considered correct
+pos_threshold: 50
+
+#Evaluate for RNA mapping (split alignments)
+evaluate_rna: No
+
+#Mapper output file config
+#Exact filename determined by name of executing mapper
+#Usually not needed to be changed
+output:
+   #Will make the mapper output in BAM format if set to true
+   #However, BAM output will be converted back to SAM before comparison due to technical reasons (BAM index required by PySAM for reading but only possible by chromosome pos)
+   bam: No
+   bam_workaround: Yes
+
+   mapping_prefix: out_
+   #mapping_extension: #Set based on config value "bam"
+
+   #Does testee output mapping need to be sorted?
+   should_sort_testee: Yes
+
+#################################################################################
+#################################################################################
+input:
+   #Reference genome file (relative to working directory)
+   reference: reference.fasta
+
+   #Input read files (relative to working directory)
+   reads:
+   - reads.fastq
+
+   #Is the input (single or multiple files) comprised of paired end reads?
+   reads_paired_end: No
+
+   #When comparison is sorted, overwrite the original with the sorted version
+   sort_in_place: Yes
+
+   #See BAM problem in output section, this option only affects testing if the mapping comparison
+   #format is BAM
+   bam_workaround: Yes
+
+params:
+  ngm: {}

@@ -1,7 +1,5 @@
 # Teaser
-This is the official github page for Teaser, an analytical framework for benchmarking NGS read mappers. Teaser allows researchers to identify the optimal mapper, parameter set and mapping quality thresholds for data sets that mimic their real data. Teaser is easy-to-use, flexible and fast thanks to its genome subsampling process, allowing users to test a variety of scenarios within minutes.
-
-http://teaser.cibiv.univie.ac.at
+Welcome on the official github page of Teaser, an analytical framework for benchmarking NGS read mappers. Teaser allows researchers to identify the optimal mapper, parameter set and mapping quality thresholds for data sets that mimic their real data. Teaser is easy-to-use, flexible and fast thanks to its genome subsampling process, allowing users to test a variety of scenarios within minutes.
 
 # Quickstart
 Getting started with Teaser takes just a few minutes. The following sections contain possible next steps for beginners and advanced users.
@@ -23,21 +21,29 @@ https://github.com/Cibiv/Teaser/wiki
 ## Intermediate Users: Virtual Machine Image
 If you want to provide your own simulated or real data set or reference genome, or customize Teaser by adding new mappers or parameter sets, we provide a ready-to-go installation as a VirtualBox virtual machine image. The Teaser wiki contains details on how to configure Teaser using only human-readable text files.
 
+The Teaser virtual machine image will be made available soon.
+
 ## Advanced Users: Installation
 For advanced users we recommend installing Teaser directly on your computer. Teaser supports UNIX systems and is bundled with an automatic installation script that will automatically download and install a predefined set of read mappers and read simulators.
 
 Requirements:
-* UNIX system
-* Python 2.7
-* git
-* cmake, GNU Compiler Collection
+* UNIX-like Operating System
+* Python 2.x
 
 Installation:
 ```
 git clone https://github.com/Cibiv/Teaser.git
 cd Teaser
-./install.sh
+./install.py
 ```
+
+Running the built-in E. coli example benchmark:
+```
+./teaser.py default
+```
+
+Teaser by default places results in the `reports` directory.
+
 #License
 Teaser is made available under the MIT License.
 
