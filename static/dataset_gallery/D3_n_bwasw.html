@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Teaser</title>
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/c3/c3.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/extensions/bootstrap-select.min.css">
+    <style>
+body {
+  padding-top: 60px;
+  position: relative;
+}
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+
+.sidebar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+.nav-sidebar {
+  margin-right: -21px;
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+a.separator
+{
+color:#777777;
+}
+
+a.separator:hover
+{
+color:#777777;
+}
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+section {
+    padding-top: 60px;
+    margin-top: -60px;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.main-container
+{
+   margin: 0 auto;
+   max-width: 1300px;
+}
+
+
+    </style>
+  </head>
+
+<body data-spy="scroll" data-target="#sidebar">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Teaser</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+           <li><a href="start.html">Benchmark</a></li><li><a href="#" class="separator"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">D3<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="D1_n.html">D1</a></li><li><a href="D2_n.html">D2</a></li><li><a href="D3_n.html">D3</a></li><li><a href="D4_n.html">D4</a></li><li><a href="H1_n.html">H1</a></li><li><a href="H2_n.html">H2</a></li><li><a href="M1_n.html">M1</a></li><li><a href="M2_n.html">M2</a></li><li><a href="M3_n.html">M3</a></li><li><a href="M4_n.html">M4</a></li></ul></li><li><a href="#" class="separator"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">BWA-SW<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="D3_n_ngm.html">NGM</a></li><li><a href="D3_n_bwa.html">BWA</a></li><li><a href="D3_n_bwamem.html">BWA-MEM</a></li><li><a href="D3_n_bwasw.html">BWA-SW</a></li><li><a href="D3_n_bowtie2.html">Bowtie 2</a></li></ul></li>
+          </ul>
+          <div class="nav navbar-nav navbar-right" style="padding:5px;">
+           
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid main-container">
+      <div class="row">
+        
+        <div class="col-sm-3 col-md-2 sidebar">
+          <div id="sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#section1">Mapping Quality Thresholds</a></li><li><a href="#section2">Basic Statistics</a></li><li><a href="#section3">Read Failure Statistics</a></li><li><a href="#section4">Advanced Statistics</a></li><li><a href="#section5">Timing</a></li><li><a href="#section6">Additional Information</a></li><li><a href="#section7">Errors and Warnings</a></li><li><a href="#section8">Subprocess Log</a></li>
+          </ul>
+          </div>
+        </div>
+        <div class="col-sm-9  col-sm-offset-3 col-md-offset-2  col-md-10 main" id="content">
+            <section id="section1"><div class="panel panel-default"><div class="panel-heading">Mapping Quality Thresholds</div><div class="panel-body"><p>The plot below shows the percentages of correctly and wrongly mapped reads for all mapping quality thresholds for this mapper. The values at threshold 0 therefore correspond to the unfiltered results.</p><div id="plot_mapq_tresh"></div></div></div></section><section id="section2"><div class="panel panel-default"><div class="panel-heading">Basic Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Correctly Mapped</th><td class="col-md-2">97502</td><td class="col-md-2">54.271%</td></tr><tr><th>Wrongly Mapped</th><td>13839</td><td>7.703%</td></tr><tr><th>Not Mapped</th><td>67568</td><td>37.609%</td></tr><tr><th>Total</th><td>179657</td><td>100.0%</td></tbody></table></div></div></section><section id="section3"><div class="panel panel-default"><div class="panel-heading">Read Failure Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Not mapped</th><td class="col-md-2">67568</td><td class="col-md-2">37.609%</td></tr><tr><th>Missing in mapper output</th><td>748</td><td>0.416%</td></tr><tr><th>Mapped to wrong chromosome</th><td>7084</td><td>3.943%</td></tr><tr><th>Mapped to wrong position</th><td>6755</td><td>3.76%</td></tr><tr><th>Mapped to wrong strand</th><td>0</td><td>0.0%</td></tbody></table></div></div></section><section id="section4"><div class="panel panel-default"><div class="panel-heading">Advanced Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th>Missing in comparison alignment</th><td>1407</td></tr><tr><th class="col-md-6">Secondary Alignments</th><td class="col-md-4">0</td></tr><tr><th><abbr title="Harmonic Mean of Precision and Recall">F-Measure</abbr></th><td>0.705486</td></tr><tr><th><abbr title="Correctly Mapped / (Correctly Mapped + Wrongly Mapped)">Precision</abbr></th><td>0.875706</td></tr><tr><th><abbr title="Correctly Mapped / (Correctly Mapped + Unmapped)">Recall</abbr></th><td>0.590671</td></tbody></table></div></div></section><section id="section5"><div class="panel panel-default"><div class="panel-heading">Timing</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Raw Mapping Time</th><td class="col-md-4">29.479s</td></tr><tr><th>Effective Mapping Time</th><td>29.337s</td></tr><tr><th>Effective Init Time</th><td>0.142s</td></tr><tr><th>Effective Time Measure</th><td>Wall clock</td></tr><tr><th>Mapping Time (Wall)</th><td>29.479s</td></tr><tr><th>Mapping Time (CPU)</th><td>107.870s</td></tr><tr><th>Mapping Time (CPU User)</th><td>107.060s</td></tr><tr><th>Mapping Time (CPU System)</th><td>0.810s</td></tr><tr><th>Init Time (Wall)</th><td>0.142s</td></tr><tr><th>Init Time (CPU)</th><td>0.100s</td></tr><tr><th>Init Time (CPU User)</th><td>0.000s</td></tr><tr><th>Init Time (CPU System)</th><td>0.100s</td></tr></tbody></table></div></div></section><section id="section6"><div class="panel panel-default"><div class="panel-heading">Additional Information</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Mapper Memory Usage</th><td class="col-md-4">585 MB</td></tr><tr><th>Total Test Runtime (Wall)</th><td>36.909s</td></tr><tr><th>Mapper Command Line:</th><td>&nbsp;</td></tr><tr><td colspan=2>/project/teaser/software/bwa bwasw /scratch/mate/refs/d_melanogaster.fasta reads.fastq  -t 4 > out_bwasw.sam</td></tr></tbody></table></div></div></section><section id="section7"><div class="panel panel-default"><div class="panel-heading">Errors and Warnings</div><div class="panel-body"><i>No problems were encountered.</i></div></div></section><section id="section8"><div class="panel panel-default"><div class="panel-heading">Subprocess Log</div><div class="panel-body"><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/bwa bwasw /scratch/mate/refs/d_melanogaster.fasta reads_base.fastq  -t 4 > out_bwasw.sam</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/bwa bwasw /scratch/mate/refs/d_melanogaster.fasta reads_base.fastq  -t 4 > out_bwasw.sam</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>254537728</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse79" class="collapsed">stderr</a></h4></div><div id="collapse79" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse80" class="collapsed">stdout</a></h4></div><div id="collapse80" class="panel-collapse collapse"><div class="panel-body"><pre>[M::bwa_idx_load_from_disk] read 0 ALT contigs<br>
+[bsw2_aln] read 1 sequences/pairs (60 bp) ...<br>
+[main] Version: 0.7.12-r1039<br>
+[main] CMD: /project/teaser/software/bwa bwasw -t 4 /scratch/mate/refs/d_melanogaster.fasta reads_base.fastq<br>
+[main] Real time: 0.142 sec; CPU: 0.097 sec<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>0.1</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>0.134018182755</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>0.0</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/D3_n</small></td></tr></tbody></table></div></div><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/bwa bwasw /scratch/mate/refs/d_melanogaster.fasta reads_base.fastq  -t 4 > out_bwasw.sam</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/bwa bwasw /scratch/mate/refs/d_melanogaster.fasta reads_base.fastq  -t 4 > out_bwasw.sam</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>254529536</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse81" class="collapsed">stderr</a></h4></div><div id="collapse81" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse82" class="collapsed">stdout</a></h4></div><div id="collapse82" class="panel-collapse collapse"><div class="panel-body"><pre>[M::bwa_idx_load_from_disk] read 0 ALT contigs<br>
+[bsw2_aln] read 1 sequences/pairs (60 bp) ...<br>
+[main] Version: 0.7.12-r1039<br>
+[main] CMD: /project/teaser/software/bwa bwasw -t 4 /scratch/mate/refs/d_melanogaster.fasta reads_base.fastq<br>
+[main] Real time: 0.153 sec; CPU: 0.098 sec<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>0.1</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>0.14192199707</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>0.0</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/D3_n</small></td></tr></tbody></table></div></div><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/bwa bwasw /scratch/mate/refs/d_melanogaster.fasta reads.fastq  -t 4 > out_bwasw.sam</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/bwa bwasw /scratch/mate/refs/d_melanogaster.fasta reads.fastq  -t 4 > out_bwasw.sam</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>585879552</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse83" class="collapsed">stderr</a></h4></div><div id="collapse83" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse84" class="collapsed">stdout</a></h4></div><div id="collapse84" class="panel-collapse collapse"><div class="panel-body"><pre>[M::bwa_idx_load_from_disk] read 0 ALT contigs<br>
+[bsw2_aln] read 179658 sequences/pairs (38490667 bp) ...<br>
+[main] Version: 0.7.12-r1039<br>
+[main] CMD: /project/teaser/software/bwa bwasw -t 4 /scratch/mate/refs/d_melanogaster.fasta reads.fastq<br>
+[main] Real time: 29.482 sec; CPU: 107.874 sec<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>0.81</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>29.4786298275</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>107.06</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/D3_n</small></td></tr></tbody></table></div></div></div></div></section><p></p><div style="margin:300px; height:300px;">&nbsp;</div>
+        </div>
+      </div>
+    </div>
+
+
+<script src="http://teaser.cibiv.univie.ac.at/static/js/d3.v3.min.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/c3/c3.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/js/jquery.js"></script>
+<script>
+
+var cols=[["Correct", 0.5427119455406691, 0.5322030313319269, 0.5306667705683609, 0.5279950127186805, 0.5265255459013565, 0.5253121225446267, 0.5242211547560073, 0.5232303778867509, 0.5222729979906154, 0.5210762731204461, 0.5198684159259033, 0.5187496173263496, 0.5173191136443334, 0.5157327574210857, 0.5131945874638896, 0.5087472238766093, 0.5017115948724514, 0.4897053830354509, 0.4729456686908943, 0.45629727759007443, 0.4488831495572118, 0.44793690198545005, 0.44744151355082185, 0.44674574327746763, 0.4458384588410137, 0.44480871883644946, 0.44378454499407205, 0.4416360063899542, 0.4386302788090639, 0.4349900087388746, 0.43005838904133986, 0.4240525000417462, 0.4139888788079507, 0.3978525746283195, 0.37696276794113226, 0.35328431399834126, 0.322213996671435, 0.2870525501372059, 0.25392831896335794, 0.23141319291761522, 0.22094324184418085, 0.21838837340042414, 0.21821025621044546, 0.2181545945885771, 0.21811006529108246, 0.21806553599358777, 0.21801544053390629, 0.2179542127498511, 0.2179041172901696, 0.21786515415486177, 0.21782619101955392, 0.21778166172205926, 0.21772043393800408, 0.21766477231613574, 0.2176425076673884, 0.2175868460455201, 0.2175590152345859, 0.2175089197749044, 0.21748108896397023, 0.21743655966647557, 0.21738646420679406, 0.21733636874711254, 0.21729183944961789, 0.21719164853025488, 0.2171638177193207, 0.2170970237730787, 0.21703579598902353, 0.21695230355622103, 0.2169022080965395, 0.21685211263685802, 0.21681314950155017, 0.21672409090656083, 0.21667956160906615, 0.216618333825011, 0.21652370906783483, 0.2164235181484718, 0.2163400257156693, 0.21617304085006428, 0.2160951145794486, 0.2159615266869646, 0.21575557868605175, 0.21568878473980974, 0.21549396906327056, 0.21526575641361037, 0.2150041467908292, 0.21472027251930068, 0.21439186895027748, 0.21409129619218845, 0.2136237385684944, 0.21327307035072388, 0.21272202029422732, 0.21209304396711512, 0.21159208937030008, 0.21109670093567187, 0.2105623493657358, 0.21004469628236028, 0.20951034471242422, 0.20913741184590637, 0.20885353757437783, 0.20866985422221232, 0.20855296481628882, 0.20845277389692582, 0.20839711227505747, 0.20837484762631014, 0.20834701681537596, 0.2083191860044418, 0.2082857890313208, 0.20824682589601295, 0.20820786276070513, 0.20819673043633147, 0.20814663497664995, 0.20811323800352893, 0.20808540719259477, 0.2080074809219791, 0.20798521627323177, 0.2079239884891766, 0.2078738930294951, 0.2078237975698136, 0.20776813594794524, 0.2077236066504506, 0.2076623788663954, 0.20762341573108758, 0.20759001875796657, 0.2075287909739114, 0.20748982783860356, 0.2074119015679879, 0.20738963691924056, 0.2072950121620644, 0.20726161518894337, 0.20719482124270136, 0.2071335934586462, 0.20702783637709635, 0.2070000055661622, 0.20691651313335968, 0.20686085151149133, 0.20678292524087566, 0.206738395943381, 0.206638205024018, 0.2065101832937208, 0.206471220158413, 0.20636546307686313, 0.2063098014549948, 0.20609272112970828, 0.20590347161535594, 0.2058645084800481, 0.20564742815476159, 0.2056028988572669, 0.20545817864040922, 0.20517987053106754, 0.20513534123357285, 0.20493495939484685, 0.20470674674518666, 0.2043839093383503, 0.2043672108517898, 0.2038718224171616, 0.20343766176658856, 0.20294227333196035, 0.20289217787227884, 0.20229659851828763, 0.20162865905586758, 0.20106091051281053, 0.20027608164446695, 0.1994467234786287, 0.198567269853109, 0.1976488530922814, 0.19658571611459616, 0.19655231914147514, 0.19530549881162437, 0.19268940258381248, 0.19115314182024637, 0.18955565327262505, 0.18769655510222258, 0.18581519228307275, 0.18375571227394424, 0.18147358577734238, 0.17916919463199318, 0.17687036964883082, 0.1713988322191732, 0.1682706490701726, 0.16518699521866667, 0.15851316675665295, 0.15503431538988183, 0.15117139883221917, 0.14310046366131016, 0.13896480515649265, 0.1307046204712313, 0.12177093016136305, 0.1173013019253355, 0.10802807572207039, 0.103285705538888, 0.09406814095749122, 0.0851233183232493, 0.07601707698558921, 0.06726707002788647, 0.05914603939729596, 0.051525963363520486, 0.0441007030062842, 0.037721881140172664, 0.03147664716654514, 0.02360052767217531, 0.019075237814279434, 0.015473930879397964, 0.01070929604746823, 0.007430826519423123, 0.005760977863372983, 0.003673667043310308, 0.00227099417222819, 0.0014082390332689513, 0.00083492432802507, 0.0004285944883862026, 0.0001447202168576788, 0.0001168894059235098, 8.3492432802507e-05, 5.5661621868338e-05, 3.89631353078366e-05, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", -0.5426727322498064, -0.18732189045142894, -0.15230442171097971, -0.13473686740446092, -0.12454141178014201, -0.11626740740809857, -0.10956193467056574, -0.10509161951221052, -0.10069973093558081, -0.09677840184930431, -0.09387661832545968, -0.09019056898435977, -0.08619081331635772, -0.08258319055698334, -0.07846579501639299, -0.0750934520021952, -0.07058392355297721, -0.06709394066619112, -0.06442743688752309, -0.06352553119767948, -0.06293733183473801, -0.062270705890071006, -0.061368800200227405, -0.06011397489261892, -0.0583493768037945, -0.056898485041872185, -0.05552601986167541, -0.053173222409909494, -0.050624358503829764, -0.04697752245359261, -0.04340911298508098, -0.040115196552608715, -0.03572330797597902, -0.029723674473975958, -0.025096506152169674, -0.022155509337462288, -0.019606645431382557, -0.018469459996362368, -0.018155753669460248, -0.018116540378597484, -0.018116540378597484, -0.01807732708773472, -0.018038113796871952, -0.018038113796871952, -0.018038113796871952, -0.018038113796871952, -0.018038113796871952, -0.018038113796871952, -0.018038113796871952, -0.018038113796871952, -0.018038113796871952, -0.017998900506009188, -0.017998900506009188, -0.017998900506009188, -0.017998900506009188, -0.017998900506009188, -0.017998900506009188, -0.017998900506009188, -0.017998900506009188, -0.017998900506009188, -0.017959687215146423, -0.017959687215146423, -0.017959687215146423, -0.017959687215146423, -0.017959687215146423, -0.017959687215146423, -0.017920473924283656, -0.017920473924283656, -0.01788126063342089, -0.017842047342558127, -0.017763620760832596, -0.017763620760832596, -0.01772440746996983, -0.01772440746996983, -0.01772440746996983, -0.01772440746996983, -0.017685194179107067, -0.017685194179107067, -0.017685194179107067, -0.01756755430651877, -0.017528341015656007, -0.017489127724793243, -0.017449914433930475, -0.01741070114306771, -0.01741070114306771, -0.017371487852204947, -0.017371487852204947, -0.017371487852204947, -0.017332274561342183, -0.01725384797961665, -0.017214634688753887, -0.01717542139789112, -0.01717542139789112, -0.01717542139789112, -0.01717542139789112, -0.017136208107028355, -0.017136208107028355, -0.017136208107028355, -0.017136208107028355, -0.017136208107028355, -0.017136208107028355, -0.017136208107028355, -0.017136208107028355, -0.017057781525302823, -0.017057781525302823, -0.017057781525302823, -0.017057781525302823, -0.01701856823444006, -0.01701856823444006, -0.01701856823444006, -0.01701856823444006, -0.016979354943577295, -0.016979354943577295, -0.016979354943577295, -0.016979354943577295, -0.016979354943577295, -0.016979354943577295, -0.016979354943577295, -0.01694014165271453, -0.01694014165271453, -0.016900928361851766, -0.016861715070989002, -0.016861715070989002, -0.016822501780126235, -0.016822501780126235, -0.016822501780126235, -0.016822501780126235, -0.016822501780126235, -0.016822501780126235, -0.016822501780126235, -0.016822501780126235, -0.016822501780126235, -0.016822501780126235, -0.01678328848926347, -0.01678328848926347, -0.016665648616675174, -0.016665648616675174, -0.01662643532581241, -0.01654800874408688, -0.01654800874408688, -0.016430368871498582, -0.016430368871498582, -0.016234302417184758, -0.016077449253733698, -0.016077449253733698, -0.015920596090282638, -0.015920596090282638, -0.01580295621769434, -0.015685316345106046, -0.015685316345106046, -0.01548924989079222, -0.015175543563890101, -0.015097116982164569, -0.015097116982164569, -0.014783410655262447, -0.014587344200948624, -0.014312851164909268, -0.014312851164909268, -0.013959931547144382, -0.013763865092830556, -0.013371732184202904, -0.01309723914816355, -0.012822746112124193, -0.012156120167457185, -0.01188162713141783, -0.011215001186750824, -0.011215001186750824, -0.010587588532946581, -0.009685682843102983, -0.009175910061887038, -0.008862203734984916, -0.008430857535494501, -0.008156364499455143, -0.007685805009101963, -0.006862325900983895, -0.0063917664106307144, -0.005725140465963707, -0.005019301230433934, -0.004509528449217988, -0.004117395540590337, -0.00345076959592333, -0.003058636687295679, -0.0026272904878052628, -0.0022351575791776115, -0.0019606645431382557, -0.0014116784710595442, -0.0009411189807063628, -0.0007450525263925372, -0.000666625944667007, -0.0005489860720787116, -0.00039213290862765115, -0.0003137063269021209, -0.00019606645431382558, -0.00019606645431382558, -0.00011763987258829535, -7.842658172553023e-05, -7.842658172553023e-05, -7.842658172553023e-05, -7.842658172553023e-05, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]];
+var a=0;
+var b=0;
+var last_a=0;
+var last_b=0;
+
+function updateRange()
+{
+	if(last_a==a && last_b==b)
+	{
+		setTimeout(updateRange,500);
+		return;
+	}
+ 
+        an=Math.floor(parseInt(a));
+        bn=Math.floor(parseInt(b));
+	var mn = 0;
+	var mx = 0;
+	for(i=an;i<bn;i++)
+	{
+		mx=Math.max(mx,cols[0][i+1]);
+		mn=Math.min(mn,cols[1][i+1]);
+	}
+	r={}
+	r.max=mx;
+	r.min=mn;
+	chart.axis.range(r);
+	last_a=a;
+	last_b=b;
+	setTimeout(updateRange,500);
+}
+setTimeout(updateRange,500);
+
+var chart = c3.generate({
+bindto: '#plot_mapq_tresh',
+data: {
+  columns: [["Correct", 0.5427119455406691, 0.5322030313319269, 0.5306667705683609, 0.5279950127186805, 0.5265255459013565, 0.5253121225446267, 0.5242211547560073, 0.5232303778867509, 0.5222729979906154, 0.5210762731204461, 0.5198684159259033, 0.5187496173263496, 0.5173191136443334, 0.5157327574210857, 0.5131945874638896, 0.5087472238766093, 0.5017115948724514, 0.4897053830354509, 0.4729456686908943, 0.45629727759007443, 0.4488831495572118, 0.44793690198545005, 0.44744151355082185, 0.44674574327746763, 0.4458384588410137, 0.44480871883644946, 0.44378454499407205, 0.4416360063899542, 0.4386302788090639, 0.4349900087388746, 0.43005838904133986, 0.4240525000417462, 0.4139888788079507, 0.3978525746283195, 0.37696276794113226, 0.35328431399834126, 0.322213996671435, 0.2870525501372059, 0.25392831896335794, 0.23141319291761522, 0.22094324184418085, 0.21838837340042414, 0.21821025621044546, 0.2181545945885771, 0.21811006529108246, 0.21806553599358777, 0.21801544053390629, 0.2179542127498511, 0.2179041172901696, 0.21786515415486177, 0.21782619101955392, 0.21778166172205926, 0.21772043393800408, 0.21766477231613574, 0.2176425076673884, 0.2175868460455201, 0.2175590152345859, 0.2175089197749044, 0.21748108896397023, 0.21743655966647557, 0.21738646420679406, 0.21733636874711254, 0.21729183944961789, 0.21719164853025488, 0.2171638177193207, 0.2170970237730787, 0.21703579598902353, 0.21695230355622103, 0.2169022080965395, 0.21685211263685802, 0.21681314950155017, 0.21672409090656083, 0.21667956160906615, 0.216618333825011, 0.21652370906783483, 0.2164235181484718, 0.2163400257156693, 0.21617304085006428, 0.2160951145794486, 0.2159615266869646, 0.21575557868605175, 0.21568878473980974, 0.21549396906327056, 0.21526575641361037, 0.2150041467908292, 0.21472027251930068, 0.21439186895027748, 0.21409129619218845, 0.2136237385684944, 0.21327307035072388, 0.21272202029422732, 0.21209304396711512, 0.21159208937030008, 0.21109670093567187, 0.2105623493657358, 0.21004469628236028, 0.20951034471242422, 0.20913741184590637, 0.20885353757437783, 0.20866985422221232, 0.20855296481628882, 0.20845277389692582, 0.20839711227505747, 0.20837484762631014, 0.20834701681537596, 0.2083191860044418, 0.2082857890313208, 0.20824682589601295, 0.20820786276070513, 0.20819673043633147, 0.20814663497664995, 0.20811323800352893, 0.20808540719259477, 0.2080074809219791, 0.20798521627323177, 0.2079239884891766, 0.2078738930294951, 0.2078237975698136, 0.20776813594794524, 0.2077236066504506, 0.2076623788663954, 0.20762341573108758, 0.20759001875796657, 0.2075287909739114, 0.20748982783860356, 0.2074119015679879, 0.20738963691924056, 0.2072950121620644, 0.20726161518894337, 0.20719482124270136, 0.2071335934586462, 0.20702783637709635, 0.2070000055661622, 0.20691651313335968, 0.20686085151149133, 0.20678292524087566, 0.206738395943381, 0.206638205024018, 0.2065101832937208, 0.206471220158413, 0.20636546307686313, 0.2063098014549948, 0.20609272112970828, 0.20590347161535594, 0.2058645084800481, 0.20564742815476159, 0.2056028988572669, 0.20545817864040922, 0.20517987053106754, 0.20513534123357285, 0.20493495939484685, 0.20470674674518666, 0.2043839093383503, 0.2043672108517898, 0.2038718224171616, 0.20343766176658856, 0.20294227333196035, 0.20289217787227884, 0.20229659851828763, 0.20162865905586758, 0.20106091051281053, 0.20027608164446695, 0.1994467234786287, 0.198567269853109, 0.1976488530922814, 0.19658571611459616, 0.19655231914147514, 0.19530549881162437, 0.19268940258381248, 0.19115314182024637, 0.18955565327262505, 0.18769655510222258, 0.18581519228307275, 0.18375571227394424, 0.18147358577734238, 0.17916919463199318, 0.17687036964883082, 0.1713988322191732, 0.1682706490701726, 0.16518699521866667, 0.15851316675665295, 0.15503431538988183, 0.15117139883221917, 0.14310046366131016, 0.13896480515649265, 0.1307046204712313, 0.12177093016136305, 0.1173013019253355, 0.10802807572207039, 0.103285705538888, 0.09406814095749122, 0.0851233183232493, 0.07601707698558921, 0.06726707002788647, 0.05914603939729596, 0.051525963363520486, 0.0441007030062842, 0.037721881140172664, 0.03147664716654514, 0.02360052767217531, 0.019075237814279434, 0.015473930879397964, 0.01070929604746823, 0.007430826519423123, 0.005760977863372983, 0.003673667043310308, 0.00227099417222819, 0.0014082390332689513, 0.00083492432802507, 0.0004285944883862026, 0.0001447202168576788, 0.0001168894059235098, 8.3492432802507e-05, 5.5661621868338e-05, 3.89631353078366e-05, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", -0.5426727322498064, -0.18732189045142894, -0.15230442171097971, -0.13473686740446092, -0.12454141178014201, -0.11626740740809857, -0.10956193467056574, -0.10509161951221052, -0.10069973093558081, -0.09677840184930431, -0.09387661832545968, -0.09019056898435977, -0.08619081331635772, -0.08258319055698334, -0.07846579501639299, -0.0750934520021952, -0.07058392355297721, -0.06709394066619112, -0.06442743688752309, -0.06352553119767948, -0.06293733183473801, -0.062270705890071006, -0.061368800200227405, -0.06011397489261892, -0.0583493768037945, -0.056898485041872185, -0.05552601986167541, -0.053173222409909494, -0.050624358503829764, -0.04697752245359261, -0.04340911298508098, -0.040115196552608715, -0.03572330797597902, -0.029723674473975958, -0.025096506152169674, -0.022155509337462288, -0.019606645431382557, -0.018469459996362368, -0.018155753669460248, -0.018116540378597484, -0.018116540378597484, -0.01807732708773472, -0.018038113796871952, -0.018038113796871952, -0.018038113796871952, -0.018038113796871952, -0.018038113796871952, -0.018038113796871952, -0.018038113796871952, -0.018038113796871952, -0.018038113796871952, -0.017998900506009188, -0.017998900506009188, -0.017998900506009188, -0.017998900506009188, -0.017998900506009188, -0.017998900506009188, -0.017998900506009188, -0.017998900506009188, -0.017998900506009188, -0.017959687215146423, -0.017959687215146423, -0.017959687215146423, -0.017959687215146423, -0.017959687215146423, -0.017959687215146423, -0.017920473924283656, -0.017920473924283656, -0.01788126063342089, -0.017842047342558127, -0.017763620760832596, -0.017763620760832596, -0.01772440746996983, -0.01772440746996983, -0.01772440746996983, -0.01772440746996983, -0.017685194179107067, -0.017685194179107067, -0.017685194179107067, -0.01756755430651877, -0.017528341015656007, -0.017489127724793243, -0.017449914433930475, -0.01741070114306771, -0.01741070114306771, -0.017371487852204947, -0.017371487852204947, -0.017371487852204947, -0.017332274561342183, -0.01725384797961665, -0.017214634688753887, -0.01717542139789112, -0.01717542139789112, -0.01717542139789112, -0.01717542139789112, -0.017136208107028355, -0.017136208107028355, -0.017136208107028355, -0.017136208107028355, -0.017136208107028355, -0.017136208107028355, -0.017136208107028355, -0.017136208107028355, -0.017057781525302823, -0.017057781525302823, -0.017057781525302823, -0.017057781525302823, -0.01701856823444006, -0.01701856823444006, -0.01701856823444006, -0.01701856823444006, -0.016979354943577295, -0.016979354943577295, -0.016979354943577295, -0.016979354943577295, -0.016979354943577295, -0.016979354943577295, -0.016979354943577295, -0.01694014165271453, -0.01694014165271453, -0.016900928361851766, -0.016861715070989002, -0.016861715070989002, -0.016822501780126235, -0.016822501780126235, -0.016822501780126235, -0.016822501780126235, -0.016822501780126235, -0.016822501780126235, -0.016822501780126235, -0.016822501780126235, -0.016822501780126235, -0.016822501780126235, -0.01678328848926347, -0.01678328848926347, -0.016665648616675174, -0.016665648616675174, -0.01662643532581241, -0.01654800874408688, -0.01654800874408688, -0.016430368871498582, -0.016430368871498582, -0.016234302417184758, -0.016077449253733698, -0.016077449253733698, -0.015920596090282638, -0.015920596090282638, -0.01580295621769434, -0.015685316345106046, -0.015685316345106046, -0.01548924989079222, -0.015175543563890101, -0.015097116982164569, -0.015097116982164569, -0.014783410655262447, -0.014587344200948624, -0.014312851164909268, -0.014312851164909268, -0.013959931547144382, -0.013763865092830556, -0.013371732184202904, -0.01309723914816355, -0.012822746112124193, -0.012156120167457185, -0.01188162713141783, -0.011215001186750824, -0.011215001186750824, -0.010587588532946581, -0.009685682843102983, -0.009175910061887038, -0.008862203734984916, -0.008430857535494501, -0.008156364499455143, -0.007685805009101963, -0.006862325900983895, -0.0063917664106307144, -0.005725140465963707, -0.005019301230433934, -0.004509528449217988, -0.004117395540590337, -0.00345076959592333, -0.003058636687295679, -0.0026272904878052628, -0.0022351575791776115, -0.0019606645431382557, -0.0014116784710595442, -0.0009411189807063628, -0.0007450525263925372, -0.000666625944667007, -0.0005489860720787116, -0.00039213290862765115, -0.0003137063269021209, -0.00019606645431382558, -0.00019606645431382558, -0.00011763987258829535, -7.842658172553023e-05, -7.842658172553023e-05, -7.842658172553023e-05, -7.842658172553023e-05, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]],
+  type: "area"
+},
+grid: {
+  y: {
+    show: true
+  }
+},
+axis: {
+  x: {
+    label: "Mapping Quality Threshold"
+  },
+
+  y: {
+    label: { text: "Read Count", position: "outer-middle" },
+    tick: {
+       format: function(v) { if(v>=0){return Math.min(100,(Math.round(100000*v)/1000))+"%";}else{ return Math.min(100,(Math.round(100000*(-v/7.044942))/1000))+"%";} }
+    }
+  }
+},
+legend: {
+	position: "right"
+},
+subchart: {
+	show: true,
+	onbrush: function (d) {
+		a = d[0];
+		b = d[1];
+	}
+}
+});
+
+</script>
+<script src="http://teaser.cibiv.univie.ac.at/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="javascript">$('#content').scrollspy();</script>
+<script src="http://teaser.cibiv.univie.ac.at/static/extensions/bootstrap-select.min.js"></script>
+
+<script src="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/js/jquery.dataTables.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/extensions/dataTables.bootstrap.js"></script>
+</body>
+</html>

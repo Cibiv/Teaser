@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Teaser</title>
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/c3/c3.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/extensions/bootstrap-select.min.css">
+    <style>
+body {
+  padding-top: 60px;
+  position: relative;
+}
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+
+.sidebar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+.nav-sidebar {
+  margin-right: -21px;
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+a.separator
+{
+color:#777777;
+}
+
+a.separator:hover
+{
+color:#777777;
+}
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+section {
+    padding-top: 60px;
+    margin-top: -60px;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.main-container
+{
+   margin: 0 auto;
+   max-width: 1300px;
+}
+
+
+    </style>
+  </head>
+
+<body data-spy="scroll" data-target="#sidebar">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Teaser</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+           <li><a href="start.html">Benchmark</a></li><li><a href="#" class="separator"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">M3<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="D1_n.html">D1</a></li><li><a href="D2_n.html">D2</a></li><li><a href="D3_n.html">D3</a></li><li><a href="D4_n.html">D4</a></li><li><a href="H1_n.html">H1</a></li><li><a href="H2_n.html">H2</a></li><li><a href="M1_n.html">M1</a></li><li><a href="M2_n.html">M2</a></li><li><a href="M3_n.html">M3</a></li><li><a href="M4_n.html">M4</a></li></ul></li><li><a href="#" class="separator"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">BWA<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="M3_n_ngm.html">NGM</a></li><li><a href="M3_n_bwa.html">BWA</a></li><li><a href="M3_n_bwamem.html">BWA-MEM</a></li><li><a href="M3_n_bwasw.html">BWA-SW</a></li><li><a href="M3_n_bowtie2.html">Bowtie 2</a></li></ul></li>
+          </ul>
+          <div class="nav navbar-nav navbar-right" style="padding:5px;">
+           
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid main-container">
+      <div class="row">
+        
+        <div class="col-sm-3 col-md-2 sidebar">
+          <div id="sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#section1">Mapping Quality Thresholds</a></li><li><a href="#section2">Basic Statistics</a></li><li><a href="#section3">Read Failure Statistics</a></li><li><a href="#section4">Advanced Statistics</a></li><li><a href="#section5">Timing</a></li><li><a href="#section6">Additional Information</a></li><li><a href="#section7">Errors and Warnings</a></li><li><a href="#section8">Subprocess Log</a></li>
+          </ul>
+          </div>
+        </div>
+        <div class="col-sm-9  col-sm-offset-3 col-md-offset-2  col-md-10 main" id="content">
+            <section id="section1"><div class="panel panel-default"><div class="panel-heading">Mapping Quality Thresholds</div><div class="panel-body"><p>The plot below shows the percentages of correctly and wrongly mapped reads for all mapping quality thresholds for this mapper. The values at threshold 0 therefore correspond to the unfiltered results.</p><div id="plot_mapq_tresh"></div></div></div></section><section id="section2"><div class="panel panel-default"><div class="panel-heading">Basic Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Correctly Mapped</th><td class="col-md-2">3</td><td class="col-md-2">0.001%</td></tr><tr><th>Wrongly Mapped</th><td>0</td><td>0.0%</td></tr><tr><th>Not Mapped</th><td>241914</td><td>99.999%</td></tr><tr><th>Total</th><td>241917</td><td>100.0%</td></tbody></table></div></div></section><section id="section3"><div class="panel panel-default"><div class="panel-heading">Read Failure Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Not mapped</th><td class="col-md-2">241914</td><td class="col-md-2">99.999%</td></tr><tr><th>Missing in mapper output</th><td>0</td><td>0.0%</td></tr><tr><th>Mapped to wrong chromosome</th><td>0</td><td>0.0%</td></tr><tr><th>Mapped to wrong position</th><td>0</td><td>0.0%</td></tr><tr><th>Mapped to wrong strand</th><td>0</td><td>0.0%</td></tbody></table></div></div></section><section id="section4"><div class="panel panel-default"><div class="panel-heading">Advanced Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th>Missing in comparison alignment</th><td>4</td></tr><tr><th class="col-md-6">Secondary Alignments</th><td class="col-md-4">0</td></tr><tr><th><abbr title="Harmonic Mean of Precision and Recall">F-Measure</abbr></th><td>0.000025</td></tr><tr><th><abbr title="Correctly Mapped / (Correctly Mapped + Wrongly Mapped)">Precision</abbr></th><td>1.000000</td></tr><tr><th><abbr title="Correctly Mapped / (Correctly Mapped + Unmapped)">Recall</abbr></th><td>0.000012</td></tbody></table></div></div></section><section id="section5"><div class="panel panel-default"><div class="panel-heading">Timing</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Raw Mapping Time</th><td class="col-md-4">23.941s</td></tr><tr><th>Effective Mapping Time</th><td>8.046s</td></tr><tr><th>Effective Init Time</th><td>15.896s</td></tr><tr><th>Effective Time Measure</th><td>Wall clock</td></tr><tr><th>Mapping Time (Wall)</th><td>23.941s</td></tr><tr><th>Mapping Time (CPU)</th><td>23.940s</td></tr><tr><th>Mapping Time (CPU User)</th><td>17.840s</td></tr><tr><th>Mapping Time (CPU System)</th><td>6.100s</td></tr><tr><th>Init Time (Wall)</th><td>15.896s</td></tr><tr><th>Init Time (CPU)</th><td>4.950s</td></tr><tr><th>Init Time (CPU User)</th><td>0.000s</td></tr><tr><th>Init Time (CPU System)</th><td>4.950s</td></tr></tbody></table></div></div></section><section id="section6"><div class="panel panel-default"><div class="panel-heading">Additional Information</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Mapper Memory Usage</th><td class="col-md-4">7355 MB</td></tr><tr><th>Total Test Runtime (Wall)</th><td>72.076s</td></tr><tr><th>Mapper Command Line:</th><td>&nbsp;</td></tr><tr><td colspan=2>/project/teaser/software/bwa aln /scratch/mate/refs/m_musculus.fasta reads.fastq  -t 4 > out_bwa.sam.bwa; /project/teaser/software/bwa samse /scratch/mate/refs/m_musculus.fasta out_bwa.sam.bwa reads.fastq > out_bwa.sam</td></tr></tbody></table></div></div></section><section id="section7"><div class="panel panel-default"><div class="panel-heading">Errors and Warnings</div><div class="panel-body"><i>No problems were encountered.</i></div></div></section><section id="section8"><div class="panel panel-default"><div class="panel-heading">Subprocess Log</div><div class="panel-body"><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/bwa aln /scratch/mate/refs/m_musculus.fasta reads_base.fastq  -t 4 > out_bwa.sam.bwa; /project/teaser/software/bwa samse /scratch/mate/refs/m_musculus.fasta out_bwa.sam.bwa reads_base.fastq > out_bwa.sam</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/bwa aln /scratch/mate/refs/m_musculus.fasta reads_base.fastq  -t 4 > out_bwa.sam.bwa; /project/teaser/software/bwa samse /scratch/mate/refs/m_musculus.fasta out_bwa.sam.bwa reads_base.fastq > out_bwa.sam</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>7236648960</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse247" class="collapsed">stderr</a></h4></div><div id="collapse247" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse248" class="collapsed">stdout</a></h4></div><div id="collapse248" class="panel-collapse collapse"><div class="panel-body"><pre>[bwa_aln] 17bp reads: max_diff = 2<br>
+[bwa_aln] 38bp reads: max_diff = 3<br>
+[bwa_aln] 64bp reads: max_diff = 4<br>
+[bwa_aln] 93bp reads: max_diff = 5<br>
+[bwa_aln] 124bp reads: max_diff = 6<br>
+[bwa_aln] 157bp reads: max_diff = 7<br>
+[bwa_aln] 190bp reads: max_diff = 8<br>
+[bwa_aln] 225bp reads: max_diff = 9<br>
+[bwa_aln_core] calculate SA coordinate... 0.00 sec<br>
+[bwa_aln_core] write to the disk... 0.00 sec<br>
+[bwa_aln_core] 1 sequences have been processed.<br>
+[main] Version: 0.7.12-r1039<br>
+[main] CMD: /project/teaser/software/bwa aln -t 4 /scratch/mate/refs/m_musculus.fasta reads_base.fastq<br>
+[main] Real time: 3.072 sec; CPU: 1.061 sec<br>
+[bwa_aln_core] convert to sequence coordinate... 5.02 sec<br>
+[bwa_aln_core] refine gapped alignments... 0.64 sec<br>
+[bwa_aln_core] print alignments... 0.00 sec<br>
+[bwa_aln_core] 1 sequences have been processed.<br>
+[main] Version: 0.7.12-r1039<br>
+[main] CMD: /project/teaser/software/bwa samse /scratch/mate/refs/m_musculus.fasta out_bwa.sam.bwa reads_base.fastq<br>
+[main] Real time: 15.858 sec; CPU: 5.674 sec<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>6.46</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>18.9970650673</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>0.0</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/M3_n</small></td></tr></tbody></table></div></div><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/bwa aln /scratch/mate/refs/m_musculus.fasta reads_base.fastq  -t 4 > out_bwa.sam.bwa; /project/teaser/software/bwa samse /scratch/mate/refs/m_musculus.fasta out_bwa.sam.bwa reads_base.fastq > out_bwa.sam</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/bwa aln /scratch/mate/refs/m_musculus.fasta reads_base.fastq  -t 4 > out_bwa.sam.bwa; /project/teaser/software/bwa samse /scratch/mate/refs/m_musculus.fasta out_bwa.sam.bwa reads_base.fastq > out_bwa.sam</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>7117303808</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse249" class="collapsed">stderr</a></h4></div><div id="collapse249" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse250" class="collapsed">stdout</a></h4></div><div id="collapse250" class="panel-collapse collapse"><div class="panel-body"><pre>[bwa_aln] 17bp reads: max_diff = 2<br>
+[bwa_aln] 38bp reads: max_diff = 3<br>
+[bwa_aln] 64bp reads: max_diff = 4<br>
+[bwa_aln] 93bp reads: max_diff = 5<br>
+[bwa_aln] 124bp reads: max_diff = 6<br>
+[bwa_aln] 157bp reads: max_diff = 7<br>
+[bwa_aln] 190bp reads: max_diff = 8<br>
+[bwa_aln] 225bp reads: max_diff = 9<br>
+[bwa_aln_core] calculate SA coordinate... 0.00 sec<br>
+[bwa_aln_core] write to the disk... 0.00 sec<br>
+[bwa_aln_core] 1 sequences have been processed.<br>
+[main] Version: 0.7.12-r1039<br>
+[main] CMD: /project/teaser/software/bwa aln -t 4 /scratch/mate/refs/m_musculus.fasta reads_base.fastq<br>
+[main] Real time: 2.040 sec; CPU: 1.012 sec<br>
+[bwa_aln_core] convert to sequence coordinate... 3.79 sec<br>
+[bwa_aln_core] refine gapped alignments... 0.60 sec<br>
+[bwa_aln_core] print alignments... 0.00 sec<br>
+[bwa_aln_core] 1 sequences have been processed.<br>
+[main] Version: 0.7.12-r1039<br>
+[main] CMD: /project/teaser/software/bwa samse /scratch/mate/refs/m_musculus.fasta out_bwa.sam.bwa reads_base.fastq<br>
+[main] Real time: 13.775 sec; CPU: 4.392 sec<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>4.95</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>15.8956189156</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>0.0</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/M3_n</small></td></tr></tbody></table></div></div><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/bwa aln /scratch/mate/refs/m_musculus.fasta reads.fastq  -t 4 > out_bwa.sam.bwa; /project/teaser/software/bwa samse /scratch/mate/refs/m_musculus.fasta out_bwa.sam.bwa reads.fastq > out_bwa.sam</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/bwa aln /scratch/mate/refs/m_musculus.fasta reads.fastq  -t 4 > out_bwa.sam.bwa; /project/teaser/software/bwa samse /scratch/mate/refs/m_musculus.fasta out_bwa.sam.bwa reads.fastq > out_bwa.sam</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>7355846656</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse251" class="collapsed">stderr</a></h4></div><div id="collapse251" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse252" class="collapsed">stdout</a></h4></div><div id="collapse252" class="panel-collapse collapse"><div class="panel-body"><pre>[bwa_aln] 17bp reads: max_diff = 2<br>
+[bwa_aln] 38bp reads: max_diff = 3<br>
+[bwa_aln] 64bp reads: max_diff = 4<br>
+[bwa_aln] 93bp reads: max_diff = 5<br>
+[bwa_aln] 124bp reads: max_diff = 6<br>
+[bwa_aln] 157bp reads: max_diff = 7<br>
+[bwa_aln] 190bp reads: max_diff = 8<br>
+[bwa_aln] 225bp reads: max_diff = 9<br>
+[bwa_aln_core] calculate SA coordinate... 17.67 sec<br>
+[bwa_aln_core] write to the disk... 0.01 sec<br>
+[bwa_aln_core] 241921 sequences have been processed.<br>
+[main] Version: 0.7.12-r1039<br>
+[main] CMD: /project/teaser/software/bwa aln -t 4 /scratch/mate/refs/m_musculus.fasta reads.fastq<br>
+[main] Real time: 7.939 sec; CPU: 19.190 sec<br>
+[bwa_aln_core] convert to sequence coordinate... 4.20 sec<br>
+[bwa_aln_core] refine gapped alignments... 0.65 sec<br>
+[bwa_aln_core] print alignments... 0.19 sec<br>
+[bwa_aln_core] 241921 sequences have been processed.<br>
+[main] Version: 0.7.12-r1039<br>
+[main] CMD: /project/teaser/software/bwa samse /scratch/mate/refs/m_musculus.fasta out_bwa.sam.bwa reads.fastq<br>
+[main] Real time: 15.989 sec; CPU: 5.429 sec<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>6.1</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>23.9414517879</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>17.84</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/M3_n</small></td></tr></tbody></table></div></div></div></div></section><p></p><div style="margin:300px; height:300px;">&nbsp;</div>
+        </div>
+      </div>
+    </div>
+
+
+<script src="http://teaser.cibiv.univie.ac.at/static/js/d3.v3.min.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/c3/c3.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/js/jquery.js"></script>
+<script>
+
+var cols=[["Correct", 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]];
+var a=0;
+var b=0;
+var last_a=0;
+var last_b=0;
+
+function updateRange()
+{
+	if(last_a==a && last_b==b)
+	{
+		setTimeout(updateRange,500);
+		return;
+	}
+ 
+        an=Math.floor(parseInt(a));
+        bn=Math.floor(parseInt(b));
+	var mn = 0;
+	var mx = 0;
+	for(i=an;i<bn;i++)
+	{
+		mx=Math.max(mx,cols[0][i+1]);
+		mn=Math.min(mn,cols[1][i+1]);
+	}
+	r={}
+	r.max=mx;
+	r.min=mn;
+	chart.axis.range(r);
+	last_a=a;
+	last_b=b;
+	setTimeout(updateRange,500);
+}
+setTimeout(updateRange,500);
+
+var chart = c3.generate({
+bindto: '#plot_mapq_tresh',
+data: {
+  columns: [["Correct", 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 1.2400947432383835e-05, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]],
+  type: "area"
+},
+grid: {
+  y: {
+    show: true
+  }
+},
+axis: {
+  x: {
+    label: "Mapping Quality Threshold"
+  },
+
+  y: {
+    label: { text: "Read Count", position: "outer-middle" },
+    tick: {
+       format: function(v) { if(v>=0){return Math.min(100,(Math.round(100000*v)/1000))+"%";}else{ return Math.min(100,(Math.round(100000*(-v/3.000000))/1000))+"%";} }
+    }
+  }
+},
+legend: {
+	position: "right"
+},
+subchart: {
+	show: true,
+	onbrush: function (d) {
+		a = d[0];
+		b = d[1];
+	}
+}
+});
+
+</script>
+<script src="http://teaser.cibiv.univie.ac.at/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="javascript">$('#content').scrollspy();</script>
+<script src="http://teaser.cibiv.univie.ac.at/static/extensions/bootstrap-select.min.js"></script>
+
+<script src="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/js/jquery.dataTables.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/extensions/dataTables.bootstrap.js"></script>
+</body>
+</html>

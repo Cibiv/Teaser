@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Teaser</title>
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/c3/c3.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/extensions/bootstrap-select.min.css">
+    <style>
+body {
+  padding-top: 60px;
+  position: relative;
+}
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+
+.sidebar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+.nav-sidebar {
+  margin-right: -21px;
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+a.separator
+{
+color:#777777;
+}
+
+a.separator:hover
+{
+color:#777777;
+}
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+section {
+    padding-top: 60px;
+    margin-top: -60px;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.main-container
+{
+   margin: 0 auto;
+   max-width: 1300px;
+}
+
+
+    </style>
+  </head>
+
+<body data-spy="scroll" data-target="#sidebar">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Teaser</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+           <li><a href="start.html">Benchmark</a></li><li><a href="#" class="separator"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">M2<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="D1_n.html">D1</a></li><li><a href="D2_n.html">D2</a></li><li><a href="D3_n.html">D3</a></li><li><a href="D4_n.html">D4</a></li><li><a href="H1_n.html">H1</a></li><li><a href="H2_n.html">H2</a></li><li><a href="M1_n.html">M1</a></li><li><a href="M2_n.html">M2</a></li><li><a href="M3_n.html">M3</a></li><li><a href="M4_n.html">M4</a></li></ul></li><li><a href="#" class="separator"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Bowtie 2<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="M2_n_ngm.html">NGM</a></li><li><a href="M2_n_bwa.html">BWA</a></li><li><a href="M2_n_bwamem.html">BWA-MEM</a></li><li><a href="M2_n_bwasw.html">BWA-SW</a></li><li><a href="M2_n_bowtie2.html">Bowtie 2</a></li></ul></li>
+          </ul>
+          <div class="nav navbar-nav navbar-right" style="padding:5px;">
+           
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid main-container">
+      <div class="row">
+        
+        <div class="col-sm-3 col-md-2 sidebar">
+          <div id="sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#section1">Mapping Quality Thresholds</a></li><li><a href="#section2">Basic Statistics</a></li><li><a href="#section3">Read Failure Statistics</a></li><li><a href="#section4">Advanced Statistics</a></li><li><a href="#section5">Timing</a></li><li><a href="#section6">Additional Information</a></li><li><a href="#section7">Errors and Warnings</a></li><li><a href="#section8">Subprocess Log</a></li>
+          </ul>
+          </div>
+        </div>
+        <div class="col-sm-9  col-sm-offset-3 col-md-offset-2  col-md-10 main" id="content">
+            <section id="section1"><div class="panel panel-default"><div class="panel-heading">Mapping Quality Thresholds</div><div class="panel-body"><p>The plot below shows the percentages of correctly and wrongly mapped reads for all mapping quality thresholds for this mapper. The values at threshold 0 therefore correspond to the unfiltered results.</p><div id="plot_mapq_tresh"></div></div></div></section><section id="section2"><div class="panel panel-default"><div class="panel-heading">Basic Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Correctly Mapped</th><td class="col-md-2">268410</td><td class="col-md-2">83.212%</td></tr><tr><th>Wrongly Mapped</th><td>26360</td><td>8.172%</td></tr><tr><th>Not Mapped</th><td>27791</td><td>8.616%</td></tr><tr><th>Total</th><td>322561</td><td>100.0%</td></tbody></table></div></div></section><section id="section3"><div class="panel panel-default"><div class="panel-heading">Read Failure Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Not mapped</th><td class="col-md-2">27791</td><td class="col-md-2">8.616%</td></tr><tr><th>Missing in mapper output</th><td>0</td><td>0.0%</td></tr><tr><th>Mapped to wrong chromosome</th><td>15182</td><td>4.707%</td></tr><tr><th>Mapped to wrong position</th><td>11178</td><td>3.465%</td></tr><tr><th>Mapped to wrong strand</th><td>0</td><td>0.0%</td></tbody></table></div></div></section><section id="section4"><div class="panel panel-default"><div class="panel-heading">Advanced Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th>Missing in comparison alignment</th><td>0</td></tr><tr><th class="col-md-6">Secondary Alignments</th><td class="col-md-4">0</td></tr><tr><th><abbr title="Harmonic Mean of Precision and Recall">F-Measure</abbr></th><td>0.908369</td></tr><tr><th><abbr title="Correctly Mapped / (Correctly Mapped + Wrongly Mapped)">Precision</abbr></th><td>0.910574</td></tr><tr><th><abbr title="Correctly Mapped / (Correctly Mapped + Unmapped)">Recall</abbr></th><td>0.906175</td></tbody></table></div></div></section><section id="section5"><div class="panel panel-default"><div class="panel-heading">Timing</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Raw Mapping Time</th><td class="col-md-4">48.845s</td></tr><tr><th>Effective Mapping Time</th><td>46.800s</td></tr><tr><th>Effective Init Time</th><td>2.045s</td></tr><tr><th>Effective Time Measure</th><td>Wall clock</td></tr><tr><th>Mapping Time (Wall)</th><td>48.845s</td></tr><tr><th>Mapping Time (CPU)</th><td>185.400s</td></tr><tr><th>Mapping Time (CPU User)</th><td>180.170s</td></tr><tr><th>Mapping Time (CPU System)</th><td>5.230s</td></tr><tr><th>Init Time (Wall)</th><td>2.045s</td></tr><tr><th>Init Time (CPU)</th><td>1.160s</td></tr><tr><th>Init Time (CPU User)</th><td>0.020s</td></tr><tr><th>Init Time (CPU System)</th><td>1.140s</td></tr></tbody></table></div></div></section><section id="section6"><div class="panel panel-default"><div class="panel-heading">Additional Information</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Mapper Memory Usage</th><td class="col-md-4">3239 MB</td></tr><tr><th>Total Test Runtime (Wall)</th><td>61.014s</td></tr><tr><th>Mapper Command Line:</th><td>&nbsp;</td></tr><tr><td colspan=2>/project/teaser/software/bowtie2/bowtie2  -p 4 -x /scratch/mate/refs/m_musculus.fasta_bt -U reads.fastq -S out_bowtie2.sam</td></tr></tbody></table></div></div></section><section id="section7"><div class="panel panel-default"><div class="panel-heading">Errors and Warnings</div><div class="panel-body"><i>No problems were encountered.</i></div></div></section><section id="section8"><div class="panel panel-default"><div class="panel-heading">Subprocess Log</div><div class="panel-body"><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/bowtie2/bowtie2  -p 4 -x /scratch/mate/refs/m_musculus.fasta_bt -U reads_base.fastq -S out_bowtie2.sam</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/bowtie2/bowtie2  -p 4 -x /scratch/mate/refs/m_musculus.fasta_bt -U reads_base.fastq -S out_bowtie2.sam</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>366137344</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse235" class="collapsed">stderr</a></h4></div><div id="collapse235" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse236" class="collapsed">stdout</a></h4></div><div id="collapse236" class="panel-collapse collapse"><div class="panel-body"><pre>1 reads; of these:<br>
+  1 (100.00%) were unpaired; of these:<br>
+    1 (100.00%) aligned 0 times<br>
+    0 (0.00%) aligned exactly 1 time<br>
+    0 (0.00%) aligned >1 times<br>
+0.00% overall alignment rate<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>0.12</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>1.05020999908</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>0.02</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/M2_n</small></td></tr></tbody></table></div></div><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/bowtie2/bowtie2  -p 4 -x /scratch/mate/refs/m_musculus.fasta_bt -U reads_base.fastq -S out_bowtie2.sam</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/bowtie2/bowtie2  -p 4 -x /scratch/mate/refs/m_musculus.fasta_bt -U reads_base.fastq -S out_bowtie2.sam</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>2957021184</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse237" class="collapsed">stderr</a></h4></div><div id="collapse237" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse238" class="collapsed">stdout</a></h4></div><div id="collapse238" class="panel-collapse collapse"><div class="panel-body"><pre>1 reads; of these:<br>
+  1 (100.00%) were unpaired; of these:<br>
+    1 (100.00%) aligned 0 times<br>
+    0 (0.00%) aligned exactly 1 time<br>
+    0 (0.00%) aligned >1 times<br>
+0.00% overall alignment rate<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>1.14</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>2.04527497292</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>0.02</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/M2_n</small></td></tr></tbody></table></div></div><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/bowtie2/bowtie2  -p 4 -x /scratch/mate/refs/m_musculus.fasta_bt -U reads.fastq -S out_bowtie2.sam</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/bowtie2/bowtie2  -p 4 -x /scratch/mate/refs/m_musculus.fasta_bt -U reads.fastq -S out_bowtie2.sam</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>3239010304</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse239" class="collapsed">stderr</a></h4></div><div id="collapse239" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse240" class="collapsed">stdout</a></h4></div><div id="collapse240" class="panel-collapse collapse"><div class="panel-body"><pre>322561 reads; of these:<br>
+  322561 (100.00%) were unpaired; of these:<br>
+    27791 (8.62%) aligned 0 times<br>
+    251441 (77.95%) aligned exactly 1 time<br>
+    43329 (13.43%) aligned >1 times<br>
+91.38% overall alignment rate<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>5.23</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>48.8451211452</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>180.17</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/M2_n</small></td></tr></tbody></table></div></div></div></div></section><p></p><div style="margin:300px; height:300px;">&nbsp;</div>
+        </div>
+      </div>
+    </div>
+
+
+<script src="http://teaser.cibiv.univie.ac.at/static/js/d3.v3.min.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/c3/c3.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/js/jquery.js"></script>
+<script>
+
+var cols=[["Correct", 0.8321216762100812, 0.6452019928013616, 0.6435960950021856, 0.6364935624579537, 0.5046332321638388, 0.5007951984275842, 0.4977415124581087, 0.4963743291966481, 0.4947498302646631, 0.35843142847399406, 0.35843142847399406, 0.35843142847399406, 0.3573246610718593, 0.35725645691822633, 0.35725645691822633, 0.3563077991449679, 0.3552599353300616, 0.35409426434069835, 0.3539888579214474, 0.35393615471182194, 0.35393615471182194, 0.35393615471182194, 0.35380904697096055, 0.3516544157539194, 0.18749321833699673, 0.08970396297134496, 0.08953035239846106, 0.08830887801067085, 0.088060862906551, 0.088060862906551, 0.088060862906551, 0.08804846215134501, 0.08804846215134501, 0.08804536196254352, 0.08802056045213154, 0.08801746026333003, 0.08801125988572704, 0.08800505950812404, 0.08799885913052105, 0.08799575894171956, 0.08799265875291805, 0.023753646597077762, 0.023753646597077762, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", -0.8320901098174478, -0.2862756147926568, -0.20767529713539412, -0.02907264761539717, -0.025600344425718898, -0.024653352646715733, -0.02443238789828166, -0.007481235054125005, -0.0022096474843407185, -0.0018939835580063303, -0.0018939835580063303, -0.0018939835580063303, -0.0014204876685047477, -0.0011995229200706759, -0.0011995229200706759, -0.0010416909569034816, -0.0005997614600353379, -0.0005366286747684602, -0.00037879671160126607, -0.00037879671160126607, -0.00037879671160126607, -0.00037879671160126607, -0.0003472303189678272, -0.0003472303189678272, -0.00015783196316719418, -3.156639263343884e-05, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]];
+var a=0;
+var b=0;
+var last_a=0;
+var last_b=0;
+
+function updateRange()
+{
+	if(last_a==a && last_b==b)
+	{
+		setTimeout(updateRange,500);
+		return;
+	}
+ 
+        an=Math.floor(parseInt(a));
+        bn=Math.floor(parseInt(b));
+	var mn = 0;
+	var mx = 0;
+	for(i=an;i<bn;i++)
+	{
+		mx=Math.max(mx,cols[0][i+1]);
+		mn=Math.min(mn,cols[1][i+1]);
+	}
+	r={}
+	r.max=mx;
+	r.min=mn;
+	chart.axis.range(r);
+	last_a=a;
+	last_b=b;
+	setTimeout(updateRange,500);
+}
+setTimeout(updateRange,500);
+
+var chart = c3.generate({
+bindto: '#plot_mapq_tresh',
+data: {
+  columns: [["Correct", 0.8321216762100812, 0.6452019928013616, 0.6435960950021856, 0.6364935624579537, 0.5046332321638388, 0.5007951984275842, 0.4977415124581087, 0.4963743291966481, 0.4947498302646631, 0.35843142847399406, 0.35843142847399406, 0.35843142847399406, 0.3573246610718593, 0.35725645691822633, 0.35725645691822633, 0.3563077991449679, 0.3552599353300616, 0.35409426434069835, 0.3539888579214474, 0.35393615471182194, 0.35393615471182194, 0.35393615471182194, 0.35380904697096055, 0.3516544157539194, 0.18749321833699673, 0.08970396297134496, 0.08953035239846106, 0.08830887801067085, 0.088060862906551, 0.088060862906551, 0.088060862906551, 0.08804846215134501, 0.08804846215134501, 0.08804536196254352, 0.08802056045213154, 0.08801746026333003, 0.08801125988572704, 0.08800505950812404, 0.08799885913052105, 0.08799575894171956, 0.08799265875291805, 0.023753646597077762, 0.023753646597077762, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", -0.8320901098174478, -0.2862756147926568, -0.20767529713539412, -0.02907264761539717, -0.025600344425718898, -0.024653352646715733, -0.02443238789828166, -0.007481235054125005, -0.0022096474843407185, -0.0018939835580063303, -0.0018939835580063303, -0.0018939835580063303, -0.0014204876685047477, -0.0011995229200706759, -0.0011995229200706759, -0.0010416909569034816, -0.0005997614600353379, -0.0005366286747684602, -0.00037879671160126607, -0.00037879671160126607, -0.00037879671160126607, -0.00037879671160126607, -0.0003472303189678272, -0.0003472303189678272, -0.00015783196316719418, -3.156639263343884e-05, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]],
+  type: "area"
+},
+grid: {
+  y: {
+    show: true
+  }
+},
+axis: {
+  x: {
+    label: "Mapping Quality Threshold"
+  },
+
+  y: {
+    label: { text: "Read Count", position: "outer-middle" },
+    tick: {
+       format: function(v) { if(v>=0){return Math.min(100,(Math.round(100000*v)/1000))+"%";}else{ return Math.min(100,(Math.round(100000*(-v/10.182087))/1000))+"%";} }
+    }
+  }
+},
+legend: {
+	position: "right"
+},
+subchart: {
+	show: true,
+	onbrush: function (d) {
+		a = d[0];
+		b = d[1];
+	}
+}
+});
+
+</script>
+<script src="http://teaser.cibiv.univie.ac.at/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="javascript">$('#content').scrollspy();</script>
+<script src="http://teaser.cibiv.univie.ac.at/static/extensions/bootstrap-select.min.js"></script>
+
+<script src="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/js/jquery.dataTables.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/extensions/dataTables.bootstrap.js"></script>
+</body>
+</html>

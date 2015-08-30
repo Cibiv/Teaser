@@ -1,0 +1,510 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Teaser</title>
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/c3/c3.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/extensions/bootstrap-select.min.css">
+    <style>
+body {
+  padding-top: 60px;
+  position: relative;
+}
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+
+.sidebar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+.nav-sidebar {
+  margin-right: -21px;
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+a.separator
+{
+color:#777777;
+}
+
+a.separator:hover
+{
+color:#777777;
+}
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+section {
+    padding-top: 60px;
+    margin-top: -60px;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.main-container
+{
+   margin: 0 auto;
+   max-width: 1300px;
+}
+
+
+    </style>
+  </head>
+
+<body data-spy="scroll" data-target="#sidebar">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Teaser</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+           <li><a href="start.html">Benchmark</a></li><li><a href="#" class="separator"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">M4<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="D1_n.html">D1</a></li><li><a href="D2_n.html">D2</a></li><li><a href="D3_n.html">D3</a></li><li><a href="D4_n.html">D4</a></li><li><a href="H1_n.html">H1</a></li><li><a href="H2_n.html">H2</a></li><li><a href="M1_n.html">M1</a></li><li><a href="M2_n.html">M2</a></li><li><a href="M3_n.html">M3</a></li><li><a href="M4_n.html">M4</a></li></ul></li><li><a href="#" class="separator"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Select Mapper<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="M4_n_ngm.html">NGM</a></li><li><a href="M4_n_bwa.html">BWA</a></li><li><a href="M4_n_bwamem.html">BWA-MEM</a></li><li><a href="M4_n_bwasw.html">BWA-SW</a></li><li><a href="M4_n_bowtie2.html">Bowtie 2</a></li></ul></li>
+          </ul>
+          <div class="nav navbar-nav navbar-right" style="padding:5px;">
+           
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid main-container">
+      <div class="row">
+        
+        <div class="col-sm-3 col-md-2 sidebar">
+          <div id="sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#section1">Results Overview</a></li><li><a href="#section2">Data Set</a></li><li><a href="#section3">Mapping Statistics</a></li><li><a href="#section4">Mapping Quality</a></li><li><a href="#section5">Precision and Recall</a></li><li><a href="#section6">Correctly Mapped/s</a></li><li><a href="#section7">Runtime</a></li><li><a href="#section8">Memory Usage</a></li>
+          </ul>
+          </div>
+        </div>
+        <div class="col-sm-9  col-sm-offset-3 col-md-offset-2  col-md-10 main" id="content">
+            <section id="section1"><div class="panel panel-default"><div class="panel-heading">Results Overview</div><div class="panel-body"><p>Mappers were evaluated for the given test <a href="#section2">data set</a>. The table below shows the used parameters, mapping statistics and throughput for each mapper. Detailed results for a mapper can be displayed by clicking on its name in the table or the navigation on top.</p><table id="test_list" class="table table-striped"><thead><tr><th>State</th><th>Mapper</th><th>Parameters</th><th>Correctly Mapped</th><th>Wrongly Mapped</th><th>Not Mapped</th><th>Throughput (reads/s)</th></tr></thead><tr><td class="col-md-1 info" align="center"><span class="glyphicon glyphicon-ok"></span></td><td><a href="M4_n_ngm.html">NGM</a></td><td></td><td>71.375%</td><td>22.118%</td><td>6.507%</td><td>74775</td></tr><tr><td class="col-md-1 info" align="center"><span class="glyphicon glyphicon-ok"></span></td><td><a href="M4_n_bwa.html">BWA</a></td><td></td><td>74.225%</td><td>25.674%</td><td>0.101%</td><td>10668</td></tr><tr><td class="col-md-1 info" align="center"><span class="glyphicon glyphicon-ok"></span></td><td><a href="M4_n_bwamem.html">BWA-MEM</a></td><td></td><td>0.000%</td><td>0.000%</td><td>100.000%</td><td>964</td></tr><tr><td class="col-md-1 info" align="center"><span class="glyphicon glyphicon-ok"></span></td><td><a href="M4_n_bwasw.html">BWA-SW</a></td><td></td><td>0.000%</td><td>0.000%</td><td>100.000%</td><td>333221</td></tr><tr><td class="col-md-1 info" align="center"><span class="glyphicon glyphicon-ok"></span></td><td><a href="M4_n_bowtie2.html">Bowtie 2</a></td><td></td><td>73.173%</td><td>23.236%</td><td>3.591%</td><td>43293</td></tr></table><p style="margin-top:15px;">The figure below visualizes above results by directly comparing accuracy and throughput. The optimal mapper showing both highest accuracy and throughput, if any, will be located in the top right corner.</p> <div id="plot_os"></div></div></div></section><section id="section2"><div class="panel panel-default"><div class="panel-heading">Data Set</div><div class="panel-body"><p>For data sets simulated using Teaser, details regarding the simulation parameters are displayed here.</p><table class="table table-striped"><tbody><tr><th>Sequencing Platform</th><td>illumina</td></tr><tr><th>Read Length</th><td>22</td></tr><tr><th>Read Count</th><td>2199284</td></tr><tr><th>Sequence Divergence</th><td>Unknown</td></tr><tr><th>Paired-End</th><td>No</td></tr><tr><th>Insert Size</th><td>None</td></tr><tr><th>Reference Genome (Source File)</th><td>/scratch/mate/refs/m_musculus.fasta</td></tr><tr><th>Reads (Source File)</th><td>/scratch/mate/tests_paper/M4_n/reads.fastq</td></tr><tr><th>Simulator</th><td>/project/teaser/software/mason illumina --sq -n 22 -N 2199284  --ll 500 --le 50  --hi 0.000300  --hs 0.000700  --hm 1 --hM 4  /scratch/mate/refs/m_musculus.fasta.sampled.100.220.44.fasta</td></tr><tr><th>Subsampling enabled</th><td>Yes</td></tr><tr><th>Sampling ratio</th><td>0.01</td></tr><tr><th>Sampling region length</th><td>220</td></tr></tbody></table></div></div></section><section id="section3"><div class="panel panel-default"><div class="panel-heading">Mapping Statistics</div><div class="panel-body"><p>This plot shows the fractions of correctly, wrongly and not mapped reads for each mapper and the selected mapping quality cutoff. Reads that have been filtered using the mapping quality cutoff are shown as unmapped. The interactive legend can be used to, for example, display only the number of wrongly and not mapped reads.</p><div align="right">MAPQ cutoff (0-255):&nbsp;<input type="number" onchange="javascript:updateMapstatsChart(this.value);" value="0" min="0" max="255"></div><div id="plot_mapstats"></div></div></div></section><section id="section4"><div class="panel panel-default"><div class="panel-heading">Mapping Quality</div><div class="panel-body"><p>This section represents an overview of the distribution of mapping quality values for all mappers. A detailed evaluation of mapping qualities for specific mappers can be found on the respective mapper results page (accessible using the navigation on top). The first plot rates each mapping quality threshold (0-255) by comparing the numbers of wrongly and correctly mapped reads that would be removed due to falling under the threshold. The second plot shows the total number of reads for each mapping quality value.</p><div id="plot_mapq_rating"></div><p>&nbsp;</p><div id="plot_mapq_dist"></div></div></div></section><section id="section5"><div class="panel panel-default"><div class="panel-heading">Precision and Recall</div><div class="panel-body"><div id="plot_pr"></div></div></div></section><section id="section6"><div class="panel panel-default"><div class="panel-heading">Correctly Mapped/s</div><div class="panel-body"><div id="plot_resource_corrects"></div></div></div></section><section id="section7"><div class="panel panel-default"><div class="panel-heading">Runtime</div><div class="panel-body"><div id="plot_resource_runtime"></div></div></div></section><section id="section8"><div class="panel panel-default"><div class="panel-heading">Memory Usage</div><div class="panel-body"><div id="plot_resource_memory"></div></div></div></section><p></p><div style="margin:300px; height:300px;">&nbsp;</div>
+        </div>
+      </div>
+    </div>
+
+
+<script src="http://teaser.cibiv.univie.ac.at/static/js/d3.v3.min.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/c3/c3.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/js/jquery.js"></script>
+<script>
+$(document).ready(function() {
+    $('#test_list').dataTable({
+    "bPaginate": false,
+    "bFilter": false,
+    "bInfo": false,
+    "order": [[ 3, "desc" ]]
+  });
+} );
+
+var params={"964": "BWA-MEM ", "74775": "NGM ", "10668": "BWA ", "333221": "BWA-SW ", "43293": "Bowtie 2 "};
+
+var chart = c3.generate({
+bindto: '#plot_os',
+size: {
+  height: 500
+},
+data: {
+  xs: {"BWA ": "BWA _x", "NGM ": "NGM _x", "BWA-SW ": "BWA-SW _x", "BWA-MEM ": "BWA-MEM _x", "Bowtie 2 ": "Bowtie 2 _x"},
+  columns: [["BWA _x", 10669.0], ["BWA ", 0.7422483862929935], ["BWA-MEM _x", 965.0], ["BWA-MEM ", 0.0], ["BWA-SW _x", 333222.0], ["BWA-SW ", 0.0], ["Bowtie 2 _x", 43293.0], ["Bowtie 2 ", 0.7317304177177664], ["NGM _x", 74776.0], ["NGM ", 0.7137477469940217]],
+  type: 'scatter'
+},
+grid: {
+  y: {
+    show: true
+  },
+  x: {
+    show: true
+  }
+},
+axis: {
+  x: {
+    label: { text: "Throughput [Reads/s]", position: "outer-middle"},
+    tick: {fit: false, format: d3.format("d")},
+    padding: {
+    left: 500
+    }
+  },
+
+  y: {
+    label: { text: "Correctly Mapped [%]", position: "outer-middle"},
+    tick: {
+      format: d3.format(".3%")
+    }
+  }
+},
+point: {
+  r: 5
+},
+legend: {
+	position: "bottom",
+	show:true,
+	inset: {
+		anchor: 'top-left',
+		x: 20,
+		y: 10,
+		step: 2
+	}
+},
+tooltip: {
+	format: {
+		//title: function (d) { return ""; }
+	},
+	grouped: false
+}
+});
+
+var column_mapqs=[[["Correct", 0.7422483862929935, 0.0, 0.0, 0.7317304177177664, 0.7137477469940217], ["Wrong", 0.25673673795653495, 0.0, 0.0, 0.23235925874057192, 0.22117971121510455], ["Not Mapped", 0.0010148757504715171, 1.0, 1.0, 0.035910323541661744, 0.06507254179087375]], [["Correct", 0.7091744404087876, 0.0, 0.0, 0.7294501301332615, 0.695672773502649], ["Wrong", 0.011612870370538776, 0.0, 0.0, 0.22257607475887606, 0.05867227697741629], ["Not Mapped", 0.27921268922067366, 1.0, 1.0, 0.04797379510786238, 0.24565494951993466]], [["Correct", 0.7087520302061944, 0.0, 0.0, 0.702933318298137, 0.695672773502649], ["Wrong", 0.011500561091700754, 0.0, 0.0, 0.007115497589215399, 0.05867227697741629], ["Not Mapped", 0.27974740870210485, 1.0, 1.0, 0.2899511841126476, 0.24565494951993466]], [["Correct", 0.7081950307463701, 0.0, 0.0, 0.7018243210062911, 0.6936634832063526], ["Wrong", 0.011359151432920897, 0.0, 0.0, 0.005742323410710031, 0.05091111470824141], ["Not Mapped", 0.28044581782070893, 1.0, 1.0, 0.2924333555829988, 0.255425402085406]], [["Correct", 0.7075152640586664, 0.0, 0.0, 0.7018243210062911, 0.676550641026807], ["Wrong", 0.011227290336309453, 0.0, 0.0, 0.005742323410710031, 0.04707213802310206], ["Not Mapped", 0.2812574456050242, 1.0, 1.0, 0.2924333555829988, 0.27637722095009104]], [["Correct", 0.7066126975870328, 0.0, 0.0, 0.7018243210062911, 0.6745799996726207], ["Wrong", 0.01107951496941732, 0.0, 0.0, 0.005742323410710031, 0.035426529725128726], ["Not Mapped", 0.2823077874435498, 1.0, 1.0, 0.2924333555829988, 0.28999347060225056]], [["Correct", 0.7056151001871518, 0.0, 0.0, 0.7018243210062911, 0.6700817175044241], ["Wrong", 0.010942652245003374, 0.0, 0.0, 0.005742323410710031, 0.03370460568075792], ["Not Mapped", 0.2834422475678448, 1.0, 1.0, 0.2924333555829988, 0.2962136768148179]], [["Correct", 0.7042801202573201, 0.0, 0.0, 0.7011800204066414, 0.644090531281999], ["Wrong", 0.010776689140647593, 0.0, 0.0, 0.005538166057680591, 0.03166166807015374], ["Not Mapped", 0.28494319060203227, 1.0, 1.0, 0.29328181353567795, 0.3242478006478472]], [["Correct", 0.7027373454269662, 0.0, 0.0, 0.7005639108000604, 0.6384741579532248], ["Wrong", 0.010603905634742944, 0.0, 0.0, 0.005480874684670102, 0.029059912225979], ["Not Mapped", 0.28665874893829085, 1.0, 1.0, 0.2939552145152695, 0.3324659298207962]], [["Correct", 0.7008871978334767, 0.0, 0.0, 0.7005639108000604, 0.63404498918739], ["Wrong", 0.010417026632303967, 0.0, 0.0, 0.005480874684670102, 0.028599307774712132], ["Not Mapped", 0.2886957755342193, 1.0, 1.0, 0.2939552145152695, 0.3373557030378978]], [["Correct", 0.6985232466566391, 0.0, 0.0, 0.7005639108000604, 0.6050214524363384], ["Wrong", 0.010214233359584301, 0.0, 0.0, 0.005480874684670102, 0.028060496052351582], ["Not Mapped", 0.29126251998377656, 1.0, 1.0, 0.2939552145152695, 0.36691805151131]], [["Correct", 0.6956186649836947, 0.0, 0.0, 0.7005639108000604, 0.6032676998514062], ["Wrong", 0.009975519305373931, 0.0, 0.0, 0.005480874684670102, 0.027737209018935255], ["Not Mapped", 0.2944058157109314, 1.0, 1.0, 0.2939552145152695, 0.36899509112965856]], [["Correct", 0.693102391505599, 0.0, 0.0, 0.7004352325575051, 0.5998952386322094], ["Wrong", 0.009780455821076313, 0.0, 0.0, 0.0054767824437407815, 0.027595344666718806], ["Not Mapped", 0.2971171526733246, 1.0, 1.0, 0.29408798499875416, 0.3725094167010718]], [["Correct", 0.6895375949627243, 0.0, 0.0, 0.7004352325575051, 0.5973844214753529], ["Wrong", 0.009535376058753667, 0.0, 0.0, 0.0054767824437407815, 0.027487127628810105], ["Not Mapped", 0.3009270289785221, 1.0, 1.0, 0.29408798499875416, 0.375128450895837]], [["Correct", 0.6840044305328461, 0.0, 0.0, 0.7004352325575051, 0.5967573992262937], ["Wrong", 0.009187990273198004, 0.0, 0.0, 0.0054767824437407815, 0.02746984927821964], ["Not Mapped", 0.30680757919395585, 1.0, 1.0, 0.29408798499875416, 0.3757727514954867]], [["Correct", 0.6813913073527567, 0.0, 0.0, 0.7004352325575051, 0.595926219624205], ["Wrong", 0.009038850825996097, 0.0, 0.0, 0.0054767824437407815, 0.027418014226448243], ["Not Mapped", 0.3095698418212473, 1.0, 1.0, 0.29408798499875416, 0.37665576614934676]], [["Correct", 0.6739647994529129, 0.0, 0.0, 0.7004256839953367, 0.5946753579801426], ["Wrong", 0.008686463412637931, 0.0, 0.0, 0.0054767824437407815, 0.027384366912140495], ["Not Mapped", 0.3173487371344492, 1.0, 1.0, 0.29409753356092255, 0.3779402751077169]], [["Correct", 0.6684061721905856, 0.0, 0.0, 0.7004256839953367, 0.5946044258040344], ["Wrong", 0.008473666884313258, 0.0, 0.0, 0.0054767824437407815, 0.027383457525267316], ["Not Mapped", 0.3231201609251011, 1.0, 1.0, 0.29409753356092255, 0.3780121166706983]], [["Correct", 0.6602139605435223, 0.0, 0.0, 0.7004256839953367, 0.5943093297636868], ["Wrong", 0.008202214902668323, 0.0, 0.0, 0.0054767824437407815, 0.02733480532755206], ["Not Mapped", 0.3315838245538093, 1.0, 1.0, 0.29409753356092255, 0.3783558649087612]], [["Correct", 0.6471960874539168, 0.0, 0.0, 0.7004256839953367, 0.5941892906964267], ["Wrong", 0.007884838883927677, 0.0, 0.0, 0.0054767824437407815, 0.027330258393186146], ["Not Mapped", 0.3449190736621555, 1.0, 1.0, 0.29409753356092255, 0.3784804509103872]], [["Correct", 0.6471960874539168, 0.0, 0.0, 0.7004256839953367, 0.5941720123458362], ["Wrong", 0.007884838883927677, 0.0, 0.0, 0.0054767824437407815, 0.027329803699749553], ["Not Mapped", 0.3449190736621555, 1.0, 1.0, 0.29409753356092255, 0.37849818395441426]], [["Correct", 0.6228677151291057, 0.0, 0.0, 0.7004256839953367, 0.5941360915643454], ["Wrong", 0.007491074367839715, 0.0, 0.0, 0.0054767824437407815, 0.027327075539130007], ["Not Mapped", 0.36964121050305465, 1.0, 1.0, 0.29409753356092255, 0.3785368328965245]], [["Correct", 0.6228677151291057, 0.0, 0.0, 0.7004256839953367, 0.5941347274840357], ["Wrong", 0.007491074367839715, 0.0, 0.0, 0.0054767824437407815, 0.027326166152256824], ["Not Mapped", 0.36964121050305465, 1.0, 1.0, 0.29409753356092255, 0.37853910636370747]], [["Correct", 0.6228677151291057, 0.0, 0.0, 0.7004256839953367, 0.5941315446299795], ["Wrong", 0.007491074367839715, 0.0, 0.0, 0.0054767824437407815, 0.027325711458820234], ["Not Mapped", 0.36964121050305465, 1.0, 1.0, 0.29409753356092255, 0.3785427439112002]], [["Correct", 0.5491346274514797, 0.0, 0.0, 0.6880502927316344, 0.5941219960678111], ["Wrong", 0.0069954585219553275, 0.0, 0.0, 0.0042131893834538876, 0.027325711458820234], ["Not Mapped", 0.443869914026565, 1.0, 1.0, 0.30773651788491163, 0.3785522924733686]], [["Correct", 0.5491346274514797, 0.0, 0.0, 0.6533662773884592, 0.5941219960678111], ["Wrong", 0.0069954585219553275, 0.0, 0.0, 0.0026604112974950027, 0.027325711458820234], ["Not Mapped", 0.443869914026565, 1.0, 1.0, 0.34397331131404585, 0.3785522924733686]], [["Correct", 0.5459754174540441, 0.0, 0.0, 0.6533662773884592, 0.5941219960678111], ["Wrong", 0.0006302051031153776, 0.0, 0.0, 0.0026604112974950027, 0.02732434737851046], ["Not Mapped", 0.4533943774428405, 1.0, 1.0, 0.34397331131404585, 0.3785536565536784]], [["Correct", 0.5459754174540441, 0.0, 0.0, 0.6533662773884592, 0.5941219960678111], ["Wrong", 0.0006302051031153776, 0.0, 0.0, 0.0026604112974950027, 0.02732434737851046], ["Not Mapped", 0.4533943774428405, 1.0, 1.0, 0.34397331131404585, 0.3785536565536784]], [["Correct", 0.5459754174540441, 0.0, 0.0, 0.6533662773884592, 0.5941219960678111], ["Wrong", 0.0006302051031153776, 0.0, 0.0, 0.0026604112974950027, 0.02732434737851046], ["Not Mapped", 0.4533943774428405, 1.0, 1.0, 0.34397331131404585, 0.3785536565536784]], [["Correct", 0.5459754174540441, 0.0, 0.0, 0.6533662773884592, 0.5941219960678111], ["Wrong", 0.0006302051031153776, 0.0, 0.0, 0.0026604112974950027, 0.02732434737851046], ["Not Mapped", 0.4533943774428405, 1.0, 1.0, 0.34397331131404585, 0.3785536565536784]], [["Correct", 0.5459754174540441, 0.0, 0.0, 0.6533662773884592, 0.5941219960678111], ["Wrong", 0.0006302051031153776, 0.0, 0.0, 0.0026604112974950027, 0.02732434737851046], ["Not Mapped", 0.4533943774428405, 1.0, 1.0, 0.34397331131404585, 0.3785536565536784]], [["Correct", 0.5459754174540441, 0.0, 0.0, 0.6533662773884592, 0.5941219960678111], ["Wrong", 0.0006302051031153776, 0.0, 0.0, 0.0026490439615802232, 0.02732434737851046], ["Not Mapped", 0.4533943774428405, 1.0, 1.0, 0.34398467864996063, 0.3785536565536784]], [["Correct", 0.5459754174540441, 0.0, 0.0, 0.6533244455922927, 0.5941219960678111], ["Wrong", 0.0006302051031153776, 0.0, 0.0, 0.002545373858037434, 0.02732434737851046], ["Not Mapped", 0.4533943774428405, 1.0, 1.0, 0.3441301805496698, 0.3785536565536784]], [["Correct", 0.5459754174540441, 0.0, 0.0, 0.5724690399239025, 0.5941219960678111], ["Wrong", 0.0006302051031153776, 0.0, 0.0, 0.00044105263349344606, 0.02732434737851046], ["Not Mapped", 0.4533943774428405, 1.0, 1.0, 0.42708990744260406, 0.3785536565536784]], [["Correct", 0.5459754174540441, 0.0, 0.0, 0.5724690399239025, 0.5941219960678111], ["Wrong", 0.0006302051031153776, 0.0, 0.0, 0.00044105263349344606, 0.02732434737851046], ["Not Mapped", 0.4533943774428405, 1.0, 1.0, 0.42708990744260406, 0.3785536565536784]], [["Correct", 0.5459754174540441, 0.0, 0.0, 0.5336927836514066, 0.5941219960678111], ["Wrong", 0.0006302051031153776, 0.0, 0.0, 0.00023871405421037027, 0.02732434737851046], ["Not Mapped", 0.4533943774428405, 1.0, 1.0, 0.46606850229438307, 0.3785536565536784]], [["Correct", 0.5459754174540441, 0.0, 0.0, 0.5336927836514066, 0.5941219960678111], ["Wrong", 0.0006302051031153776, 0.0, 0.0, 0.00023871405421037027, 0.02732434737851046], ["Not Mapped", 0.4533943774428405, 1.0, 1.0, 0.46606850229438307, 0.3785536565536784]], [["Correct", 0.5459754174540441, 0.0, 0.0, 0.5336927836514066, 0.5941219960678111], ["Wrong", 0.0006302051031153776, 0.0, 0.0, 0.00023871405421037027, 0.02732434737851046], ["Not Mapped", 0.4533943774428405, 1.0, 1.0, 0.46606850229438307, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.5336927836514066, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.00023871405421037027, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 0.46606850229438307, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.5336927836514066, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.00023871405421037027, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 0.46606850229438307, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.5336927836514066, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.00023871405421037027, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 0.46606850229438307, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.531106487384076, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.00023007487891513783, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 0.46866343773700897, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.531106487384076, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.00023007487891513783, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 0.46866343773700897, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.5941219960678111], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.02732434737851046], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 0.3785536565536784]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]], [["Correct", 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", 0.0, 0.0, 0.0, 0.0, 0.0], ["Not Mapped", 1.0, 1.0, 1.0, 1.0, 1.0]]];
+function updateMapstatsChart(cutoff)
+{
+	mapstats_chart.load({columns: column_mapqs[cutoff], type:'bar',groups: [['Not Mapped','Wrong','Correct']],order: null});
+}
+var mapstats_chart = c3.generate({
+bindto: '#plot_mapstats',
+data: {
+  columns: [["Correct", 0.7422483862929935, 0.0, 0.0, 0.7317304177177664, 0.7137477469940217], ["Wrong", 0.25673673795653495, 0.0, 0.0, 0.23235925874057192, 0.22117971121510455], ["Not Mapped", 0.0010148757504715171, 1.0, 1.0, 0.035910323541661744, 0.06507254179087375]],
+  type: 'bar',
+  groups: [['Not Mapped','Wrong','Correct']],
+  order: null,
+  colors: {
+	    "Correct": d3.rgb('#2CA02C'),
+	    "Wrong": d3.rgb('#FF7F0E'),
+	    "Not Mapped": d3.rgb('#1F77B4')  }
+},
+grid: {
+  y: {
+    show: true
+  }
+},
+axis: {
+  x: {
+    label: { text: "Mapper", position: "outer-middle" },
+    type: "category",
+    categories: ["BWA", "BWA-MEM", "BWA-SW", "Bowtie 2", "NGM"]
+  },
+
+  y: {
+    label: { text: "Percentage of reads", position: "outer-middle" },
+    tick: {
+      format: d3.format(".3%")
+    },
+    padding:
+    {
+    top:15
+    }
+  }
+},
+legend: {
+	position: "bottom"
+},
+tooltip: {
+	grouped: false
+}
+});
+
+
+
+
+var chart = c3.generate({
+    bindto: '#plot_mapq_rating',
+    size: {
+      height: 500
+    },
+    data: {
+      columns: [["BWA", 0, 7.4114, 7.3213, 7.2057, 7.0685, 6.8936, 6.7096, 6.478, 6.2295, 5.9553, 5.638, 5.2919, 5.025, 4.6898, 4.2502, 4.0702, 3.6326, 3.3621, 3.0296, 2.6181, 2.6181, 2.0878, 2.0878, 2.0878, 1.2932, 1.2932, 1.3048, 1.3048, 1.3048, 1.3048, 1.3048, 1.3048, 1.3048, 1.3048, 1.3048, 1.3048, 1.3048, 1.3048, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459, 0.3459], ["BWA-MEM", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], ["BWA-SW", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], ["Bowtie 2", 0, 4.2903, 7.8218, 7.5776, 7.5776, 7.5776, 7.5776, 7.4245, 7.2796, 7.2796, 7.2796, 7.2796, 7.2498, 7.2498, 7.2498, 7.2498, 7.2475, 7.2475, 7.2475, 7.2475, 7.2475, 7.2475, 7.2475, 7.2475, 5.2231, 2.9312, 2.9312, 2.9312, 2.9312, 2.9312, 2.9312, 2.9313, 2.9311, 1.4562, 1.4562, 1.1721, 1.1721, 1.1721, 1.1721, 1.1721, 1.1721, 1.157, 1.157, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175, 0.3175], ["NGM", 0, 8.9907, 8.9907, 8.4777, 4.6807, 4.7425, 4.2934, 2.7207, 2.5523, 2.4162, 1.7762, 1.7509, 1.7003, 1.6646, 1.6558, 1.6445, 1.6275, 1.6266, 1.623, 1.6214, 1.6211, 1.6207, 1.6207, 1.6206, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 1.6205, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099, 0.3099]]
+    },
+    grid: {
+      y: {
+        show: true
+      }
+    },
+    axis: {
+      x: {
+        label: {text: "Mapping Quality Threshold", position: "outer-middle"},
+        min: -5
+      },
+
+      y: {
+        label: {text: "Filtered wrong reads  / Filtered correct reads", position: "outer-middle"}
+      }
+    },
+    legend: {
+		position: "inset",
+		show:true,
+		inset: {
+			anchor: 'top-right',
+			x: 20,
+			y: 10,
+			step: 2
+		}
+    },
+    point: {
+    	show: false
+    },
+    subchart:
+    {
+        show:true
+    }
+});
+
+var chart = c3.generate({
+    bindto: '#plot_mapq_dist',
+    size: {
+      height: 500
+    },
+    data: {
+      columns: [["BWA", 611836, 1176, 1536, 1785, 2310, 2495, 3301, 3773, 4480, 5645, 6913, 5963, 8379, 12933, 6075, 17108, 12693, 18614, 29328, 0, 54371, 0, 0, 163250, 0, 20947, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1202141, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], ["BWA-MEM", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], ["BWA-SW", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], ["Bowtie 2", 26531, 532177, 5459, 0, 0, 0, 1866, 1481, 0, 0, 0, 292, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 29996, 79695, 0, 0, 0, 0, 0, 25, 320, 182452, 0, 85725, 0, 0, 0, 0, 0, 5707, 0, 1168560, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], ["NGM", 397152, 0, 21488, 46079, 29946, 13680, 61655, 18074, 10754, 65016, 4568, 7729, 5760, 1417, 1942, 2825, 158, 756, 274, 39, 85, 5, 8, 21, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1366737, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+    },
+    grid: {
+      y: {
+        show: true
+      }
+    },
+    axis: {
+      x: {
+        label: {text: "Mapping Quality Value", position: "outer-middle"},
+        min: -5
+      },
+
+      y: {
+        label: {text: "Number of Reads", position: "outer-middle"}
+      }
+    },
+    legend: {
+		position: "inset",
+		show:true,
+		inset: {
+			anchor: 'top-right',
+			x: 20,
+			y: 10,
+			step: 2
+		}
+    },
+    point: {
+    	show: false
+    }
+});
+
+var chart = c3.generate({
+bindto: '#plot_pr',
+data: {
+  columns: [["Precision", 0.743, 0.0, 0.0, 0.759, 0.7634], ["Recall", 0.9986, 0.0, 0.0, 0.9532, 0.9164]],
+  type: 'bar',
+},
+grid: {
+  y: {
+    show: true
+  }
+},
+axis: {
+  x: {
+    label: { text: "Mapper", position: "outer-middle" },
+    type: "category",
+    categories: ["BWA", "BWA-MEM", "BWA-SW", "Bowtie 2", "NGM"]
+  },
+
+  y: {
+    label: { text: "Value", position: "outer-middle"}
+  }
+},
+legend: {
+	position: "bottom"
+},
+tooltip: {
+	grouped: false
+}
+});
+
+var chart = c3.generate({
+bindto: '#plot_resource_corrects',
+data: {
+  columns: [["Correct/s", 7918.723, 0.0, 0.0, 31678.824, 53371.193]],
+  type: 'bar',
+},
+grid: {
+  y: {
+    show: true
+  }
+},
+axis: {
+  x: {
+    label: { text: "Mapper", position: "outer-middle" },
+    type: "category",
+    categories: ["BWA", "BWA-MEM", "BWA-SW", "Bowtie 2", "NGM"]
+  },
+
+  y: {
+    label: { text: "Correctly Mapped [reads/s]", position: "outer-middle" },
+    tick: { format: d3.format("10.3f") }
+  }
+},
+legend: {
+	position: "inset",
+	show:false,
+	inset: {
+		anchor: 'top-right'
+	}
+}
+});
+
+var chart = c3.generate({
+bindto: '#plot_resource_runtime',
+data: {
+  columns: [["Runtime", 3.436, 37.991, 0.11, 0.847, 0.49]],
+  type: 'bar',
+},
+grid: {
+  y: {
+    show: true
+  }
+},
+axis: {
+  x: {
+    label: { text: "Mapper", position: "outer-middle" },
+    type: "category",
+    categories: ["BWA", "BWA-MEM", "BWA-SW", "Bowtie 2", "NGM"]
+  },
+
+  y: {
+    label: { text: "Runtime [min]", position: "outer-middle" },
+    tick: { format: d3.format("10.3f") }
+  }
+},
+legend: {
+	position: "inset",
+	show:false,
+	inset: {
+		anchor: 'top-right'
+	}
+}
+});
+
+var chart = c3.generate({
+bindto: '#plot_resource_memory',
+data: {
+  columns: [["Memory Usage", 7370.0, 16364.0, 9489.0, 3167.0, 7774.0]],
+  type: 'bar',
+},
+grid: {
+  y: {
+    show: true
+  }
+},
+axis: {
+  x: {
+    label: { text: "Mapper", position: "outer-middle" },
+    type: "category",
+    categories: ["BWA", "BWA-MEM", "BWA-SW", "Bowtie 2", "NGM"]
+  },
+
+  y: {
+    label: { text: "Memory Usage [MB]", position: "outer-middle" },
+    tick: { format: d3.format("10.3f") }
+  }
+},
+legend: {
+	position: "inset",
+	show:false,
+	inset: {
+		anchor: 'top-right'
+	}
+}
+});
+
+</script>
+<script src="http://teaser.cibiv.univie.ac.at/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="javascript">$('#content').scrollspy();</script>
+<script src="http://teaser.cibiv.univie.ac.at/static/extensions/bootstrap-select.min.js"></script>
+
+<script src="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/js/jquery.dataTables.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/extensions/dataTables.bootstrap.js"></script>
+</body>
+</html>

@@ -1,0 +1,644 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Teaser</title>
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/c3/c3.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/extensions/bootstrap-select.min.css">
+    <style>
+body {
+  padding-top: 60px;
+  position: relative;
+}
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+
+.sidebar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+.nav-sidebar {
+  margin-right: -21px;
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+a.separator
+{
+color:#777777;
+}
+
+a.separator:hover
+{
+color:#777777;
+}
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+section {
+    padding-top: 60px;
+    margin-top: -60px;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.main-container
+{
+   margin: 0 auto;
+   max-width: 1300px;
+}
+
+
+    </style>
+  </head>
+
+<body data-spy="scroll" data-target="#sidebar">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Teaser</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+           <li><a href="start.html">Benchmark</a></li><li><a href="#" class="separator"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Select Test<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="D1_n.html">D1</a></li><li><a href="D2_n.html">D2</a></li><li><a href="D3_n.html">D3</a></li><li><a href="D4_n.html">D4</a></li><li><a href="H1_n.html">H1</a></li><li><a href="H2_n.html">H2</a></li><li><a href="M1_n.html">M1</a></li><li><a href="M2_n.html">M2</a></li><li><a href="M3_n.html">M3</a></li><li><a href="M4_n.html">M4</a></li></ul></li>
+          </ul>
+          <div class="nav navbar-nav navbar-right" style="padding:5px;">
+           
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid main-container">
+      <div class="row">
+        
+        <div class="col-sm-3 col-md-2 sidebar">
+          <div id="sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#section1">Tests Overview</a></li><li><a href="#section2">Errors and Warnings</a></li><li><a href="#section3">Results: Correctly Mapped Reads</a></li><li><a href="#section4">Results: Correct/s</a></li><li><a href="#section5">Results: Precision</a></li><li><a href="#section6">Results: Recall</a></li><li><a href="#section7">Results: F-Measure</a></li><li><a href="#section8">Raw Results</a></li><li><a href="#section9">Setup</a></li><li><a href="#section10">Log</a></li>
+          </ul>
+          </div>
+        </div>
+        <div class="col-sm-9  col-sm-offset-3 col-md-offset-2  col-md-10 main" id="content">
+            <section id="section1"><div class="panel panel-default"><div class="panel-heading">Tests Overview</div><div class="panel-body"><p>This benchmark contains multiple data sets. Use the links in the list below to view results for an individual data set, or navigate this page to compare mapper performance across all data sets.</p>50 tests executed, 0 fail, 0 aborted, 0 errors total.<table class="table table-striped"><thead><tr><th>State</th><th>Name</th><th>Reference</th><th>Executed</th><th>OK</th><th>Warnings</th><th>Errors</th></tr></thead><tr><td class="col-md-1 info" align="center"><span class="glyphicon glyphicon-ok"></span></td><td><a href="D1_n.html">D1</a></td><td>D_melanogaster</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td class="col-md-1 info" align="center"><span class="glyphicon glyphicon-ok"></span></td><td><a href="D2_n.html">D2</a></td><td>D_melanogaster</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td class="col-md-1 info" align="center"><span class="glyphicon glyphicon-ok"></span></td><td><a href="D3_n.html">D3</a></td><td>D_melanogaster</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td class="col-md-1 info" align="center"><span class="glyphicon glyphicon-ok"></span></td><td><a href="D4_n.html">D4</a></td><td>D_melanogaster</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td class="col-md-1 warning" align="center"><span class="glyphicon glyphicon-exclamation-sign"></span></td><td><a href="H1_n.html">H1</a></td><td>Grch37</td><td>5</td><td>5</td><td>11</td><td>0</td></tr><tr><td class="col-md-1 info" align="center"><span class="glyphicon glyphicon-ok"></span></td><td><a href="H2_n.html">H2</a></td><td>Grch37</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td class="col-md-1 info" align="center"><span class="glyphicon glyphicon-ok"></span></td><td><a href="M1_n.html">M1</a></td><td>M_musculus</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td class="col-md-1 info" align="center"><span class="glyphicon glyphicon-ok"></span></td><td><a href="M2_n.html">M2</a></td><td>M_musculus</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td class="col-md-1 info" align="center"><span class="glyphicon glyphicon-ok"></span></td><td><a href="M3_n.html">M3</a></td><td>M_musculus</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td class="col-md-1 info" align="center"><span class="glyphicon glyphicon-ok"></span></td><td><a href="M4_n.html">M4</a></td><td>M_musculus</td><td>5</td><td>5</td><td>0</td><td>0</td></tr></table></div></div></section><section id="section2"><div class="panel panel-default"><div class="panel-heading">Errors and Warnings</div><div class="panel-body"><i>No problems were encountered.</i></div></div></section><section id="section3"><div class="panel panel-default"><div class="panel-heading">Results: Correctly Mapped Reads</div><div class="panel-body"><div id="plot_correct"></div></div></div></section><section id="section4"><div class="panel panel-default"><div class="panel-heading">Results: Correct/s</div><div class="panel-body"><div id="plot_corrects"></div></div></div></section><section id="section5"><div class="panel panel-default"><div class="panel-heading">Results: Precision</div><div class="panel-body"><div id="plot_precision"></div></div></div></section><section id="section6"><div class="panel panel-default"><div class="panel-heading">Results: Recall</div><div class="panel-body"><div id="plot_recall"></div></div></div></section><section id="section7"><div class="panel panel-default"><div class="panel-heading">Results: F-Measure</div><div class="panel-body"><div id="plot_fmeasure"></div></div></div></section><section id="section8"><div class="panel panel-default"><div class="panel-heading">Raw Results</div><div class="panel-body"><pre>test,mapper,correctly_mapped_percent,throughput_reads_per_sec
+H1_n,ngm,95.919877,47682.383891
+H1_n,bwa,97.744457,6385.930112
+H1_n,bwamem,98.038034,18599.959895
+H1_n,bwasw,96.477706,7212.065166
+H1_n,bowtie2,94.086690,13258.712929
+H2_n,ngm,94.965446,18261.958542
+H2_n,bwa,92.496940,6172.367673
+H2_n,bwamem,96.240182,11124.067990
+H2_n,bwasw,94.034656,7631.807242
+H2_n,bowtie2,93.898863,12884.762046
+D1_n,ngm,91.761013,33957.786037
+D1_n,bwa,88.327823,12422.591524
+D1_n,bwamem,91.933006,19869.823696
+D1_n,bwasw,91.633687,5329.890189
+D1_n,bowtie2,91.844505,21531.191755
+M1_n,ngm,92.885377,13769.547391
+M1_n,bwa,89.610957,4191.810299
+M1_n,bwamem,93.360326,7343.760183
+M1_n,bwasw,93.080069,2496.599867
+M1_n,bowtie2,93.023955,5270.757956
+D2_n,ngm,91.429967,26845.769792
+D2_n,bwa,15.638881,18340.110641
+D2_n,bwamem,91.270080,8213.808631
+D2_n,bwasw,86.898440,6475.789526
+D2_n,bowtie2,84.556491,18488.601823
+M2_n,ngm,92.221006,6494.584483
+M2_n,bwa,16.005655,3733.790109
+M2_n,bwamem,92.218526,2882.644460
+M2_n,bwasw,83.461113,4803.752590
+M2_n,bowtie2,83.212168,6892.351714
+D3_n,ngm,92.455067,6956.022042
+D3_n,bwa,0.001113,60993.533759
+D3_n,bwamem,89.910774,5228.353477
+D3_n,bwasw,54.271195,6123.965956
+D3_n,bowtie2,53.501951,16240.092589
+M3_n,ngm,93.252645,688.659768
+M3_n,bwa,0.001240,30067.365783
+M3_n,bwamem,89.987888,1935.685539
+M3_n,bwasw,49.351637,5210.018219
+M3_n,bowtie2,51.062555,7802.087386
+D4_n,ngm,81.004031,201668.978710
+D4_n,bwa,83.563518,33881.227312
+D4_n,bwamem,0.000000,88042.876197
+D4_n,bwasw,0.000000,331308.001680
+D4_n,bowtie2,80.607216,89492.994104
+M4_n,ngm,71.374775,74775.987779
+M4_n,bwa,74.224839,10668.561600
+M4_n,bwamem,0.000000,964.820497
+M4_n,bwasw,0.000000,333221.615264
+M4_n,bowtie2,73.173042,43293.025489
+</pre></div></div></section><section id="section9"><div class="panel panel-default"><div class="panel-heading">Setup</div><div class="panel-body"><p>This section contains information about the benchmarking process itself and can be shared in order to reproduce results and diagnose problems.</p><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">Teaser Accession</th><td class="col-md-8">main</td></tr><tr><th>Report timestamp</th><td>Fri Aug 28 02:17:29 2015</td></tr><tr><tr><th>Framework Version</th><td>1.0b-dev-vevev</td></tr><th>Framework Working Directory</th><td>/project/teaser</td></tr><tr><th>Framework Command Line</th><td>/project/teaser/teaser.py paper_main</td></tr><tr><th colspan="2">Benchmark Configuration</th></tr><tr><td colspan="2"><pre>description: Examples showcasing mapper differences across datasets
+include: [base.yaml, base_mappers.yaml, base_ngm.yaml]
+report: {directory: /home/CIBIV/moritz/public_html/paper_benchmarks, name: main}
+sub_max_memory: 17000
+teaser:
+  dwgsim_path: software/dwgsim
+  mason_path: software/mason
+  test_directory: /scratch/mate/tests_paper
+  tests:
+    D1_n: {order: 3, paired: false, platform: illumina, read_length: 150, reference: /scratch/mate/refs/d_melanogaster.fasta,
+      simulator: mason, title: D1}
+    D2_n: {mutation_rate: 0.05, order: 5, paired: false, platform: illumina, read_length: 150,
+      reference: /scratch/mate/refs/d_melanogaster.fasta, simulator: mason, title: D2}
+    D3_n: {error_rate_mult: 2, order: 7, paired: false, platform: ion_torrent, read_length: 200,
+      reference: /scratch/mate/refs/d_melanogaster.fasta, simulator: dwgsim, title: D3}
+    D4_n: {order: 9, paired: false, platform: illumina, read_length: 22, reference: /scratch/mate/refs/d_melanogaster.fasta,
+      simulator: mason, title: D4}
+    H1_n: {mutation_indel_frac: 0.3, mutation_rate: 0.001, order: 1, paired: true,
+      platform: illumina, read_length: 100, reference: /scratch/mate/refs/GRCh37.fa,
+      simulator: dwgsim, title: H1}
+    H2_n: {mutation_indel_frac: 0.7, mutation_rate: 0.001, order: 2, paired: false,
+      platform: illumina, read_length: 100, reference: /scratch/mate/refs/GRCh37.fa,
+      simulator: dwgsim, title: H2}
+    M1_n: {order: 4, paired: false, platform: illumina, read_length: 150, reference: /scratch/mate/refs/m_musculus.fasta,
+      simulator: mason, title: M1}
+    M2_n: {mutation_rate: 0.05, order: 6, paired: false, platform: illumina, read_length: 150,
+      reference: /scratch/mate/refs/m_musculus.fasta, simulator: mason, title: M2}
+    M3_n: {error_rate_mult: 2, order: 8, paired: false, platform: ion_torrent, read_length: 200,
+      reference: /scratch/mate/refs/m_musculus.fasta, simulator: dwgsim, title: M3}
+    M4_n: {order: 10, paired: false, platform: illumina, read_length: 22, reference: /scratch/mate/refs/m_musculus.fasta,
+      simulator: mason, title: M4}
+test_directories: [tests_base, /scratch/mate/tests_paper]
+test_mappers: [ngm, bowtie2, bwa, bwamem, bwasw]
+threads: 4
+title: Teaser Example Dataset Evaluation
+</pre></td></tr></tbody></table></div></div></section><section id="section10"><div class="panel panel-default"><div class="panel-heading">Log</div><div class="panel-body"><pre>[02:17:27] [Main        ] framework cmd:  /project/teaser/teaser.py paper_main
+[02:17:27] [Main        ] framework hash: vevev
+[02:17:27] [Main        ] deployment mode: devel (True)
+[02:17:27] [Main        ] Teaser Example Dataset Evaluation - "Examples showcasing mapper differences across datasets"
+
+[02:17:27] [Main        ] Using Teaser for data set simulation
+[02:17:28] [Teaser      ] Init. Simulating 10 test datasets.
+[02:17:28] [Teaser      ] Data set H1_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set H2_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set D1_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set M1_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set D2_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set M2_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set D3_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set M3_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set D4_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set M4_n already exists, not creating.
+[02:17:28] [Main        ] Data set simulation completed.
+[02:17:28] [Main        ] 
+[02:17:28] [Load H1_n] Loading cached version of H1_n<ngm> /project/teaser/cache/dev_bc8e8916491cf0e934ce711088989b85.test
+[02:17:28] [Load H2_n] Loading cached version of H2_n<ngm> /project/teaser/cache/dev_0868a33eafe3860651d3870dac69e5ac.test
+[02:17:28] [Load D1_n] Loading cached version of D1_n<ngm> /project/teaser/cache/dev_d00f9651229be883cecf6ac42660e57e.test
+[02:17:28] [Load M1_n] Loading cached version of M1_n<ngm> /project/teaser/cache/dev_a1f69a25e26f7c9212825cb053652bd5.test
+[02:17:28] [Load D2_n] Loading cached version of D2_n<ngm> /project/teaser/cache/dev_dc48d141452d6c0244c701babbad09ec.test
+[02:17:28] [Load M2_n] Loading cached version of M2_n<ngm> /project/teaser/cache/dev_3f1e9ec6e59a53503730cde4adac62d0.test
+[02:17:28] [Load D3_n] Loading cached version of D3_n<ngm> /project/teaser/cache/dev_550f6d63e7bedaf7fe92ba13e225b426.test
+[02:17:28] [Load M3_n] Loading cached version of M3_n<ngm> /project/teaser/cache/dev_a1c8491a51f70f86a52812d183e2c6ec.test
+[02:17:28] [Load D4_n] Loading cached version of D4_n<ngm> /project/teaser/cache/dev_4db93c02db509e2f71f09d0e424e8514.test
+[02:17:28] [Load M4_n] Loading cached version of M4_n<ngm> /project/teaser/cache/dev_c5160fabe82046f2f42d50596d476b64.test
+[02:17:28] [Load H1_n] Loading cached version of H1_n<bowtie2> /project/teaser/cache/dev_af464bd707d843bb3ef30ee98b58cf03.test
+[02:17:29] [Load H2_n] Loading cached version of H2_n<bowtie2> /project/teaser/cache/dev_97ce3eefcb6e40144a3b2540f3362f2b.test
+[02:17:29] [Load D1_n] Loading cached version of D1_n<bowtie2> /project/teaser/cache/dev_26316ec4d7fa76dc1de642371a3c6ee7.test
+[02:17:29] [Load M1_n] Loading cached version of M1_n<bowtie2> /project/teaser/cache/dev_f54353da17d424d70f8a9b03b9e39136.test
+[02:17:29] [Load D2_n] Loading cached version of D2_n<bowtie2> /project/teaser/cache/dev_3560f20a818f27361c7a362759d4341e.test
+[02:17:29] [Load M2_n] Loading cached version of M2_n<bowtie2> /project/teaser/cache/dev_66059105be22d618790ee75a34a98373.test
+[02:17:29] [Load D3_n] Loading cached version of D3_n<bowtie2> /project/teaser/cache/dev_c86501b86818d0d0d5cce2c74aa07c88.test
+[02:17:29] [Load M3_n] Loading cached version of M3_n<bowtie2> /project/teaser/cache/dev_2255cff5ac9c4611a5166c9c690d29eb.test
+[02:17:29] [Load D4_n] Loading cached version of D4_n<bowtie2> /project/teaser/cache/dev_ecf0acfc0167af486e3afbca318d8091.test
+[02:17:29] [Load M4_n] Loading cached version of M4_n<bowtie2> /project/teaser/cache/dev_01d4e0fcd6f075b8fcfdc45e2776e9a2.test
+[02:17:29] [Load H1_n] Loading cached version of H1_n<bwa> /project/teaser/cache/dev_e9b54ef8389d290c0e427aa1abfee980.test
+[02:17:29] [Load H2_n] Loading cached version of H2_n<bwa> /project/teaser/cache/dev_d990c2631bbf31769e196ccef3114c19.test
+[02:17:29] [Load D1_n] Loading cached version of D1_n<bwa> /project/teaser/cache/dev_199f09235cad898743aff8f6bcfedd69.test
+[02:17:29] [Load M1_n] Loading cached version of M1_n<bwa> /project/teaser/cache/dev_f27515ab7bb5345c3d4d21db9abfce33.test
+[02:17:29] [Load D2_n] Loading cached version of D2_n<bwa> /project/teaser/cache/dev_55cc9725a0eceda783fafcba8fd99460.test
+[02:17:29] [Load M2_n] Loading cached version of M2_n<bwa> /project/teaser/cache/dev_0487a326462e2e52e7d5547f03885994.test
+[02:17:29] [Load D3_n] Loading cached version of D3_n<bwa> /project/teaser/cache/dev_9b29815273700a299f815bc735202489.test
+[02:17:29] [Load M3_n] Loading cached version of M3_n<bwa> /project/teaser/cache/dev_de613d1f88c20d45d99e3db849e300b2.test
+[02:17:29] [Load D4_n] Loading cached version of D4_n<bwa> /project/teaser/cache/dev_a189aa06ee599fe8490d45966a117e60.test
+[02:17:29] [Load M4_n] Loading cached version of M4_n<bwa> /project/teaser/cache/dev_cb19914b43b1d7e5a86d407c4ad8d7a5.test
+[02:17:29] [Load H1_n] Loading cached version of H1_n<bwamem> /project/teaser/cache/dev_8cebb82af46a360031a56972db60ba4d.test
+[02:17:29] [Load H2_n] Loading cached version of H2_n<bwamem> /project/teaser/cache/dev_68254ff645f79cf7c5019830e1898c9c.test
+[02:17:29] [Load D1_n] Loading cached version of D1_n<bwamem> /project/teaser/cache/dev_8b6b024e6daf4a6d027c272e8ad0110c.test
+[02:17:29] [Load M1_n] Loading cached version of M1_n<bwamem> /project/teaser/cache/dev_6d117f0a171509143ee8d6ffa48bb2e1.test
+[02:17:29] [Load D2_n] Loading cached version of D2_n<bwamem> /project/teaser/cache/dev_0bc51473f9f70bbc368e0485518cd8ea.test
+[02:17:29] [Load M2_n] Loading cached version of M2_n<bwamem> /project/teaser/cache/dev_78756fe8ae11cab3591ee9f24a38dc5d.test
+[02:17:29] [Load D3_n] Loading cached version of D3_n<bwamem> /project/teaser/cache/dev_524dd566af2c3d5505b9ee5f74a2e901.test
+[02:17:29] [Load M3_n] Loading cached version of M3_n<bwamem> /project/teaser/cache/dev_10a9c4ab7566ccde334786b4e1ce7574.test
+[02:17:29] [Load D4_n] Loading cached version of D4_n<bwamem> /project/teaser/cache/dev_a0c55ece193a46efd354950f2ffeda36.test
+[02:17:29] [Load M4_n] Loading cached version of M4_n<bwamem> /project/teaser/cache/dev_7883cbd7bb7677a4bd4bde76d6752528.test
+[02:17:29] [Load H1_n] Loading cached version of H1_n<bwasw> /project/teaser/cache/dev_6ad06fe4bd66a42ca701b1e2ca08c3a7.test
+[02:17:29] [Load H2_n] Loading cached version of H2_n<bwasw> /project/teaser/cache/dev_75f352ec2d26874e8988e875bbe59cfa.test
+[02:17:29] [Load D1_n] Loading cached version of D1_n<bwasw> /project/teaser/cache/dev_f7cf5b1e3259ccaf2910238c64014ce9.test
+[02:17:29] [Load M1_n] Loading cached version of M1_n<bwasw> /project/teaser/cache/dev_daba62f1e346203baa0f62387b0ef51c.test
+[02:17:29] [Load D2_n] Loading cached version of D2_n<bwasw> /project/teaser/cache/dev_38bf07d733fa89394cae62a449558df1.test
+[02:17:29] [Load M2_n] Loading cached version of M2_n<bwasw> /project/teaser/cache/dev_719ec9482f614bcc9fb76a0f24420dfa.test
+[02:17:29] [Load D3_n] Loading cached version of D3_n<bwasw> /project/teaser/cache/dev_ff3c276a61f08fb5227e44a7d473fca8.test
+[02:17:29] [Load M3_n] Loading cached version of M3_n<bwasw> /project/teaser/cache/dev_11ed9b2e91b3e679cbcd481218521834.test
+[02:17:29] [Load D4_n] Loading cached version of D4_n<bwasw> /project/teaser/cache/dev_849bbe3701c0b99c4ead3a9acb6205b4.test
+[02:17:29] [Load M4_n] Loading cached version of M4_n<bwasw> /project/teaser/cache/dev_5fcb96ac94b0859626e8859e5b69cc8c.test
+[02:17:29] [ngm         ] Skip: D1_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: D2_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: D3_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: D4_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: H1_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: H2_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: M1_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: M2_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: M3_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: M4_n<ngm> (already run)
+
+[02:17:29] [bowtie2     ] Skip: D1_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: D2_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: D3_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: D4_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: H1_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: H2_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: M1_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: M2_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: M3_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: M4_n<bowtie2> (already run)
+
+[02:17:29] [bwa         ] Skip: D1_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: D2_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: D3_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: D4_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: H1_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: H2_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: M1_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: M2_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: M3_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: M4_n<bwa> (already run)
+
+[02:17:29] [bwamem      ] Skip: D1_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: D2_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: D3_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: D4_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: H1_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: H2_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: M1_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: M2_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: M3_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: M4_n<bwamem> (already run)
+
+[02:17:29] [bwasw       ] Skip: D1_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: D2_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: D3_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: D4_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: H1_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: H2_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: M1_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: M2_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: M3_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: M4_n<bwasw> (already run)
+
+[02:17:29] [Main        ] Generate HTML report -> /home/CIBIV/moritz/public_html/paper_benchmarks/main...
+</pre></div></div></section><p></p><div style="margin:300px; height:300px;">&nbsp;</div>
+        </div>
+      </div>
+    </div>
+
+
+<script src="http://teaser.cibiv.univie.ac.at/static/js/d3.v3.min.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/c3/c3.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/js/jquery.js"></script>
+<script>
+
+var chart_correct = c3.generate({
+    bindto: '#plot_correct',
+    size: {
+      height: 400
+    },
+    data: {
+      columns: [["Bowtie 2", 94.0867, 93.8989, 91.8445, 93.024, 84.5565, 83.2122, 53.502, 51.0626, 80.6072, 73.173], ["BWA", 97.7445, 92.4969, 88.3278, 89.611, 15.6389, 16.0057, 0.0011, 0.0012, 83.5635, 74.2248], ["BWA-MEM", 98.038, 96.2402, 91.933, 93.3603, 91.2701, 92.2185, 89.9108, 89.9879, 0.0, 0.0], ["BWA-SW", 96.4777, 94.0347, 91.6337, 93.0801, 86.8984, 83.4611, 54.2712, 49.3516, 0.0, 0.0], ["NGM", 95.9199, 94.9654, 91.761, 92.8854, 91.43, 92.221, 92.4551, 93.2526, 81.004, 71.3748]],
+      type: "bar"
+    },
+    grid: {
+      y: {
+        show: true
+      }
+    },
+    axis: {
+      x: {
+        type: "category",
+        categories: ["H1", "H2", "D1", "M1", "D2", "M2", "D3", "M3", "D4", "M4"],
+        label:
+        {
+              text: "Data Set",
+              position: "outer-middle"
+        }
+      },
+
+      y: {
+        label:
+        {
+              text: "Correctly Mapped Reads [%]",
+              position: "outer-middle"
+        },
+        tick: { format: function(y){return Math.round(100000*y)/100000 + "%";} }
+        
+      }
+    },
+    legend: {
+    	position: "right"
+    }
+});
+
+var chart_corrects = c3.generate({
+    bindto: '#plot_corrects',
+    size: {
+      height: 400
+    },
+    data: {
+      columns: [["Bowtie 2", 12474.6841, 12098.645, 19775.2164, 4903.0675, 15633.3129, 5735.2753, 8688.7664, 3983.9451, 72137.8112, 31678.8236], ["BWA", 6241.8927, 5709.2512, 10972.6046, 3756.3213, 2868.188, 597.6176, 0.679, 0.3729, 28312.3453, 7918.7226], ["BWA-MEM", 18235.0351, 10705.8233, 18266.9262, 6856.1584, 7496.7497, 2658.3322, 4700.8531, 1741.8825, 0.0, 0.0], ["BWA-SW", 6958.035, 7176.5437, 4883.9749, 2323.8369, 5627.3601, 4009.2654, 3323.5495, 2571.2293, 0.0, 0.0], ["NGM", 45736.8838, 17342.5504, 31160.0083, 12789.896, 24545.0784, 5989.3712, 6431.1949, 642.1934, 163360.0012, 53371.1928]],
+      type: "bar"
+    },
+    grid: {
+      y: {
+        show: true
+      }
+    },
+    axis: {
+      x: {
+        type: "category",
+        categories: ["H1", "H2", "D1", "M1", "D2", "M2", "D3", "M3", "D4", "M4"],
+        label:
+        {
+              text: "Data Set",
+              position: "outer-middle"
+        }
+      },
+
+      y: {
+        label:
+        {
+              text: "Correctly Mapped Reads [Reads/s]",
+              position: "outer-middle"
+        },
+        tick: { format: function(y){return Math.round(1000*y)/1000;} }
+        
+      }
+    },
+    legend: {
+    	position: "right"
+    }
+});
+
+var chart_precision = c3.generate({
+    bindto: '#plot_precision',
+    size: {
+      height: 400
+    },
+    data: {
+      columns: [["Bowtie 2", 0.9514, 0.9476, 0.9185, 0.9305, 0.9106, 0.9106, 0.9201, 0.9161, 0.8426, 0.759], ["BWA", 0.9807, 0.965, 0.919, 0.9321, 0.9146, 0.9194, 1.0, 1.0, 0.8388, 0.743], ["BWA-MEM", 0.9804, 0.9626, 0.9193, 0.9336, 0.9134, 0.9229, 0.9027, 0.904, 0.0, 0.0], ["BWA-SW", 0.9696, 0.9538, 0.9164, 0.9309, 0.9056, 0.8948, 0.8757, 0.8235, 0.0, 0.0], ["NGM", 0.9601, 0.9506, 0.9176, 0.9321, 0.9143, 0.9223, 0.9246, 0.9326, 0.814, 0.7634]],
+      type: "bar"
+    },
+    grid: {
+      y: {
+        show: true
+      }
+    },
+    axis: {
+      x: {
+        type: "category",
+        categories: ["H1", "H2", "D1", "M1", "D2", "M2", "D3", "M3", "D4", "M4"],
+        label:
+        {
+              text: "Data Set",
+              position: "outer-middle"
+        }
+      },
+
+      y: {
+        label:
+        {
+              text: "Precision",
+              position: "outer-middle"
+        },
+        tick: { format: function(y){return Math.round(10000*y)/10000;} }
+        
+      }
+    },
+    legend: {
+    	position: "right"
+    }
+});
+
+var chart_recall = c3.generate({
+    bindto: '#plot_recall',
+    size: {
+      height: 400
+    },
+    data: {
+      columns: [["Bowtie 2", 0.9884, 0.9905, 1.0, 0.9997, 0.9221, 0.9062, 0.5611, 0.5357, 0.9489, 0.9532], ["BWA", 0.9966, 0.957, 0.9579, 0.9587, 0.1587, 0.1623, 0.0, 0.0, 0.9955, 0.9986], ["BWA-MEM", 1.0, 0.9998, 1.0, 1.0, 0.9992, 0.9991, 0.9956, 0.9949, 0.0, 0.0], ["BWA-SW", 0.9996, 0.9855, 1.0, 0.9999, 0.9555, 0.9254, 0.5907, 0.556, 0.0, 0.0], ["NGM", 0.999, 0.999, 1.0, 0.9963, 1.0, 0.9999, 1.0, 0.9999, 0.994, 0.9164]],
+      type: "bar"
+    },
+    grid: {
+      y: {
+        show: true
+      }
+    },
+    axis: {
+      x: {
+        type: "category",
+        categories: ["H1", "H2", "D1", "M1", "D2", "M2", "D3", "M3", "D4", "M4"],
+        label:
+        {
+              text: "Data Set",
+              position: "outer-middle"
+        }
+      },
+
+      y: {
+        label:
+        {
+              text: "Recall",
+              position: "outer-middle"
+        },
+        tick: { format: function(y){return Math.round(10000*y)/10000;} }
+        
+      }
+    },
+    legend: {
+    	position: "right"
+    }
+});
+
+var chart_fmeasure = c3.generate({
+    bindto: '#plot_fmeasure',
+    size: {
+      height: 400
+    },
+    data: {
+      columns: [["Bowtie 2", 0.9695, 0.9685, 0.9575, 0.9639, 0.9163, 0.9084, 0.6971, 0.676, 0.8926, 0.8451], ["BWA", 0.9886, 0.961, 0.938, 0.9452, 0.2705, 0.2759, 0.0, 0.0, 0.9105, 0.8521], ["BWA-MEM", 0.9901, 0.9808, 0.958, 0.9657, 0.9544, 0.9595, 0.9469, 0.9473, 0.0, 0.0], ["BWA-SW", 0.9844, 0.9694, 0.9563, 0.9642, 0.9299, 0.9099, 0.7055, 0.6638, 0.0, 0.0], ["NGM", 0.9792, 0.9742, 0.957, 0.9631, 0.9552, 0.9595, 0.9608, 0.9651, 0.8951, 0.833]],
+      type: "bar"
+    },
+    grid: {
+      y: {
+        show: true
+      }
+    },
+    axis: {
+      x: {
+        type: "category",
+        categories: ["H1", "H2", "D1", "M1", "D2", "M2", "D3", "M3", "D4", "M4"],
+        label:
+        {
+              text: "Data Set",
+              position: "outer-middle"
+        }
+      },
+
+      y: {
+        label:
+        {
+              text: "F-Measure",
+              position: "outer-middle"
+        },
+        tick: { format: function(y){return Math.round(10000*y)/10000;} }
+        
+      }
+    },
+    legend: {
+    	position: "right"
+    }
+});
+
+</script>
+<script src="http://teaser.cibiv.univie.ac.at/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="javascript">$('#content').scrollspy();</script>
+<script src="http://teaser.cibiv.univie.ac.at/static/extensions/bootstrap-select.min.js"></script>
+
+<script src="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/js/jquery.dataTables.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/extensions/dataTables.bootstrap.js"></script>
+</body>
+</html>

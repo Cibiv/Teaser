@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Teaser</title>
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/c3/c3.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/extensions/bootstrap-select.min.css">
+    <style>
+body {
+  padding-top: 60px;
+  position: relative;
+}
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+
+.sidebar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+.nav-sidebar {
+  margin-right: -21px;
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+a.separator
+{
+color:#777777;
+}
+
+a.separator:hover
+{
+color:#777777;
+}
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+section {
+    padding-top: 60px;
+    margin-top: -60px;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.main-container
+{
+   margin: 0 auto;
+   max-width: 1300px;
+}
+
+
+    </style>
+  </head>
+
+<body data-spy="scroll" data-target="#sidebar">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Teaser</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+           <li><a href="start.html">Benchmark</a></li><li><a href="#" class="separator"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">D3<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="D1_n.html">D1</a></li><li><a href="D2_n.html">D2</a></li><li><a href="D3_n.html">D3</a></li><li><a href="D4_n.html">D4</a></li><li><a href="H1_n.html">H1</a></li><li><a href="H2_n.html">H2</a></li><li><a href="M1_n.html">M1</a></li><li><a href="M2_n.html">M2</a></li><li><a href="M3_n.html">M3</a></li><li><a href="M4_n.html">M4</a></li></ul></li><li><a href="#" class="separator"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">BWA-MEM<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="D3_n_ngm.html">NGM</a></li><li><a href="D3_n_bwa.html">BWA</a></li><li><a href="D3_n_bwamem.html">BWA-MEM</a></li><li><a href="D3_n_bwasw.html">BWA-SW</a></li><li><a href="D3_n_bowtie2.html">Bowtie 2</a></li></ul></li>
+          </ul>
+          <div class="nav navbar-nav navbar-right" style="padding:5px;">
+           
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid main-container">
+      <div class="row">
+        
+        <div class="col-sm-3 col-md-2 sidebar">
+          <div id="sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#section1">Mapping Quality Thresholds</a></li><li><a href="#section2">Basic Statistics</a></li><li><a href="#section3">Read Failure Statistics</a></li><li><a href="#section4">Advanced Statistics</a></li><li><a href="#section5">Timing</a></li><li><a href="#section6">Additional Information</a></li><li><a href="#section7">Errors and Warnings</a></li><li><a href="#section8">Subprocess Log</a></li>
+          </ul>
+          </div>
+        </div>
+        <div class="col-sm-9  col-sm-offset-3 col-md-offset-2  col-md-10 main" id="content">
+            <section id="section1"><div class="panel panel-default"><div class="panel-heading">Mapping Quality Thresholds</div><div class="panel-body"><p>The plot below shows the percentages of correctly and wrongly mapped reads for all mapping quality thresholds for this mapper. The values at threshold 0 therefore correspond to the unfiltered results.</p><div id="plot_mapq_tresh"></div></div></div></section><section id="section2"><div class="panel panel-default"><div class="panel-heading">Basic Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Correctly Mapped</th><td class="col-md-2">161531</td><td class="col-md-2">89.911%</td></tr><tr><th>Wrongly Mapped</th><td>17419</td><td>9.696%</td></tr><tr><th>Not Mapped</th><td>707</td><td>0.394%</td></tr><tr><th>Total</th><td>179657</td><td>100.0%</td></tbody></table></div></div></section><section id="section3"><div class="panel panel-default"><div class="panel-heading">Read Failure Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Not mapped</th><td class="col-md-2">707</td><td class="col-md-2">0.394%</td></tr><tr><th>Missing in mapper output</th><td>0</td><td>0.0%</td></tr><tr><th>Mapped to wrong chromosome</th><td>7433</td><td>4.137%</td></tr><tr><th>Mapped to wrong position</th><td>9986</td><td>5.558%</td></tr><tr><th>Mapped to wrong strand</th><td>0</td><td>0.0%</td></tbody></table></div></div></section><section id="section4"><div class="panel panel-default"><div class="panel-heading">Advanced Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th>Missing in comparison alignment</th><td>1</td></tr><tr><th class="col-md-6">Secondary Alignments</th><td class="col-md-4">153</td></tr><tr><th><abbr title="Harmonic Mean of Precision and Recall">F-Measure</abbr></th><td>0.946874</td></tr><tr><th><abbr title="Correctly Mapped / (Correctly Mapped + Wrongly Mapped)">Precision</abbr></th><td>0.902660</td></tr><tr><th><abbr title="Correctly Mapped / (Correctly Mapped + Unmapped)">Recall</abbr></th><td>0.995642</td></tbody></table></div></div></section><section id="section5"><div class="panel panel-default"><div class="panel-heading">Timing</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Raw Mapping Time</th><td class="col-md-4">34.506s</td></tr><tr><th>Effective Mapping Time</th><td>34.362s</td></tr><tr><th>Effective Init Time</th><td>0.144s</td></tr><tr><th>Effective Time Measure</th><td>Wall clock</td></tr><tr><th>Mapping Time (Wall)</th><td>34.506s</td></tr><tr><th>Mapping Time (CPU)</th><td>130.810s</td></tr><tr><th>Mapping Time (CPU User)</th><td>130.520s</td></tr><tr><th>Mapping Time (CPU System)</th><td>0.290s</td></tr><tr><th>Init Time (Wall)</th><td>0.144s</td></tr><tr><th>Init Time (CPU)</th><td>0.100s</td></tr><tr><th>Init Time (CPU User)</th><td>0.000s</td></tr><tr><th>Init Time (CPU System)</th><td>0.100s</td></tr></tbody></table></div></div></section><section id="section6"><div class="panel panel-default"><div class="panel-heading">Additional Information</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Mapper Memory Usage</th><td class="col-md-4">561 MB</td></tr><tr><th>Total Test Runtime (Wall)</th><td>41.095s</td></tr><tr><th>Mapper Command Line:</th><td>&nbsp;</td></tr><tr><td colspan=2>/project/teaser/software/bwa mem /scratch/mate/refs/d_melanogaster.fasta reads.fastq  -t 4 > out_bwamem.sam</td></tr></tbody></table></div></div></section><section id="section7"><div class="panel panel-default"><div class="panel-heading">Errors and Warnings</div><div class="panel-body"><i>No problems were encountered.</i></div></div></section><section id="section8"><div class="panel panel-default"><div class="panel-heading">Subprocess Log</div><div class="panel-body"><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/bwa mem /scratch/mate/refs/d_melanogaster.fasta reads_base.fastq  -t 4 > out_bwamem.sam</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/bwa mem /scratch/mate/refs/d_melanogaster.fasta reads_base.fastq  -t 4 > out_bwamem.sam</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>3117056</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse73" class="collapsed">stderr</a></h4></div><div id="collapse73" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse74" class="collapsed">stdout</a></h4></div><div id="collapse74" class="panel-collapse collapse"><div class="panel-body"><pre>[M::bwa_idx_load_from_disk] read 0 ALT contigs<br>
+[M::process] read 1 sequences (60 bp)...<br>
+[M::mem_process_seqs] Processed 1 reads in 0.001 CPU sec, 0.001 real sec<br>
+[main] Version: 0.7.12-r1039<br>
+[main] CMD: /project/teaser/software/bwa mem -t 4 /scratch/mate/refs/d_melanogaster.fasta reads_base.fastq<br>
+[main] Real time: 0.150 sec; CPU: 0.093 sec<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>0.09</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>0.14151096344</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>0.0</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/D3_n</small></td></tr></tbody></table></div></div><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/bwa mem /scratch/mate/refs/d_melanogaster.fasta reads_base.fastq  -t 4 > out_bwamem.sam</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/bwa mem /scratch/mate/refs/d_melanogaster.fasta reads_base.fastq  -t 4 > out_bwamem.sam</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>3117056</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse75" class="collapsed">stderr</a></h4></div><div id="collapse75" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse76" class="collapsed">stdout</a></h4></div><div id="collapse76" class="panel-collapse collapse"><div class="panel-body"><pre>[M::bwa_idx_load_from_disk] read 0 ALT contigs<br>
+[M::process] read 1 sequences (60 bp)...<br>
+[M::mem_process_seqs] Processed 1 reads in 0.001 CPU sec, 0.001 real sec<br>
+[main] Version: 0.7.12-r1039<br>
+[main] CMD: /project/teaser/software/bwa mem -t 4 /scratch/mate/refs/d_melanogaster.fasta reads_base.fastq<br>
+[main] Real time: 0.154 sec; CPU: 0.096 sec<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>0.1</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>0.144329071045</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>0.0</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/D3_n</small></td></tr></tbody></table></div></div><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/bwa mem /scratch/mate/refs/d_melanogaster.fasta reads.fastq  -t 4 > out_bwamem.sam</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/bwa mem /scratch/mate/refs/d_melanogaster.fasta reads.fastq  -t 4 > out_bwamem.sam</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>561229824</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse77" class="collapsed">stderr</a></h4></div><div id="collapse77" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse78" class="collapsed">stdout</a></h4></div><div id="collapse78" class="panel-collapse collapse"><div class="panel-body"><pre>[M::bwa_idx_load_from_disk] read 0 ALT contigs<br>
+[M::process] read 179658 sequences (38490667 bp)...<br>
+[M::mem_process_seqs] Processed 179658 reads in 130.888 CPU sec, 33.086 real sec<br>
+[main] Version: 0.7.12-r1039<br>
+[main] CMD: /project/teaser/software/bwa mem -t 4 /scratch/mate/refs/d_melanogaster.fasta reads.fastq<br>
+[main] Real time: 34.508 sec; CPU: 131.325 sec<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>0.29</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>34.5063898563</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>130.52</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/D3_n</small></td></tr></tbody></table></div></div></div></div></section><p></p><div style="margin:300px; height:300px;">&nbsp;</div>
+        </div>
+      </div>
+    </div>
+
+
+<script src="http://teaser.cibiv.univie.ac.at/static/js/d3.v3.min.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/c3/c3.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/js/jquery.js"></script>
+<script>
+
+var cols=[["Correct", 0.8991077442014506, 0.8631948657719989, 0.8611687827359914, 0.8591426996999838, 0.8556805468197732, 0.8534652142694134, 0.8527917086448065, 0.8524967020489043, 0.8523297171832993, 0.8521237691823864, 0.8514057342602849, 0.8501255169573131, 0.8482831172734712, 0.8459620276415614, 0.8439582092543012, 0.8421547727057671, 0.8407409675103114, 0.8393772577745371, 0.8378966586328392, 0.8363325670583389, 0.8346849830510361, 0.8331542884496569, 0.8313786827120568, 0.8297700618400619, 0.8280334192377697, 0.8263969675548406, 0.8246324941416143, 0.8227845282955855, 0.8209643932604909, 0.819016236495099, 0.8169901534590915, 0.8147080269624897, 0.8125928853314928, 0.8103608542945724, 0.807961838392047, 0.8053067790289273, 0.8025626610708183, 0.7998296754370828, 0.7968350801805663, 0.7936289707609501, 0.7904896552875758, 0.7870497670561125, 0.783582048013715, 0.7797747930779207, 0.7758172517630819, 0.7719265043944851, 0.7678687721602832, 0.7635327318167396, 0.7590185742832175, 0.7541982778294194, 0.7491609010503348, 0.7439175762703374, 0.7388801994912528, 0.7336702716843764, 0.7276755150091563, 0.7221928452551251, 0.7164096027430047, 0.710470507689653, 0.7043087661488281, 0.6974067250371542, 0.6909666753869874, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", -0.8990561306684883, -0.1734214707529778, -0.17218274596188513, -0.17109886176967903, -0.17032465877524608, -0.16934400164896438, -0.16862141218749363, -0.1680020497919473, -0.16779559566009847, -0.1675891415282497, -0.16686655206677897, -0.16609234907234605, -0.16516330547902652, -0.16464717014940453, -0.1638729671549716, -0.16299553709461428, -0.16258262883091673, -0.16201487996833258, -0.16134390403982402, -0.1605697010453911, -0.16000195218280694, -0.1593309762542984, -0.15824709206209225, -0.1578341837983947, -0.15664707254026422, -0.15602771014471786, -0.15530512068324712, -0.1542728500240032, -0.15293089816698613, -0.1520534681066288, -0.15096958391442267, -0.14998892678814096, -0.14890504259593484, -0.14756309073891777, -0.14642759301374944, -0.14513725468969454, -0.14379530283267744, -0.14250496450862254, -0.14100817205271887, -0.139459766063853, -0.1383758818716469, -0.13682747588278102, -0.1347629345642932, -0.1334209827072761, -0.13197580378433463, -0.13042739779546875, -0.1284144700099431, -0.1272789722847748, -0.12619508809256869, -0.1237176385103833, -0.12206600545559303, -0.11979501000525641, -0.11783369575269297, -0.1162852897638271, -0.11432397551126366, -0.11236266125870023, -0.1100916658083636, -0.10802712448987578, -0.10632387790212332, -0.1040528824517867, -0.10178188700145009, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]];
+var a=0;
+var b=0;
+var last_a=0;
+var last_b=0;
+
+function updateRange()
+{
+	if(last_a==a && last_b==b)
+	{
+		setTimeout(updateRange,500);
+		return;
+	}
+ 
+        an=Math.floor(parseInt(a));
+        bn=Math.floor(parseInt(b));
+	var mn = 0;
+	var mx = 0;
+	for(i=an;i<bn;i++)
+	{
+		mx=Math.max(mx,cols[0][i+1]);
+		mn=Math.min(mn,cols[1][i+1]);
+	}
+	r={}
+	r.max=mx;
+	r.min=mn;
+	chart.axis.range(r);
+	last_a=a;
+	last_b=b;
+	setTimeout(updateRange,500);
+}
+setTimeout(updateRange,500);
+
+var chart = c3.generate({
+bindto: '#plot_mapq_tresh',
+data: {
+  columns: [["Correct", 0.8991077442014506, 0.8631948657719989, 0.8611687827359914, 0.8591426996999838, 0.8556805468197732, 0.8534652142694134, 0.8527917086448065, 0.8524967020489043, 0.8523297171832993, 0.8521237691823864, 0.8514057342602849, 0.8501255169573131, 0.8482831172734712, 0.8459620276415614, 0.8439582092543012, 0.8421547727057671, 0.8407409675103114, 0.8393772577745371, 0.8378966586328392, 0.8363325670583389, 0.8346849830510361, 0.8331542884496569, 0.8313786827120568, 0.8297700618400619, 0.8280334192377697, 0.8263969675548406, 0.8246324941416143, 0.8227845282955855, 0.8209643932604909, 0.819016236495099, 0.8169901534590915, 0.8147080269624897, 0.8125928853314928, 0.8103608542945724, 0.807961838392047, 0.8053067790289273, 0.8025626610708183, 0.7998296754370828, 0.7968350801805663, 0.7936289707609501, 0.7904896552875758, 0.7870497670561125, 0.783582048013715, 0.7797747930779207, 0.7758172517630819, 0.7719265043944851, 0.7678687721602832, 0.7635327318167396, 0.7590185742832175, 0.7541982778294194, 0.7491609010503348, 0.7439175762703374, 0.7388801994912528, 0.7336702716843764, 0.7276755150091563, 0.7221928452551251, 0.7164096027430047, 0.710470507689653, 0.7043087661488281, 0.6974067250371542, 0.6909666753869874, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", -0.8990561306684883, -0.1734214707529778, -0.17218274596188513, -0.17109886176967903, -0.17032465877524608, -0.16934400164896438, -0.16862141218749363, -0.1680020497919473, -0.16779559566009847, -0.1675891415282497, -0.16686655206677897, -0.16609234907234605, -0.16516330547902652, -0.16464717014940453, -0.1638729671549716, -0.16299553709461428, -0.16258262883091673, -0.16201487996833258, -0.16134390403982402, -0.1605697010453911, -0.16000195218280694, -0.1593309762542984, -0.15824709206209225, -0.1578341837983947, -0.15664707254026422, -0.15602771014471786, -0.15530512068324712, -0.1542728500240032, -0.15293089816698613, -0.1520534681066288, -0.15096958391442267, -0.14998892678814096, -0.14890504259593484, -0.14756309073891777, -0.14642759301374944, -0.14513725468969454, -0.14379530283267744, -0.14250496450862254, -0.14100817205271887, -0.139459766063853, -0.1383758818716469, -0.13682747588278102, -0.1347629345642932, -0.1334209827072761, -0.13197580378433463, -0.13042739779546875, -0.1284144700099431, -0.1272789722847748, -0.12619508809256869, -0.1237176385103833, -0.12206600545559303, -0.11979501000525641, -0.11783369575269297, -0.1162852897638271, -0.11432397551126366, -0.11236266125870023, -0.1100916658083636, -0.10802712448987578, -0.10632387790212332, -0.1040528824517867, -0.10178188700145009, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]],
+  type: "area"
+},
+grid: {
+  y: {
+    show: true
+  }
+},
+axis: {
+  x: {
+    label: "Mapping Quality Threshold"
+  },
+
+  y: {
+    label: { text: "Read Count", position: "outer-middle" },
+    tick: {
+       format: function(v) { if(v>=0){return Math.min(100,(Math.round(100000*v)/1000))+"%";}else{ return Math.min(100,(Math.round(100000*(-v/9.272732))/1000))+"%";} }
+    }
+  }
+},
+legend: {
+	position: "right"
+},
+subchart: {
+	show: true,
+	onbrush: function (d) {
+		a = d[0];
+		b = d[1];
+	}
+}
+});
+
+</script>
+<script src="http://teaser.cibiv.univie.ac.at/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="javascript">$('#content').scrollspy();</script>
+<script src="http://teaser.cibiv.univie.ac.at/static/extensions/bootstrap-select.min.js"></script>
+
+<script src="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/js/jquery.dataTables.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/extensions/dataTables.bootstrap.js"></script>
+</body>
+</html>

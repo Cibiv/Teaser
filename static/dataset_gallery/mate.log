@@ -1,0 +1,177 @@
+[02:17:27] [Main        ] framework cmd:  /project/teaser/teaser.py paper_main
+[02:17:27] [Main        ] framework hash: vevev
+[02:17:27] [Main        ] deployment mode: devel (True)
+[02:17:27] [Main        ] Teaser Example Dataset Evaluation - "Examples showcasing mapper differences across datasets"
+
+[02:17:27] [Main        ] Using Teaser for data set simulation
+[02:17:28] [Teaser      ] Init. Simulating 10 test datasets.
+[02:17:28] [Teaser      ] Data set H1_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set H2_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set D1_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set M1_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set D2_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set M2_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set D3_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set M3_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set D4_n already exists, not creating.
+[02:17:28] [Teaser      ] Data set M4_n already exists, not creating.
+[02:17:28] [Main        ] Data set simulation completed.
+[02:17:28] [Main        ] 
+[02:17:28] [Load H1_n] Loading cached version of H1_n<ngm> /project/teaser/cache/dev_bc8e8916491cf0e934ce711088989b85.test
+[02:17:28] [Load H2_n] Loading cached version of H2_n<ngm> /project/teaser/cache/dev_0868a33eafe3860651d3870dac69e5ac.test
+[02:17:28] [Load D1_n] Loading cached version of D1_n<ngm> /project/teaser/cache/dev_d00f9651229be883cecf6ac42660e57e.test
+[02:17:28] [Load M1_n] Loading cached version of M1_n<ngm> /project/teaser/cache/dev_a1f69a25e26f7c9212825cb053652bd5.test
+[02:17:28] [Load D2_n] Loading cached version of D2_n<ngm> /project/teaser/cache/dev_dc48d141452d6c0244c701babbad09ec.test
+[02:17:28] [Load M2_n] Loading cached version of M2_n<ngm> /project/teaser/cache/dev_3f1e9ec6e59a53503730cde4adac62d0.test
+[02:17:28] [Load D3_n] Loading cached version of D3_n<ngm> /project/teaser/cache/dev_550f6d63e7bedaf7fe92ba13e225b426.test
+[02:17:28] [Load M3_n] Loading cached version of M3_n<ngm> /project/teaser/cache/dev_a1c8491a51f70f86a52812d183e2c6ec.test
+[02:17:28] [Load D4_n] Loading cached version of D4_n<ngm> /project/teaser/cache/dev_4db93c02db509e2f71f09d0e424e8514.test
+[02:17:28] [Load M4_n] Loading cached version of M4_n<ngm> /project/teaser/cache/dev_c5160fabe82046f2f42d50596d476b64.test
+[02:17:28] [Load H1_n] Loading cached version of H1_n<bowtie2> /project/teaser/cache/dev_af464bd707d843bb3ef30ee98b58cf03.test
+[02:17:29] [Load H2_n] Loading cached version of H2_n<bowtie2> /project/teaser/cache/dev_97ce3eefcb6e40144a3b2540f3362f2b.test
+[02:17:29] [Load D1_n] Loading cached version of D1_n<bowtie2> /project/teaser/cache/dev_26316ec4d7fa76dc1de642371a3c6ee7.test
+[02:17:29] [Load M1_n] Loading cached version of M1_n<bowtie2> /project/teaser/cache/dev_f54353da17d424d70f8a9b03b9e39136.test
+[02:17:29] [Load D2_n] Loading cached version of D2_n<bowtie2> /project/teaser/cache/dev_3560f20a818f27361c7a362759d4341e.test
+[02:17:29] [Load M2_n] Loading cached version of M2_n<bowtie2> /project/teaser/cache/dev_66059105be22d618790ee75a34a98373.test
+[02:17:29] [Load D3_n] Loading cached version of D3_n<bowtie2> /project/teaser/cache/dev_c86501b86818d0d0d5cce2c74aa07c88.test
+[02:17:29] [Load M3_n] Loading cached version of M3_n<bowtie2> /project/teaser/cache/dev_2255cff5ac9c4611a5166c9c690d29eb.test
+[02:17:29] [Load D4_n] Loading cached version of D4_n<bowtie2> /project/teaser/cache/dev_ecf0acfc0167af486e3afbca318d8091.test
+[02:17:29] [Load M4_n] Loading cached version of M4_n<bowtie2> /project/teaser/cache/dev_01d4e0fcd6f075b8fcfdc45e2776e9a2.test
+[02:17:29] [Load H1_n] Loading cached version of H1_n<bwa> /project/teaser/cache/dev_e9b54ef8389d290c0e427aa1abfee980.test
+[02:17:29] [Load H2_n] Loading cached version of H2_n<bwa> /project/teaser/cache/dev_d990c2631bbf31769e196ccef3114c19.test
+[02:17:29] [Load D1_n] Loading cached version of D1_n<bwa> /project/teaser/cache/dev_199f09235cad898743aff8f6bcfedd69.test
+[02:17:29] [Load M1_n] Loading cached version of M1_n<bwa> /project/teaser/cache/dev_f27515ab7bb5345c3d4d21db9abfce33.test
+[02:17:29] [Load D2_n] Loading cached version of D2_n<bwa> /project/teaser/cache/dev_55cc9725a0eceda783fafcba8fd99460.test
+[02:17:29] [Load M2_n] Loading cached version of M2_n<bwa> /project/teaser/cache/dev_0487a326462e2e52e7d5547f03885994.test
+[02:17:29] [Load D3_n] Loading cached version of D3_n<bwa> /project/teaser/cache/dev_9b29815273700a299f815bc735202489.test
+[02:17:29] [Load M3_n] Loading cached version of M3_n<bwa> /project/teaser/cache/dev_de613d1f88c20d45d99e3db849e300b2.test
+[02:17:29] [Load D4_n] Loading cached version of D4_n<bwa> /project/teaser/cache/dev_a189aa06ee599fe8490d45966a117e60.test
+[02:17:29] [Load M4_n] Loading cached version of M4_n<bwa> /project/teaser/cache/dev_cb19914b43b1d7e5a86d407c4ad8d7a5.test
+[02:17:29] [Load H1_n] Loading cached version of H1_n<bwamem> /project/teaser/cache/dev_8cebb82af46a360031a56972db60ba4d.test
+[02:17:29] [Load H2_n] Loading cached version of H2_n<bwamem> /project/teaser/cache/dev_68254ff645f79cf7c5019830e1898c9c.test
+[02:17:29] [Load D1_n] Loading cached version of D1_n<bwamem> /project/teaser/cache/dev_8b6b024e6daf4a6d027c272e8ad0110c.test
+[02:17:29] [Load M1_n] Loading cached version of M1_n<bwamem> /project/teaser/cache/dev_6d117f0a171509143ee8d6ffa48bb2e1.test
+[02:17:29] [Load D2_n] Loading cached version of D2_n<bwamem> /project/teaser/cache/dev_0bc51473f9f70bbc368e0485518cd8ea.test
+[02:17:29] [Load M2_n] Loading cached version of M2_n<bwamem> /project/teaser/cache/dev_78756fe8ae11cab3591ee9f24a38dc5d.test
+[02:17:29] [Load D3_n] Loading cached version of D3_n<bwamem> /project/teaser/cache/dev_524dd566af2c3d5505b9ee5f74a2e901.test
+[02:17:29] [Load M3_n] Loading cached version of M3_n<bwamem> /project/teaser/cache/dev_10a9c4ab7566ccde334786b4e1ce7574.test
+[02:17:29] [Load D4_n] Loading cached version of D4_n<bwamem> /project/teaser/cache/dev_a0c55ece193a46efd354950f2ffeda36.test
+[02:17:29] [Load M4_n] Loading cached version of M4_n<bwamem> /project/teaser/cache/dev_7883cbd7bb7677a4bd4bde76d6752528.test
+[02:17:29] [Load H1_n] Loading cached version of H1_n<bwasw> /project/teaser/cache/dev_6ad06fe4bd66a42ca701b1e2ca08c3a7.test
+[02:17:29] [Load H2_n] Loading cached version of H2_n<bwasw> /project/teaser/cache/dev_75f352ec2d26874e8988e875bbe59cfa.test
+[02:17:29] [Load D1_n] Loading cached version of D1_n<bwasw> /project/teaser/cache/dev_f7cf5b1e3259ccaf2910238c64014ce9.test
+[02:17:29] [Load M1_n] Loading cached version of M1_n<bwasw> /project/teaser/cache/dev_daba62f1e346203baa0f62387b0ef51c.test
+[02:17:29] [Load D2_n] Loading cached version of D2_n<bwasw> /project/teaser/cache/dev_38bf07d733fa89394cae62a449558df1.test
+[02:17:29] [Load M2_n] Loading cached version of M2_n<bwasw> /project/teaser/cache/dev_719ec9482f614bcc9fb76a0f24420dfa.test
+[02:17:29] [Load D3_n] Loading cached version of D3_n<bwasw> /project/teaser/cache/dev_ff3c276a61f08fb5227e44a7d473fca8.test
+[02:17:29] [Load M3_n] Loading cached version of M3_n<bwasw> /project/teaser/cache/dev_11ed9b2e91b3e679cbcd481218521834.test
+[02:17:29] [Load D4_n] Loading cached version of D4_n<bwasw> /project/teaser/cache/dev_849bbe3701c0b99c4ead3a9acb6205b4.test
+[02:17:29] [Load M4_n] Loading cached version of M4_n<bwasw> /project/teaser/cache/dev_5fcb96ac94b0859626e8859e5b69cc8c.test
+[02:17:29] [ngm         ] Skip: D1_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: D2_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: D3_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: D4_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: H1_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: H2_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: M1_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: M2_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: M3_n<ngm> (already run)
+
+[02:17:29] [ngm         ] Skip: M4_n<ngm> (already run)
+
+[02:17:29] [bowtie2     ] Skip: D1_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: D2_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: D3_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: D4_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: H1_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: H2_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: M1_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: M2_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: M3_n<bowtie2> (already run)
+
+[02:17:29] [bowtie2     ] Skip: M4_n<bowtie2> (already run)
+
+[02:17:29] [bwa         ] Skip: D1_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: D2_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: D3_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: D4_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: H1_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: H2_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: M1_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: M2_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: M3_n<bwa> (already run)
+
+[02:17:29] [bwa         ] Skip: M4_n<bwa> (already run)
+
+[02:17:29] [bwamem      ] Skip: D1_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: D2_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: D3_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: D4_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: H1_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: H2_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: M1_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: M2_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: M3_n<bwamem> (already run)
+
+[02:17:29] [bwamem      ] Skip: M4_n<bwamem> (already run)
+
+[02:17:29] [bwasw       ] Skip: D1_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: D2_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: D3_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: D4_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: H1_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: H2_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: M1_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: M2_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: M3_n<bwasw> (already run)
+
+[02:17:29] [bwasw       ] Skip: M4_n<bwasw> (already run)
+
+[02:17:29] [Main        ] Generate HTML report -> /home/CIBIV/moritz/public_html/paper_benchmarks/main...
+[02:17:30] [Main        ] Cleaned 0 tests from cache (mate version based clean)
+
+[02:17:30] [Main        ] Cleaning for ngm...
+[02:17:30] [Main        ] Cleaning for bwa...
+[02:17:30] [Main        ] Cleaning for bwamem...
+[02:17:30] [Main        ] Cleaning for bwasw...
+[02:17:30] [Main        ] Cleaning for bowtie2...

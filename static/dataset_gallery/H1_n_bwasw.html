@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Teaser</title>
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/c3/c3.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/extensions/bootstrap-select.min.css">
+    <style>
+body {
+  padding-top: 60px;
+  position: relative;
+}
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+
+.sidebar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+.nav-sidebar {
+  margin-right: -21px;
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+a.separator
+{
+color:#777777;
+}
+
+a.separator:hover
+{
+color:#777777;
+}
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+section {
+    padding-top: 60px;
+    margin-top: -60px;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.main-container
+{
+   margin: 0 auto;
+   max-width: 1300px;
+}
+
+
+    </style>
+  </head>
+
+<body data-spy="scroll" data-target="#sidebar">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Teaser</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+           <li><a href="start.html">Benchmark</a></li><li><a href="#" class="separator"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">H1<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="D1_n.html">D1</a></li><li><a href="D2_n.html">D2</a></li><li><a href="D3_n.html">D3</a></li><li><a href="D4_n.html">D4</a></li><li><a href="H1_n.html">H1</a></li><li><a href="H2_n.html">H2</a></li><li><a href="M1_n.html">M1</a></li><li><a href="M2_n.html">M2</a></li><li><a href="M3_n.html">M3</a></li><li><a href="M4_n.html">M4</a></li></ul></li><li><a href="#" class="separator"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">BWA-SW<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="H1_n_ngm.html">NGM</a></li><li><a href="H1_n_bwa.html">BWA</a></li><li><a href="H1_n_bwamem.html">BWA-MEM</a></li><li><a href="H1_n_bwasw.html">BWA-SW</a></li><li><a href="H1_n_bowtie2.html">Bowtie 2</a></li></ul></li>
+          </ul>
+          <div class="nav navbar-nav navbar-right" style="padding:5px;">
+           
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid main-container">
+      <div class="row">
+        
+        <div class="col-sm-3 col-md-2 sidebar">
+          <div id="sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#section1">Mapping Quality Thresholds</a></li><li><a href="#section2">Basic Statistics</a></li><li><a href="#section3">Read Failure Statistics</a></li><li><a href="#section4">Advanced Statistics</a></li><li><a href="#section5">Timing</a></li><li><a href="#section6">Additional Information</a></li><li><a href="#section7">Errors and Warnings</a></li><li><a href="#section8">Subprocess Log</a></li>
+          </ul>
+          </div>
+        </div>
+        <div class="col-sm-9  col-sm-offset-3 col-md-offset-2  col-md-10 main" id="content">
+            <section id="section1"><div class="panel panel-default"><div class="panel-heading">Mapping Quality Thresholds</div><div class="panel-body"><p>The plot below shows the percentages of correctly and wrongly mapped reads for all mapping quality thresholds for this mapper. The values at threshold 0 therefore correspond to the unfiltered results.</p><div id="plot_mapq_tresh"></div></div></div></section><section id="section2"><div class="panel panel-default"><div class="panel-heading">Basic Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Correctly Mapped</th><td class="col-md-2">302666</td><td class="col-md-2">96.478%</td></tr><tr><th>Wrongly Mapped</th><td>9481</td><td>3.022%</td></tr><tr><th>Not Mapped</th><td>110</td><td>0.035%</td></tr><tr><th>Total</th><td>313716</td><td>100.0%</td></tbody></table></div></div></section><section id="section3"><div class="panel panel-default"><div class="panel-heading">Read Failure Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Not mapped</th><td class="col-md-2">110</td><td class="col-md-2">0.035%</td></tr><tr><th>Missing in mapper output</th><td>1446</td><td>0.461%</td></tr><tr><th>Mapped to wrong chromosome</th><td>6032</td><td>1.923%</td></tr><tr><th>Mapped to wrong position</th><td>3449</td><td>1.099%</td></tr><tr><th>Mapped to wrong strand</th><td>0</td><td>0.0%</td></tbody></table></div></div></section><section id="section4"><div class="panel panel-default"><div class="panel-heading">Advanced Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th>Missing in comparison alignment</th><td>1583</td></tr><tr><th class="col-md-6">Secondary Alignments</th><td class="col-md-4">0</td></tr><tr><th><abbr title="Harmonic Mean of Precision and Recall">F-Measure</abbr></th><td>0.984403</td></tr><tr><th><abbr title="Correctly Mapped / (Correctly Mapped + Wrongly Mapped)">Precision</abbr></th><td>0.969626</td></tr><tr><th><abbr title="Correctly Mapped / (Correctly Mapped + Unmapped)">Recall</abbr></th><td>0.999637</td></tbody></table></div></div></section><section id="section5"><div class="panel panel-default"><div class="panel-heading">Timing</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Raw Mapping Time</th><td class="col-md-4">45.263s</td></tr><tr><th>Effective Mapping Time</th><td>43.499s</td></tr><tr><th>Effective Init Time</th><td>1.764s</td></tr><tr><th>Effective Time Measure</th><td>Wall clock</td></tr><tr><th>Mapping Time (Wall)</th><td>45.263s</td></tr><tr><th>Mapping Time (CPU)</th><td>163.100s</td></tr><tr><th>Mapping Time (CPU User)</th><td>160.230s</td></tr><tr><th>Mapping Time (CPU System)</th><td>2.870s</td></tr><tr><th>Init Time (Wall)</th><td>1.764s</td></tr><tr><th>Init Time (CPU)</th><td>1.140s</td></tr><tr><th>Init Time (CPU User)</th><td>0.000s</td></tr><tr><th>Init Time (CPU System)</th><td>1.140s</td></tr></tbody></table></div></div></section><section id="section6"><div class="panel panel-default"><div class="panel-heading">Additional Information</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Mapper Memory Usage</th><td class="col-md-4">5852 MB</td></tr><tr><th>Total Test Runtime (Wall)</th><td>94.030s</td></tr><tr><th>Mapper Command Line:</th><td>&nbsp;</td></tr><tr><td colspan=2>/project/teaser/software/bwa bwasw /scratch/mate/refs/GRCh37.fa reads1.fastq reads2.fastq  -t 4 > out_bwasw.sam</td></tr></tbody></table></div></div></section><section id="section7"><div class="panel panel-default"><div class="panel-heading">Errors and Warnings</div><div class="panel-body"><table class="table table-striped"><thead><tr><th>Type</th><th>Message</th><th>File</th><th>Position</th></tr></thead><tbody><tr><td class="col-md-1 warning" align="center"><span class="glyphicon glyphicon-exclamation-sign"></span></td><td>Comparison read is part of a pair, but test read not</td><td>sorted_out_bwasw.sam</td><td>Y29udGlnXzc0NTM5ODlfNzQ1NDM5M18wXzFfMF8wXzI6MDowXzU6MDowXzE5OGE2</td></tr><tr><td class="col-md-1 warning" align="center"><span class="glyphicon glyphicon-exclamation-sign"></span></td><td>Comparison read is part of a pair, but test read not</td><td>sorted_out_bwasw.sam</td><td>Y29udGlnXzc3MTczOF83NzEzODVfMV8wXzBfMF8zOjA6MF8xOjA6MF8xMTZm</td></tr><tr><td class="col-md-1 warning" align="center"><span class="glyphicon glyphicon-exclamation-sign"></span></td><td>Comparison read is part of a pair, but test read not</td><td>sorted_out_bwasw.sam</td><td>Y29udGlnXzc3NjU0MjBfNzc2NTA0Ml8xXzBfMF8wXzY6MDowXzE6MDowXzEyOGEy</td></tr><tr><td class="col-md-1 warning" align="center"><span class="glyphicon glyphicon-exclamation-sign"></span></td><td>Comparison read is part of a pair, but test read not</td><td>sorted_out_bwasw.sam</td><td>Y29udGlnXzc4NDk3NzRfNzg1MDEyNF8wXzFfMF8wXzU6MDowXzI6MDowXzEyN2I5</td></tr><tr><td class="col-md-1 warning" align="center"><span class="glyphicon glyphicon-exclamation-sign"></span></td><td>Comparison read is part of a pair, but test read not</td><td>sorted_out_bwasw.sam</td><td>Y29udGlnXzcxMjQ0NDlfNzEyNDE2NF8xXzBfMF8wXzQ6MDowXzM6MDowXzEwZmI=</td></tr><tr><td class="col-md-1 warning" align="center"><span class="glyphicon glyphicon-exclamation-sign"></span></td><td>Comparison read is part of a pair, but test read not</td><td>sorted_out_bwasw.sam</td><td>Y29udGlnXzcxMjQ0NDlfNzEyNDE2NF8xXzBfMF8wXzQ6MDowXzM6MDowXzEwZmI=</td></tr><tr><td class="col-md-1 warning" align="center"><span class="glyphicon glyphicon-exclamation-sign"></span></td><td>Could not match pairs</td><td>sorted_out_bwasw.sam</td><td>Y29udGlnXzcxODQ1OThfNzE4NDkzMF8wXzFfMF8wXzQ6MDowXzU6MDowXzFiYmRj</td></tr><tr><td class="col-md-1 warning" align="center"><span class="glyphicon glyphicon-exclamation-sign"></span></td><td>Comparison read is part of a pair, but test read not</td><td>sorted_out_bwasw.sam</td><td>Y29udGlnXzE0MTQwMDdfMTQxMzYwNV8xXzBfMF8wXzY6MDoxXzM6MDowXzFjNzM2</td></tr><tr><td class="col-md-1 warning" align="center"><span class="glyphicon glyphicon-exclamation-sign"></span></td><td>Comparison read is part of a pair, but test read not</td><td>sorted_out_bwasw.sam</td><td>Y29udGlnXzE0MTQwMDdfMTQxMzYwNV8xXzBfMF8wXzY6MDoxXzM6MDowXzFjNzM2</td></tr><tr><td class="col-md-1 warning" align="center"><span class="glyphicon glyphicon-exclamation-sign"></span></td><td>Comparison read is part of a pair, but test read not</td><td>sorted_out_bwasw.sam</td><td>Y29udGlnXzE0MzE2NjMzXzE0MzE2MjQ2XzFfMF8wXzBfNzowOjBfMzowOjBfMWY3ZWU=</td></tr><tr><td class="col-md-1 warning" align="center"><span class="glyphicon glyphicon-exclamation-sign"></span></td><td>Maximum number of warnings exceeded for test</td><td>None</td><td>None</td></tr></table></div></div></section><section id="section8"><div class="panel panel-default"><div class="panel-heading">Subprocess Log</div><div class="panel-body"><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/bwa bwasw /scratch/mate/refs/GRCh37.fa reads_base.fastq  -t 4 > out_bwasw.sam</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/bwa bwasw /scratch/mate/refs/GRCh37.fa reads_base.fastq  -t 4 > out_bwasw.sam</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>5395501056</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse139" class="collapsed">stderr</a></h4></div><div id="collapse139" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse140" class="collapsed">stdout</a></h4></div><div id="collapse140" class="panel-collapse collapse"><div class="panel-body"><pre>[M::bwa_idx_load_from_disk] read 0 ALT contigs<br>
+[bsw2_aln] read 1 sequences/pairs (60 bp) ...<br>
+[main] Version: 0.7.12-r1039<br>
+[main] CMD: /project/teaser/software/bwa bwasw -t 4 /scratch/mate/refs/GRCh37.fa reads_base.fastq<br>
+[main] Real time: 38.814 sec; CPU: 5.789 sec<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>5.68</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>38.8080649376</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>0.0</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/H1_n</small></td></tr></tbody></table></div></div><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/bwa bwasw /scratch/mate/refs/GRCh37.fa reads_base.fastq  -t 4 > out_bwasw.sam</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/bwa bwasw /scratch/mate/refs/GRCh37.fa reads_base.fastq  -t 4 > out_bwasw.sam</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>5258924032</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse141" class="collapsed">stderr</a></h4></div><div id="collapse141" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse142" class="collapsed">stdout</a></h4></div><div id="collapse142" class="panel-collapse collapse"><div class="panel-body"><pre>[M::bwa_idx_load_from_disk] read 0 ALT contigs<br>
+[bsw2_aln] read 1 sequences/pairs (60 bp) ...<br>
+[main] Version: 0.7.12-r1039<br>
+[main] CMD: /project/teaser/software/bwa bwasw -t 4 /scratch/mate/refs/GRCh37.fa reads_base.fastq<br>
+[main] Real time: 1.749 sec; CPU: 1.691 sec<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>1.14</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>1.76439404488</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>0.0</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/H1_n</small></td></tr></tbody></table></div></div><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/bwa bwasw /scratch/mate/refs/GRCh37.fa reads1.fastq reads2.fastq  -t 4 > out_bwasw.sam</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/bwa bwasw /scratch/mate/refs/GRCh37.fa reads1.fastq reads2.fastq  -t 4 > out_bwasw.sam</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>5852168192</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse143" class="collapsed">stderr</a></h4></div><div id="collapse143" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse144" class="collapsed">stdout</a></h4></div><div id="collapse144" class="panel-collapse collapse"><div class="panel-body"><pre>[M::bwa_idx_load_from_disk] read 0 ALT contigs<br>
+[bsw2_aln] read 313716 sequences/pairs (31371600 bp) ...<br>
+[bsw2_stat] infer the insert size distribution from 32604 high-quality pairs.<br>
+[bsw2_stat] (25, 50, 75) percentile: (466, 500, 534)<br>
+[bsw2_stat] low and high boundaries for computing mean and std.dev: (330, 670)<br>
+[bsw2_stat] mean and std.dev: (500.01, 49.69)<br>
+[bsw2_stat] low and high boundaries for proper pairs: (262, 738)<br>
+[bsw2_pair] #fixed=915, #rescued=995, #moved=198<br>
+[bsw2_stat] infer the insert size distribution from 32671 high-quality pairs.<br>
+[bsw2_stat] (25, 50, 75) percentile: (466, 500, 534)<br>
+[bsw2_stat] low and high boundaries for computing mean and std.dev: (330, 670)<br>
+[bsw2_stat] mean and std.dev: (499.81, 50.06)<br>
+[bsw2_stat] low and high boundaries for proper pairs: (262, 738)<br>
+[bsw2_pair] #fixed=895, #rescued=1043, #moved=229<br>
+[bsw2_stat] infer the insert size distribution from 32448 high-quality pairs.<br>
+[bsw2_stat] (25, 50, 75) percentile: (466, 500, 534)<br>
+[bsw2_stat] low and high boundaries for computing mean and std.dev: (330, 670)<br>
+[bsw2_stat] mean and std.dev: (499.87, 49.76)<br>
+[bsw2_stat] low and high boundaries for proper pairs: (262, 738)<br>
+[bsw2_pair] #fixed=914, #rescued=1086, #moved=232<br>
+[bsw2_stat] infer the insert size distribution from 32758 high-quality pairs.<br>
+[bsw2_stat] (25, 50, 75) percentile: (466, 500, 534)<br>
+[bsw2_stat] low and high boundaries for computing mean and std.dev: (330, 670)<br>
+[bsw2_stat] mean and std.dev: (499.62, 49.91)<br>
+[bsw2_stat] low and high boundaries for proper pairs: (262, 738)<br>
+[bsw2_pair] #fixed=904, #rescued=1015, #moved=199<br>
+[main] Version: 0.7.12-r1039<br>
+[main] CMD: /project/teaser/software/bwa bwasw -t 4 /scratch/mate/refs/GRCh37.fa reads1.fastq reads2.fastq<br>
+[main] Real time: 45.264 sec; CPU: 163.115 sec<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>2.87</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>45.2631690502</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>160.23</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/H1_n</small></td></tr></tbody></table></div></div></div></div></section><p></p><div style="margin:300px; height:300px;">&nbsp;</div>
+        </div>
+      </div>
+    </div>
+
+
+<script src="http://teaser.cibiv.univie.ac.at/static/js/d3.v3.min.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/c3/c3.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/js/jquery.js"></script>
+<script>
+
+var cols=[["Correct", 0.9647770595060501, 0.9546532532609111, 0.9525908783740709, 0.9479848015402466, 0.9466746994096571, 0.9441278098662484, 0.9424606969360824, 0.9409083374772087, 0.9394834818753267, 0.9383231967767025, 0.9370417830139361, 0.9355021739407617, 0.9309152226854862, 0.9296879980619414, 0.9286775299952823, 0.9278806308890843, 0.9268350992617527, 0.9253337413456757, 0.9246770964821686, 0.9238865725688202, 0.9234275586836502, 0.9126694207499777, 0.9097750831962667, 0.9060710961506585, 0.9031512578255492, 0.8998234071580665, 0.8966071223654516, 0.8934418391156332, 0.8901267388338497, 0.8866363207487027, 0.8824223182751278, 0.8786003901618024, 0.8723303879942368, 0.8592325542847671, 0.8499598362850477, 0.8452740695406036, 0.8418856545410499, 0.8371935126037563, 0.8352937051345803, 0.8339102882862207, 0.8329316961838096, 0.8311307042038022, 0.8295560315699549, 0.8275701589973097, 0.8261548661847021, 0.8245451299901823, 0.8232987797880886, 0.8218292978362596, 0.8205893228270155, 0.8191612796287088, 0.8170989047418684, 0.8151417205370463, 0.8098981244182637, 0.7861887822106619, 0.7699862295834449, 0.7659634828953575, 0.7651283326320621, 0.7647968226038838, 0.7643696846829616, 0.7637289778015784, 0.76363016231241, 0.7629448290810797, 0.7623104973925461, 0.7618769842787745, 0.7608665162121154, 0.7605095054125387, 0.7602831860663785, 0.7593619706996136, 0.7590177102857362, 0.7585427584184422, 0.7580773693404226, 0.7577012329622971, 0.7566971400884877, 0.7562540641854416, 0.7554699154649428, 0.7548483341621084, 0.7541757513164773, 0.7535541700136429, 0.7530792181463489, 0.7522281299009295, 0.751807367172857, 0.7512463502020936, 0.7501020030855934, 0.7494326078363871, 0.7482563847556388, 0.747794183274044, 0.7474052965102195, 0.7463884532507108, 0.7459963788904614, 0.7452377309413609, 0.7446289000242258, 0.7442814520139234, 0.7430351018118299, 0.742572900330235, 0.7420628849022682, 0.7411097935712555, 0.7405296510219435, 0.7395159953588596, 0.7388752884774764, 0.7383110839102883, 0.7371890499687616, 0.7365037167374313, 0.7352191153782401, 0.734348901554272, 0.7332077420341966, 0.7323662165780515, 0.7315119407362073, 0.730903109819072, 0.7302783409198128, 0.7296408216348544, 0.7290096775427457, 0.7282988435400171, 0.7272214359484375, 0.7266189802241518, 0.725987836132043, 0.7255192594575985, 0.7246426704407808, 0.7236927667061929, 0.7232656287852708, 0.7228289280750743, 0.7218535235690879, 0.7213594461232452, 0.7202852261280904, 0.7199664664856112, 0.7193002588328297, 0.7180252202629129, 0.7174801412742735, 0.7161732267401089, 0.7158002779584083, 0.7152934501268663, 0.7140502875211975, 0.7136773387394969, 0.7129824427188922, 0.7119050351273126, 0.7110953856354155, 0.7103080493184919, 0.7094728990551964, 0.7085994976348035, 0.707627280725242, 0.706951510283186, 0.7060940468449171, 0.7053832128421885, 0.7039296688724834, 0.7034100906552423, 0.702817197720231, 0.7013158398041541, 0.7008600135154088, 0.6991387114460212, 0.6988709533463388, 0.6980071147152201, 0.696308125820806, 0.6958331739535121, 0.6954442871896875, 0.6938377385915924, 0.6929643371711994, 0.6915968583049638, 0.690353695699295, 0.690136939142409, 0.6883869487051983, 0.6853778576801949, 0.683905188131941, 0.68254089686213, 0.681256295502939, 0.6676388835762281, 0.664808297951013, 0.6624176006324192, 0.6614581341085568, 0.6585637965548458, 0.6007312346198472, 0.5947258029555395, 0.5885992426270895, 0.43476902676305956, 0.4244348391538844, 0.41510793201494345, 0.4060041566257379, 0.16898723686391515, 0.1619267107830012, 0.14989353427941196, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", -0.9646753112399137, -0.0813986129091795, -0.035103151817083664, -0.013634267662287567, -0.009564337016828591, -0.006918882097280259, -0.005392658105233142, -0.004375175443868399, -0.003662937580913078, -0.0030524479840942317, -0.002848951451821283, -0.002034965322729488, -0.0006104895968188463, -0.000508741330682372, -0.0004069930645458975, -0.0004069930645458975, -0.0004069930645458975, -0.0004069930645458975, -0.0004069930645458975, -0.00020349653227294876, -0.00020349653227294876, -0.00010174826613647438, -0.00010174826613647438, -0.00010174826613647438, -0.00010174826613647438, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]];
+var a=0;
+var b=0;
+var last_a=0;
+var last_b=0;
+
+function updateRange()
+{
+	if(last_a==a && last_b==b)
+	{
+		setTimeout(updateRange,500);
+		return;
+	}
+ 
+        an=Math.floor(parseInt(a));
+        bn=Math.floor(parseInt(b));
+	var mn = 0;
+	var mx = 0;
+	for(i=an;i<bn;i++)
+	{
+		mx=Math.max(mx,cols[0][i+1]);
+		mn=Math.min(mn,cols[1][i+1]);
+	}
+	r={}
+	r.max=mx;
+	r.min=mn;
+	chart.axis.range(r);
+	last_a=a;
+	last_b=b;
+	setTimeout(updateRange,500);
+}
+setTimeout(updateRange,500);
+
+var chart = c3.generate({
+bindto: '#plot_mapq_tresh',
+data: {
+  columns: [["Correct", 0.9647770595060501, 0.9546532532609111, 0.9525908783740709, 0.9479848015402466, 0.9466746994096571, 0.9441278098662484, 0.9424606969360824, 0.9409083374772087, 0.9394834818753267, 0.9383231967767025, 0.9370417830139361, 0.9355021739407617, 0.9309152226854862, 0.9296879980619414, 0.9286775299952823, 0.9278806308890843, 0.9268350992617527, 0.9253337413456757, 0.9246770964821686, 0.9238865725688202, 0.9234275586836502, 0.9126694207499777, 0.9097750831962667, 0.9060710961506585, 0.9031512578255492, 0.8998234071580665, 0.8966071223654516, 0.8934418391156332, 0.8901267388338497, 0.8866363207487027, 0.8824223182751278, 0.8786003901618024, 0.8723303879942368, 0.8592325542847671, 0.8499598362850477, 0.8452740695406036, 0.8418856545410499, 0.8371935126037563, 0.8352937051345803, 0.8339102882862207, 0.8329316961838096, 0.8311307042038022, 0.8295560315699549, 0.8275701589973097, 0.8261548661847021, 0.8245451299901823, 0.8232987797880886, 0.8218292978362596, 0.8205893228270155, 0.8191612796287088, 0.8170989047418684, 0.8151417205370463, 0.8098981244182637, 0.7861887822106619, 0.7699862295834449, 0.7659634828953575, 0.7651283326320621, 0.7647968226038838, 0.7643696846829616, 0.7637289778015784, 0.76363016231241, 0.7629448290810797, 0.7623104973925461, 0.7618769842787745, 0.7608665162121154, 0.7605095054125387, 0.7602831860663785, 0.7593619706996136, 0.7590177102857362, 0.7585427584184422, 0.7580773693404226, 0.7577012329622971, 0.7566971400884877, 0.7562540641854416, 0.7554699154649428, 0.7548483341621084, 0.7541757513164773, 0.7535541700136429, 0.7530792181463489, 0.7522281299009295, 0.751807367172857, 0.7512463502020936, 0.7501020030855934, 0.7494326078363871, 0.7482563847556388, 0.747794183274044, 0.7474052965102195, 0.7463884532507108, 0.7459963788904614, 0.7452377309413609, 0.7446289000242258, 0.7442814520139234, 0.7430351018118299, 0.742572900330235, 0.7420628849022682, 0.7411097935712555, 0.7405296510219435, 0.7395159953588596, 0.7388752884774764, 0.7383110839102883, 0.7371890499687616, 0.7365037167374313, 0.7352191153782401, 0.734348901554272, 0.7332077420341966, 0.7323662165780515, 0.7315119407362073, 0.730903109819072, 0.7302783409198128, 0.7296408216348544, 0.7290096775427457, 0.7282988435400171, 0.7272214359484375, 0.7266189802241518, 0.725987836132043, 0.7255192594575985, 0.7246426704407808, 0.7236927667061929, 0.7232656287852708, 0.7228289280750743, 0.7218535235690879, 0.7213594461232452, 0.7202852261280904, 0.7199664664856112, 0.7193002588328297, 0.7180252202629129, 0.7174801412742735, 0.7161732267401089, 0.7158002779584083, 0.7152934501268663, 0.7140502875211975, 0.7136773387394969, 0.7129824427188922, 0.7119050351273126, 0.7110953856354155, 0.7103080493184919, 0.7094728990551964, 0.7085994976348035, 0.707627280725242, 0.706951510283186, 0.7060940468449171, 0.7053832128421885, 0.7039296688724834, 0.7034100906552423, 0.702817197720231, 0.7013158398041541, 0.7008600135154088, 0.6991387114460212, 0.6988709533463388, 0.6980071147152201, 0.696308125820806, 0.6958331739535121, 0.6954442871896875, 0.6938377385915924, 0.6929643371711994, 0.6915968583049638, 0.690353695699295, 0.690136939142409, 0.6883869487051983, 0.6853778576801949, 0.683905188131941, 0.68254089686213, 0.681256295502939, 0.6676388835762281, 0.664808297951013, 0.6624176006324192, 0.6614581341085568, 0.6585637965548458, 0.6007312346198472, 0.5947258029555395, 0.5885992426270895, 0.43476902676305956, 0.4244348391538844, 0.41510793201494345, 0.4060041566257379, 0.16898723686391515, 0.1619267107830012, 0.14989353427941196, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", -0.9646753112399137, -0.0813986129091795, -0.035103151817083664, -0.013634267662287567, -0.009564337016828591, -0.006918882097280259, -0.005392658105233142, -0.004375175443868399, -0.003662937580913078, -0.0030524479840942317, -0.002848951451821283, -0.002034965322729488, -0.0006104895968188463, -0.000508741330682372, -0.0004069930645458975, -0.0004069930645458975, -0.0004069930645458975, -0.0004069930645458975, -0.0004069930645458975, -0.00020349653227294876, -0.00020349653227294876, -0.00010174826613647438, -0.00010174826613647438, -0.00010174826613647438, -0.00010174826613647438, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]],
+  type: "area"
+},
+grid: {
+  y: {
+    show: true
+  }
+},
+axis: {
+  x: {
+    label: "Mapping Quality Threshold"
+  },
+
+  y: {
+    label: { text: "Read Count", position: "outer-middle" },
+    tick: {
+       format: function(v) { if(v>=0){return Math.min(100,(Math.round(100000*v)/1000))+"%";}else{ return Math.min(100,(Math.round(100000*(-v/31.920059))/1000))+"%";} }
+    }
+  }
+},
+legend: {
+	position: "right"
+},
+subchart: {
+	show: true,
+	onbrush: function (d) {
+		a = d[0];
+		b = d[1];
+	}
+}
+});
+
+</script>
+<script src="http://teaser.cibiv.univie.ac.at/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="javascript">$('#content').scrollspy();</script>
+<script src="http://teaser.cibiv.univie.ac.at/static/extensions/bootstrap-select.min.js"></script>
+
+<script src="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/js/jquery.dataTables.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/extensions/dataTables.bootstrap.js"></script>
+</body>
+</html>

@@ -1,0 +1,371 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Teaser</title>
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/c3/c3.css">
+    <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/extensions/bootstrap-select.min.css">
+    <style>
+body {
+  padding-top: 60px;
+  position: relative;
+}
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+
+.sidebar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+.nav-sidebar {
+  margin-right: -21px;
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+a.separator
+{
+color:#777777;
+}
+
+a.separator:hover
+{
+color:#777777;
+}
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+section {
+    padding-top: 60px;
+    margin-top: -60px;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.main-container
+{
+   margin: 0 auto;
+   max-width: 1300px;
+}
+
+
+    </style>
+  </head>
+
+<body data-spy="scroll" data-target="#sidebar">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Teaser</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+           <li><a href="start.html">Benchmark</a></li><li><a href="#" class="separator"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">M3<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="D1_n.html">D1</a></li><li><a href="D2_n.html">D2</a></li><li><a href="D3_n.html">D3</a></li><li><a href="D4_n.html">D4</a></li><li><a href="H1_n.html">H1</a></li><li><a href="H2_n.html">H2</a></li><li><a href="M1_n.html">M1</a></li><li><a href="M2_n.html">M2</a></li><li><a href="M3_n.html">M3</a></li><li><a href="M4_n.html">M4</a></li></ul></li><li><a href="#" class="separator"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">NGM<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="M3_n_ngm.html">NGM</a></li><li><a href="M3_n_bwa.html">BWA</a></li><li><a href="M3_n_bwamem.html">BWA-MEM</a></li><li><a href="M3_n_bwasw.html">BWA-SW</a></li><li><a href="M3_n_bowtie2.html">Bowtie 2</a></li></ul></li>
+          </ul>
+          <div class="nav navbar-nav navbar-right" style="padding:5px;">
+           
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid main-container">
+      <div class="row">
+        
+        <div class="col-sm-3 col-md-2 sidebar">
+          <div id="sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#section1">Mapping Quality Thresholds</a></li><li><a href="#section2">Basic Statistics</a></li><li><a href="#section3">Read Failure Statistics</a></li><li><a href="#section4">Advanced Statistics</a></li><li><a href="#section5">Timing</a></li><li><a href="#section6">Additional Information</a></li><li><a href="#section7">Errors and Warnings</a></li><li><a href="#section8">Subprocess Log</a></li>
+          </ul>
+          </div>
+        </div>
+        <div class="col-sm-9  col-sm-offset-3 col-md-offset-2  col-md-10 main" id="content">
+            <section id="section1"><div class="panel panel-default"><div class="panel-heading">Mapping Quality Thresholds</div><div class="panel-body"><p>The plot below shows the percentages of correctly and wrongly mapped reads for all mapping quality thresholds for this mapper. The values at threshold 0 therefore correspond to the unfiltered results.</p><div id="plot_mapq_tresh"></div></div></div></section><section id="section2"><div class="panel panel-default"><div class="panel-heading">Basic Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Correctly Mapped</th><td class="col-md-2">225594</td><td class="col-md-2">93.253%</td></tr><tr><th>Wrongly Mapped</th><td>16301</td><td>6.738%</td></tr><tr><th>Not Mapped</th><td>22</td><td>0.009%</td></tr><tr><th>Total</th><td>241917</td><td>100.0%</td></tbody></table></div></div></section><section id="section3"><div class="panel panel-default"><div class="panel-heading">Read Failure Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Not mapped</th><td class="col-md-2">22</td><td class="col-md-2">0.009%</td></tr><tr><th>Missing in mapper output</th><td>0</td><td>0.0%</td></tr><tr><th>Mapped to wrong chromosome</th><td>7726</td><td>3.194%</td></tr><tr><th>Mapped to wrong position</th><td>8575</td><td>3.545%</td></tr><tr><th>Mapped to wrong strand</th><td>0</td><td>0.0%</td></tbody></table></div></div></section><section id="section4"><div class="panel panel-default"><div class="panel-heading">Advanced Statistics</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th>Missing in comparison alignment</th><td>4</td></tr><tr><th class="col-md-6">Secondary Alignments</th><td class="col-md-4">0</td></tr><tr><th><abbr title="Harmonic Mean of Precision and Recall">F-Measure</abbr></th><td>0.965085</td></tr><tr><th><abbr title="Correctly Mapped / (Correctly Mapped + Wrongly Mapped)">Precision</abbr></th><td>0.932611</td></tr><tr><th><abbr title="Correctly Mapped / (Correctly Mapped + Unmapped)">Recall</abbr></th><td>0.999902</td></tbody></table></div></div></section><section id="section5"><div class="panel panel-default"><div class="panel-heading">Timing</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Raw Mapping Time</th><td class="col-md-4">354.326s</td></tr><tr><th>Effective Mapping Time</th><td>351.287s</td></tr><tr><th>Effective Init Time</th><td>3.039s</td></tr><tr><th>Effective Time Measure</th><td>Wall clock</td></tr><tr><th>Mapping Time (Wall)</th><td>354.326s</td></tr><tr><th>Mapping Time (CPU)</th><td>1318.490s</td></tr><tr><th>Mapping Time (CPU User)</th><td>1107.130s</td></tr><tr><th>Mapping Time (CPU System)</th><td>211.360s</td></tr><tr><th>Init Time (Wall)</th><td>3.039s</td></tr><tr><th>Init Time (CPU)</th><td>2.470s</td></tr><tr><th>Init Time (CPU User)</th><td>0.570s</td></tr><tr><th>Init Time (CPU System)</th><td>1.900s</td></tr></tbody></table></div></div></section><section id="section6"><div class="panel panel-default"><div class="panel-heading">Additional Information</div><div class="panel-body"><table class="table table-striped"><tbody><tr><th class="col-md-6">Mapper Memory Usage</th><td class="col-md-4">7731 MB</td></tr><tr><th>Total Test Runtime (Wall)</th><td>371.558s</td></tr><tr><th>Mapper Command Line:</th><td>&nbsp;</td></tr><tr><td colspan=2>/project/teaser/software/ngm/ngm --output out_ngm.sam --ref /scratch/mate/refs/m_musculus.fasta -t 4 --qry reads.fastq  --no-progress</td></tr></tbody></table></div></div></section><section id="section7"><div class="panel panel-default"><div class="panel-heading">Errors and Warnings</div><div class="panel-body"><i>No problems were encountered.</i></div></div></section><section id="section8"><div class="panel panel-default"><div class="panel-heading">Subprocess Log</div><div class="panel-body"><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/ngm/ngm --output out_ngm.sam --ref /scratch/mate/refs/m_musculus.fasta -t 4 --qry reads_base.fastq  --no-progress</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/ngm/ngm --output out_ngm.sam --ref /scratch/mate/refs/m_musculus.fasta -t 4 --qry reads_base.fastq  --no-progress</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>6636113920</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse241" class="collapsed">stderr</a></h4></div><div id="collapse241" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse242" class="collapsed">stdout</a></h4></div><div id="collapse242" class="panel-collapse collapse"><div class="panel-body"><pre>[MAIN] NextGenMap 0.4.13<br>
+[MAIN] Startup : x64 (build Jun 11 2015 10:48:29)<br>
+[MAIN] Starting time: 2015-08-25.12:36:03<br>
+[CONFIG] Parameter:  --affine 0 --argos_min_score 0 --block_multiplier 2 --bs_cutoff 6 --bs_mapping 0 --cpu_threads 4 --dualstrand 1 --fast_pairing 0 --format 1 --gap_extend_penalty 5 --gap_read_penalty 20 --gap_ref_penalty 20 --hard_clip 0 --keep_tags 0 --kmer 13 --kmer_min 0 --kmer_skip 2 --match_bonus 10 --match_bonus_tc 4 --match_bonus_tt 4 --max_cmrs 2147483647 --max_equal 1 --max_insert_size 1000 --min_identity 0.650000 --min_insert_size 0 --min_mq 0 --min_residues 0.500000 --min_score 0.000000 --mismatch_penalty 15 --mode 0 --no_progress 1 --no_unal 0 --ocl_threads 1 --output out_ngm.sam --overwrite 1 --pair_score_cutoff 0.900000 --paired 0 --parse_all 1 --pe_delimiter / --qry reads_base.fastq --qry_count -1 --qry_start 0 --ref /scratch/mate/refs/m_musculus.fasta --ref_mode -1 --silent_clip 0 --skip_mate_check 0 --skip_save 0 --step_count 4 --strata 0 --topn 1 --update_check 0<br>
+[STATS] Exporting stats at 0x5bfaa000 (Key 0x73297d00, ID 0xd801a)<br>
+[NGM] Opening for output (SAM): out_ngm.sam<br>
+[NGM] NGM Core initialization<br>
+[SEQPROV] Init sequence provider.<br>
+[SEQPROV] Reading encoded reference from /scratch/mate/refs/m_musculus.fasta-enc.ngm<br>
+[SEQPROV] Reading from disk took 0.41s<br>
+[PREPROCESS] Reading RefTable from /scratch/mate/refs/m_musculus.fasta-ht-13-2.ngm<br>
+[PREPROCESS] Reading from disk took 1.82s<br>
+[INPUT] Initializing ReadProvider<br>
+[INPUT] Input is Fastq<br>
+[INPUT] Estimating parameter from data<br>
+[INPUT] Reads found in files: 1<br>
+[INPUT] Average read length: 60 (min: 60, max: 62)<br>
+[INPUT] Corridor width: 14<br>
+[INPUT] Not enough reads to estimate parameter<br>
+[INPUT] Sensitivity parameter neither set nor estimated. Falling back to default.<br>
+[INPUT] Initializing took 0.000s<br>
+[INPUT] Input is Fastq<br>
+[MAIN] Core initialization complete<br>
+Setting of real/effective user Id to 0/0 failed<br>
+FATAL: Module fglrx not found.<br>
+Error! Fail to load fglrx kernel module! Maybe you can switch to root user to load kernel module directly<br>
+Setting of real/effective user Id to 0/0 failed<br>
+FATAL: Module fglrx not found.<br>
+Error! Fail to load fglrx kernel module! Maybe you can switch to root user to load kernel module directly<br>
+[OPENCL] Available platforms: 1<br>
+[OPENCL] AMD Accelerated Parallel Processing<br>
+[OPENCL] Selecting OpenCl platform: AMD Accelerated Parallel Processing<br>
+[OPENCL] Platform: OpenCL 1.2 AMD-APP (1214.3)<br>
+[OPENCL] 1 CPU device found.<br>
+[OPENCL] Device 0: Intel(R) Core(TM) i5-2500K CPU @ 3.30GHz (Driver: 1214.3 (sse2,avx))<br>
+[OPENCL] 4 CPU cores available.<br>
+[MAIN] Alignments computed: 1<br>
+[MAIN] Done (1 reads mapped (100.00%), 0 reads not mapped, 1 lines written)(elapsed: 4.944386s)<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>3.85</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>5.21484088898</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>0.64</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/M3_n</small></td></tr></tbody></table></div></div><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/ngm/ngm --output out_ngm.sam --ref /scratch/mate/refs/m_musculus.fasta -t 4 --qry reads_base.fastq  --no-progress</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/ngm/ngm --output out_ngm.sam --ref /scratch/mate/refs/m_musculus.fasta -t 4 --qry reads_base.fastq  --no-progress</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>6385037312</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse243" class="collapsed">stderr</a></h4></div><div id="collapse243" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse244" class="collapsed">stdout</a></h4></div><div id="collapse244" class="panel-collapse collapse"><div class="panel-body"><pre>[MAIN] NextGenMap 0.4.13<br>
+[MAIN] Startup : x64 (build Jun 11 2015 10:48:29)<br>
+[MAIN] Starting time: 2015-08-25.12:36:08<br>
+[CONFIG] Parameter:  --affine 0 --argos_min_score 0 --block_multiplier 2 --bs_cutoff 6 --bs_mapping 0 --cpu_threads 4 --dualstrand 1 --fast_pairing 0 --format 1 --gap_extend_penalty 5 --gap_read_penalty 20 --gap_ref_penalty 20 --hard_clip 0 --keep_tags 0 --kmer 13 --kmer_min 0 --kmer_skip 2 --match_bonus 10 --match_bonus_tc 4 --match_bonus_tt 4 --max_cmrs 2147483647 --max_equal 1 --max_insert_size 1000 --min_identity 0.650000 --min_insert_size 0 --min_mq 0 --min_residues 0.500000 --min_score 0.000000 --mismatch_penalty 15 --mode 0 --no_progress 1 --no_unal 0 --ocl_threads 1 --output out_ngm.sam --overwrite 1 --pair_score_cutoff 0.900000 --paired 0 --parse_all 1 --pe_delimiter / --qry reads_base.fastq --qry_count -1 --qry_start 0 --ref /scratch/mate/refs/m_musculus.fasta --ref_mode -1 --silent_clip 0 --skip_mate_check 0 --skip_save 0 --step_count 4 --strata 0 --topn 1 --update_check 0<br>
+[STATS] Exporting stats at 0xd3649000 (Key 0x73297d00, ID 0xd801a)<br>
+[NGM] Opening for output (SAM): out_ngm.sam<br>
+[NGM] NGM Core initialization<br>
+[SEQPROV] Init sequence provider.<br>
+[SEQPROV] Reading encoded reference from /scratch/mate/refs/m_musculus.fasta-enc.ngm<br>
+[SEQPROV] Reading from disk took 0.47s<br>
+[PREPROCESS] Reading RefTable from /scratch/mate/refs/m_musculus.fasta-ht-13-2.ngm<br>
+[PREPROCESS] Reading from disk took 0.85s<br>
+[INPUT] Initializing ReadProvider<br>
+[INPUT] Input is Fastq<br>
+[INPUT] Estimating parameter from data<br>
+[INPUT] Reads found in files: 1<br>
+[INPUT] Average read length: 60 (min: 60, max: 62)<br>
+[INPUT] Corridor width: 14<br>
+[INPUT] Not enough reads to estimate parameter<br>
+[INPUT] Sensitivity parameter neither set nor estimated. Falling back to default.<br>
+[INPUT] Initializing took 0.000s<br>
+[INPUT] Input is Fastq<br>
+[MAIN] Core initialization complete<br>
+Setting of real/effective user Id to 0/0 failed<br>
+FATAL: Module fglrx not found.<br>
+Error! Fail to load fglrx kernel module! Maybe you can switch to root user to load kernel module directly<br>
+Setting of real/effective user Id to 0/0 failed<br>
+FATAL: Module fglrx not found.<br>
+Error! Fail to load fglrx kernel module! Maybe you can switch to root user to load kernel module directly<br>
+[OPENCL] Available platforms: 1<br>
+[OPENCL] AMD Accelerated Parallel Processing<br>
+[OPENCL] Selecting OpenCl platform: AMD Accelerated Parallel Processing<br>
+[OPENCL] Platform: OpenCL 1.2 AMD-APP (1214.3)<br>
+[OPENCL] 1 CPU device found.<br>
+[OPENCL] Device 0: Intel(R) Core(TM) i5-2500K CPU @ 3.30GHz (Driver: 1214.3 (sse2,avx))<br>
+[OPENCL] 4 CPU cores available.<br>
+[MAIN] Alignments computed: 1<br>
+[MAIN] Done (1 reads mapped (100.00%), 0 reads not mapped, 1 lines written)(elapsed: 3.019250s)<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>1.9</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>3.03918504715</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>0.57</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/M3_n</small></td></tr></tbody></table></div></div><div class="panel panel-default"><div class="panel-heading"><h1 class="panel-title">/project/teaser/software/ngm/ngm --output out_ngm.sam --ref /scratch/mate/refs/m_musculus.fasta -t 4 --qry reads.fastq  --no-progress</h1></div><div class="panel-body"><table class="table table-striped" style="margin-bottom;5px;"><tbody><tr><th class="col-md-2">command</th><td class="col-md-8"><small>/project/teaser/software/ngm/ngm --output out_ngm.sam --ref /scratch/mate/refs/m_musculus.fasta -t 4 --qry reads.fastq  --no-progress</small></td></tr><tr><th class="col-md-2">memory</th><td class="col-md-8"><small>7731163136</small></td></tr><tr><th class="col-md-2">return</th><td class="col-md-8"><small>0</small></td></tr><tr><th class="col-md-2">stderr</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse245" class="collapsed">stderr</a></h4></div><div id="collapse245" class="panel-collapse collapse"><div class="panel-body"><pre>None</pre></div></div></div></small></td></tr><tr><th class="col-md-2">stdout</th><td class="col-md-8"><small><div class="panel panel-default" id="panel1"><div class="panel-heading"><h4 class="panel-title"><a href="javascript:void(0);" data-toggle="collapse" data-target="#collapse246" class="collapsed">stdout</a></h4></div><div id="collapse246" class="panel-collapse collapse"><div class="panel-body"><pre>[MAIN] NextGenMap 0.4.13<br>
+[MAIN] Startup : x64 (build Jun 11 2015 10:48:29)<br>
+[MAIN] Starting time: 2015-08-25.12:36:11<br>
+[CONFIG] Parameter:  --affine 0 --argos_min_score 0 --block_multiplier 2 --bs_cutoff 6 --bs_mapping 0 --cpu_threads 4 --dualstrand 1 --fast_pairing 0 --format 1 --gap_extend_penalty 5 --gap_read_penalty 20 --gap_ref_penalty 20 --hard_clip 0 --keep_tags 0 --kmer 13 --kmer_min 0 --kmer_skip 2 --match_bonus 10 --match_bonus_tc 4 --match_bonus_tt 4 --max_cmrs 2147483647 --max_equal 1 --max_insert_size 1000 --min_identity 0.650000 --min_insert_size 0 --min_mq 0 --min_residues 0.500000 --min_score 0.000000 --mismatch_penalty 15 --mode 0 --no_progress 1 --no_unal 0 --ocl_threads 1 --output out_ngm.sam --overwrite 1 --pair_score_cutoff 0.900000 --paired 0 --parse_all 1 --pe_delimiter / --qry reads.fastq --qry_count -1 --qry_start 0 --ref /scratch/mate/refs/m_musculus.fasta --ref_mode -1 --silent_clip 0 --skip_mate_check 0 --skip_save 0 --step_count 4 --strata 0 --topn 1 --update_check 0<br>
+[STATS] Exporting stats at 0x1072e000 (Key 0x73297d00, ID 0xd801a)<br>
+[NGM] Opening for output (SAM): out_ngm.sam<br>
+[NGM] NGM Core initialization<br>
+[SEQPROV] Init sequence provider.<br>
+[SEQPROV] Reading encoded reference from /scratch/mate/refs/m_musculus.fasta-enc.ngm<br>
+[SEQPROV] Reading from disk took 0.47s<br>
+[PREPROCESS] Reading RefTable from /scratch/mate/refs/m_musculus.fasta-ht-13-2.ngm<br>
+[PREPROCESS] Reading from disk took 0.84s<br>
+[INPUT] Initializing ReadProvider<br>
+[INPUT] Input is Fastq<br>
+[INPUT] Estimating parameter from data<br>
+[INPUT] Reads found in files: 241921<br>
+[INPUT] Average read length: 214 (min: 196, max: 240)<br>
+[INPUT] Corridor width: 37<br>
+[INPUT] Average kmer hits pro read: 11.672717<br>
+[INPUT] Max possible kmer hit: 67<br>
+[INPUT] Estimated sensitivity: 0.300000<br>
+[INPUT] Initializing took 1.647s<br>
+[INPUT] Input is Fastq<br>
+[MAIN] Core initialization complete<br>
+Setting of real/effective user Id to 0/0 failed<br>
+FATAL: Module fglrx not found.<br>
+Error! Fail to load fglrx kernel module! Maybe you can switch to root user to load kernel module directly<br>
+Setting of real/effective user Id to 0/0 failed<br>
+FATAL: Module fglrx not found.<br>
+Error! Fail to load fglrx kernel module! Maybe you can switch to root user to load kernel module directly<br>
+[OPENCL] Available platforms: 1<br>
+[OPENCL] AMD Accelerated Parallel Processing<br>
+[OPENCL] Selecting OpenCl platform: AMD Accelerated Parallel Processing<br>
+[OPENCL] Platform: OpenCL 1.2 AMD-APP (1214.3)<br>
+[OPENCL] 1 CPU device found.<br>
+[OPENCL] Device 0: Intel(R) Core(TM) i5-2500K CPU @ 3.30GHz (Driver: 1214.3 (sse2,avx))<br>
+[OPENCL] 4 CPU cores available.<br>
+[MAIN] Alignments computed: 241919<br>
+[MAIN] Done (241897 reads mapped (99.99%), 24 reads not mapped, 241921 lines written)(elapsed: 354.300293s)<br>
+</pre></div></div></div></small></td></tr><tr><th class="col-md-2">systime</th><td class="col-md-8"><small>211.36</small></td></tr><tr><th class="col-md-2">time</th><td class="col-md-8"><small>354.325859785</small></td></tr><tr><th class="col-md-2">usrtime</th><td class="col-md-8"><small>1107.13</small></td></tr><tr><th class="col-md-2">working_directory</th><td class="col-md-8"><small>/scratch/mate/tests_paper/M3_n</small></td></tr></tbody></table></div></div></div></div></section><p></p><div style="margin:300px; height:300px;">&nbsp;</div>
+        </div>
+      </div>
+    </div>
+
+
+<script src="http://teaser.cibiv.univie.ac.at/static/js/d3.v3.min.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/c3/c3.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/js/jquery.js"></script>
+<script>
+
+var cols=[["Correct", 0.9325264450203996, 0.24109508633126236, 0.23104618526188733, 0.2218818851093557, 0.2144991877379432, 0.20786881451076195, 0.20201556732267678, 0.19638967083751865, 0.19154090039145658, 0.1867500010334123, 0.18293464287338218, 0.17963185720722397, 0.17681684214007284, 0.1741341038455338, 0.17212101671234348, 0.1701699343163151, 0.1685702120975376, 0.16704076191421025, 0.16560638566119784, 0.16443242930426552, 0.16322127010503604, 0.16209691753783323, 0.16101803511121582, 0.15997222187775145, 0.15902148257460202, 0.1579963375868583, 0.15708693477515015, 0.15619820020916264, 0.15535906943290467, 0.15448273581434954, 0.15356919935349728, 0.15264739559435675, 0.15183720036210765, 0.15096500039269667, 0.15015067151130346, 0.1494479511568017, 0.14870389431085868, 0.14778209055171815, 0.14688508868744238, 0.14610796264834633, 0.14543417783785348, 0.14468598734276633, 0.1439295295493909, 0.14312346796628594, 0.14225126799687496, 0.14149067655435543, 0.14058127374264728, 0.1397876131069747, 0.13891954678670784, 0.13772078853491074, 0.13651376298482537, 0.1344180028687525, 0.13090026744709962, 0.1257497406135162, 0.12384826200721735, 0.12381519281406433, 0.12381519281406433, 0.12381519281406433, 0.12381519281406433, 0.12381519281406433, 0.12381519281406433, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", -0.9324692418278453, -0.17933200865776916, -0.07259085135142235, -0.037010465582640074, -0.023338902562159432, -0.016016893915207452, -0.011326232125753842, -0.00886649484591841, -0.007665227802277853, -0.005949132025648482, -0.005205490522442422, -0.00440464582668205, -0.0037182075160303012, -0.0035465979383673646, -0.003374988360704427, -0.0030317692053785537, -0.0028029564351613042, -0.0026885500500526795, -0.0025169404723897424, -0.0023453308947268053, -0.0022309245096181806, -0.002059314931955244, -0.002059314931955244, -0.0020021117394009315, -0.0019449085468466192, -0.001887705354292307, -0.0018305021617379944, -0.0018305021617379944, -0.0017732989691836823, -0.0017732989691836823, -0.0017732989691836823, -0.0017732989691836823, -0.0017732989691836823, -0.0017160957766293697, -0.0017160957766293697, -0.0016588925840750576, -0.0016588925840750576, -0.0016016893915207452, -0.0016016893915207452, -0.0015444861989664328, -0.0014872830064121205, -0.0014872830064121205, -0.001430079813857808, -0.001372876621303496, -0.0011440638510862467, -0.0010868606585319343, -0.001029657465977622, -0.0009724542734233096, -0.0009724542734233096, -0.0006292351180974356, -0.0004576255404344986, -0.0004004223478801863, -0.0004004223478801863, -0.0004004223478801863, -0.0004004223478801863, -0.0004004223478801863, -0.0004004223478801863, -0.0004004223478801863, -0.0004004223478801863, -0.0004004223478801863, -0.0004004223478801863, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]];
+var a=0;
+var b=0;
+var last_a=0;
+var last_b=0;
+
+function updateRange()
+{
+	if(last_a==a && last_b==b)
+	{
+		setTimeout(updateRange,500);
+		return;
+	}
+ 
+        an=Math.floor(parseInt(a));
+        bn=Math.floor(parseInt(b));
+	var mn = 0;
+	var mx = 0;
+	for(i=an;i<bn;i++)
+	{
+		mx=Math.max(mx,cols[0][i+1]);
+		mn=Math.min(mn,cols[1][i+1]);
+	}
+	r={}
+	r.max=mx;
+	r.min=mn;
+	chart.axis.range(r);
+	last_a=a;
+	last_b=b;
+	setTimeout(updateRange,500);
+}
+setTimeout(updateRange,500);
+
+var chart = c3.generate({
+bindto: '#plot_mapq_tresh',
+data: {
+  columns: [["Correct", 0.9325264450203996, 0.24109508633126236, 0.23104618526188733, 0.2218818851093557, 0.2144991877379432, 0.20786881451076195, 0.20201556732267678, 0.19638967083751865, 0.19154090039145658, 0.1867500010334123, 0.18293464287338218, 0.17963185720722397, 0.17681684214007284, 0.1741341038455338, 0.17212101671234348, 0.1701699343163151, 0.1685702120975376, 0.16704076191421025, 0.16560638566119784, 0.16443242930426552, 0.16322127010503604, 0.16209691753783323, 0.16101803511121582, 0.15997222187775145, 0.15902148257460202, 0.1579963375868583, 0.15708693477515015, 0.15619820020916264, 0.15535906943290467, 0.15448273581434954, 0.15356919935349728, 0.15264739559435675, 0.15183720036210765, 0.15096500039269667, 0.15015067151130346, 0.1494479511568017, 0.14870389431085868, 0.14778209055171815, 0.14688508868744238, 0.14610796264834633, 0.14543417783785348, 0.14468598734276633, 0.1439295295493909, 0.14312346796628594, 0.14225126799687496, 0.14149067655435543, 0.14058127374264728, 0.1397876131069747, 0.13891954678670784, 0.13772078853491074, 0.13651376298482537, 0.1344180028687525, 0.13090026744709962, 0.1257497406135162, 0.12384826200721735, 0.12381519281406433, 0.12381519281406433, 0.12381519281406433, 0.12381519281406433, 0.12381519281406433, 0.12381519281406433, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ["Wrong", -0.9324692418278453, -0.17933200865776916, -0.07259085135142235, -0.037010465582640074, -0.023338902562159432, -0.016016893915207452, -0.011326232125753842, -0.00886649484591841, -0.007665227802277853, -0.005949132025648482, -0.005205490522442422, -0.00440464582668205, -0.0037182075160303012, -0.0035465979383673646, -0.003374988360704427, -0.0030317692053785537, -0.0028029564351613042, -0.0026885500500526795, -0.0025169404723897424, -0.0023453308947268053, -0.0022309245096181806, -0.002059314931955244, -0.002059314931955244, -0.0020021117394009315, -0.0019449085468466192, -0.001887705354292307, -0.0018305021617379944, -0.0018305021617379944, -0.0017732989691836823, -0.0017732989691836823, -0.0017732989691836823, -0.0017732989691836823, -0.0017732989691836823, -0.0017160957766293697, -0.0017160957766293697, -0.0016588925840750576, -0.0016588925840750576, -0.0016016893915207452, -0.0016016893915207452, -0.0015444861989664328, -0.0014872830064121205, -0.0014872830064121205, -0.001430079813857808, -0.001372876621303496, -0.0011440638510862467, -0.0010868606585319343, -0.001029657465977622, -0.0009724542734233096, -0.0009724542734233096, -0.0006292351180974356, -0.0004576255404344986, -0.0004004223478801863, -0.0004004223478801863, -0.0004004223478801863, -0.0004004223478801863, -0.0004004223478801863, -0.0004004223478801863, -0.0004004223478801863, -0.0004004223478801863, -0.0004004223478801863, -0.0004004223478801863, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]],
+  type: "area"
+},
+grid: {
+  y: {
+    show: true
+  }
+},
+axis: {
+  x: {
+    label: "Mapping Quality Threshold"
+  },
+
+  y: {
+    label: { text: "Read Count", position: "outer-middle" },
+    tick: {
+       format: function(v) { if(v>=0){return Math.min(100,(Math.round(100000*v)/1000))+"%";}else{ return Math.min(100,(Math.round(100000*(-v/13.838425))/1000))+"%";} }
+    }
+  }
+},
+legend: {
+	position: "right"
+},
+subchart: {
+	show: true,
+	onbrush: function (d) {
+		a = d[0];
+		b = d[1];
+	}
+}
+});
+
+</script>
+<script src="http://teaser.cibiv.univie.ac.at/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="javascript">$('#content').scrollspy();</script>
+<script src="http://teaser.cibiv.univie.ac.at/static/extensions/bootstrap-select.min.js"></script>
+
+<script src="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/js/jquery.dataTables.js"></script>
+<script src="http://teaser.cibiv.univie.ac.at/static/extensions/dataTables.bootstrap.js"></script>
+</body>
+</html>
