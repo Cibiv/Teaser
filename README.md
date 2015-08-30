@@ -14,12 +14,12 @@ To quickly get started with testing mappers for your personalized data set, Teas
 
 http://teaser.cibiv.univie.ac.at
 
-## Learn more
-Please see our github wiki for detailed information regarding the usage and extension of Teaser:
+## Learning more
+For topics such as adding support for new mappers or creating customized parameter sets or even test procedures, please see our github Wiki for detailed information regarding the usage and extension of Teaser:
 https://github.com/Cibiv/Teaser/wiki
 
 ## Intermediate Users: Virtual Machine Image
-If you want to provide your own simulated or real data set or reference genome, or customize Teaser by adding new mappers or parameter sets, we provide a ready-to-go installation as a VirtualBox virtual machine image. The Teaser wiki contains details on how to configure Teaser using only human-readable text files.
+If you want to provide your own simulated or real data set or reference genome, we provide a ready-to-go installation as a VirtualBox virtual machine image. The Teaser wiki contains details on how to configure Teaser using only human-readable text files.
 
 The Teaser virtual machine image will be made available soon.
 
