@@ -5,7 +5,7 @@ Welcome on the official github page of Teaser, an analytical framework for bench
 Getting started with Teaser takes just a few minutes. The following sections contain possible next steps for beginners and advanced users.
 
 ## Example Report
-For every benchmark Teaser generates an interactive HTML report summarizing the accuracy and performance of each mapper. In the following example, Teaser was used to test five mappers on a D. melanogaster Ion Torrent resequencing data set:
+For every benchmark Teaser generates an interactive HTML report summarizing the accuracy and performance of each mapper. A good way to get an overview of some of the features of Teaser could be to browse such a report. In the following example, Teaser was used to test five mappers on a D. melanogaster Ion Torrent resequencing data set:
 
 http://teaser.cibiv.univie.ac.at/static/dataset_gallery/D3_n.html
 
