@@ -37,19 +37,19 @@ cd Teaser
 ./install.py
 ```
 
-Running the built-in E. coli example benchmark:
+Example usage: Running the built-in E. coli example benchmark:
 ```
-./teaser.py default
+./teaser.py example_ecoli
 ```
 
-Starting the web interface:
+Example Usage: Starting the web interface:
 ```
 ./server.py
 ```
 
 Accessing the web interface: `http://localhost:8888`
 
-Teaser by default places results in the `reports` directory.
+Note: Teaser by default places results in the `reports` directory.
 
 #License
 Teaser is made available under the MIT License.
