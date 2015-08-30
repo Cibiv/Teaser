@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 class ReferenceMappingStatistics:
 	def __init__(self):
-		# Main statistics (Sum up to total)
-		self.correct = 0  # Num. of correctly mapped query sequences
-		self.wrong = 0  # Num. of wrongly mapped query sequences (different region or pos diff over threshold)
-		self.not_mapped = 0  # Num. of unmapped query sequences
-		self.not_found = 0  # Num. of sequences that were not found in the self output (fatal if > 0)
+		#Main statistics (Sum up to total)
+		self.correct = 0  #Num. of correctly mapped query sequences
+		self.wrong = 0  #Num. of wrongly mapped query sequences (different region or pos diff over threshold)
+		self.not_mapped = 0  #Num. of unmapped query sequences
+		self.not_found = 0  #Num. of sequences that were not found in the self output (fatal if > 0)
 
-		# Extra statistics
-		self.total = 0  # Actual number of reads (in reference mapping)
-		self.total_testee = 0  # Number of reads in mapper output (includes secondary alignments)
+		#Extra statistics
+		self.total = 0  #Actual number of reads (in reference mapping)
+		self.total_testee = 0  #Number of reads in mapper output (includes secondary alignments)
 		self.ignored_testee = 0
 		self.reverse = 0
 		self.not_found_comparison = 0
@@ -21,14 +21,14 @@ class ReferenceMappingStatistics:
 		self.recall = 0
 		self.fmeasure = 0
 
-		# Additional data
+		#dditional data
 		self.failed_rows = []
 
 		self.mapq_cumulated = {}
 		for i in range(256):
 			self.mapq_cumulated[i] = {"correct": 0, "wrong": 0}
 
-		# Placeholders
+		#Placeholders
 		self.maptime = -1
 
 	def to_string(self):
@@ -167,9 +167,6 @@ class ReferenceMappingStatisticsGenerator:
 	def set_position_threshold(self, t):
 		self.position_threshold = t
 
-	def set_rna(self, enable):
-		pass
-
 	def warn(self, msg, filename, pos):
 		print(msg)
 		self.__warnings.append(tuple([msg, filename, pos]))
@@ -188,7 +185,7 @@ class ReferenceMappingStatisticsGenerator:
 		return self.stats
 
 	def add_failed_row(self, testee, comparison, reason):
-		return  # TODO
+		return  #TODO
 		if len(self.stats.failed_rows) < self.failed_rows_max:
 			self.stats.failed_rows.append((MappingRow(testee), MappingRow(comparison), reason))
 
@@ -198,9 +195,9 @@ class ReferenceMappingStatisticsGenerator:
 		while sam_test.next():
 			self.stats.total += 1
 
-			# if sam_test.getCurr().is_secondary:
-			#    self.stats.ignored_testee+=1
-			#    continue
+			#if sam_test.getCurr().is_secondary:
+			#   self.stats.ignored_testee+=1
+			#   continue
 
 			self.doCompareRowsReal(sam_test.getCurr())
 
@@ -234,9 +231,9 @@ class ReferenceMappingStatisticsGenerator:
 					self.stats.not_found += 1
 					continue
 
-			# Check if source read identifiers are equal
-			# If source read is not equal, theres been a shift in the rows of one of the alignments
-			# which we have to adapt for
+			#Check if source read identifiers are equal
+			#If source read is not equal, theres been a shift in the rows of one of the alignments
+			#which we have to adapt for
 			while sam_test.getCurr().qname != sam_comp.getCurr().qname or sam_test.getCurr().is_secondary:
 				if sam_test.getCurr().is_secondary:
 					self.stats.ignored_testee += 1
@@ -268,9 +265,9 @@ class ReferenceMappingStatisticsGenerator:
 						break
 					self.stats.total_testee += 1
 
-			# Handle paired end reads
+			#Handle paired end reads
 			if sam_test.getCurr().is_paired or sam_comp.getCurr().is_paired:
-				# Some sanity checks
+				#Some sanity checks
 				if sam_test.getCurr().is_paired and not sam_comp.getCurr().is_paired:
 					self.warn("Testee read is part of a pair, but comparison read not", self.testee_filename,
 							  sam_test.getCurr().qname)
@@ -279,14 +276,14 @@ class ReferenceMappingStatisticsGenerator:
 					self.warn("Comparison read is part of a pair, but test read not", self.testee_filename,
 							  sam_test.getCurr().qname)
 
-				# Dealing with paired end reads here
+				#Dealing with paired end reads here
 				if sam_test.getCurr().is_read1 and sam_comp.getCurr().is_read2:
 					if sam_test.getLast() and sam_test.getLast().qname == sam_comp.getCurr().qname and sam_test.getLast().is_read2:
 						self.doCompareRows(sam_test.getLast(), sam_comp.getCurr())
 						continue
 					else:
 						if not sam_test.next():
-							self.warn("Reached end of testee mapping while looking for pair", self.testee_filename,
+							self.warn("Reached end of testee mapping while trying to match pair", self.testee_filename,
 									  sam_comp.getCurr().qname)
 							break
 
@@ -295,7 +292,7 @@ class ReferenceMappingStatisticsGenerator:
 						if sam_test.getCurr().qname == sam_comp.getCurr().qname and sam_test.getCurr().is_read2:
 							self.doCompareRows(sam_test.getCurr(), sam_comp.getCurr())
 						else:
-							self.warn("Could not match pairs", self.testee_filename, sam_test.getCurr().qname)
+							self.warn("Could not match pair", self.testee_filename, sam_test.getCurr().qname)
 
 						continue
 
@@ -305,7 +302,7 @@ class ReferenceMappingStatisticsGenerator:
 						continue
 					else:
 						if not sam_test.next():
-							self.warn("Reached end of testee mapping while looking for pair", self.testee_filename,
+							self.warn("Reached end of testee mapping while trying to match pair", self.testee_filename,
 									  sam_comp.getCurr().qname)
 							break
 						dont_advance_test = True
@@ -313,7 +310,7 @@ class ReferenceMappingStatisticsGenerator:
 						if sam_test.getCurr().qname == sam_comp.getCurr().qname and sam_test.getCurr().is_read1:
 							self.doCompareRows(sam_test.getCurr(), sam_comp.getCurr())
 						else:
-							self.warn("Could not match pairs", self.testee_filename, sam_test.getCurr().qname)
+							self.warn("Could not match pair", self.testee_filename, sam_test.getCurr().qname)
 						continue
 
 			self.doCompareRows(sam_test.getCurr(), sam_comp.getCurr())
@@ -327,7 +324,7 @@ class ReferenceMappingStatisticsGenerator:
 						  sam_test.getCurr().qname)
 				warned_comp_end = True
 
-		# Sum up mapping qualities
+		#Sum up mapping quality threshold read counts
 		correct_sum = 0
 		wrong_sum = 0
 		for i in range(254, -1, -1):
@@ -337,7 +334,6 @@ class ReferenceMappingStatisticsGenerator:
 		self.stats.computeMeasures()
 
 	def doCompareRows(self, row_testee, row_comp):
-		# Check if was mapped
 		if row_testee.is_unmapped:
 			self.stats.not_mapped += 1
 			self.add_failed_row(row_testee, row_comp, "unmapped")
@@ -368,7 +364,6 @@ class ReferenceMappingStatisticsGenerator:
 		self.stats.correct += 1
 
 	def doCompareRowsReal(self, row_testee):
-		# Check if was mapped
 		if row_testee.is_unmapped:
 			self.stats.not_mapped += 1
 		else:
@@ -378,7 +373,7 @@ class ReferenceMappingStatisticsGenerator:
 
 class MappingRow:
 	def __init__(self, alignment=None):
-		# Disabled, for now
+		#Disabled, for now
 		return
 
 		if alignment == None:

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 #
-# Mate
-# A mapper test framework
+# Teaser
+# A read mapper benchmark framework
 #
 #
 # =================================================================================
@@ -659,7 +659,7 @@ class Mate:
 
 		self.measure_cputime = args.measurecputime
 		self.measure_preload = args.measurepreload
-		self.measure_use_resource_module = args.measureuseresource != False
+		self.measure_use_resource_module = args.measureuseresource
 
 		# Load setup configuration file
 		self.config, self.config_original = util.loadConfig(self.config_filename)

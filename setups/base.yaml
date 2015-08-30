@@ -1,3 +1,5 @@
+#This file contains internal basic definitions.
+#For most custom run setups base_teaser.yaml should be included instead, which in turn includes this file.
 title: Test Runner Setup
 description: ''
 
@@ -8,10 +10,6 @@ cache_directory: ./cache
 #0=Silent, 1=Minimal console report, 2=Default, 3=Very verbose (includes subprocess output)
 debug_level: 2
 debug_out_console: Yes
-
-#Events
-onReport:
-   - make_html_report.py
 
 #Tests having any of these tags will be executed, or all if null.
 include_tags: ~

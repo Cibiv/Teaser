@@ -20,7 +20,6 @@ def map(self):
 				   str(self._("input:reads")), None)
 		raise SystemExit
 
-	# Sanity check
 	if os.path.isfile(self._("output:testee_path")):
 		self.error("Output file existed before mapper run", self._("output:testee_path"))
 		raise SystemExit
@@ -113,7 +112,6 @@ def map(self):
 
 	self.sub(cmd_post)
 
-	# Sanity check before
 	if not os.path.isfile(self._("output:testee_path")):
 		self.error("Output file not found after mapper run", self._("output:testee_path"))
 		raise SystemExit

@@ -126,7 +126,7 @@ class Page:
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Teaser</title>
+    <title>Teaser - Rapid Personalized Benchmarks for NGS Read Mapping</title>
     <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/css/jquery.dataTables.css">
     <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/c3/c3.css">

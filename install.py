@@ -3,21 +3,33 @@ import os
 import sys
 major=sys.version_info[0]
 
+errors=[]
+
+def error(msg):
+	errors.append(msg)
+
+def sub(cmd):
+	if os.system(cmd) != 0:
+		errors.append("Command failed: %s"%cmd)
+
 print("Checking Python version...")
 if major != 2:
-	print("Teaser currently requires Python 2! Version: %s"%str(sys.version_info))
-	raise SystemExit
+	error("Teaser currently requires Python 2! Version: %s"%str(sys.version_info))
 
 print("Installing Python package dependencies...")
-if os.system("pip install --user intervaltree tornado") != 0:
-	print("Failed to install dependencies: intervaltree/tornado!")
-	raise SystemExit
+sub("pip install --user intervaltree tornado")
 
 print("Downloading software packages...")
-os.system("wget http://www.cibiv.at/~moritz/teaser_software.tar.gz")
-os.system("tar -xvzf teaser_software.tar.gz")
+sub("wget http://www.cibiv.at/~moritz/teaser_software.tar.gz")
+sub("tar -xvzf teaser_software.tar.gz")
 
 print("Downloading example reference genome (E. coli)...")
 os.chdir("references")
-os.system("wget http://www.cibiv.at/~moritz/E_coli.fasta")
+sub("wget http://www.cibiv.at/~moritz/E_coli.fasta")
 
+if len(errors)==0:
+	print("Installation completed successfully!")
+else:
+	print("Errors occured during installation:")
+	for msg in errors:
+		print("\t%s"%msg)

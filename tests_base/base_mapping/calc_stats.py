@@ -19,7 +19,6 @@ def calc_stats(self):
 
 	stats_gen = ReferenceMappingStatisticsGenerator()
 	stats_gen.set_position_threshold(self._("pos_threshold"))
-	stats_gen.set_rna(self._("evaluate_rna"))
 
 	try:
 		stats_gen.set_testee(self._("output:sorted_testee_path"))

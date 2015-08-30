@@ -15,7 +15,6 @@ def init(self):
 	self.setc("input:sorted_mapping_comparison", "sorted_" + self._("input:mapping_comparison"))
 
 	if self.mate._("evaluation:pos_threshold") != None:
-		self.log("Overwriting position treshold with value from mate")
 		self.setc("pos_threshold", self.mate._("evaluation:pos_threshold"))
 
 	# Translate basic IO configuration into mapper parameters

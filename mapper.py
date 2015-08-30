@@ -24,6 +24,9 @@ class Mapper:
 	def getComandLinePost(self):
 		return ""
 
+	def getName(self):
+		return "Unknown"
+
 	def getTitle(self):
 		return self.title
 

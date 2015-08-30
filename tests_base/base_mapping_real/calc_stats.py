@@ -3,11 +3,6 @@ import csv
 
 from lib import util
 from lib import stats
-from lib import sam_diff
-
-make_samvis = sam_diff.make_samvis
-percent = util.percent
-
 
 def calc_stats(self):
 	ReferenceMappingStatisticsGenerator = stats.ReferenceMappingStatisticsGenerator
@@ -49,8 +44,6 @@ def calc_stats(self):
 			maptime_raw=mapper_result["time"]
 			inittime=self._("output:mapper_init_time")["time"]
 			stats_out.time_measure = "Wall clock"
-
-
 
 		if inittime < maptime_raw:
 			maptime = maptime_raw - inittime

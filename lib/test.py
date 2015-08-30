@@ -5,6 +5,7 @@ import time
 import hashlib
 import traceback
 import sys
+import resource
 
 import yaml
 import psutil
@@ -456,32 +457,42 @@ class Test:
 								   close_fds=True)
 
 		if measure_detailed:
-			from multiprocessing import Process
-			from multiprocessing import Queue
+			if self.mate.measure_use_resource_module:
+				self.log("Measuring using Python resource module...")
+				res_start = resource.getrusage(resource.RUSAGE_CHILDREN)
+			else:
+				from multiprocessing import Process
+				from multiprocessing import Queue
 
-			q = Queue()
+				q = Queue()
 
-			measurer = Process(target=util.measureProcess, args=(q, [process.pid], command, 1, self.mate._("sub_max_runtime"), self.mate._("sub_max_memory"), self.mate.INDEV()))
-			measurer.start()
+				measurer = Process(target=util.measureProcess, args=(q, [process.pid], command, 1, self.mate._("sub_max_runtime"), self.mate._("sub_max_memory"), self.mate.INDEV()))
+				measurer.start()
 
 		start_time = time.time()
 		out, err = process.communicate()
 		end_time = time.time()
 
 		if measure_detailed:
-			q.put("Stop")
-			measurer.join()
-			status = q.get()
-			metrics = q.get()
-			peak_mem = q.get()
+			if self.mate.measure_use_resource_module:
+				res_end = resource.getrusage(resource.RUSAGE_CHILDREN)
+				peak_mem = res_end.ru_maxrss
+				metrics={0:{"usrtime":res_end.ru_utime-res_start.ru_utime,"systime":res_end.ru_stime-res_start.ru_stime}}
+			else:
 
-			if status != util.STATUS_NORMAL:
-				if status == util.STATUS_MAX_MEMORY_EXCEEDED:
-					self.error("Subprocess exceeded maximum allowed memory: %s" % command)
-				elif status == util.STATUS_MAX_RUNTIME_EXCEEDED:
-					self.error("Subprocess exceeded maximum allowed runtime: %s" % command)
-				else:
-					self.error("Unknown error occured executing subprocess: %s" % command)
+				q.put("Stop")
+				measurer.join()
+				status = q.get()
+				metrics = q.get()
+				peak_mem = q.get()
+
+				if status != util.STATUS_NORMAL:
+					if status == util.STATUS_MAX_MEMORY_EXCEEDED:
+						self.error("Subprocess exceeded maximum allowed memory: %s" % command)
+					elif status == util.STATUS_MAX_RUNTIME_EXCEEDED:
+						self.error("Subprocess exceeded maximum allowed runtime: %s" % command)
+					else:
+						self.error("Unknown error occured executing subprocess: %s" % command)
 
 		max_len_out = 10000
 
@@ -508,9 +519,7 @@ class Test:
 			for m in metrics:
 				result["usrtime"] += metrics[m]["usrtime"]
 				result["systime"] += metrics[m]["systime"]
-				# result["memory"] += metrics[m]["memory"]
 		else:
-			# result["time"] = end_time - start_time #usrtime+systime #end_time - start_time
 			result["memory"] = 0
 			result["usrtime"] = -1
 			result["systime"] = -1

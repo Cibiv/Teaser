@@ -5,7 +5,9 @@ import math
 
 import yaml
 
-from report_page import Page
+from lib import report_page
+Page = report_page.Page
+
 from lib import util
 
 strftime = time.strftime

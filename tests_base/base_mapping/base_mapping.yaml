@@ -37,9 +37,6 @@ input_info:
   read_count: Unknown
   divergence: Unknown
 
-report:
-  mapq_overview_steps: [0] #[0,5,10,15,20,25,30,40,50,60,70,80,90,100,110,120,130,140,150,170,190,210,225,250]
-
 #################################################################################
 #################################################################################
 
@@ -57,7 +54,6 @@ evaluate_rna: No
 #Usually not needed to be changed
 output:
    #Will make the mapper output in BAM format if set to true
-   #However, BAM output will be converted back to SAM before comparison due to technical reasons (BAM index required by PySAM for reading but only possible by chromosome pos)
    bam: No
    bam_workaround: Yes
 
