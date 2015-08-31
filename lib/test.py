@@ -15,12 +15,12 @@ from lib import util
 merge = util.merge
 
 #
-# mate
-# A mapper testing framework
+# Teaser
+# A read mapper benchmark framework
 #
 # =================================================================
 # Test class
-# Represents a single test, implements loading, inheritance, events,
+# Represents a single test; Implements loading, inheritance, pipelines,
 # serialization
 # =================================================================
 class Test:
@@ -408,6 +408,8 @@ class Test:
 		result = None
 
 		try:
+			script_locals = {}
+
 			self.enterWorkingDirectory()
 
 			self.restoreWorkingDirectory()
@@ -415,7 +417,6 @@ class Test:
 				for script in self.getConfig()["pipeline"][event]:
 					script_name, script_ext = os.path.splitext(script)
 					script_name = os.path.basename(script_name)
-					script_locals = {}
 
 					self.mate.pushLogPrefix(script_name)
 					execfile(script, script_locals, script_locals)

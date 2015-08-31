@@ -4,7 +4,7 @@ from lib import util
 def generateTestList(self, tests):
 	html = ""
 
-	html += "<div class=\"table-responsive\"><table id=\"test_list\" class=\"table table-striped\">"
+	html += "<table id=\"test_list\" class=\"table table-striped\">"
 	html += "<thead>"
 	html += "<tr>"
 	html += "<th>State</th>"
@@ -62,7 +62,7 @@ def generateTestList(self, tests):
 		html += "<td>%d</td>" % (test.getRunResults().total / float(test.getRunResults().maptime))
 		html += "</tr>"
 
-	html += "</table></div>"
+	html += "</table>"
 	return html
 
 
@@ -544,7 +544,43 @@ def report_overview(self, gen, page, test_objects):
     "bInfo": false,
     "order": [[ 3, "desc" ]]
   });
-} );""")
+} );
+
+window.onload = function () {$('.selectpicker').selectpicker();}""")
+
+	config = self.mate.config
+
+	# mapper_options = ""
+	# for mapper_id in sorted(config["mappers"]):
+	# 	if "title" in config["mappers"][mapper_id]:
+	# 		mapper_title = config["mappers"][mapper_id]["title"]
+	# 	else:
+	# 		mapper_title = mapper_id
+
+	# 	mapper_options += """<optgroup label="%s">""" % mapper_title
+	# 	mapper_options += """<option value="m%s" selected>%s - Default</option>""" % (mapper_id, mapper_title)
+
+	# 	if "parameters" in config:
+	# 		for parameter_id in sorted(config["parameters"]):
+	# 			if config["parameters"][parameter_id]["mapper"] != mapper_id:
+	# 				continue
+
+	# 			if "title" in config["parameters"][parameter_id]:
+	# 				param_title = config["parameters"][parameter_id]["title"]
+	# 			else:
+	# 				param_title = parameter_id
+	# 			mapper_options += """<option value="p%s">%s - %s</option>""" % (
+	# 				parameter_id, mapper_title, param_title)
+
+
+	# page.setSidebarFooter("""
+	# <hr>
+	# <div class="container-fluid">
+	# 	Mapping Quality Threshold: <input type="range" name="mq_select" min="0" max="255"><br/>
+	#        Mappers: <select class="selectpicker" name="mappers" id="mappers" data-width="100%" multiple>
+	#           """ + mapper_options + """
+	#        </select>
+	# </div>""")
 
 	generateOverallScatterPlot(self, page, test_objects)
 	generateDataSetInfo(self, page, test_objects[0])

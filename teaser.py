@@ -194,7 +194,7 @@ class Mate:
 		if not os.path.exists(self.getReportDirectory()):
 			os.makedirs(self.getReportDirectory())
 
-		self.report = report_html.ReportHTMLGenerator(mate, False)
+		self.report = report.ReportHTMLGenerator(mate, False)
 		self.report.generateProgress()
 
 	def getReport(self):
@@ -204,8 +204,7 @@ class Mate:
 		return self.is_stats_run
 
 	def getVersionHash(self):
-		if self.INDEV() or True:
-			return "dev"
+		return "dev"
 
 		if self.version_hash != False:
 			return self.version_hash
@@ -215,7 +214,7 @@ class Mate:
 		text = ""
 
 		dirs = ["./lib", "./tests_base"]
-		exclude_files = ["report_html.py"]
+		exclude_files = []
 
 		for filename in os.listdir("."):
 			name, ext = os.path.splitext(filename)
@@ -300,9 +299,8 @@ class Mate:
 		return self.config["cache_directory"] + "/" + self.framework_hash + "_"
 
 	def loadTestsFor(self, mapper_id):
-		# self.log( "=== LOAD TESTS FOR " + mapper_id + " ===", 2 )
 		mapper_conf = self.config["mappers"][mapper_id]
-		mapper_module = __import__("mapper")
+		mapper_module = util.locate("lib.mapper")
 
 		if mapper_conf["type"] == "ngm":
 			mapper_class = "MapperNGM"
@@ -995,7 +993,7 @@ import fnmatch
 
 from lib import test
 from lib import util
-from lib import report_html
+from lib import report
 
 setCallDir = util.setCallDir
 setRootDir = util.setRootDir

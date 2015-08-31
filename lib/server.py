@@ -6,9 +6,8 @@ import tornado.web
 import tornado.wsgi
 import yaml
 
-from lib import report_page
-Page = report_page.Page
-
+from lib import page
+Page = page.Page
 
 class Home(tornado.web.RequestHandler):
 	def get(self):
@@ -147,9 +146,9 @@ class DefineJob(tornado.web.RequestHandler):
 
         <div class="container-fluid">
 			<div class="row-fluid" align="center">
-				<div class="col-md-4" style="border-right:2px solid grey;"><h3>New Simulation</h3> <p style="height:75px;"> Use Teaser to quickly define a simulated data set and benchmark mappers on it</p><p><input type="radio" name="datasource" value="a" checked="checked"></p></div>
+				<div class="col-md-4" style="border-right:2px solid grey;"><h3>New Simulation</h3> <p style="height:75px;"> Use Teaser to quickly define a simulated data set and benchmark mappers on it.</p><p><input type="radio" name="datasource" value="a" checked="checked"></p></div>
 				<div class="col-md-4" style="border-right:2px solid grey;"><h3>Existing Simulation</h2> <p style="height:75px;"> Provide your own simulated data for benchmarking mappers as fastq (reads) and SAM (gold standard alignment) files.</p><p><i>Please download Teaser to use this option</i></p></div>
-				<div class="col-md-4"><h3>Real Data</h3> <p style="height:75px;"> Provide your real read data to benchmark throughput and mapped percentages of mappers.</p><p><i>Please download Teaser to use this option</i></p></div>
+				<div class="col-md-4"><h3>Real Data</h3> <p style="height:75px;"> Provide your read data without a gold standard alignment (e.g. real data) to benchmark throughput and mapped percentages of mappers.</p><p><i>Please download Teaser to use this option</i></p></div>
 			</div>
         </div>
 

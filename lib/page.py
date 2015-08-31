@@ -6,6 +6,7 @@ class Page:
 		self.html_scripts = ""
 		self.html_styles = ""
 		self.html_footer = ""
+		self.html_sidebar_footer =""
 		self.nav_right = ""
 		self.nav_separators = True
 		self.enable_sidebar = True
@@ -30,6 +31,9 @@ class Page:
 
 	def setNavRight(self, nav):
 		self.nav_right = nav
+
+	def setSidebarFooter(self, html):
+		self.html_sidebar_footer = html
 
 	def enableFullscreenSections(self):
 		self.addScript("""resizePanels=function (){$(".panel-body").css( "min-height", $( window ).height() - 215 );};
@@ -108,7 +112,7 @@ class Page:
 			sidebar = ""
 			offset = " col-sm-offset-2 col-md-offset-1 "
 		else:
-			sidebar = self.page_template_sidebar % html_section_list
+			sidebar = self.page_template_sidebar % (html_section_list, self.html_sidebar_footer)
 			offset = " col-sm-offset-3 col-md-offset-2 "
 
 		body = self.page_template_body % (html_nav, self.nav_right, sidebar, offset, html_section_bodies)
@@ -263,6 +267,7 @@ section {
           <ul class="nav nav-sidebar">
             %s
           </ul>
+          %s
           </div>
         </div>""" 
 

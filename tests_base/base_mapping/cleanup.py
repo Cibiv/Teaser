@@ -1,6 +1,5 @@
 import os
 
-
 def cleanup(self):
 	if self.getErrorCount() > 0 and self.mate._("main:force_clean") == None:
 		self.dbg("Error in test, not cleaning up!")

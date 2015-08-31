@@ -8,7 +8,8 @@ pipeline:
    main:
      - base_mapping/map
      - base_mapping/sort_prepare
-     - calc_stats
+     - base_mapping/calc_stats
+     - base_mapping/calc_time
 
    report_overview:
      - base_mapping/report_overview
@@ -23,10 +24,13 @@ pipeline:
 #################################################################################
 
 title: A Basic Real Mapping Test
-description: "Maps read data, computes and visualizes mapping statistics without using a gold standard for evaluating alignment correctness"
+description: "Maps read data, computes and visualizes mapping statistics without evaluating alignment correctness"
 
 #################################################################################
 #################################################################################
+
+evaluation:
+   class: lib.evaluator.BasicEvaluator
 
 input:
    mapping_comparison: ""

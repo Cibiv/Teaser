@@ -5,7 +5,7 @@ import time
 import yaml
 
 from lib import util
-from tools import gsample
+from lib import gsample
 from tools import fastq2sam
 
 class Simulator:

@@ -6,7 +6,7 @@ import yaml
 import util
 import simulator
 
-from tools import gsample
+from lib import gsample
 from tools import fastq2sam
 
 

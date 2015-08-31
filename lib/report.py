@@ -5,8 +5,8 @@ import math
 
 import yaml
 
-from lib import report_page
-Page = report_page.Page
+from lib import page
+Page = page.Page
 
 from lib import util
 

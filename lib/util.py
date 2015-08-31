@@ -136,7 +136,6 @@ def measureProcess(queue, initial_pids, command, measurement_interval=1, max_run
 	queue.put(peak_memory_sum)
 	sys.exit(0)
 
-
 def loadConfig(name, parent_dir="", already_included=[]):
 	config_attempts = ["%s", "%s.yaml", "setups/%s", "setups/%s.yaml"]
 	config_filenames = [s % name for s in config_attempts]
@@ -215,25 +214,20 @@ def setCallDir(d):
 	global call_cwd
 	call_cwd = d
 
-
 def setRootDir(d):
 	global root_cwd
 	root_cwd = d
-
 
 def enterCallDir():
 	global call_cwd
 	os.chdir(call_cwd)
 
-
 def enterRootDir():
 	global root_cwd
 	os.chdir(root_cwd)
 
-
 def nl2br(text):
 	return text.replace('\n', '<br>\n')
-
 
 def msg(text="", level=1):
 	print(text)
@@ -272,7 +266,6 @@ def merge(x, y):
 
 	return merged
 
-
 def formatFilesize(n):
 	return "%.2fMB"%(n/1000000)
 
@@ -294,7 +287,6 @@ def percent(val, base, offset=0):
 		pval = "+-" + str(pval)
 
 	return str(pval) + "%"
-
 
 def abs_path(path):
 	if len(path) == 0:
@@ -333,6 +325,8 @@ def sort_sam(filename,threads=1):
 		handle.flush()
 		handle.close()
 	cmd="tail --lines=+%d %s | sort --parallel %d --buffer-size 25%% -t $'\\t' -k1 >> %s" % (get_sam_header_line_count(filename) + 1,filename,threads,sorted_filename)
-	#print(cmd)
 	exitcode = os.system(cmd)
 	return sorted_filename if exitcode==0 else False
+
+import pydoc
+locate = pydoc.locate

@@ -14,6 +14,7 @@ pipeline:
      - map
      - sort_prepare
      - calc_stats
+     - calc_time
 
    report_overview:
      - report_overview
@@ -28,7 +29,7 @@ pipeline:
 #################################################################################
 
 title: A Basic Simulated Mapping Test
-description: "Maps simulated data, computes and visualizes mapping statistics"
+description: "Maps simulated data, computes and visualizes mapping statistics based on a gold standard alignment"
 
 input_info:
   simulator: Unknown
@@ -42,12 +43,10 @@ input_info:
 
 #Default parameters specific to base_mapping
 
-#Statistics configuration
-#Maximum position distance of a mapping relative to the one in input:mapping_comparison to be considered correct
-pos_threshold: 50
-
-#Evaluate for RNA mapping (split alignments)
-evaluate_rna: No
+#Mapping Statistics evaluation configuration
+evaluation:
+   class: lib.evaluator.ThresholdBasedEvaluator
+   pos_threshold: 50
 
 #Mapper output file config
 #Exact filename determined by name of executing mapper
