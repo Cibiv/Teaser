@@ -143,7 +143,8 @@ class Teaser:
 								"read_length": str(test["read_length"]), "read_count": str(test["read_count"]),
 								"insert_size": str(test["insert_size"]), "sampling": test["sampling"]["enable"],
 								"sampling_ratio": str(test["sampling"]["ratio"]),
-								"sampling_region_len": str(test["sampling"]["region_len"])}
+								"sampling_region_len": str(test["sampling"]["region_len"]),
+								"divergence": "%.4f overall mutation rate, %.4f indel fraction, %.4f indel average length" % (test["mutation_rate"],test["mutation_indel_frac"],test["mutation_indel_avg_len"])  }
 
 		config["input"] = {"reference": test["reference"], "reads_paired_end": test["paired"]}
 

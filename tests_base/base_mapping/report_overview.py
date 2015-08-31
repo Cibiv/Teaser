@@ -4,7 +4,7 @@ from lib import util
 def generateTestList(self, tests):
 	html = ""
 
-	html += "<table id=\"test_list\" class=\"table table-striped\">"
+	html += "<div class=\"table-responsive\"><table id=\"test_list\" class=\"table table-striped\">"
 	html += "<thead>"
 	html += "<tr>"
 	html += "<th>State</th>"
@@ -62,7 +62,7 @@ def generateTestList(self, tests):
 		html += "<td>%d</td>" % (test.getRunResults().total / float(test.getRunResults().maptime))
 		html += "</tr>"
 
-	html += "</table>"
+	html += "</table></div>"
 	return html
 
 
@@ -474,7 +474,7 @@ def generateDataSetInfo(self,page,test):
 	self.enterWorkingDirectory()
 
 	html = ""
-	html += "<table class=\"table table-striped\">"
+	html += "<div class=\"table-responsive\"><table class=\"table table-striped\">"
 	html += "<tbody>"
 	html += "<tr>"
 	html += "<th>Sequencing Platform</th>"
@@ -501,31 +501,35 @@ def generateDataSetInfo(self,page,test):
 	html += "<td>%s</td>" % str(test._("input_info:insert_size") if test._("input:reads_paired_end") else "None" )
 	html += "</tr>"
 	html += "<tr>"
-	html += "<th>Reference Genome (Source File)</th>"
-	html += "<td>%s</td>" % str(test._("input:reference"))
-	html += "</tr>"
-	html += "<tr>"
-	html += "<th>Reads (Source File)</th>"
-	html += "<td>%s</td>" % str(", ".join([util.abs_path(f) for f in test._("input:reads")]))
-	html += "</tr>"
-	html += "<tr>"
-	html += "<th>Simulator</th>"
-	html += "<td>%s</td>" % str(test._("input_info:simulator"))
-	html += "</tr>"
-	html += "<tr>"
 	html += "<th>Subsampling enabled</th>"
 	html += "<td>%s</td>" % util.yes_no(test._("input_info:sampling"))
 	html += "</tr>"
 	html += "<tr>"
 	html += "<th>Sampling ratio</th>"
-	html += "<td>%f</td>" % float(test._("input_info:sampling_ratio"))
+	html += "<td>%.3f</td>" % float(test._("input_info:sampling_ratio"))
 	html += "</tr>"
 	html += "<tr>"
 	html += "<th>Sampling region length</th>"
 	html += "<td>%d</td>" % int(test._("input_info:sampling_region_len"))
 	html += "</tr>"
+	html += "<tr>"
+	html += "<th>Reference Genome File</th>"
+	html += "<td>%s</td>" % str(util.abs_path(test._("input:reference")))
+	html += "</tr>"
+	html += "<tr>"
+	html += "<th>Read File(s)</th>"
+	html += "<td>%s</td>" % str(", ".join([util.abs_path(f) for f in test._("input:reads")]))
+	html += "</tr>"
+	html += "<tr>"
+	html += "<th>Gold Standard Alignment File</th>"
+	html += "<td>%s</td>" % str(util.abs_path(test._("input:mapping_comparison")))
+	html += "</tr>"
+	html += "<tr>"
+	html += "<th>Simulator</th>"
+	html += "<td>%s</td>" % str(test._("input_info:simulator"))
+	html += "</tr>"
 	html += "</tbody>"
-	html += "</table>"
+	html += "</table></div>"
 
 	self.restoreWorkingDirectory()
 	page.addSection("Data Set", html, None, "For data sets simulated using Teaser, details regarding the simulation parameters are displayed here.")	

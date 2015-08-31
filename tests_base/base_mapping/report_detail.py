@@ -103,7 +103,7 @@ def report_detail(self, gen, page):
 	generateMappingQualityPlot(self, page)
 
 	html = ""
-	html += "<table class=\"table table-striped\">"
+	html += "<div class=\"table-responsive\"><table class=\"table table-striped\">"
 	html += "<tbody>"
 	html += "<tr><th class=\"col-md-6\">Correctly Mapped</th>"
 	html += "<td class=\"col-md-2\">%s</td>" % str(stats.correct)
@@ -118,11 +118,11 @@ def report_detail(self, gen, page):
 	html += "<td>%s</td>" % str(stats.total)
 	html += "<td>%s</td>" % percent(stats.total, stats.total)
 	html += "</tbody>"
-	html += "</table>"
+	html += "</table></div>"
 	page.addSection("Basic Statistics", html)
 
 	html = ""
-	html += "<table class=\"table table-striped\">"
+	html += "<div class=\"table-responsive\"><table class=\"table table-striped\">"
 	html += "<tbody>"
 	html += "<tr><th class=\"col-md-6\">Not mapped</th>"
 	html += "<td class=\"col-md-2\">%s</td>" % str(stats.not_mapped)
@@ -140,7 +140,7 @@ def report_detail(self, gen, page):
 	html += "<td>%s</td>" % str(stats.reverse)
 	html += "<td>%s</td>" % percent(stats.reverse, stats.total)
 	html += "</tbody>"
-	html += "</table>"
+	html += "</table></div>"
 	page.addSection("Read Failure Statistics", html)
 
 	html = ""
@@ -149,7 +149,7 @@ def report_detail(self, gen, page):
 	if results == None:
 		return
 
-	html += "<table class=\"table table-striped\">"
+	html += "<div class=\"table-responsive\"><table class=\"table table-striped\">"
 	html += "<tbody>"
 	html += "<tr><th>Missing in comparison alignment</th>"
 	html += "<td>%s</td></tr>" % str(stats.not_found_comparison)
@@ -162,11 +162,11 @@ def report_detail(self, gen, page):
 	html += "</tr><tr><th><abbr title=\"Correctly Mapped / (Correctly Mapped + Unmapped)\">Recall</abbr></th>"
 	html += "<td>%f</td>" % results.recall
 	html += "</tbody>"
-	html += "</table>"
+	html += "</table></div>"
 	page.addSection("Advanced Statistics", html)
 
 	html = ""
-	html += "<table class=\"table table-striped\">"
+	html += "<div class=\"table-responsive\"><table class=\"table table-striped\">"
 	html += "<tbody>"
 	html += "<tr><th class=\"col-md-6\">Raw Mapping Time</th><td class=\"col-md-4\">%.3fs</td></tr>" % results.maptime_raw
 	html += "<tr><th>Effective Mapping Time</th><td>%.3fs</td></tr>" % results.maptime
@@ -183,18 +183,18 @@ def report_detail(self, gen, page):
 	html += "<tr><th>Init Time (CPU User)</th><td>%.3fs</td></tr>" % results.initusrtime
 	html += "<tr><th>Init Time (CPU System)</th><td>%.3fs</td></tr>" % results.initsystime
 	html += "</tbody>"
-	html += "</table>"
+	html += "</table></div>"
 	page.addSection("Timing", html)
 
 	html = ""
-	html += "<table class=\"table table-striped\">"
+	html += "<div class=\"table-responsive\"><table class=\"table table-striped\">"
 	html += "<tbody>"
 	html += "<tr><th class=\"col-md-6\">Mapper Memory Usage</th><td class=\"col-md-4\">%d MB</td></tr>" % (results.memory / 1000000)
 	html += "<tr><th>Total Test Runtime (Wall)</th><td>%.3fs</td></tr>" % self.getRunTime()
 	html += "<tr><th>Mapper Command Line:</th><td>&nbsp;</td></tr><tr><td colspan=2>%s</td></tr>" % (
 	self.getMapper().getCommandLineMain())
 	html += "</tbody>"
-	html += "</table>"
+	html += "</table></div>"
 	page.addSection("Additional Information", html)
 
 	return html

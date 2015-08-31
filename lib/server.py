@@ -95,7 +95,7 @@ class Home(tornado.web.RequestHandler):
 				break
 
 
-		page.addSection("Recent Benchmarks", """<table class=table table-striped">
+		page.addSection("Recent Benchmarks", """<div class="table-responsive"><table class=table table-striped">
 		<thead>
 		<tr>
 		<th>Teaser Accession</th>
@@ -109,7 +109,7 @@ class Home(tornado.web.RequestHandler):
 		<tbody>
 		%s
 		</tbody>
-		</table>
+		</table></div>
 		""" % recent_html)
 
 

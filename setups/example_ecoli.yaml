@@ -6,4 +6,7 @@ teaser:
       ecoli_test:
          reference: E_coli.fasta
 
-report: {name: default}
+evaluation:
+   pos_threshold: 10
+
+report: {name: example_ecoli}

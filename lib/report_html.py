@@ -76,7 +76,7 @@ class ReportHTMLGenerator:
 
 		html = ""
 
-		html += "<table class=\"table table-striped\">"
+		html += "<div class=\"table-responsive\"><table class=\"table table-striped\">"
 		html += "<thead>"
 		html += "<tr>"
 		html += "<th>Type</th>"
@@ -97,7 +97,7 @@ class ReportHTMLGenerator:
 			html += "<td>" + str(msg) + "</td>"
 			html += "</tr>"
 
-		html += "</table>"
+		html += "</table></div>"
 
 		return html
 
@@ -108,7 +108,7 @@ class ReportHTMLGenerator:
 			html = "<i>No problems were encountered.</i>"
 			return html
 
-		html += "<table class=\"table table-striped\">"
+		html += "<div class=\"table-responsive\"><table class=\"table table-striped\">"
 		html += "<thead>"
 		html += "<tr>"
 		html += "<th>Type</th>"
@@ -135,7 +135,7 @@ class ReportHTMLGenerator:
 			html += "<td>" + str(location) + "</td>"
 			html += "</tr>"
 
-		html += "</table>"
+		html += "</table></div>"
 
 		return html
 
@@ -146,7 +146,7 @@ class ReportHTMLGenerator:
 			html = "<i>No problems were encountered.</i>"
 			return html
 
-		html += "<table class=\"table table-striped\">"
+		html += "<div class=\"table-responsive\"><table class=\"table table-striped\">"
 		html += "<thead>"
 		html += "<tr>"
 		html += "<th>Type</th>"
@@ -167,7 +167,7 @@ class ReportHTMLGenerator:
 			html += "<td>" + str(msg) + "</td>"
 			html += "</tr>"
 
-		html += "</table>"
+		html += "</table></div>"
 
 		return html
 
@@ -177,7 +177,7 @@ class ReportHTMLGenerator:
 		html += str(self.mate.tests_run_count) + " tests executed, " + str(
 			self.mate.tests_run_count - self.mate.tests_success_count) + " fail, " + str(
 			self.mate.tests_aborted_count) + " aborted, " + str(self.mate.tests_err_count) + " errors total."
-		html += "<table class=\"table table-striped\">"
+		html += "<div class=\"table-responsive\"><table class=\"table table-striped\">"
 		html += "<thead>"
 		html += "<tr>"
 		html += "<th>State</th>"
@@ -254,12 +254,12 @@ class ReportHTMLGenerator:
 			#html += "<td>%ds (%ds gen + %ds run)</td>" % (time + test.getCreateTime(), test.getCreateTime(), time)
 			html += "</tr>"
 
-		html += "</table>"
+		html += "</table></div>"
 		return html
 
 	def generateSetup(self):
 		html = ""
-		html += "<table class=\"table table-striped\" style=\"margin-bottom;5px;\">"
+		html += "<div class=\"table-responsive\"><table class=\"table table-striped\" style=\"margin-bottom;5px;\">"
 		html += "<tbody>"
 		html += "<tr>"
 		html += "<th class=\"col-md-2\">Teaser Accession</th>"
@@ -296,7 +296,7 @@ class ReportHTMLGenerator:
 		html += "<td colspan=\"2\"><pre>" + yaml.dump(self.mate.config_original) + "</pre></td>"
 		html += "</tr>"
 		html += "</tbody>"
-		html += "</table>"
+		html += "</table></div>"
 
 		return html
 
@@ -312,7 +312,7 @@ class ReportHTMLGenerator:
 				continue
 
 			subprocess_text += self.openPanel(sub["command"])
-			subprocess_text += "<table class=\"table table-striped\" style=\"margin-bottom;5px;\">"
+			subprocess_text += "<div class=\"table-responsive\"><table class=\"table table-striped\" style=\"margin-bottom;5px;\">"
 			subprocess_text += "<tbody>"
 
 			for key in sorted(sub):
@@ -326,7 +326,7 @@ class ReportHTMLGenerator:
 				subprocess_text += "</tr>"
 
 			subprocess_text += "</tbody>"
-			subprocess_text += "</table>"
+			subprocess_text += "</table></div>"
 			subprocess_text += self.closePanel()
 
 		return subprocess_text

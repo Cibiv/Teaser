@@ -30,7 +30,6 @@ class Mapper:
 	def getTitle(self):
 		return self.title
 
-#
 # Generic Mapper Wrapper
 # Enables the creation of YAML-based wrappers for mappers, through a generic
 # interface which allows using templates in YAML for setting the structure of the mappers command line calls
@@ -131,10 +130,6 @@ class MapperGeneric(Mapper):
 		self.thread_count = threadc
 
 	def addParams(self, params):
-		# NGM only for now
-		# params = params["ngm"]
-		# for k in params:
-		#	self.params[k] = params[k]
 		pass
 
 	def resetParams(self):
@@ -199,11 +194,9 @@ class MapperGeneric(Mapper):
 		return self.prepareCommand(self.command_cleanup, self.command_cleanup)
 
 
-#
-# NGM Mapper Wrapper
-# Since NGM is our main testing target, it has its own wrapper tasked with translating input parameters
-# into equivalent shell commands
-#
+#Dedicated Mapper Wrapper Example: NGM
+#For frequently tested mappers, instead of repetitively defining them using the generic wrapper,
+#it is advisable to create a dedicated wrapper class instead
 class MapperNGM(Mapper):
 	hashes = {}
 
@@ -300,9 +293,6 @@ class MapperNGM(Mapper):
 		for k in params_kv:
 			self.params[k] = params_kv[k]
 
-			# if "ngm_inline_append" in params:
-			#	self.params_append = params["ngm_inline_append"]
-
 	def resetParams(self):
 		self.params = {}
 		self.params_append = []
@@ -331,7 +321,6 @@ class MapperNGM(Mapper):
 	def getCommandLineMain(self):
 		if self.is_paired:
 			if len(self.read_files) == 1:
-				# Interwoven paired ends in one input file
 				self.params["qry"] = self.read_files[0]
 				self.params["p"] = ""
 			else:
