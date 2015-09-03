@@ -1,5 +1,5 @@
 from lib import util
-
+from lib import stats
 
 def init(self):
 	mapper = self.getMapper()
@@ -33,3 +33,5 @@ def init(self):
 	self.dbg("Reads: " + util.abs_path(self._("input:reads")[0]))
 	self.dbg("Output:" + util.abs_path(self._("output:testee_path")))
 	self.restoreWorkingDirectory()
+
+	self.setRunResults(stats.ReferenceMappingStatistics())

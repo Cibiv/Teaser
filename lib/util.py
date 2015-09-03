@@ -326,9 +326,18 @@ def sort_sam(filename,threads=1):
 		handle.flush()
 		handle.close()
 	#cmd="tail --lines=+%d %s | sort --parallel %d --buffer-size 25%% -t $'\\t' -k1 >> %s" % (get_sam_header_line_count(filename) + 1,filename,threads,sorted_filename)
-	cmd="tail --lines=+%d %s | sort -t$'\\t' -k1 >> %s" % (get_sam_header_line_count(filename) + 1,filename,sorted_filename)
+	cmd="""/bin/bash -c "tail --lines=+%d %s | sort -t$'\t' -k1 >> %s" """ % (get_sam_header_line_count(filename) + 1,filename,sorted_filename)
 	exitcode = os.system(cmd)
 	return sorted_filename if exitcode==0 else False
+
+def sort_sam_picard(filename,threads=-1):
+	sorted_filename = "sorted_%s"%filename
+	cmd="picard-tools SortSam INPUT=%s OUTPUT=%s VALIDATION_STRINGENCY=SILENT SO=queryname" % (filename,sorted_filename)
+	exitcode = os.system(cmd)
+	return sorted_filename if exitcode==0 else False
+
+
+
 
 import pydoc
 locate = pydoc.locate

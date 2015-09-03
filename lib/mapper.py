@@ -250,8 +250,12 @@ class MapperNGM(Mapper):
 
 	def getBinaryHash(self):
 		if not self.binary_path in MapperNGM.hashes:
-			text = open(self.binary_path, "r").read()  # ngm
-			text = text + open(self.binary_path + "-core", "r").read()  # ngm-core
+			text = ""
+			try:
+				text = open(self.binary_path, "r").read()  # ngm
+				text += open(self.binary_path + "-core", "r").read()  # ngm-core
+			except:
+				return "None"
 			MapperNGM.hashes[self.binary_path] = hashlib.md5(text).hexdigest()
 
 		return MapperNGM.hashes[self.binary_path]

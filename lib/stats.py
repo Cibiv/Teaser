@@ -8,7 +8,7 @@ class ReferenceMappingStatistics:
 		self.not_found = 0  #Num. of sequences that were not found in the self output (fatal if > 0)
 
 		#Extra statistics
-		self.total = 0  #Actual number of reads (in reference mapping)
+		self.total = -1  #Actual number of reads (in reference mapping)
 		self.total_testee = 0  #Number of reads in mapper output (includes secondary alignments)
 		self.ignored_testee = 0
 		self.reverse = 0
@@ -21,7 +21,25 @@ class ReferenceMappingStatistics:
 		self.recall = 0
 		self.fmeasure = 0
 
-		#dditional data
+		#Timing
+		self.maptime_raw = 1
+		self.maptime = 1
+		self.inittime = 1
+
+		self.initwalltime = 1
+		self.initcputime = 1
+		self.initusrtime = 1
+		self.initsystime = 1
+
+		self.walltime = 1
+		self.cputime = 1
+		self.usrtime = 1
+		self.systime = 1
+
+		self.memory = 1
+		self.time_measure = "None"
+
+		#Additional data
 		self.failed_rows = []
 
 		self.mapq_cumulated = {}

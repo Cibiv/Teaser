@@ -609,6 +609,7 @@ class Mate:
 		parser.add_argument("-mcpu", "--measurecputime", help="Measure mapper CPU time instead of wall clock time", default=False, action="store_true")
 		parser.add_argument("-mpre", "--measurepreload", help="Initialize mappers once before measuring initialization time to avoid cache effects", default=False, action="store_true")
 		parser.add_argument("-mures", "--measureuseresource", help="Use Python resource module for CPU time and memory measurements", default=False, action="store_true")
+		parser.add_argument("-pc", "--picard", help="Use picard-tools for sorting alignment output files", default=False, action="store_true")
 
 		return parser
 
@@ -704,6 +705,10 @@ class Mate:
 
 		if args.listtests != False:
 			self.list_tests = True
+
+		if args.picard:
+			self.log("Using picard-tools for sorting")
+			util.sort_sam = util.sort_sam_picard
 
 		return True
 

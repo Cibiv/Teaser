@@ -30,6 +30,17 @@ Requirements:
 * UNIX-like Operating System
 * Python 2.x
 
+Packages that may need to be installed before downloading and installing Teaser:
+* python-pip
+* python-dev
+
+Packages that may be needed for the automatic building of mapper binaries:
+
+* NGM:
+** build-essentials
+** cmake
+** zlib
+
 Installation:
 ```
 git clone https://github.com/Cibiv/Teaser.git
