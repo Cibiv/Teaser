@@ -219,12 +219,13 @@ def setRootDir(d):
 	root_cwd = d
 
 def enterCallDir():
-	global call_cwd
 	os.chdir(call_cwd)
 
 def enterRootDir():
-	global root_cwd
 	os.chdir(root_cwd)
+
+def getRootDir():
+	return root_cwd
 
 def nl2br(text):
 	return text.replace('\n', '<br>\n')
@@ -324,7 +325,8 @@ def sort_sam(filename,threads=1):
 		handle.write("@HD SO:queryname\n")
 		handle.flush()
 		handle.close()
-	cmd="tail --lines=+%d %s | sort --parallel %d --buffer-size 25%% -t $'\\t' -k1 >> %s" % (get_sam_header_line_count(filename) + 1,filename,threads,sorted_filename)
+	#cmd="tail --lines=+%d %s | sort --parallel %d --buffer-size 25%% -t $'\\t' -k1 >> %s" % (get_sam_header_line_count(filename) + 1,filename,threads,sorted_filename)
+	cmd="tail --lines=+%d %s | sort -t$'\\t' -k1 >> %s" % (get_sam_header_line_count(filename) + 1,filename,sorted_filename)
 	exitcode = os.system(cmd)
 	return sorted_filename if exitcode==0 else False
 

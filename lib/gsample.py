@@ -271,7 +271,7 @@ def ctranslate(reference_file, sampled_index_file, sam_file, target_file):
 
 		source_sample_set = sampled_tree[read_pos]
 		if len(source_sample_set) != 1:
-			log("Woops, len of source sample set = %d, read %s" % (len(source_sample_set), parts[0]))
+			log("Warning: Len of source sample set = %d, read %s" % (len(source_sample_set), parts[0]))
 			continue
 
 		source_sample = source_sample_set.pop().data

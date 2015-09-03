@@ -4,6 +4,7 @@ import sys
 import tornado.ioloop
 import tornado.web
 import tornado.wsgi
+import tornado.options
 import yaml
 
 from lib import page
@@ -80,9 +81,10 @@ class Home(tornado.web.RequestHandler):
 				report_config=yaml.load(open(report_config_filename,"r"))
 				recent_configs.append(report_config)
 			except Exception as e:
-				print("Failed to load report config from %s: %s"%(report_config_filename,str(e)))
+				#print("Failed to load report config from %s: %s"%(report_config_filename,str(e)))
+				pass
 
-		max_i=5
+		max_i=10
 		i=0
 		for config in sorted(recent_configs,key=lambda k: k["meta_timestamp"],reverse=True):
 			test_name = list(config["teaser"]["tests"].keys())[0]
@@ -233,7 +235,7 @@ class DefineJob(tornado.web.RequestHandler):
               <div class="form-group">
                 <label for="coverage" class="col-sm-2 control-label">Coverage</label>
                 <div class="col-sm-2">
-                  <input type="number" class="form-control" id="coverage" name="coverage" size="1" min="0.1" max="25" step="0.1" value="1">
+                  <input type="number" class="form-control" id="coverage" name="coverage" size="1" min="0.1" max="5" step="0.1" value="1">
                 </div>
               </div>
 
@@ -309,6 +311,15 @@ class DefineJob(tornado.web.RequestHandler):
               </div>
 
               <div class="form-group">
+                <label for="evaluator" class="col-sm-2 control-label">Alignment Evaluation Method</label>
+                <div class="col-sm-4">
+                  <select id="evaluator" class="form-control" name="evaluator">
+                     <option value="1" selected>Position-based using gold standard</option>
+                  </select>
+                </div>
+              </div>
+ 
+              <div class="form-group">
                 <label for="pos_threshold" class="col-sm-2 control-label">Position threshold (bp)</label>
                 <div class="col-sm-4">
                   <select id="pos_threshold" class="form-control" name="pos_threshold">
@@ -335,21 +346,21 @@ class DefineJob(tornado.web.RequestHandler):
               <div class="form-group">
                 <label for="threads" class="col-sm-2 control-label">Number of CPU cores to use</label>
                 <div class="col-sm-2">
-                  <input type="number" class="form-control" id="threads" name="threads" min="1" max="16" value="4" step="1">
+                  <input type="number" class="form-control" id="threads" name="threads" min="1" max="%d" value="%d" step="1">
                 </div>
               </div>
 
               <div class="form-group">
                 <label for="sub_max_memory" class="col-sm-2 control-label">Max. Mapper Memory Usage (MB)</label>
                 <div class="col-sm-2">
-                  <input type="number" class="form-control" id="sub_max_memory" name="sub_max_memory" min="512" max="64000" value="16000" step="1">
+                  <input type="number" class="form-control" id="sub_max_memory" name="sub_max_memory" min="1" max="%d" value="%d" step="1">
                 </div>
               </div>
 
               <div class="form-group">
                 <label for="sub_max_runtime" class="col-sm-2 control-label">Max. Mapper Runtime (s)</label>
                 <div class="col-sm-2">
-                  <input type="number" class="form-control" id="sub_max_memory" name="sub_max_runtime" min="60" max="1000000" value="3600" step="1">
+                  <input type="number" class="form-control" id="sub_max_memory" name="sub_max_runtime" min="60" max="%d" value="%d" step="1">
                 </div>
               </div>
 
@@ -364,7 +375,7 @@ class DefineJob(tornado.web.RequestHandler):
                 </div>
               </div>
             </div>
-            """, """<div class="form-group">
+            """%(config["teaser"]["server"]["max_threads"],config["teaser"]["server"]["default_threads"],config["teaser"]["server"]["max_memory"],config["teaser"]["server"]["default_memory"],config["teaser"]["server"]["max_runtime"],config["teaser"]["server"]["default_runtime"]), """<div class="form-group">
               <a href="#section4" class="btn btn-info" role="button">Back</a> <button type="submit" class="btn btn-primary" id="submitButton" name="submitButton">Run Teaser</button>
               </div></form>""")
 
@@ -421,16 +432,16 @@ class SubmitJob(tornado.web.RequestHandler):
 		if pos_threshold < 0:
 			pos_threshold = int(self.get_argument('read_length', 60)) / 2
 
-		config = {}
-		config["meta_timestamp"] = time.time()
-		config["include"] = ["base_teaser.yaml"]
-		config["report"] = {"name": self.getJobId()}
-		config["evaluation"] = {"pos_threshold": pos_threshold} 
-		config["teaser"] = {}
-		config["teaser"]["tests"] = {}
-		config["threads"] = int(self.get_argument('threads', 1))
-		config["sub_max_memory"] = int(self.get_argument('sub_max_memory', 16000))
-		config["sub_max_runtime"] = int(self.get_argument('sub_max_memory', 16000))
+		config_ = {}
+		config_["meta_timestamp"] = time.time()
+		config_["include"] = ["base_teaser.yaml"]
+		config_["report"] = {"name": self.getJobId()}
+		config_["evaluation"] = {"pos_threshold": pos_threshold} 
+		config_["teaser"] = {}
+		config_["teaser"]["tests"] = {}
+		config_["threads"] = min(int(self.get_argument('threads', 1)),config["teaser"]["server"]["max_threads"])
+		config_["sub_max_memory"] = min(int(self.get_argument('sub_max_memory', 16000)),config["teaser"]["server"]["max_memory"])
+		config_["sub_max_runtime"] = min(int(self.get_argument('sub_max_memory', 16000)),config["teaser"]["server"]["max_runtime"])
 
 		test = {}
 		test["title"] = name
@@ -450,28 +461,28 @@ class SubmitJob(tornado.web.RequestHandler):
 		if test["paired"]:
 			test["insert_size"] = int(self.get_argument('insert_size', ''))
 
-		config["test_mappers"] = []
-		config["test_parameters"] = []
+		config_["test_mappers"] = []
+		config_["test_parameters"] = []
 
 		if "mappers" in self.request.arguments:
 			for mapper in self.request.arguments["mappers"]:
 				if mapper[0] == "m":
-					config["test_mappers"].append(mapper[1:])
+					config_["test_mappers"].append(mapper[1:])
 				elif mapper[0] == "p":
-					config["test_parameters"].append(mapper[1:])
+					config_["test_parameters"].append(mapper[1:])
 				else:
 					raise
 
-		config["teaser"]["tests"][self.getJobId()] = test
+		config_["teaser"]["tests"][self.getJobId()] = test
 
 		config_path = "setups_generated/" + self.getJobId() + ".yaml"
 		with open(config_path, "w") as yml:
-			yml.write(yaml.dump(config))
+			yml.write(yaml.dump(config_))
 			yml.flush()
 			yml.close()
 
-		print("Wrote config to %s" % config_path)
-		return config_path, config
+		#print("Wrote config to %s" % config_path)
+		return config_path, config_
 
 	def startTeaser(self, config_path):
 		cmd = config["teaser"]["server"]["framework_cmd"] % (config_path, self.job_id)
@@ -496,6 +507,13 @@ class TeaserServer:
 		self.jobs = []
 
 	def main(self, wsgi=False):
+		#args = sys.argv
+		#args.append("--log_file_prefix=%s/logs/tornado.log" % util.getRootDir() )
+
+		#print("Log file: %s/logs/tornado.log"%util.getRootDir())
+
+		#tornado.options.parse_command_line(args)
+
 		app = tornado.web.Application([
 			("/", Home),
 			("/home", Home),
@@ -558,6 +576,8 @@ def deleteContents(dir,max_age_hours=24*30):
 		except:
 			pass
 
+import logging
+tornado.options.parse_command_line()
 
 call_dir = os.getcwd()
 root_dir = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + "/../")
@@ -574,6 +594,9 @@ setCallDir(call_dir)
 setRootDir(root_dir)
 
 enterRootDir()
+logging.getLogger("tornado.access").addHandler(logging.FileHandler("logs/server.access.log"))
+logging.getLogger("tornado.application").addHandler(logging.FileHandler("logs/server.application.log"))
+logging.getLogger("tornado.general").addHandler(logging.FileHandler("logs/server.general.log"))
 
 deleteContents("setups_generated")
 deleteContents("tests_generated")
@@ -585,6 +608,10 @@ if len(sys.argv) > 1:
 config, original = util.loadConfig(config_file)
 
 print("Root dir: %s" % root_dir)
+
+
+#sys.stdout = open("logs/server.txt","w")
+#sys.stderr = sys.stdout
 
 # instance = TeaserServer()
 # instance.main()
