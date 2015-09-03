@@ -60,5 +60,7 @@ Accessing the web interface: `http://localhost:8888`
 
 Note: Teaser by default places results in the `reports` directory.
 
+The command-line version of Teaser is controlled using configuration files in YAML format. The Wiki page at https://github.com/Cibiv/Teaser/wiki/Configuration includes examples on how they can be used to define data sets and control benchmarks.
+
 #License
 Teaser is made available under the MIT License.
