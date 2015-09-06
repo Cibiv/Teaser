@@ -41,7 +41,7 @@ cd Teaser
 ./install.py
 ```
 
-##Adapting Teaser: Adding new Reference Genomes, Parameter Sets and Mappers
+##Adapting Teaser: Adding new References, Parameter Sets and Mappers
 The main reason for using a local version of Teaser is the ability to further customize Teaser.
 
 ###Adding a reference sequence
