@@ -1,5 +1,5 @@
 # Teaser
-Welcome on the official github page of Teaser, an analytical framework for benchmarking NGS read mappers. Teaser allows researchers to identify the optimal mapper, parameter set and mapping quality thresholds for data sets that mimic their real data. Teaser is easy-to-use, flexible and fast thanks to its genome subsampling process, allowing users to test a variety of scenarios within minutes. Teaser is available as web application at http://teaser.cibiv.univie.ac.at .
+Welcome to the official github page of Teaser, an analytical framework for benchmarking NGS read mappers. Teaser allows researchers to identify the optimal mapper, parameter set and mapping quality thresholds for data sets that mimic their real data. Teaser is easy-to-use, flexible and fast thanks to its genome subsampling process, allowing users to test a variety of scenarios within minutes. Teaser is available as web application at http://teaser.cibiv.univie.ac.at .
 
 # Quickstart
 Getting started with Teaser takes just a few minutes. The following sections contain possible next steps for beginners and advanced users.
@@ -59,6 +59,8 @@ Example Usage: Starting the web interface:
 Accessing the web interface: `http://localhost:8888`
 
 Note: Teaser by default places results in the `reports` directory.
+
+The command-line version of Teaser is controlled using configuration files in YAML format. The Wiki page at https://github.com/Cibiv/Teaser/wiki/Configuration includes examples on how they can be used to define data sets and control benchmarks.
 
 #License
 Teaser is made available under the MIT License.
