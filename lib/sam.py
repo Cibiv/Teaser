@@ -2,7 +2,6 @@ class SAMRow:
 	def __init__(self):
 		self.qname = False
 
-
 class SAMFile:
 	def __init__(self, filename):
 		self.handle = open(filename, "r")
@@ -75,3 +74,41 @@ class SAMFile:
 		row.is_paired = row.is_read1 or row.is_read2
 
 		return True
+
+class Object:
+	def __init__(self):
+		pass
+
+class FASTQ:
+	def __init__(self, filename, write=False):
+		self.handle = open(filename, "w" if write else "r")
+
+	def readline(self):
+		return self.handle.readline()
+
+	def next_read(self):
+		read = Object()
+		read.valid = False
+
+		try:
+			read.id = self.readline()
+			if len(read.id) > 0 and read.id[0] == "@":
+				read.id = read.id[1:]
+			else:
+				raise
+
+			read.seq = self.readline()
+			read.desc = self.readline()
+			read.qual = self.readline()
+			read.valid = True
+		except Exception as e:
+			pass
+
+		return read
+
+	def write_read(self,read):
+		self.handle.write("@" + read.id + "\n")
+		self.handle.write("%s\n%s\n%s\n" % (read.seq, read.desc, read.qual))
+
+	def close(self):
+		self.handle.close()

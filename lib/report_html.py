@@ -5,9 +5,7 @@ import math
 
 import yaml
 
-from lib import page
-Page = page.Page
-
+from report_page import Page
 from lib import util
 
 strftime = time.strftime
@@ -76,7 +74,7 @@ class ReportHTMLGenerator:
 
 		html = ""
 
-		html += "<div class=\"table-responsive\"><table class=\"table table-striped\">"
+		html += "<table class=\"table table-striped\">"
 		html += "<thead>"
 		html += "<tr>"
 		html += "<th>Type</th>"
@@ -97,7 +95,7 @@ class ReportHTMLGenerator:
 			html += "<td>" + str(msg) + "</td>"
 			html += "</tr>"
 
-		html += "</table></div>"
+		html += "</table>"
 
 		return html
 
@@ -108,7 +106,7 @@ class ReportHTMLGenerator:
 			html = "<i>No problems were encountered.</i>"
 			return html
 
-		html += "<div class=\"table-responsive\"><table class=\"table table-striped\">"
+		html += "<table class=\"table table-striped\">"
 		html += "<thead>"
 		html += "<tr>"
 		html += "<th>Type</th>"
@@ -135,18 +133,53 @@ class ReportHTMLGenerator:
 			html += "<td>" + str(location) + "</td>"
 			html += "</tr>"
 
-		html += "</table></div>"
+		html += "</table>"
+
+		return html
+
+	def generateOverviewErrorList(self, test_objects):
+		html = ""
+
+		html += "<table class=\"table table-striped\">"
+		html += "<thead>"
+		html += "<tr>"
+		html += "<th>Source</th>"
+		html += "<th>Message</th>"
+		html += "<th>File</th>"
+		html += "<th>Position</th>"
+		html += "</tr>"
+		html += "</thead>"
+		html += "<tbody>"
+
+		for msg, file, location in self.mate.getErrors():
+			html += "<tr>"
+			html += "<td class=\"col-md-1 danger\">Teaser</td>"
+			html += "<td>" + str(msg) + "</td>"
+			html += "<td>" + str(file) + "</td>"
+			html += "<td>" + str(location) + "</td>"
+			html += "</tr>"
+
+		for test in test_objects:
+			for msg, file, location in test.getErrors():
+				html += "<tr>"
+				html += "<td class=\"col-md-1 danger\">" + test.getMapper().getTitle() + "</td>"
+				html += "<td>" + str(msg) + "</td>"
+				html += "<td>" + str(file) + "</td>"
+				html += "<td>" + str(location) + "</td>"
+				html += "</tr>"
+
+		html += "</table>"
 
 		return html
 
 	def generateMainErrorList(self):
 		html = ""
 
-		if len(self.mate.getWarnings()) + len(self.mate.getErrors()) == 0:
+		if len(self.mate.getWarnings()) + len(self.mate.getWarnings()) == 0:
 			html = "<i>No problems were encountered.</i>"
 			return html
 
-		html += "<div class=\"table-responsive\"><table class=\"table table-striped\">"
+		html += "<table class=\"table table-striped\">"
 		html += "<thead>"
 		html += "<tr>"
 		html += "<th>Type</th>"
@@ -167,7 +200,7 @@ class ReportHTMLGenerator:
 			html += "<td>" + str(msg) + "</td>"
 			html += "</tr>"
 
-		html += "</table></div>"
+		html += "</table>"
 
 		return html
 
@@ -177,17 +210,16 @@ class ReportHTMLGenerator:
 		html += str(self.mate.tests_run_count) + " tests executed, " + str(
 			self.mate.tests_run_count - self.mate.tests_success_count) + " fail, " + str(
 			self.mate.tests_aborted_count) + " aborted, " + str(self.mate.tests_err_count) + " errors total."
-		html += "<div class=\"table-responsive\"><table class=\"table table-striped\">"
+		html += "<table class=\"table table-striped\">"
 		html += "<thead>"
 		html += "<tr>"
 		html += "<th>State</th>"
 		html += "<th>Name</th>"
-		html += "<th>Reference</th>"
 		html += "<th>Executed</th>"
 		html += "<th>OK</th>"
 		html += "<th>Warnings</th>"
 		html += "<th>Errors</th>"
-		#html += "<th>Runtime</th>"
+		html += "<th>Runtime</th>"
 		html += "</tr>"
 		html += "</thead>"
 
@@ -237,29 +269,22 @@ class ReportHTMLGenerator:
 				tclass = "danger"
 				icon = "glyphicon-remove"
 
-			ref_name = ""
-			try:
-				ref_name = os.path.splitext(os.path.basename(test._("input:reference")))[0].capitalize()
-			except:
-				pass
-
 			html += "<tr>"
 			html += "<td class=\"col-md-1 " + tclass + "\" align=\"center\"><span class=\"glyphicon " + icon + "\"></span></td>"
 			html += "<td><a href=\"" + test.getName() + ".html\">" + test.getTitle() + "</a></td>"
-			html += "<td>%s</td>" % ref_name
 			html += "<td>%d</td>" % total
 			html += "<td>%d</td>" % success
 			html += "<td>%d</td>" % warnings
 			html += "<td>%d</td>" % errors
-			#html += "<td>%ds (%ds gen + %ds run)</td>" % (time + test.getCreateTime(), test.getCreateTime(), time)
+			html += "<td>%ds (%ds gen + %ds run)</td>" % (time + test.getCreateTime(), test.getCreateTime(), time)
 			html += "</tr>"
 
-		html += "</table></div>"
+		html += "</table>"
 		return html
 
 	def generateSetup(self):
 		html = ""
-		html += "<div class=\"table-responsive\"><table class=\"table table-striped\" style=\"margin-bottom;5px;\">"
+		html += "<table class=\"table table-striped\" style=\"margin-bottom;5px;\">"
 		html += "<tbody>"
 		html += "<tr>"
 		html += "<th class=\"col-md-2\">Teaser Accession</th>"
@@ -281,14 +306,14 @@ class ReportHTMLGenerator:
 		html += "<th>Framework Command Line</th>"
 		html += "<td>" + " ".join(sys.argv) + "</td>"
 		html += "</tr>"
-		#html += "<tr>"
-		#html += "<th>Wall Clock Time (Framework)</th>"
-		#html += "<td>%ds</td>" % self.mate.getWallClockTime()
-		#html += "</tr>"
-		#html += "<tr>"
-		#html += "<th>Wall Clock Time (Mappers)</th>"
-		#html += "<td>%ds</td>" % self.mate.getMapperWallClockTime()
-		#html += "</tr>"
+		html += "<tr>"
+		html += "<th>Wall Clock Time (Framework)</th>"
+		html += "<td>%ds</td>" % self.mate.getWallClockTime()
+		html += "</tr>"
+		html += "<tr>"
+		html += "<th>Wall Clock Time (Mappers)</th>"
+		html += "<td>%ds</td>" % self.mate.getMapperWallClockTime()
+		html += "</tr>"
 		html += "<tr>"
 		html += "<th colspan=\"2\">Benchmark Configuration</th>"
 		html += "</tr>"
@@ -296,7 +321,7 @@ class ReportHTMLGenerator:
 		html += "<td colspan=\"2\"><pre>" + yaml.dump(self.mate.config_original) + "</pre></td>"
 		html += "</tr>"
 		html += "</tbody>"
-		html += "</table></div>"
+		html += "</table>"
 
 		return html
 
@@ -312,7 +337,7 @@ class ReportHTMLGenerator:
 				continue
 
 			subprocess_text += self.openPanel(sub["command"])
-			subprocess_text += "<div class=\"table-responsive\"><table class=\"table table-striped\" style=\"margin-bottom;5px;\">"
+			subprocess_text += "<table class=\"table table-striped\" style=\"margin-bottom;5px;\">"
 			subprocess_text += "<tbody>"
 
 			for key in sorted(sub):
@@ -326,7 +351,7 @@ class ReportHTMLGenerator:
 				subprocess_text += "</tr>"
 
 			subprocess_text += "</tbody>"
-			subprocess_text += "</table></div>"
+			subprocess_text += "</table>"
 			subprocess_text += self.closePanel()
 
 		return subprocess_text
@@ -334,14 +359,11 @@ class ReportHTMLGenerator:
 	def generateOverviewPlot(self, page, measure):
 		format_func = "function(y){return y;}"
 		min = 0
-		title_section = ""
 		if measure == "correct":
-			title = "Correctly Mapped Reads [%]"
-			title_section = "Correctly Mapped Reads"
+			title = "Correct reads"
 			format_func = "function(y){return Math.round(100000*y)/100000 + \"%\";}"
 		elif measure == "corrects":
-			title = "Correctly Mapped Reads [Reads/s]"
-			title_section = "Correct/s"
+			title = "Correct/s"
 			format_func = "function(y){return Math.round(1000*y)/1000;}"
 		elif measure == "precision":
 			title = "Precision"
@@ -355,9 +377,6 @@ class ReportHTMLGenerator:
 			title = "F-Measure"
 			format_func = "function(y){return Math.round(10000*y)/10000;}"
 			# min = 0.75
-		
-		if title_section == "":
-			title_section = title
 
 		import json
 
@@ -366,9 +385,6 @@ class ReportHTMLGenerator:
 			column = []
 			for test_name in self.mate.getTestNameList():
 				test = self.mate.getTestByMapperName(test_name, mapper)
-				if test == None:
-					continue
-
 				if len(column) == 0:
 					column.append(test.getMapper().getTitle())
 
@@ -377,18 +393,20 @@ class ReportHTMLGenerator:
 					continue
 
 				if measure == "correct":
-					try:
-						value = test.getRunResults().correct / float(test.getRunResults().total)
-						value = value * 100
-					except ZeroDivisionError:
-						value = 0
-
+					value = test.getRunResults().correct / float(test.getRunResults().total)
+					value = value * 100
 				elif measure == "corrects":
+
 					try:
 						value = test.getRunResults().correct / float(test.getRunResults().maptime)
 					except ZeroDivisionError:
 						value = 0
 
+						# TODO
+						# if value < 1:
+						#    value = 1
+
+						# value = math.log(value, 10)
 				elif measure == "precision":
 					value = test.getRunResults().precision
 				elif measure == "recall":
@@ -410,7 +428,7 @@ class ReportHTMLGenerator:
 			if len(tests) != 0:
 				titles.append(tests[0].getTitle())
 		# titles=["0%","75%","90%","95%","99%"]
-		page.addSection("Results: %s" % title_section, """<div id="plot_%s"></div>""" % measure)
+		page.addSection("Results: %s" % title, """<div id="plot_%s"></div>""" % measure)
 		page.addScript("""
 var chart_%s = c3.generate({
     bindto: '#plot_%s',
@@ -418,8 +436,7 @@ var chart_%s = c3.generate({
       height: 400
     },
     data: {
-      columns: %s,
-      type: "bar"
+      columns: %s
     },
     grid: {
       y: {
@@ -432,8 +449,8 @@ var chart_%s = c3.generate({
         categories: %s,
         label:
         {
-              text: "Data Set",
-              position: "outer-middle"
+              text: "Data Set"//,
+              //position: "outer-center"
         }
       },
 
@@ -448,8 +465,13 @@ var chart_%s = c3.generate({
       }
     },
     legend: {
-    	position: "right"
+    	position: "right",
+    	show:true
+    },
+    padding: {
+        bottom: 60
     }
+
 });""" % (measure, measure, json.dumps(data), json.dumps(titles), title, format_func, min_str))
 
 	def generate(self):
@@ -478,11 +500,11 @@ var chart_%s = c3.generate({
 
 		number_of_tests=sum([1 if len(self.mate.getTestsByName(name)) else 0 for name in self.mate.getTestNameList()])
 		if number_of_tests == 0:
-			self.mate.warning("This benchmark contains no tests. This could be because no tests or mappers were selected, or because generation/loading failed for all tests.")
+			self.mate.warning("This benchmark contains no tests. Were any mappers selected for testing?")
 
 		index = Page()
 
-		index.addSection("Tests Overview", self.generateTestList(), None, ("This benchmark contains multiple data sets. " if len(self.mate.getTestNameList()) > 1 else "" ) + "Use the links in the list below to view results for an individual data set, or navigate this page to compare mapper performance across all data sets.")
+		index.addSection("Tests Overview", self.generateTestList())
 		index.addNav([{"title": "Benchmark", "link": "start.html"}])
 		index.addNav(self.makeTestNavList(), "Select Test")
 
@@ -494,29 +516,17 @@ var chart_%s = c3.generate({
 		self.generateOverviewPlot(index, "recall")
 		self.generateOverviewPlot(index, "fmeasure")
 
-		csv = "test,mapper,correctly_mapped_percent,throughput_reads_per_sec\n"
+		csv = "test,mapper,correct_percent,time_gen,time_run,time_map\n"
 		for test_name in self.mate.getTestNameList():
 			for test in self.mate.getTestsByName(test_name):
-				if test.getRunResults() == None:
-					continue
-
-				correct=0
-				try:
-					correct=(100.0 * test.getRunResults().correct) / float(test.getRunResults().total)
-				except ZeroDivisionError:
-					pass
-
-				throughput=0
-				try:
-					throughput=test.getRunResults().total / float(test.getRunResults().maptime)
-				except ZeroDivisionError:
-					pass
-
-				csv += "%s,%s,%f,%f\n" % (test_name, (test.getMapper().getName() + " " + test.getMapper().param_string.replace(",", ";")).strip(), correct, throughput)
+				csv += "%s,%s,%f,%f,%f,%f\n" % (
+				test_name, test.getMapper().getName() + " " + test.getMapper().param_string.replace(",", ";"),
+				(100.0 * test.getRunResults().correct) / float(test.getRunResults().total), test.getCreateTime(),
+				test.getRunTime(), test.getRunResults().total / float(test.getRunResults().maptime))
 
 		index.addSection("Raw Results", "<pre>%s</pre>" % csv)
 
-		index.addSection("Setup", self.generateSetup(), None, "This section contains information about the benchmarking process itself and can be shared in order to reproduce results and diagnose problems.")
+		index.addSection("Setup", self.generateSetup())
 		index.addSection("Log", self.generateLogs())
 
 		with open(self.mate.getReportDirectory() + "/start.html", "w") as handle:
@@ -537,8 +547,8 @@ var chart_%s = c3.generate({
 			test_page.addNav(self.makeTestNavList(), test.getTitle())
 			test_page.addNav(self.makeTestMapperNavList(test_objects), "Select Mapper")
 
-			if number_of_tests == 1 and len(self.mate.getErrors()) + len(self.mate.getWarnings()) > 0:
-				test_page.addSection("Errors and Warnings", self.generateMainErrorList())
+			if len(self.mate.getErrors()) + sum([len(test.getErrors()) for test in test_objects]) > 0:
+				test_page.addSection("Errors and Warnings", self.generateOverviewErrorList())
 
 			test.executePipeline("report_overview", [self, test_page, test_objects])
 			with open(self.mate.getReportDirectory() + "/" + test.getName() + ".html", "w") as handle:
@@ -573,8 +583,9 @@ var chart_%s = c3.generate({
 			total_to_run += self.mate.getTeaser().getTestCount()
 			total_ran += self.mate.getTeaser().getTestCreatedCount()
 			if self.mate.getTeaser().getTestCreatedCount() < self.mate.getTeaser().getTestCount():
-				progress_text = "Create data set %d of %d..." % (
+				progress_text = "Create simulated data set %d of %d..." % (
 					self.mate.getTeaser().getTestCreatedCount() + 1, self.mate.getTeaser().getTestCount())
+				# Hack!
 				total_to_run += len(self.mate.config["test_mappers"]) * self.mate.getTeaser().getTestCount()
 		try:
 			progress_percent = 100 * (float(total_ran) / float(total_to_run))
@@ -601,7 +612,7 @@ var chart_%s = c3.generate({
 <small>%s</small>""" % (
 			int(self.mate.getElapsedTime()/60), progress_percent, progress_percent, progress_percent, progress_text))
 		index.addSection("Errors and Warnings", self.generateMainErrorList())
-		index.addSection("Setup", self.generateSetup(), None, "This section contains information about the benchmarking process itself and can be shared in order to reproduce results and diagnose problems.")
+		index.addSection("Setup", self.generateSetup())
 		index.addSection("Log", self.generateLogs())
 
 		handle = open(self.mate.getReportDirectory() + "/index.html", "w")

@@ -58,14 +58,17 @@ class Test:
 		self.max_warnings = 10
 
 	# Config getter shortcut
-	def _(self, field, new_value=None):
+	def _(self, field, default=None):
 		value = self.getConfig()
 		for part in field.split(":"):
 			if part in value:
 				value = value[part]
 			else:
-				return None
-		return value
+				return default
+		if value==None:
+			return default
+		else:
+			return value
 
 	def setc(self, field, new_value):
 		value = self.getConfig()
@@ -233,6 +236,8 @@ class Test:
 		# Load test configuration from metafile in test directory
 		path = self.directory + "/" + self.getName()
 		config_path = path + "/" + self.getName() + ".yaml"
+		test_config = None
+
 		try:
 			if not config_path in Test.yaml_cache:
 				with open(config_path, "r") as test_config_file_handle:
@@ -257,13 +262,15 @@ class Test:
 				test_config = copy.deepcopy(Test.yaml_cache[config_path])
 
 		except IOError as e:
-			self.log(
-				"- Test \"" + self.getName() + "\": Failed to load meta-information from \"" + config_path + "\": " + str(
-					e))
+			self.mate.error("Failed to load meta-information from \"" + config_path + "\": " + str(e))
+			raise Exception()
 
 		# Start using test configuration
 		self.config = test_config
 		self.path = path
+
+		if self.config == None:
+			return False
 
 		# Make script paths absolute
 		if "pipeline" in self.config:
@@ -283,6 +290,8 @@ class Test:
 			parent_test.config["is_basic"] = False
 
 			self.config = merge(parent_test.config, self.config)
+
+		return True
 
 	def getParentTest(self):
 		if "base" in self.config:

@@ -6,6 +6,7 @@ import psutil
 import yaml
 import time
 import sys
+import subprocess
 
 call_cwd = ""
 root_cwd = ""
@@ -336,7 +337,12 @@ def sort_sam_picard(filename,threads=-1):
 	exitcode = os.system(cmd)
 	return sorted_filename if exitcode==0 else False
 
-
+def line_count(filename):
+	process = subprocess.Popen(['wc', '-l', filename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	result,errors=process.communicate()
+	if process.returncode != 0:
+		return -1
+	return int(result.strip().split()[0])
 
 
 import pydoc

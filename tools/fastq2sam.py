@@ -6,7 +6,6 @@ Convert FASTQ output of simulators containing simulation information into SAM al
 import traceback
 import base64
 
-
 def encode_qname(qname, retain_petag=True):
 	# return md5.new(str(qname)).hexdigest()
 	if qname[-2] == "/":
@@ -17,11 +16,9 @@ def encode_qname(qname, retain_petag=True):
 	else:
 		return base64.b64encode(qname, "-_")
 
-
 class Object:
 	def __init__(self):
 		pass
-
 
 class FASTQ:
 	def __init__(self, filename, pe):

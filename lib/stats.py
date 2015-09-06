@@ -8,7 +8,7 @@ class ReferenceMappingStatistics:
 		self.not_found = 0  #Num. of sequences that were not found in the self output (fatal if > 0)
 
 		#Extra statistics
-		self.total = -1  #Actual number of reads (in reference mapping)
+		self.total = 0  #Actual number of reads (in reference mapping)
 		self.total_testee = 0  #Number of reads in mapper output (includes secondary alignments)
 		self.ignored_testee = 0
 		self.reverse = 0
@@ -88,7 +88,6 @@ class ReferenceMappingStatistics:
 
 class MappingRow:
 	def __init__(self, alignment=None):
-		#Disabled, for now
 		return
 
 		if alignment == None:

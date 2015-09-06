@@ -86,6 +86,7 @@ def map(self):
 			init_time["cputime"]=result["usrtime"]+result["systime"]
 			f.write(yaml.dump(init_time))
 
+		self.enterWorkingDirectory()
 		try:
 			os.remove(self._("output:testee_path"))
 		except:

@@ -220,11 +220,15 @@ class ThresholdBasedEvaluator(Evaluator):
 			return
 
 		if row_testee.rname != row_comp.rname:
-			self.stats.wrong += 1
-			self.stats.wrong_chromosome += 1
-			self.stats.mapq_cumulated[row_testee.mapq]["wrong"] += 1
-			self.add_failed_row(row_testee, row_comp, "position")
-			return
+			#Fix for mappers that treat RNAMEs containing special characters differently
+			if "|" in row_comp.rname and row_testee.rname == row_comp.rname.split("|")[-2]:
+				pass
+			else:
+				self.stats.wrong += 1
+				self.stats.wrong_chromosome += 1
+				self.stats.mapq_cumulated[row_testee.mapq]["wrong"] += 1
+				self.add_failed_row(row_testee, row_comp, "position")
+				return
 
 		if abs(row_testee.pos - row_comp.pos) > self.position_threshold:
 			self.stats.wrong += 1

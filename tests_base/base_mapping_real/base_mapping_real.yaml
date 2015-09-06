@@ -12,10 +12,10 @@ pipeline:
      - base_mapping/calc_time
 
    report_overview:
-     - base_mapping/report_overview
+     - report_overview
 
    report_detail:
-     - base_mapping/report_detail
+     - report_detail
 
    cleanup:
      - base_mapping/cleanup

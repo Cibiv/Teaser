@@ -34,4 +34,6 @@ def init(self):
 	self.dbg("Output:" + util.abs_path(self._("output:testee_path")))
 	self.restoreWorkingDirectory()
 
-	self.setRunResults(stats.ReferenceMappingStatistics())
+	dummy_stats = stats.ReferenceMappingStatistics()
+	dummy_stats.total = -1
+	self.setRunResults(dummy_stats)

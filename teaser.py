@@ -37,6 +37,7 @@ class Mate:
 		self.list_tests = False
 		self.tests_ran = 0
 		self.mapper_list = False
+		self.parameter_list = False
 
 		self.measure_cputime = False
 		self.measure_preload = False
@@ -60,12 +61,14 @@ class Mate:
 		self.warnings = []
 
 	def error(self, msg):
+		self.log(msg)
 		self.errors.append(msg)
 
 		if self.report != False:
 			self.report.generateProgress()
 
 	def warning(self, msg):
+		self.log(msg)
 		self.warnings.append(msg)
 
 		if self.report != False:
@@ -264,7 +267,8 @@ class Mate:
 				os.remove(self.config["cache_directory"] + "/" + filename)
 				cleaned = cleaned + 1
 
-		self.log("Cleaned " + str(cleaned) + " tests from cache (mate version based clean)")
+		if cleaned > 0:
+			self.log("Cleaned " + str(cleaned) + " tests from cache")
 
 	def cleanCacheFull(self):
 		# if self.no_cleanup:
@@ -280,7 +284,8 @@ class Mate:
 				os.remove(self.config["cache_directory"] + "/" + filename)
 				cleaned = cleaned + 1
 
-		self.log("Cleaned " + str(cleaned) + " tests from cache (full clean)")
+		if cleaned > 0:
+			self.log("Cleaned " + str(cleaned) + " tests from cache (full clean)")
 
 	def triggerCleanupEvents(self, tests):
 		if self.no_cleanup:
@@ -359,7 +364,8 @@ class Mate:
 
 				except Exception as e:
 					self.popLogPrefix()
-					self.log_traceback("Loading failed for " + test_short_name)
+					self.error("Failed to load test " + test_short_name)
+					#self.log_traceback("Loading failed for " + test_short_name)
 
 		return tests
 
@@ -392,7 +398,10 @@ class Mate:
 		return test_objects
 
 	def getTestByMapperName(self, test_name, mapper_id):
-		return self.tests[mapper_id][test_name]
+		try:
+			return self.tests[mapper_id][test_name]
+		except:
+			return None
 
 	def getMappers(self):
 		return self.tests.keys()
@@ -437,8 +446,7 @@ class Mate:
 		return self.tests_ran
 
 	def shouldRunTest(self, the_test):
-		if not self.is_stats_run and not the_test._("is_version_relative") and the_test.getMapper().getId() != \
-				self.config["mapper_testee"]:
+		if not self.is_stats_run and not the_test._("is_version_relative") and the_test.getMapper().getId() != self.config["mapper_testee"]:
 			return False
 
 		if not self.isTestIncluded(the_test):
@@ -505,6 +513,9 @@ class Mate:
 					the_test.warn("User triggered abort", "Test " + the_test.getName())
 				else:
 					raise SystemExit
+
+			except SystemExit:
+				the_test.warn("The test was aborted by the system")
 
 
 			except Exception as e:
@@ -575,22 +586,24 @@ class Mate:
 		parser = argparse.ArgumentParser(description="Teaser - a read mapper benchmark framework")
 		parser.add_argument("config", help="The test run configuration file to use", default="default.yaml", nargs="?")
 		parser.add_argument("-t", "--test", help="Run the and only the specified tests (separate with comma)", default="")
-		parser.add_argument("-q", "--qrun", help="Quality-control run, run only for testee and base mappers",
-							default=False, action="store_true")
+		#parser.add_argument("-q", "--qrun", help="Quality-control run, run only for testee and base mappers",
+		#					default=False, action="store_true")
 		parser.add_argument("-nc", "--nocleanup", help="Dont clean up output / temporary files", default=False,
 							action="store_true")
-		parser.add_argument("-ign", "--ignore",
-							help="Comma-separated list of ignore tags (overwrites value from run config if set)",
-							default=None)
-		parser.add_argument("-inc", "--include",
-							help="Comma-separated list of include tags (overwrites value from run config if set)",
-							default=None)
-		parser.add_argument("-mt", "--mappertestee", help="Testee mapper ID (overwrites value from run config if set)",
-							default=None)
-		parser.add_argument("-mb", "--mapperbase",
-							help="Comparison mapper ID (overwrites value from run config if set)", default=None)
+		#parser.add_argument("-ign", "--ignore",
+		#					help="Comma-separated list of ignore tags (overwrites value from run config if set)",
+		#					default=None)
+		#parser.add_argument("-inc", "--include",
+		#					help="Comma-separated list of include tags (overwrites value from run config if set)",
+		#					default=None)
+		#parser.add_argument("-mt", "--mappertestee", help="Testee mapper ID (overwrites value from run config if set)",
+		#					default=None)
+		#parser.add_argument("-mb", "--mapperbase",
+		#					help="Comparison mapper ID (overwrites value from run config if set)", default=None)
 		parser.add_argument("-m", "--mappers",
-							help="Comma-separated list of mapper IDs to test (default: test all defined)", default=None)
+							help="Comma-separated list of mapper IDs to test", default=None)
+		parser.add_argument("-p", "--parameters",
+							help="Comma-separated list of parameter set IDs to test", default=None)
 		parser.add_argument("-fc", "--forceclean",
 							help="Force cleanup at the end of the run (clean outputs of failed tests as well)",
 							default=False, action="store_true")
@@ -598,16 +611,17 @@ class Mate:
 							help="Override for the test run report subdirectory name (Default: timestamp and mate version hash)",
 							default=None)
 		#parser.add_argument("-cfs", "--clearfscache", help="Clean filesystem cache before every test", default=False, action="store_true")
-		parser.add_argument("-l", "--listtests", help="List available tests and exit", default=False,
-							action="store_true")
-		parser.add_argument("-p", "--threads", help="Mapper thread count", default=False, action="store")
+		#parser.add_argument("-l", "--listtests", help="List available tests and exit", default=False,
+		#					action="store_true")
+		parser.add_argument("-tc", "--threads", help="Mapper thread count", default=False, action="store")
 		parser.add_argument("-fr", "--forcerun", help="Force run tests (do not load cached)", default=False,
 							action="store_true")
-		parser.add_argument("-fg", "--forcegen", help="Force generate tests (do use existing)", default=False,
+		parser.add_argument("-fg", "--forcegen", help="Force generate tests (overwrite existing)", default=False,
 							action="store_true")
 		#parser.add_argument("-px", "--pubexport", help="", default=None, action="store_true")
 		parser.add_argument("-mcpu", "--measurecputime", help="Measure mapper CPU time instead of wall clock time", default=False, action="store_true")
-		parser.add_argument("-mpre", "--measurepreload", help="Initialize mappers once before measuring initialization time to avoid cache effects", default=False, action="store_true")
+		parser.add_argument("-mpre", "--measurepreload", help="Initialize mappers once before measuring initialization time to avoid cache effects", default=True, action="store_true")
+		parser.add_argument("-mnopre", "--nomeasurepreload", help="Do not initialize mappers once before measuring initialization time to avoid cache effects", default=False, action="store_true")
 		parser.add_argument("-mures", "--measureuseresource", help="Use Python resource module for CPU time and memory measurements", default=False, action="store_true")
 		parser.add_argument("-pc", "--picard", help="Use picard-tools for sorting alignment output files", default=False, action="store_true")
 
@@ -656,8 +670,11 @@ class Mate:
 		if args.mappers != None:
 			self.mapper_list = args.mappers.split(",")
 
+		if args.parameters != None:
+			self.parameter_list = args.parameters.split(",")
+
 		self.measure_cputime = args.measurecputime
-		self.measure_preload = args.measurepreload
+		self.measure_preload = not args.nomeasurepreload
 		self.measure_use_resource_module = args.measureuseresource
 
 		# Load setup configuration file
@@ -676,7 +693,7 @@ class Mate:
 		if args.reportname != None:
 			self.config["report"]["name"] = args.reportname
 
-		if args.ignore != None:
+		"""if args.ignore != None:
 			if args.ignore == "":
 				self.config["ignore_tags"] = None
 			else:
@@ -692,7 +709,7 @@ class Mate:
 			self.config["mapper_testee"] = args.mappertestee
 
 		if args.mapperbase != None:
-			self.config["mapper_base"] = args.mapperbase
+			self.config["mapper_base"] = args.mapperbase"""
 
 		if args.forceclean == True:
 			self.config["force_clean"] = True
@@ -703,8 +720,8 @@ class Mate:
 		#if args.qrun != False:
 		#	self.is_stats_run = False
 
-		if args.listtests != False:
-			self.list_tests = True
+		#if args.listtests != False:
+		#	self.list_tests = True
 
 		if args.picard:
 			self.log("Using picard-tools for sorting")
@@ -729,12 +746,20 @@ class Mate:
 		return combinations
 
 	def generateMapperParameterConfigurations(self):
+		if self.parameter_list != False:
+			self.config["test_parameters"] = self.parameter_list
+
 		if not "test_parameters" in self.config:
 			return
 
 		mapper_id_counters = {}
 
 		for parameter_set_id in self.config["test_parameters"]:
+			if not parameter_set_id in self.config["parameters"]:
+				self.warning("Parameter set with name '%s' not found"%parameter_set_id)
+				print(self.config["parameters"])
+				continue
+
 			mapper_id = self.config["parameters"][parameter_set_id]["mapper"]
 
 			data = self.config["parameters"][parameter_set_id]
@@ -914,7 +939,7 @@ class Mate:
 			self.report.generateProgress()
 
 			if "teaser" in self.config:
-				self.log("Using Teaser for data set simulation")
+				self.log("Using Teaser for data set creation")
 				from lib import teaser
 
 				self.teaser = teaser.Teaser(self, self.config["teaser"])
@@ -923,7 +948,7 @@ class Mate:
 				if self.run_only == False:
 					self.run_only = tests_teaser
 
-				self.log("Data set simulation completed.")
+				self.log("Data set creation completed")
 				self.log("")
 
 			self.executeEvent("onInit")

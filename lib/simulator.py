@@ -75,6 +75,7 @@ class Mason(Simulator):
 
 		self.dataset["simulator_cmd"] = self.bin_path + " " + str(self.dataset["platform"]) + " --read-name-prefix read --sq " + str(readlength_param) + " " + str(self.dataset["read_length"]) + " -N " + str(read_count) + " " + str(params) + " " + str(self.dataset["extra_params"]) + " " + str(self.dataset["reference_sim"])
 		self.log("\tSimulator cmd: %s" % self.dataset["simulator_cmd"])
+
 		self.subprogram(self.dataset["simulator_cmd"])
 
 		if not self.dataset["paired"]:

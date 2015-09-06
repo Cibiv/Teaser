@@ -8,6 +8,7 @@ import simulator
 
 from lib import gsample
 from tools import fastq2sam
+from lib import sam
 
 
 class Teaser:
@@ -22,6 +23,7 @@ class Teaser:
 		self.default_test = {}
 		self.default_test["title"] = None
 		self.default_test["order"] = None
+		self.default_test["type"] = "simulated_teaser"
 
 		self.default_test["sampling"] = {}
 		self.default_test["sampling"]["enable"] = True
@@ -44,6 +46,10 @@ class Teaser:
 		self.default_test["mutation_indel_avg_len"] = 1
 		self.default_test["error_rate_mult"] = 1
 		self.default_test["extra_params"] = ""
+		self.default_test["simulator_cmd"] = ""
+
+		self.default_test["import_read_files"] = None
+		self.default_test["import_gold_standard_file"] = None
 
 		self.created_count = 0
 
@@ -64,10 +70,16 @@ class Teaser:
 				print(self.tests[self.tests[name]["base"]])
 
 			if test["reference"] == None:
-				raise ValueError("Reference genome path must be defined for data set")
+				raise RuntimeError("Reference genome path must be defined for data set")
 
 			if not os.path.exists(test["reference"]):
-				test["reference"] = os.path.abspath(self.config["reference_directory"] + "/" + test["reference"])
+				if os.path.exists(self.config["reference_directory"] + "/" + test["reference"]):
+					test["reference"] = os.path.abspath(self.config["reference_directory"] + "/" + test["reference"])
+			else:
+				test["reference"] = os.path.abspath(test["reference"])
+
+			if not os.path.exists(test["reference"]):
+				raise RuntimeError("Reference '%s' not found for test '%s'"%(test["reference"],name))
 
 			if test["title"] == None:
 				test["title"] = name
@@ -88,11 +100,10 @@ class Teaser:
 		if not os.path.exists(test["dir"]):
 			return False
 
-		if not os.path.exists(test["dir"] + "/mapping_comparison.sam"):
+		if not os.path.exists(test["dir"] + "/" + test["name"] + ".yaml"):
 			return False
 
-		if not os.path.exists(test["dir"] + "/reads.fastq") and not (
-					os.path.exists(test["dir"] + "/reads1.fastq") and os.path.exists(test["dir"] + "/reads2.fastq")):
+		if not os.path.exists(test["dir"] + "/reads.fastq") and not (os.path.exists(test["dir"] + "/reads1.fastq") and os.path.exists(test["dir"] + "/reads2.fastq")):
 			return False
 
 		return True
@@ -107,6 +118,7 @@ class Teaser:
 		except:
 			self.log("Failed to create test directory, probably existing")
 
+			self.rm(test["dir"] + "/" + test["name"] + ".yaml")
 			self.rm(test["dir"] + "/mapping_comparison.sam")
 			self.rm(test["dir"] + "/reads.fastq")
 			self.rm(test["dir"] + "/reads1.fastq")
@@ -114,10 +126,26 @@ class Teaser:
 
 		self.ch(test)
 
-		if test["sampling"]["enable"]:
-			self.makeDatasetDS(test)
-		else:
-			self.makeDatasetNoDS(test)
+		try:
+			if test["type"] == "simulated_teaser":
+				if test["sampling"]["enable"]:
+					self.makeDatasetDS(test)
+				else:
+					self.makeDatasetNoDS(test)
+			elif test["type"] == "simulated_custom" or test["type"] == "real":
+				self.makeDatasetNoSim(test)
+
+			else:
+				self.mate.error("Teaser: Unknown test type '%s' for test '%s'."%(test["type"],test["name"]))
+				raise
+		except RuntimeError as e:
+			self.mate.error("Teaser: Test creation failed for '%s': %s"%(test["name"],str(e)))
+			raise SystemExit
+
+		except Exception as e:
+			self.mate.error("Teaser: Test creation failed for '%s' due to an exception: %s"%(test["name"],str(e)))
+			self.mate.log_traceback("Teaser Error")
+			raise SystemExit
 
 		end_time = time.time()
 		test["create_time"] = end_time - start_time
@@ -136,15 +164,28 @@ class Teaser:
 
 	def writeYAML(self, test):
 		config = {}
-		config["base"] = "tests_base/base_mapping"
+
+		if test["type"] == "simulated_teaser" or test["type"] == "simulated_custom":
+			config["base"] = "tests_base/base_mapping"
+		elif test["type"] == "real":
+			config["base"] = "tests_base/base_mapping_real"
+		else:
+			self.mate.error("Teaser: Tried to create test of unsupported type '%s': %s"%(test["name"],str(test["type"])))
+			return False
+
 		config["title"] = test["title"]
 		config["tags"] = ["teaser"]
-		config["input_info"] = {"simulator": test["simulator_cmd"], "platform": test["platform"],
+
+		if test["type"] == "simulated_teaser":
+			config["input_info"] = {"type":test["type"],"simulator": str(test["simulator_cmd"]), "platform": str(test["platform"]),
 								"read_length": str(test["read_length"]), "read_count": str(test["read_count"]),
 								"insert_size": str(test["insert_size"]), "sampling": test["sampling"]["enable"],
 								"sampling_ratio": str(test["sampling"]["ratio"]),
 								"sampling_region_len": str(test["sampling"]["region_len"]),
 								"divergence": "%.4f overall mutation rate, %.4f indel fraction, %.4f indel average length" % (test["mutation_rate"],test["mutation_indel_frac"],test["mutation_indel_avg_len"])  }
+		else:
+			config["input_info"] = {"type":test["type"]}
+
 
 		config["input"] = {"reference": test["reference"], "reads_paired_end": test["paired"]}
 
@@ -219,9 +260,132 @@ class Teaser:
 		self.rm("mapping_comparison_unfixed.sam")
 
 	def makeDatasetNoDS(self, test):
+		if test["read_count"] == None:
+			self.mate.error("Teaser: Read count must be set manually when subsampling is disabled, for test '%s'"%test["name"])
+			raise RuntimeError
+
 		test["reference_sim"] = test["reference"]
 		self.ch(test)
 		self.simulate(test)
+
+	def isFastq(self,filename):
+		name,ext=os.path.splitext(filename)
+		return ext.lower() in [".fq",".fastq"]
+
+	def makeDatasetNoSim(self,test):
+		util.enterRootDir()
+
+		if test["import_read_files"] == None or len(test["import_read_files"])==0:
+			self.mate.error("Teaser: No read files given to import for test '%s'"%test["name"])
+			test["type"]=None
+			raise RuntimeError
+
+		if test["paired"]:
+			if len(test["import_read_files"]) != 2:
+				self.mate.error("Teaser: Expected 2 files in field 'import_read_files' for paired-end test '%s', got %d"%(test["name"],len(test["import_read_files"])))
+				raise RuntimeError
+		else:
+			if len(test["import_read_files"]) != 1:
+				self.mate.error("Teaser: Expected 1 file in field 'import_read_files' for paired-end test '%s', got %d"%(test["name"],len(test["import_read_files"])))
+				raise RuntimeError
+
+		for filename in test["import_read_files"]:
+			if not self.isFastq(filename):
+				self.mate.error("Teaser: Unsupported read file type of '%s' for test '%s'. Expected FASTQ." % (filename,test["name"]) )
+				raise RuntimeError
+
+		if test["type"] == "simulated_custom":
+			self.importDatasetCustom(test)
+		elif test["type"] == "real":
+			self.importDatasetReal(test)
+
+		self.ch(test)
+
+	def importDatasetCustom(self,test):
+		self.cp(test["import_gold_standard_file"],test["dir"]+"/mapping_comparison.sam")
+
+		if len(test["import_read_files"]) > 1:
+			i=1
+			for f in test["import_read_files"]:
+				self.cp(f,test["dir"]+("/reads%d.fastq"%i) )
+				i+=1
+		else:
+			self.cp(test["import_read_files"][0],test["dir"]+("/reads.fastq") )
+
+		self.log("Data set import successful")
+
+	def importDatasetReal(self,test):
+		if test["read_count"] == None:
+			self.log("No read count given for real data test, estimating using reference and avg. read length")
+
+			fastq=sam.FASTQ(test["import_read_files"][0])
+			i=0
+			read=fastq.next_read()
+			length_sum=0
+			while read.valid and i < 10000:
+				length_sum+=len(read.seq)
+				i+=1
+				read=fastq.next_read()
+			avg_len = length_sum/i
+			contig_len = gsample.index(test["reference"])["contig_len"]
+
+			test["read_count"] = (contig_len/avg_len) * self.calculateSamplingRatio(contig_len) * test["coverage"]
+			self.log("Reference length: %d, Estimated avg. read length: %d"%(contig_len,avg_len))
+
+		self.log("Sampling %d reads."%test["read_count"])
+		if test["paired"]:
+			test["read_count"] /= 2
+
+		line_counts = []
+		for file in test["import_read_files"]:
+			count = util.line_count(file)
+			if count == -1:
+				self.mate.error("Teaser: Real data import: Failed to get line count for '%s' during data set import."%file)
+				raise RuntimeError
+			line_counts.append(count)
+
+		for c in line_counts:
+			if c != line_counts[0]:
+				self.mate.error("Teaser: Real data import: FASTQ files to import have different line counts")
+				raise RuntimeError
+
+		line_count = line_counts[0]
+		if line_count % 4 != 0:
+			self.mate.error("Teaser: Real data import: FASTQ file line count is not a multiple of four. This may lead to errors.")
+
+		line_count -= line_count % 4
+		import_files_readcount = line_counts[0] / 4
+		if import_files_readcount < test["read_count"]:
+			self.mate.warning("Teaser: Real data import: Tried to sample more reads than present in FASTQ files. Using all input instead.")
+			test["read_count"] = import_files_readcount
+
+		sample_fraction = float(test["read_count"])/import_files_readcount
+
+		if test["paired"]:
+			self.sampleFastq(test["import_read_files"][0],test["dir"]+"/reads1.fastq",sample_fraction)
+			self.sampleFastq(test["import_read_files"][1],test["dir"]+"/reads2.fastq",sample_fraction)
+		else:
+			self.sampleFastq(test["import_read_files"][0],test["dir"]+"/reads.fastq",sample_fraction)
+
+		self.log("Data set import successful")
+
+	def sampleFastq(self,input,output,sample_fraction=1.0):
+		input=sam.FASTQ(input)
+		output=sam.FASTQ(output,True)
+		to_sample = 0
+		read = input.next_read()
+		while read.valid:
+			if to_sample > 1:
+				while to_sample > 1:
+					to_sample -= 1
+					output.write_read(read)
+					read = input.next_read()
+			else:
+				to_sample += sample_fraction
+				read = input.next_read()
+
+		input.close()
+		output.close()
 
 	def simulate(self, test):
 		if test["mutation_indel_frac"] <= 0:
@@ -263,13 +427,22 @@ class Teaser:
 		try:
 			os.remove(f)
 		except:
-			self.log("Failed to remove file %s" % f)
+			#self.log("Failed to remove file %s" % f)
+			pass
+
+	def cp(self, a, b):
+		self.log("copy %s -> %s" % (a, b))
+		shutil.copy(a, b)
 
 	def main(self):
 		self.mate.pushLogPrefix("Teaser")
-		self.log("Init. Simulating %d test datasets." % len(self.tests))
-		
-		self.preprocessTests()
+		self.log("Init. Creating %d test datasets." % len(self.tests))
+
+		try:
+			self.preprocessTests()
+		except RuntimeError as e:
+			self.mate.error("Teaser: " + str(e))
+			raise SystemExit
 
 		force_recreate = self.mate.force_gen
 
@@ -290,6 +463,7 @@ class Teaser:
 				self.createTest(self.tests[name])
 			except RuntimeError as e:
 				self.mate.error("Teaser: " + str(e))
+				raise SystemExit
 
 		util.enterRootDir()
 
