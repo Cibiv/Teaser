@@ -1,14 +1,14 @@
 # Teaser
-Welcome to the official github page of Teaser, an analytical framework for benchmarking NGS read mappers. Teaser allows researchers to identify the optimal mapper, parameter set and mapping quality thresholds for data sets that mimic their real data. Teaser is easy-to-use, flexible and fast thanks to its genome subsampling process, allowing users to test a variety of scenarios within minutes. Teaser is available as [web application](http://teaser.cibiv.univie.ac.at), a virtual machine image and normal installable version.
+Welcome to the official Github page of Teaser, an analytical framework for benchmarking NGS read mappers. Teaser allows researchers to identify the optimal mapper, parameter set and mapping quality thresholds for data sets that mimic their real data. Teaser is easy-to-use, flexible and fast thanks to its genome subsampling process, allowing users to test a variety of scenarios within minutes. Teaser is available as [web application](http://teaser.cibiv.univie.ac.at), a virtual machine image and as installable version.
 
 # Quickstart
 Getting started with Teaser takes just a few minutes. The following sections contain possible next steps for beginners and advanced users.
 
 ## Example Report
-For every benchmark Teaser generates an interactive HTML report summarizing the accuracy and performance of each mapper. A good way to get an overview of some of the features of Teaser could be to browse such a report. In the following example, Teaser was used to test five mappers on a [D. melanogaster Ion Torrent resequencing](http://teaser.cibiv.univie.ac.at/static/dataset_gallery/D3_n.html) data set:
+For every benchmark Teaser generates an interactive HTML report summarizing the accuracy and performance of each mapper. A good way to get an overview of some of the features of Teaser could be to browse such a report. For an example, here Teaser was used to test five mappers on a [D. melanogaster Ion Torrent resequencing](http://teaser.cibiv.univie.ac.at/static/dataset_gallery/D3_n.html).
 
 ## Web Application
-To quickly get started with testing mappers for your personalized data set, Teaser is available as a public [web application](http://teaser.cibiv.univie.ac.at) that requires no registration.
+To quickly get started with testing mappers for a personalized data set, Teaser is available as a public [web application](http://teaser.cibiv.univie.ac.at) that requires no registration.
 
 ## Learning more
 For topics such as adding support for new mappers or creating customized parameter sets or even test procedures, please see our [Github Wiki](https://github.com/Cibiv/Teaser/wiki) for detailed information regarding the usage and extension of Teaser.
@@ -48,14 +48,21 @@ Example usage: Running the built-in E. coli example benchmark:
 ./teaser.py example_ecoli.yaml
 ```
 
-Example Usage: Starting the web interface:
+Example usage: Running the built-in E. coli example benchmark, for the Bowtie 2 presets parameter set:
+```
+./teaser.py example_ecoli.yaml --parameters bowtie2_presets
+```
+
+The command-line version of Teaser is controlled using configuration files in YAML format. The [Command Line](https://github.com/Cibiv/Teaser/wiki/Command-Line) Wiki page includes examples on how they can be used to define data sets and control benchmarks.
+
+##Command Line Usage: Starting a local web interface
+
+Use:
 ```
 ./server.py
 ```
 
-Accessing the web interface: `http://localhost:8888`
-
-The command-line version of Teaser is controlled using configuration files in YAML format. The [Command Line](https://github.com/Cibiv/Teaser/wiki/Command-Line) Wiki page includes examples on how they can be used to define data sets and control benchmarks.
+Accessing the web interface: `http://localhost:8888`. In case the web interface was started on another machine, replace `localhost` with the hostname of that machine.
 
 #License
 Teaser is made available under the MIT License.
