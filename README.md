@@ -75,5 +75,10 @@ Example usage: Running the built-in E. coli example benchmark, for the Bowtie 2 
 ./teaser.py example_ecoli.yaml --parameters bowtie2_presets
 ```
 
+Example usage: Running the built-in E. coli example benchmark, only for BWA-MEM and BWA:
+```
+./teaser.py example_ecoli.yaml --mappers bwamem,bwa
+```
+
 #License
 Teaser is made available under the MIT License.
