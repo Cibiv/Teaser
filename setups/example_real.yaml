@@ -1,0 +1,14 @@
+include:
+  - base_teaser
+
+teaser:
+   tests:
+      real_pe:
+         type: real
+         reference: E_coli.fasta
+         paired: Yes
+         import_read_files: [/path/to/reads/1.fastq,/path/to/reads/2.fastq]
+
+threads: 2
+report:
+   name: example_real

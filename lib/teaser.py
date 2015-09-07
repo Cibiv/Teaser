@@ -112,7 +112,7 @@ class Teaser:
 		start_time = time.time()
 		self.mate.getReport().generateProgress()
 
-		self.log("Creating test %s" % test["name"])
+		self.log("\nCreating test %s" % test["name"])
 		try:
 			os.mkdir(test["dir"])
 		except:
@@ -184,7 +184,7 @@ class Teaser:
 								"sampling_region_len": str(test["sampling"]["region_len"]),
 								"divergence": "%.4f overall mutation rate, %.4f indel fraction, %.4f indel average length" % (test["mutation_rate"],test["mutation_indel_frac"],test["mutation_indel_avg_len"])  }
 		else:
-			config["input_info"] = {"type":test["type"]}
+			config["input_info"] = {"type": test["type"],"read_count": test["read_count"]}
 
 
 		config["input"] = {"reference": test["reference"], "reads_paired_end": test["paired"]}
@@ -261,8 +261,10 @@ class Teaser:
 
 	def makeDatasetNoDS(self, test):
 		if test["read_count"] == None:
-			self.mate.error("Teaser: Read count must be set manually when subsampling is disabled, for test '%s'"%test["name"])
-			raise RuntimeError
+			index = gsample.index(test["reference"])
+			test["read_count"] = index["contig_len"] / test["read_length"]
+			#self.mate.error("Teaser: Read count must be set manually when subsampling is disabled, for test '%s'"%test["name"])
+			#raise RuntimeError
 
 		test["reference_sim"] = test["reference"]
 		self.ch(test)
@@ -303,20 +305,32 @@ class Teaser:
 
 	def importDatasetCustom(self,test):
 		self.cp(test["import_gold_standard_file"],test["dir"]+"/mapping_comparison.sam")
+		test["read_count"] = self.importReadFiles(test)
+		self.log("Data set import successful")
 
+	def importReadFiles(self,test):
 		if len(test["import_read_files"]) > 1:
 			i=1
 			for f in test["import_read_files"]:
 				self.cp(f,test["dir"]+("/reads%d.fastq"%i) )
+				if i==1:
+					line_count = util.line_count(f)
 				i+=1
 		else:
-			self.cp(test["import_read_files"][0],test["dir"]+("/reads.fastq") )
+			self.cp(test["import_read_files"][0],test["dir"]+("/reads.fastq"))
+			line_count = util.line_count(test["import_read_files"][0])
 
-		self.log("Data set import successful")
+		return (line_count - line_count%4)/4
 
 	def importDatasetReal(self,test):
+		if test["sampling"]["enable"] == False:
+			self.log("Subsampling disabled; Importing all reads")
+			test["read_count"] = self.importReadFiles(test)
+			self.log("Data set import successful")
+			return
+
 		if test["read_count"] == None:
-			self.log("No read count given for real data test, estimating using reference and avg. read length")
+			self.log("No target read count given for real data test, estimating using reference and avg. read length")
 
 			fastq=sam.FASTQ(test["import_read_files"][0])
 			i=0
@@ -329,8 +343,13 @@ class Teaser:
 			avg_len = length_sum/i
 			contig_len = gsample.index(test["reference"])["contig_len"]
 
-			test["read_count"] = (contig_len/avg_len) * self.calculateSamplingRatio(contig_len) * test["coverage"]
-			self.log("Reference length: %d, Estimated avg. read length: %d"%(contig_len,avg_len))
+			if test["sampling"]["ratio"] == None:
+				sampling_ratio = self.calculateSamplingRatio(contig_len)
+			else:
+				sampling_ratio = test["sampling"]["ratio"]
+
+			test["read_count"] = (contig_len/avg_len) * sampling_ratio * test["coverage"]
+			self.log("Reference length: %d, Sampling Ratio: %f, Estimated avg. read length: %d"%(contig_len,sampling_ratio,avg_len))
 
 		self.log("Sampling %d reads."%test["read_count"])
 		if test["paired"]:
@@ -363,9 +382,9 @@ class Teaser:
 
 		if test["paired"]:
 			self.sampleFastq(test["import_read_files"][0],test["dir"]+"/reads1.fastq",sample_fraction)
-			self.sampleFastq(test["import_read_files"][1],test["dir"]+"/reads2.fastq",sample_fraction)
+			test["read_count"] = self.sampleFastq(test["import_read_files"][1],test["dir"]+"/reads2.fastq",sample_fraction)
 		else:
-			self.sampleFastq(test["import_read_files"][0],test["dir"]+"/reads.fastq",sample_fraction)
+			test["read_count"] = self.sampleFastq(test["import_read_files"][0],test["dir"]+"/reads.fastq",sample_fraction)
 
 		self.log("Data set import successful")
 
@@ -373,12 +392,14 @@ class Teaser:
 		input=sam.FASTQ(input)
 		output=sam.FASTQ(output,True)
 		to_sample = 0
+		sampled_count = 0
 		read = input.next_read()
 		while read.valid:
 			if to_sample > 1:
 				while to_sample > 1:
 					to_sample -= 1
 					output.write_read(read)
+					sampled_count += 1
 					read = input.next_read()
 			else:
 				to_sample += sample_fraction
@@ -386,6 +407,8 @@ class Teaser:
 
 		input.close()
 		output.close()
+
+		return sampled_count
 
 	def simulate(self, test):
 		if test["mutation_indel_frac"] <= 0:

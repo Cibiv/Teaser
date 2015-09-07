@@ -28,7 +28,7 @@ teaser:
 
    server:
       port: 8888
-      framework_cmd: "./teaser.py %s -mpre > logs/%s.txt"
+      framework_cmd: "./teaser.py %s > logs/%s.txt"
       default_threads: 1
       max_threads: 32
       default_memory: 16000
@@ -36,9 +36,12 @@ teaser:
       default_runtime: 3600
       max_runtime: 1000000
 
+   tests: {}
+
 
 report:
    directory: reports
+   name: default
 
 evaluation:
    pos_threshold: 50

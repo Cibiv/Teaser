@@ -584,7 +584,7 @@ class Mate:
 
 	def createArgParser(self):
 		parser = argparse.ArgumentParser(description="Teaser - a read mapper benchmark framework")
-		parser.add_argument("config", help="The test run configuration file to use", default="default.yaml", nargs="?")
+		parser.add_argument("config", help="The test run configuration file to use", default="base_teaser.yaml", nargs="?")
 		parser.add_argument("-t", "--test", help="Run the and only the specified tests (separate with comma)", default="")
 		#parser.add_argument("-q", "--qrun", help="Quality-control run, run only for testee and base mappers",
 		#					default=False, action="store_true")
@@ -625,6 +625,8 @@ class Mate:
 		parser.add_argument("-mures", "--measureuseresource", help="Use Python resource module for CPU time and memory measurements", default=False, action="store_true")
 		parser.add_argument("-pc", "--picard", help="Use picard-tools for sorting alignment output files", default=False, action="store_true")
 
+		parser.add_argument("-lm", "--listmappers", help="List available mappers", default=False, action="store_true")
+		parser.add_argument("-lp", "--listparameters", help="List available parameter sets", default=False, action="store_true")
 		return parser
 
 	def convertConfigPathsToAbs(self):
@@ -676,6 +678,8 @@ class Mate:
 		self.measure_cputime = args.measurecputime
 		self.measure_preload = not args.nomeasurepreload
 		self.measure_use_resource_module = args.measureuseresource
+		self.list_mappers = args.listmappers
+		self.list_parameters = args.listparameters
 
 		# Load setup configuration file
 		self.config, self.config_original = util.loadConfig(self.config_filename)
@@ -906,12 +910,24 @@ class Mate:
 		return time.time() - self.start_time
 
 	def main(self):
+		no_generate_report = False
+
 		try:
 			self.start_time = time.time()
 			self.pushLogPrefix("Main")
 			self.initFromArgs()
 
 			if not self.config:
+				return
+
+			if self.list_mappers:
+				self.log("Available mappers: %s" % (", ".join(self.config["mappers"].keys())))
+				no_generate_report=True
+				return
+
+			if self.list_parameters:
+				self.log("Available parameter sets: %s" % (", ".join(self.config["parameters"].keys())) )
+				no_generate_report=True
 				return
 
 			if self.config["include_tags"] != None and len(self.config["include_tags"]) > 0:
@@ -934,7 +950,7 @@ class Mate:
 			self.logNewline()
 
 			self.initReport()
-			self.log_file_handle = open(self.getReportDirectory() + "/mate.log", "w")
+			self.log_file_handle = open(self.getReportDirectory() + "/teaser.log", "w")
 
 			self.report.generateProgress()
 
@@ -965,7 +981,7 @@ class Mate:
 			self.log_traceback("Except")
 
 		finally:
-			if self.config != False:
+			if self.config != False and not no_generate_report:
 				self.finalize()
 
 	def getWallClockTime(self):

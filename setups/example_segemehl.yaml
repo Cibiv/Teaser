@@ -1,0 +1,28 @@
+include:
+  - base_teaser.yaml
+
+teaser:
+   tests:
+      ecoli_test:
+         reference: E_coli.fasta
+
+evaluation:
+   pos_threshold: 10
+threads: 1
+report: {name: example_segemehl}
+
+mappers:
+  segemehl:
+    type: MapperGeneric
+    bin: software/segemehl.x
+    index_files:
+      - (r).idx
+    command_index: (b) -x (r).idx -d (r)
+    command: (b) (x) -r 1 -i (r).idx -d (r) -q (q) -s -t (t) > (o)
+    command_multi_read_files: (b) (x) -r 1 -i (r).idx -d (r) -q (q1) -p (q2) -s -t (t) > (o)
+    command_cleanup: ''
+    param_paired: ''
+
+test_mappers:
+  - bowtie2
+  - segemehl

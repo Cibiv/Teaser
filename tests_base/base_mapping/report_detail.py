@@ -112,8 +112,8 @@ def report_detail(self, gen, page):
 	html += "<td>%s</td>" % str(stats.wrong)
 	html += "<td>%s</td>" % percent(stats.wrong, stats.total)
 	html += "</tr><tr><th>Not Mapped</th>"
-	html += "<td>%s</td>" % str(stats.not_mapped)
-	html += "<td>%s</td>" % percent(stats.not_mapped, stats.total)
+	html += "<td>%s</td>" % str(stats.not_mapped+stats.not_found)
+	html += "<td>%s</td>" % percent(stats.not_mapped+stats.not_found, stats.total)
 	html += "</tr><tr><th>Total</th>"
 	html += "<td>%s</td>" % str(stats.total)
 	html += "<td>%s</td>" % percent(stats.total, stats.total)

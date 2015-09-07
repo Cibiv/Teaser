@@ -1,5 +1,5 @@
 parameters:
-   bowtie2_default:
+   bowtie2_presets:
       title: Presets
       mapper: bowtie2
       define:
@@ -12,7 +12,7 @@ parameters:
         - "--sensitive-local"
         - "--very-sensitive-local"
 
-   bowtie2_generated:
+   bowtie2_exhaustive:
       title: Exhaustive
       mapper: bowtie2
       generate:

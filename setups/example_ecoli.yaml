@@ -9,4 +9,6 @@ teaser:
 evaluation:
    pos_threshold: 10
 
+threads: 1
+
 report: {name: example_ecoli}

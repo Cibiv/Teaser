@@ -57,7 +57,7 @@ def generateTestList(self, tests):
 		if total != 0:
 			correct=float(100 * test.getRunResults().correct)/total
 			wrong=float(100 * test.getRunResults().wrong)/total
-			not_mapped=float(100 * test.getRunResults().not_mapped)/total
+			not_mapped=float(100 * (test.getRunResults().not_mapped + test.getRunResults().not_found))/total
 		else:
 			correct=0
 			wrong=0
@@ -423,6 +423,10 @@ def generateDataSetInfo(self,page,test):
 	html += "<tr>"
 	html += "<th>Input Data Source</th>"
 	html += "<td>%s</td>" % input_type_description
+	html += "</tr>"
+	html += "<tr>"
+	html += "<th>Read Count</th>"
+	html += "<td>%d</td>" % test._("input_info:read_count")
 	html += "</tr>"
 	html += "<tr>"
 	html += "<th>Reference Genome File</th>"

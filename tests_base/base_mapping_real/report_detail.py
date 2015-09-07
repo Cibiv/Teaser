@@ -108,8 +108,8 @@ def report_detail(self, gen, page):
 	html += "<td class=\"col-md-2\">%s</td>" % str(stats.correct)
 	html += "<td class=\"col-md-2\">%s</td>" % percent(stats.correct, stats.total)
 	html += "</tr><tr><th>Not Mapped</th>"
-	html += "<td>%s</td>" % str(stats.not_mapped)
-	html += "<td>%s</td>" % percent(stats.not_mapped, stats.total)
+	html += "<td>%s</td>" % str(stats.not_mapped+stats.not_found)
+	html += "<td>%s</td>" % percent(stats.not_mapped+stats.not_found, stats.total)
 	html += "</tr><tr><th>Total</th>"
 	html += "<td>%s</td>" % str(stats.total)
 	html += "<td>%s</td>" % percent(stats.total, stats.total)
@@ -118,17 +118,27 @@ def report_detail(self, gen, page):
 	page.addSection("Basic Statistics", html)
 
 	html = ""
+	html += "<div class=\"table-responsive\"><table class=\"table table-striped\">"
+	html += "<tbody>"
+	html += "<tr><th class=\"col-md-6\">Not mapped</th>"
+	html += "<td class=\"col-md-2\">%s</td>" % str(stats.not_mapped)
+	html += "<td class=\"col-md-2\">%s</td>" % percent(stats.not_mapped, stats.total)
+	html += "</tr><tr><th>Missing in mapper output</th>"
+	html += "<td>%s</td>" % str(stats.not_found)
+	html += "<td>%s</td>" % percent(stats.not_found, stats.total)
+	html += "</tr>"
+	html += "</tbody>"
+	html += "</table></div>"
+	page.addSection("Read Failure Statistics", html)
 
 	results = self.getRunResults()
 	if results == None:
 		return
 
+	html = ""
 	html += "<div class=\"table-responsive\"><table class=\"table table-striped\">"
 	html += "<tbody>"
-	html += "<tr><th>Missing in comparison alignment</th>"
-	html += "<td>%s</td></tr>" % str(stats.not_found_comparison)
-	html += "<tr><th class=\"col-md-6\">Secondary Alignments</th><td class=\"col-md-4\">%s</td></tr>" % str(
-		stats.ignored_testee)
+	html += "<tr><th class=\"col-md-6\">Secondary Alignments</th><td class=\"col-md-4\">%s</td></tr>" % str(stats.ignored_testee)
 	html += "</tbody>"
 	html += "</table></div>"
 	page.addSection("Advanced Statistics", html)

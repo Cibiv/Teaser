@@ -58,7 +58,7 @@ def generateTestList(self, tests):
 		if total != 0:
 			correct=float(100 * test.getRunResults().correct)/total
 			wrong=float(100 * test.getRunResults().wrong)/total
-			not_mapped=float(100 * test.getRunResults().not_mapped)/total
+			not_mapped=float(100 * (test.getRunResults().not_mapped + test.getRunResults().not_found))/total
 		else:
 			correct=0
 			wrong=0
@@ -99,7 +99,7 @@ def generateMappingStatisticsPlot(page, test_objects):
 				correct=result.mapq_cumulated[curr]["correct"] / float(result.total)
 				wrong=result.mapq_cumulated[curr]["wrong"] / float(result.total)
 				not_mapped=(result.total - (
-                                result.mapq_cumulated[curr]["correct"] + result.mapq_cumulated[curr]["wrong"])) / float(result.total)
+result.mapq_cumulated[curr]["correct"] + result.mapq_cumulated[curr]["wrong"])) / float(result.total)
 
 			columns_mapqs[curr][0].append(correct)
 			columns_mapqs[curr][1].append(wrong)

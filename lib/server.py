@@ -24,7 +24,7 @@ class Home(tornado.web.RequestHandler):
       <div class="container">
         <h1>Teaser</h1>
         <p>Rapid Personalized Benchmarks for NGS Read Mapping</p>
-        <p><a href="definejob" class="btn btn-success" role="button"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> Start a mapper benchmark now</a> <a href="static/dataset_gallery" class="btn btn-info" role="button">View Example Report</a> <a href="http://github.com/cibiv/teaser" class="btn btn-info" role="button">Visit the Wiki</a></p>
+        <p><a href="definejob" class="btn btn-success" role="button"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> Start a mapper benchmark now</a> <a href="static/dataset_gallery" class="btn btn-info" role="button">View Example Report</a> <a href="http://github.com/cibiv/teaser./" class="btn btn-info" role="button">Visit the Wiki</a></p>
       </div>
     </div>
 

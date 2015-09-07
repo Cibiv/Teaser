@@ -91,15 +91,15 @@ class FASTQ:
 		read.valid = False
 
 		try:
-			read.id = self.readline()
+			read.id = self.readline().strip()
 			if len(read.id) > 0 and read.id[0] == "@":
 				read.id = read.id[1:]
 			else:
 				raise
 
-			read.seq = self.readline()
-			read.desc = self.readline()
-			read.qual = self.readline()
+			read.seq = self.readline().strip()
+			read.desc = self.readline().strip()
+			read.qual = self.readline().strip()
 			read.valid = True
 		except Exception as e:
 			pass

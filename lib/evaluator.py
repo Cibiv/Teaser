@@ -48,12 +48,12 @@ class BasicEvaluator(Evaluator):
 		sam_test = SAMFile(self.testee_filename)
 
 		while sam_test.next():
+			if sam_test.getCurr().is_secondary:
+				self.stats.ignored_testee+=1
+				continue
+
 			self.stats.total += 1
-
-			#if sam_test.getCurr().is_secondary:
-			#   self.stats.ignored_testee+=1
-			#   continue
-
+			
 			self.doCompareRows(sam_test.getCurr())
 
 		for i in range(254, -1, -1):
@@ -69,23 +69,6 @@ class BasicEvaluator(Evaluator):
 			self.stats.mapq_cumulated[row_testee.mapq]["correct"] += 1
 
 class ThresholdBasedEvaluator(Evaluator):
-	def compute_real(self):
-		sam_test = SAMFile(self.testee_filename)
-
-		while sam_test.next():
-			self.stats.total += 1
-
-			#if sam_test.getCurr().is_secondary:
-			#   self.stats.ignored_testee+=1
-			#   continue
-
-			self.doCompareRowsReal(sam_test.getCurr())
-
-		for i in range(254, -1, -1):
-			self.stats.mapq_cumulated[i]["correct"] += self.stats.mapq_cumulated[i + 1]["correct"]
-			self.stats.mapq_cumulated[i]["wrong"] += self.stats.mapq_cumulated[i + 1]["wrong"]
-		self.stats.computeMeasures()
-
 	def compute(self):
 		sam_test = SAMFile(self.testee_filename)
 		sam_comp = SAMFile(self.comparison_filename)
@@ -246,13 +229,6 @@ class ThresholdBasedEvaluator(Evaluator):
 
 		self.stats.mapq_cumulated[row_testee.mapq]["correct"] += 1
 		self.stats.correct += 1
-
-	def doCompareRowsReal(self, row_testee):
-		if row_testee.is_unmapped:
-			self.stats.not_mapped += 1
-		else:
-			self.stats.correct += 1
-			self.stats.mapq_cumulated[row_testee.mapq]["correct"] += 1
 
 if __name__ == "__main__":
 	import sys

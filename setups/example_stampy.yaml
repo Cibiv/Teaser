@@ -1,0 +1,32 @@
+include:
+  - base_teaser.yaml
+
+teaser:
+   tests:
+      ecoli_test:
+         reference: E_coli.fasta
+
+evaluation:
+   pos_threshold: 10
+threads: 1
+report: {name: example_stampy}
+
+mappers:
+   stampy:
+      title: "Stampy"
+      type: MapperGeneric
+      #Change this field to the path to your stampy.py executable
+      bin: /path/to/stampy.py
+      index_files:
+        - (r)_o.stidx
+        - (r)_o.sthash
+      command_index: (b) -G (r)_o (r); (b) -g (r)_o -H (r)_o
+      command: (b) (x) -t (t) -g (r)_o -h (r)_o -M (q) -o (o)
+      command_multi_read_files: (b) (x) -t (t) -g (r)_o -h (r)_o -o (o) -M (q1) (q2)
+      command_cleanup: ''
+      param_paired: ''
+
+test_mappers:
+  - bowtie2
+  - bwamem
+  - stampy

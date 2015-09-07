@@ -1,0 +1,35 @@
+include:
+  - base_teaser.yaml
+
+teaser:
+   tests:
+      ecoli_test:
+         reference: E_coli.fasta
+         mutation_rate: 0.1
+         mutation_indel_frac: 0.25
+
+evaluation:
+   pos_threshold: 10
+threads: 1
+report: {name: example_bowtie2}
+
+parameters:
+   bowtie2_presets:
+      title: Presets
+      mapper: bowtie2
+      define:
+        - "--very-fast"
+        - "--fast"
+        - "--sensitive"
+        - "--very-sensitive"
+        - "--very-fast-local"
+        - "--fast-local"
+        - "--sensitive-local"
+        - "--very-sensitive-local"
+
+test_mappers:
+  - bowtie2
+
+test_parameters:
+  - bowtie2_presets
+

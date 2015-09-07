@@ -8,7 +8,7 @@ pipeline:
    main:
      - base_mapping/map
      - base_mapping/sort_prepare
-     - base_mapping/calc_stats
+     - calc_stats
      - base_mapping/calc_time
 
    report_overview:
