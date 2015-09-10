@@ -50,6 +50,9 @@ To add your desired reference sequence to Teaser, simply copy the FASTA file int
 ###Adding new parameter sets and mappers
 For adding community parameter sets or mapper definitions, copy the downloaded YAML files in the `Teaser/setups` directory. Teaser will automatically load them after which they will be available for selection in the web interface.
 
+###Importing Data Sets
+To import custom or real read data sets, place the data files in the `Teaser/import` directory. You will then be able to select the files to import in the web interface.
+
 The respective Wiki pages explain how to [create new parameter sets](https://github.com/Cibiv/Teaser/wiki/Mapper-Parameters) and add [support for new mappers](https://github.com/Cibiv/Teaser/wiki/Mappers) from scratch.
 
 ##Starting a Local Web Interface
