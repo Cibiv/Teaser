@@ -8,7 +8,7 @@ pipeline:
    main:
      - base_mapping/map
      - base_mapping/sort_prepare
-     - calc_stats
+     - base_mapping/calc_stats
      - base_mapping/calc_time
 
    report_overview:
@@ -30,7 +30,4 @@ description: "Maps read data, computes and visualizes mapping statistics without
 #################################################################################
 
 evaluation:
-   class: lib.evaluator.BasicEvaluator
-
-input:
-   mapping_comparison: ""
+   class: lib.evaluator.BasicEvaluatorSAM

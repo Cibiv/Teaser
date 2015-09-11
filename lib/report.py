@@ -362,11 +362,12 @@ class ReportHTMLGenerator:
 		import json
 
 		data = []
+		titles = []
 		for mapper in sorted(self.mate.getMappers()):
 			column = []
 			for test_name in self.mate.getTestNameList():
 				test = self.mate.getTestByMapperName(test_name, mapper)
-				if test == None:
+				if test == None or test._("base") != "tests_base/base_mapping":
 					continue
 
 				if len(column) == 0:
@@ -397,7 +398,9 @@ class ReportHTMLGenerator:
 					value = test.getRunResults().fmeasure
 				value = round(value, 4)
 				column.append(value)
-			data.append(column)
+
+			if len(column):
+				data.append(column)
 
 		if min != 0:
 			min_str = ",min: %f" % min
@@ -407,7 +410,7 @@ class ReportHTMLGenerator:
 		titles = []
 		for name in self.mate.getTestNameList():
 			tests = self.mate.getTestsByName(name)
-			if len(tests) != 0:
+			if len(tests) != 0 and tests[0]._("base") == "tests_base/base_mapping":
 				titles.append(tests[0].getTitle())
 		# titles=["0%","75%","90%","95%","99%"]
 		page.addSection("Results: %s" % title_section, """<div id="plot_%s"></div>""" % measure)

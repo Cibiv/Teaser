@@ -219,6 +219,8 @@ class MapperNGM(Mapper):
 		if "param_string" in config:
 			self.param_string = config["param_string"]
 
+		self.clean_index = "clean_index" in config and config["clean_index"]
+
 	def onMapPre(self):
 		self.onCleanup()
 
@@ -226,7 +228,8 @@ class MapperNGM(Mapper):
 		self.onCleanup()
 
 	def onCleanup(self):
-		return
+		if not self.clean_index:
+			return
 
 		try:
 			os.remove(self.params["ref"] + "-enc.ngm")

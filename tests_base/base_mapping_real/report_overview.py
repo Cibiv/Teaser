@@ -425,6 +425,10 @@ def generateDataSetInfo(self,page,test):
 	html += "<td>%s</td>" % input_type_description
 	html += "</tr>"
 	html += "<tr>"
+	html += "<th>Paired-End</th>"
+	html += "<td>%s</td>" % util.yes_no(test._("input:reads_paired_end"))
+	html += "</tr>"
+	html += "<tr>"
 	html += "<th>Read Count</th>"
 	html += "<td>%d</td>" % test._("input_info:read_count")
 	html += "</tr>"
@@ -460,8 +464,6 @@ window.onload = function () {$('.selectpicker').selectpicker();}""")
 	generateDataSetInfo(self, page, test_objects[0])
 	generateMappingStatisticsPlot(page, test_objects)
 	generateMappingQualityOverview(page, test_objects)
-	#generatePrecisionRecallPlot(page, test_objects)
-	#generateResourcePlot(page, test_objects, "corrects")
 	generateResourcePlot(page, test_objects, "runtime")
 	generateResourcePlot(page, test_objects, "memory")
 	

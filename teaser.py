@@ -781,7 +781,7 @@ class Mate:
 			combinations = combinations_def + combinations_gen
 
 			if not mapper_id in mapper_id_counters:
-				mapper_id_counters[mapper_id] = 0
+				mapper_id_counters[mapper_id] = 1
 
 			for paramstring in combinations:
 				mapper = copy.deepcopy(self.config["mappers"][mapper_id])

@@ -23,6 +23,7 @@ threads: 4
 teaser:
    test_directory: tests_generated
    reference_directory: references
+   import_directory: import
    mason_path: software/mason
    dwgsim_path: software/dwgsim
 
@@ -35,6 +36,10 @@ teaser:
       max_memory: 1000000
       default_runtime: 3600
       max_runtime: 1000000
+      allowed_types: [simulated_teaser,simulated_custom,real]
+
+      news: ""
+      send_usage_information: No
 
    tests: {}
 

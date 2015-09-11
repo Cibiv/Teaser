@@ -87,7 +87,7 @@ class ThresholdBasedEvaluator(Evaluator):
 					self.stats.total_testee += 1
 				else:
 					if not warned_testee_end:
-						self.warn("Unexpectedly reached end of testee mapping", self.testee_filename,
+						self.warn("Unexpectedly reached end of mapper output", self.testee_filename,
 								  sam_comp.getCurr().qname)
 						warned_testee_end = True
 
@@ -103,7 +103,7 @@ class ThresholdBasedEvaluator(Evaluator):
 					self.stats.total_testee += 1
 
 					if not sam_test.next():
-						self.warn("Unexpectedly reached end of testee mapped file while skipping secondary alignment",
+						self.warn("Unexpectedly reached end of mapper output while skipping secondary alignment",
 								  self.testee_filename, sam_comp.getCurr().qname)
 						break
 
@@ -114,7 +114,7 @@ class ThresholdBasedEvaluator(Evaluator):
 
 					if not sam_comp.next():
 						self.warn(
-							"Unexpectedly reached end of comparison mapped file while looking for alignment with query name",
+							"Unexpectedly reached end of gold standard while searching for alignment with query name",
 							self.comparison_filename, sam_test.getCurr().qname)
 						break
 
@@ -123,7 +123,7 @@ class ThresholdBasedEvaluator(Evaluator):
 					self.stats.not_found_comparison += 1
 					if not sam_test.next():
 						self.warn(
-							"Unexpectedly reached end of testee mapped file while looking for alignment with query name",
+							"Unexpectedly reached end of mapper output while searching for alignment with query name",
 							self.testee_filename, sam_comp.getCurr().qname)
 						break
 					self.stats.total_testee += 1
@@ -131,13 +131,13 @@ class ThresholdBasedEvaluator(Evaluator):
 			#Handle paired end reads
 			if sam_test.getCurr().is_paired or sam_comp.getCurr().is_paired:
 				#Some sanity checks
-				if sam_test.getCurr().is_paired and not sam_comp.getCurr().is_paired:
+				"""if sam_test.getCurr().is_paired and not sam_comp.getCurr().is_paired:
 					self.warn("Testee read is part of a pair, but comparison read not", self.testee_filename,
 							  sam_test.getCurr().qname)
 
 				if sam_comp.getCurr().is_paired and not sam_test.getCurr().is_paired:
 					self.warn("Comparison read is part of a pair, but test read not", self.testee_filename,
-							  sam_test.getCurr().qname)
+							  sam_test.getCurr().qname)"""
 
 				#Dealing with paired end reads here
 				if sam_test.getCurr().is_read1 and sam_comp.getCurr().is_read2:
@@ -146,8 +146,8 @@ class ThresholdBasedEvaluator(Evaluator):
 						continue
 					else:
 						if not sam_test.next():
-							self.warn("Reached end of testee mapping while trying to match pair", self.testee_filename,
-									  sam_comp.getCurr().qname)
+							#self.warn("Reached end of testee mapping while trying to match pair", self.testee_filename,
+							#		  sam_comp.getCurr().qname)
 							break
 
 						dont_advance_test = True
@@ -155,7 +155,8 @@ class ThresholdBasedEvaluator(Evaluator):
 						if sam_test.getCurr().qname == sam_comp.getCurr().qname and sam_test.getCurr().is_read2:
 							self.doCompareRows(sam_test.getCurr(), sam_comp.getCurr())
 						else:
-							self.warn("Could not match pair", self.testee_filename, sam_test.getCurr().qname)
+							#self.warn("Could not match pair", self.testee_filename, sam_test.getCurr().qname)
+							self.stats.not_found += 1
 
 						continue
 
@@ -165,15 +166,17 @@ class ThresholdBasedEvaluator(Evaluator):
 						continue
 					else:
 						if not sam_test.next():
-							self.warn("Reached end of testee mapping while trying to match pair", self.testee_filename,
-									  sam_comp.getCurr().qname)
+							#self.warn("Reached end of testee mapping while trying to match pair", self.testee_filename,
+							#		  sam_comp.getCurr().qname)
 							break
 						dont_advance_test = True
 
 						if sam_test.getCurr().qname == sam_comp.getCurr().qname and sam_test.getCurr().is_read1:
 							self.doCompareRows(sam_test.getCurr(), sam_comp.getCurr())
 						else:
-							self.warn("Could not match pair", self.testee_filename, sam_test.getCurr().qname)
+							#self.warn("Could not match pair", self.testee_filename, sam_test.getCurr().qname)
+							self.stats.not_found += 1
+
 						continue
 
 			self.doCompareRows(sam_test.getCurr(), sam_comp.getCurr())
@@ -183,7 +186,7 @@ class ThresholdBasedEvaluator(Evaluator):
 			self.stats.total_testee += 1
 
 			if not warned_comp_end:
-				self.warn("Unexpectedly reached end of comparison mapping", self.comparison_filename,
+				self.warn("Unexpectedly reached end of gold standard", self.comparison_filename,
 						  sam_test.getCurr().qname)
 				warned_comp_end = True
 
@@ -229,6 +232,15 @@ class ThresholdBasedEvaluator(Evaluator):
 
 		self.stats.mapq_cumulated[row_testee.mapq]["correct"] += 1
 		self.stats.correct += 1
+
+class BasicEvaluatorSAM(ThresholdBasedEvaluator):
+	def doCompareRows(self, row_testee, row_comp):
+		if row_testee.is_unmapped:
+			self.stats.not_mapped += 1
+			self.add_failed_row(row_testee, row_comp, "unmapped")
+		else:
+			self.stats.mapq_cumulated[row_testee.mapq]["correct"] += 1
+			self.stats.correct += 1	
 
 if __name__ == "__main__":
 	import sys

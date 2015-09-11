@@ -112,7 +112,8 @@ class Teaser:
 		start_time = time.time()
 		self.mate.getReport().generateProgress()
 
-		self.log("\nCreating test %s" % test["name"])
+		self.log("")
+		self.log("Creating test %s" % test["name"])
 		try:
 			os.mkdir(test["dir"])
 		except:
@@ -202,6 +203,9 @@ class Teaser:
 			yml.flush()
 			yml.close()
 
+	def getMinimumSampledBases(self):
+		return 15 * 1000 * 1000
+
 	def calculateSamplingRatio(self,contig_len):
 		ratio = 0.01
 		if contig_len <= 1000 * 1000 * 500:
@@ -247,7 +251,7 @@ class Teaser:
 			test["read_count"] = int(
 				((idx["contig_len"] * test["sampling"]["ratio"]) / test["read_length"]) * test["coverage"])
 
-			test["read_count"] = max(test["read_count"],150000)
+			test["read_count"] = max(test["read_count"], self.getMinimumSampledBases() / test["read_length"])
 
 		self.simulate(test)
 
@@ -301,6 +305,21 @@ class Teaser:
 		elif test["type"] == "real":
 			self.importDatasetReal(test)
 
+			self.ch(test)
+			self.log("Generate dummy alignments")
+			aligner = fastq2sam.DummyAligner()
+			conv = fastq2sam.Converter(aligner, "mapping_comparison.sam")
+
+			if test["paired"]:
+				conv.align_pe("reads1.fastq", "reads2.fastq")
+				self.mv("enc_reads1.fastq", "reads1.fastq")
+				self.mv("enc_reads2.fastq", "reads2.fastq")
+			else:
+				conv.align_se("reads.fastq")
+				self.mv("enc_reads.fastq", "reads.fastq")
+
+			self.mv("enc_mapping_comparison.sam", "mapping_comparison.sam")
+
 		self.ch(test)
 
 	def importDatasetCustom(self,test):
@@ -349,11 +368,11 @@ class Teaser:
 				sampling_ratio = test["sampling"]["ratio"]
 
 			test["read_count"] = (contig_len/avg_len) * sampling_ratio * test["coverage"]
+			test["read_count"] = max(test["read_count"],self.getMinimumSampledBases() / test["read_length"])
+
 			self.log("Reference length: %d, Sampling Ratio: %f, Estimated avg. read length: %d"%(contig_len,sampling_ratio,avg_len))
 
-		self.log("Sampling %d reads."%test["read_count"])
-		if test["paired"]:
-			test["read_count"] /= 2
+		self.log("Sampling reads.")
 
 		line_counts = []
 		for file in test["import_read_files"]:
@@ -372,38 +391,46 @@ class Teaser:
 		if line_count % 4 != 0:
 			self.mate.error("Teaser: Real data import: FASTQ file line count is not a multiple of four. This may lead to errors.")
 
+		per_file_readcount = test["read_count"]
+		if test["paired"]:
+			per_file_readcount /= 2
+
 		line_count -= line_count % 4
 		import_files_readcount = line_counts[0] / 4
-		if import_files_readcount < test["read_count"]:
+		if import_files_readcount < per_file_readcount:
 			self.mate.warning("Teaser: Real data import: Tried to sample more reads than present in FASTQ files. Using all input instead.")
-			test["read_count"] = import_files_readcount
+			per_file_readcount = import_files_readcount
+			test["read_count"] = per_file_readcount * 2
 
-		sample_fraction = float(test["read_count"])/import_files_readcount
+		sample_fraction = float(per_file_readcount)/import_files_readcount
+		self.log("Fraction: %f, Import file readcount: %d"%(sample_fraction,import_files_readcount))
 
+		sampled_readcount = 0
 		if test["paired"]:
-			self.sampleFastq(test["import_read_files"][0],test["dir"]+"/reads1.fastq",sample_fraction)
-			test["read_count"] = self.sampleFastq(test["import_read_files"][1],test["dir"]+"/reads2.fastq",sample_fraction)
+			sampled_readcount += self.sampleReads(test["import_read_files"][0],test["dir"]+"/reads1.fastq",sample_fraction,"/1")
+			sampled_readcount += self.sampleReads(test["import_read_files"][1],test["dir"]+"/reads2.fastq",sample_fraction,"/2")
 		else:
-			test["read_count"] = self.sampleFastq(test["import_read_files"][0],test["dir"]+"/reads.fastq",sample_fraction)
+			sampled_readcount += self.sampleReads(test["import_read_files"][0],test["dir"]+"/reads.fastq",sample_fraction)
 
-		self.log("Data set import successful")
+		test["read_count"] = sampled_readcount
 
-	def sampleFastq(self,input,output,sample_fraction=1.0):
+		self.log("Data set import successful. Total sampled reads: %d"%sampled_readcount)
+
+	def sampleReads(self,input,output,sample_fraction=1.0,postfix=""):
 		input=sam.FASTQ(input)
 		output=sam.FASTQ(output,True)
 		to_sample = 0
 		sampled_count = 0
 		read = input.next_read()
 		while read.valid:
-			if to_sample > 1:
-				while to_sample > 1:
-					to_sample -= 1
-					output.write_read(read)
-					sampled_count += 1
-					read = input.next_read()
-			else:
-				to_sample += sample_fraction
-				read = input.next_read()
+			if to_sample > 0.9:
+				to_sample -= 1
+				read.id = "read%d%s" % (sampled_count+1,postfix)
+				output.write_read(read)
+				sampled_count += 1
+
+			to_sample += sample_fraction
+			read = input.next_read()
 
 		input.close()
 		output.close()

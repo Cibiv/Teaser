@@ -68,6 +68,32 @@ class Aligner:
 		pass
 
 
+class DummyAligner(Aligner):
+	def align(self, read, paired=False, is_read1=True):
+		read.chrom = "A"
+		read.pos = 0
+
+		if paired:
+			read.is_read1 = is_read1
+			read.is_read2 = not is_read1
+		else:
+			read.is_read1 = False
+			read.is_read2 = False
+		read.flags = 0
+
+		if paired:
+			read.flags = read.flags | 0x1
+
+		if read.is_read1:
+			read.flags = read.flags | 0x40
+
+		if read.is_read2:
+			read.flags = read.flags | 0x80
+
+	def align_pair(self, read1, read2):
+		self.align(read1, True, True)
+		self.align(read2, True, False)
+
 class dwgsim(Aligner):
 	def align(self, read, paired=False, is_read1=True):
 		# @random_sequence_632951_1_1_0_0_0_2:0:0_0:0:0_0
