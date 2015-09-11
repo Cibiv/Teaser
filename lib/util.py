@@ -344,6 +344,11 @@ def line_count(filename):
 		return -1
 	return int(result.strip().split()[0])
 
+def sanitize_string(s):
+	remove_chars = "\\/*&^%$#@!<>{}[]'\""
+	for r in remove_chars:
+		s=s.replace(r,"")
+	return s
 
 import pydoc
 locate = pydoc.locate

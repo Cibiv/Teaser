@@ -194,12 +194,11 @@ def generateOverallScatterPlot(self, page, test_objects):
 
 		if result.maptime != 0:
 			throughput=round((result.total / result.maptime), 0)
+			labels[int(result.total / result.maptime)] = test.getMapper().getTitle() + " " + test.getMapper().param_string
 
 		columns.append([mapper_name + "_x", throughput, 0])
 		columns.append([mapper_name, correct])
 		xs[mapper_name] = mapper_name + "_x"
-
-		labels[int(result.total / result.maptime)] = test.getMapper().getTitle() + " " + test.getMapper().param_string
 
 		csv += test.getMapper().getName() + "" + test.getMapper().param_string + ",%f,%f" % (round(correct,3),throughput) + "\n"
 

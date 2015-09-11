@@ -6,6 +6,7 @@ import tornado.wsgi
 import tornado.options
 import yaml
 
+from lib import util
 from lib import page
 
 Page = page.Page
@@ -663,8 +664,8 @@ class SubmitJob(tornado.web.RequestHandler):
 
 		test = {}
 		test["title"] = name
-		test["reference"] = tail
-		test["type"] = self.get_argument('type', 'simulated_teaser')
+		test["reference"] = util.sanitize_string(tail)
+		test["type"] = util.sanitize_string(self.get_argument('type', 'simulated_teaser'))
 		test["paired"] = self.get_argument('paired', 'false') == 'true'
 
 		if self.get_argument('type', '') == "simulated_teaser":
@@ -673,24 +674,24 @@ class SubmitJob(tornado.web.RequestHandler):
 			test["mutation_indel_frac"] = float(self.get_argument('mutation_indel_frac', 0.3))
 			test["mutation_indel_avg_len"] = float(self.get_argument('mutation_indel_avg_len', 1))
 			test["error_rate_mult"] = float(self.get_argument('error_rate_mult', 1))
-			test["platform"] = self.get_argument('platform', 'illumina')
+			test["platform"] = util.sanitize_string(self.get_argument('platform', 'illumina'))
 
 			test["coverage"] = float(self.get_argument('coverage', 0))
 
 			if self.get_argument('simulator', 'none') != "none":
-				test["simulator"] = self.get_argument('simulator', 'none')
+				test["simulator"] = util.sanitize_string(self.get_argument('simulator', 'none'))
 
 			if test["paired"]:
 				test["insert_size"] = int(self.get_argument('insert_size', ''))
 
 		else:
 			if test["paired"]:
-				test["import_read_files"] = [config["teaser"]["import_directory"] + "/" + self.get_argument('reads1', 'none'), config["teaser"]["import_directory"] + "/" + self.get_argument('reads2', 'none')]
+				test["import_read_files"] = [config["teaser"]["import_directory"] + "/" + util.sanitize_string(self.get_argument('reads1', 'none')), config["teaser"]["import_directory"] + "/" + util.sanitize_string(self.get_argument('reads2', 'none'))]
 			else:
-				test["import_read_files"] = [config["teaser"]["import_directory"] + "/" + self.get_argument('reads1', 'none')]
+				test["import_read_files"] = [config["teaser"]["import_directory"] + "/" + util.sanitize_string(self.get_argument('reads1', 'none'))]
 
 			if "gold_standard" in self.request.arguments:
-				test["import_gold_standard_file"] = config["teaser"]["import_directory"] + "/" + self.get_argument('gold_standard', 'none')
+				test["import_gold_standard_file"] = config["teaser"]["import_directory"] + "/" + util.sanitize_string(self.get_argument('gold_standard', 'none'))
 
 		config_["test_mappers"] = []
 		config_["test_parameters"] = []
@@ -698,9 +699,9 @@ class SubmitJob(tornado.web.RequestHandler):
 		if "mappers" in self.request.arguments:
 			for mapper in self.request.arguments["mappers"]:
 				if mapper[0] == "m":
-					config_["test_mappers"].append(mapper[1:])
+					config_["test_mappers"].append(util.sanitize_string(mapper[1:]))
 				elif mapper[0] == "p":
-					config_["test_parameters"].append(mapper[1:])
+					config_["test_parameters"].append(util.sanitize_string(mapper[1:]))
 				else:
 					raise
 
