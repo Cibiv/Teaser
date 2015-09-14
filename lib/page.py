@@ -135,6 +135,7 @@ class Page:
     <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/DataTables-1.10.8/media/css/jquery.dataTables.css">
     <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/c3/c3.css">
     <link rel="stylesheet" href="http://teaser.cibiv.univie.ac.at/static/extensions/bootstrap-select.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <style>
 body {
   padding-top: 60px;

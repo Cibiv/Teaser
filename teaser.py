@@ -314,6 +314,13 @@ class Mate:
 
 		the_class = getattr(mapper_module, mapper_class)
 
+		inst = the_class(mapper_id,mapper_conf)
+		try:
+			bin_hash = inst.getBinaryHash()
+		except:
+			self.error("Failed to access mapper binary %s for mapper %s" % (str(inst.getBinaryPath()),mapper_id))
+			return []
+
 		tests = {}
 
 		for test_directory in self.config["test_directories"]:
@@ -364,7 +371,7 @@ class Mate:
 
 				except Exception as e:
 					self.popLogPrefix()
-					self.error("Failed to load test " + test_short_name)
+					self.error("Failed to load test %s for %s" % (test_short_name,mapper_id) )
 					#self.log_traceback("Loading failed for " + test_short_name)
 
 		return tests
