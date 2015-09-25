@@ -107,7 +107,7 @@ result.mapq_cumulated[curr]["correct"] + result.mapq_cumulated[curr]["wrong"])) 
 
 		groups.append(test.getMapper().getTitle())
 	page.addSection("Mapping Statistics",
-					"""<div align="right">MAPQ cutoff (0-255):&nbsp;<input type="number" onchange="javascript:updateMapstatsChart(this.value);" value="0" min="0" max="255"></div><div id="plot_mapstats"></div>""",
+					"""<div align="right">MAPQ cutoff (0-255):&nbsp;<input type="number" onchange="javascript:updateMapstatsChart(this.value);" value="0" min="0" max="255">&nbsp;<a href="javascript:exportSVG('plot_mapstats');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_mapstats"></div>""",
 					None,
 					"This plot shows the fractions of correctly, wrongly and not mapped reads for each mapper and the selected mapping quality cutoff. Reads that have been filtered using the mapping quality cutoff are shown as unmapped. The interactive legend can be used to, for example, display only the number of wrongly and not mapped reads.")
 	page.addScript("""
@@ -118,6 +118,9 @@ function updateMapstatsChart(cutoff)
 }
 var mapstats_chart = c3.generate({
 bindto: '#plot_mapstats',
+size: {
+  height: 400
+},
 data: {
   columns: %s,
   type: 'bar',
@@ -202,7 +205,7 @@ def generateOverallScatterPlot(self, page, test_objects):
 
 		csv += test.getMapper().getName() + "" + test.getMapper().param_string + ",%f,%f" % (round(correct,3),throughput) + "\n"
 
-	page.addSection("Results Overview", generateTestList(self,test_objects) + """<p style="margin-top:15px;">The figure below visualizes above results by directly comparing accuracy and throughput. The optimal mapper showing both highest accuracy and throughput, if any, will be located in the top right corner.</p> <div id="plot_os"></div>""", None, """Mappers were evaluated for the given test <a href="#section2">data set</a>. The table below shows the used parameters, mapping statistics and throughput for each mapper. Detailed results for a mapper can be displayed by clicking on its name in the table or the navigation on top.""")
+	page.addSection("Results Overview", generateTestList(self,test_objects) + """<p style="margin-top:15px;">The figure below visualizes above results by directly comparing accuracy and throughput. The optimal mapper showing both highest accuracy and throughput, if any, will be located in the top right corner. <div align="right"><a href="javascript:exportSVG('plot_os');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div> <div id="plot_os"></div>""", None, """Mappers were evaluated for the given test <a href="#section2">data set</a>. The table below shows the used parameters, mapping statistics and throughput for each mapper. Detailed results for a mapper can be displayed by clicking on its name in the table or the navigation on top.""")
 
 	show_legend = len(columns) < 30
 
@@ -279,7 +282,7 @@ def generatePrecisionRecallPlot(page, test_objects):
 		columns[0].append(round(result.precision, 4))
 		columns[1].append(round(result.recall, 4))
 
-	page.addSection("Precision and Recall", """<div id="plot_pr"></div>""")
+	page.addSection("Precision and Recall", """<div align="right"><a href="javascript:exportSVG('plot_pr');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_pr"></div>""")
 	page.addScript("""
 var chart = c3.generate({
 bindto: '#plot_pr',
@@ -344,7 +347,7 @@ def generateResourcePlot(page, test_objects, measure):
 			except ZeroDivisionError:
 				columns[0].append(0)
 
-	page.addSection(section_title, """<div id="plot_resource_%s"></div>""" % measure)
+	page.addSection(section_title, """<div align="right"><a href="javascript:exportSVG('plot_resource_%s');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_resource_%s"></div>""" % (measure,measure))
 	page.addScript("""
 var chart = c3.generate({
 bindto: '#plot_resource_%s',
@@ -410,7 +413,7 @@ def generateMappingQualityOverview(page, test_objects):
 		data_dist.append(column_dist)
 
 	page.addSection("Mapping Quality",
-					"""<div id="plot_mapq_rating"></div><p>&nbsp;</p><div id="plot_mapq_dist"></div>""",
+					"""<div align="right"><a href="javascript:exportSVG('plot_mapq_rating');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_mapq_rating"></div><div align="right"><a href="javascript:exportSVG('plot_mapq_dist');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><p>&nbsp;</p><div id="plot_mapq_dist"></div>""",
 					None,
 					"This section represents an overview of the distribution of mapping quality values for all mappers. A detailed evaluation of mapping qualities for specific mappers can be found on the respective mapper results page (accessible using the navigation on top). The first plot rates each mapping quality threshold (0-255) by comparing the numbers of wrongly and correctly mapped reads that would be removed due to falling under the threshold. The second plot shows the total number of reads for each mapping quality value.")
 	page.addScript("""

@@ -413,7 +413,7 @@ class ReportHTMLGenerator:
 			if len(tests) != 0 and tests[0]._("base") == "tests_base/base_mapping":
 				titles.append(tests[0].getTitle())
 		# titles=["0%","75%","90%","95%","99%"]
-		page.addSection("Results: %s" % title_section, """<div id="plot_%s"></div>""" % measure)
+		page.addSection("Results: %s" % title_section, """<div align="right"><a href="javascript:exportSVG('plot_%s');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_%s"></div>""" % (measure,measure))
 		page.addScript("""
 var chart_%s = c3.generate({
     bindto: '#plot_%s',
@@ -497,27 +497,29 @@ var chart_%s = c3.generate({
 		self.generateOverviewPlot(index, "recall")
 		self.generateOverviewPlot(index, "fmeasure")
 
-		csv = "test,mapper,correctly_mapped_percent,throughput_reads_per_sec\n"
+		csv = "test,mapper,mapq_threshold,correctly_mapped,wrongly_mapped,not_mapped,total,throughput\n"
 		for test_name in self.mate.getTestNameList():
 			for test in self.mate.getTestsByName(test_name):
 				if test.getRunResults() == None:
 					continue
 
-				correct=0
-				try:
-					correct=(100.0 * test.getRunResults().correct) / float(test.getRunResults().total)
-				except ZeroDivisionError:
-					pass
+				results=test.getRunResults()
 
 				throughput=0
 				try:
-					throughput=test.getRunResults().total / float(test.getRunResults().maptime)
+					throughput=results.total / float(results.maptime)
 				except ZeroDivisionError:
 					pass
 
-				csv += "%s,%s,%f,%f\n" % (test_name, (test.getMapper().getName() + " " + test.getMapper().param_string.replace(",", ";")).strip(), correct, throughput)
+				for threshold in range(255):
+					correct=results.mapq_cumulated[threshold]["correct"]
+					wrong=results.mapq_cumulated[threshold]["wrong"]
+					not_mapped=results.total-(correct+wrong)
+					total=results.total
 
-		index.addSection("Raw Results", "<pre>%s</pre>" % csv)
+					csv += "%s,%s,%d,%d,%d,%d,%d,%d\n" % (test_name, (test.getMapper().getName() + " " + test.getMapper().param_string.replace(",", ";")).strip(), threshold, correct, wrong, not_mapped, total, throughput)
+
+		index.addSection("Raw Results", "<textarea style=\"min-width: 100%%\" rows=25>%s</textarea>" % csv)
 
 		index.addSection("Setup", self.generateSetup(), None, "This section contains information about the benchmarking process itself and can be shared in order to reproduce results and diagnose problems.")
 		index.addSection("Log", self.generateLogs())
