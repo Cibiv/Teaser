@@ -750,11 +750,38 @@ class Mate:
 
 			if len(extra_combs) > 0:
 				for comb in extra_combs:
-					combinations.append(k + " " + comb)
+					if isinstance(k,basestring):
+						combinations.append(k + " " + comb)
+					else:
+						for curr in self.expandRangeParameter(k):
+							combinations.append(curr + " " + comb)
 			else:
-				combinations.append(k)
+				if isinstance(k,basestring):
+					combinations.append(k)
+				else:
+					for curr in self.expandRangeParameter(k):
+						combinations.append(curr)
 
 		return combinations
+
+	def expandRangeParameter(self, param_range):
+		def seq(start, stop, step=1):
+			n = int(round((stop - start)/float(step)))
+			if n>1:
+				return [start + step*i for i in range(n+1)]
+			else:
+				return []
+
+		param = param_range[0]
+		min = param_range[1]
+		max = param_range[2]
+		if len(param_range) > 3:
+			step = param_range[3]
+
+		expanded=[]
+		for value in seq(min,max,step):
+			expanded.append(param+" "+str(value))
+		return expanded
 
 	def generateMapperParameterConfigurations(self):
 		if self.parameter_list != False:
@@ -782,6 +809,15 @@ class Mate:
 
 			if "generate" in data:
 				generate = data["generate"]
+
+			define_expanded = []
+			for i, val in enumerate(define):
+				if isinstance(val,basestring):
+					define_expanded.append(val)
+				else:
+					define_expanded.extend(self.expandRangeParameter(val))
+
+			define=define_expanded
 
 			combinations_def = define
 			combinations_gen = self.enumerateParameterConfigurations(generate)

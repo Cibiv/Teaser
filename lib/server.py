@@ -26,7 +26,7 @@ class Home(tornado.web.RequestHandler):
       <div class="container">
         <h1>Teaser</h1>
         <p>Rapid Personalized Benchmarks for NGS Read Mapping</p>
-        <p><a href="define" class="btn btn-success" role="button"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> Start a mapper benchmark now</a> <a href="static/dataset_gallery" class="btn btn-info" role="button">View Example Report</a> <a href="http://github.com/cibiv/teaser/" class="btn btn-info" role="button">Visit the Wiki</a></p>
+        <p><a href="define" class="btn btn-success" role="button"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> Start a mapper benchmark now</a> <a href="static/dataset_gallery" class="btn btn-info" role="button">View Example Report</a> <a href="http://github.com/cibiv/teaser/" class="btn btn-info" role="button">Wiki and Download</a></p>
       </div>
     </div>
 
@@ -114,7 +114,7 @@ class Home(tornado.web.RequestHandler):
 		</table></div>
 		""" % recent_html)
 
-		page.addSection("Citation", """If you use Teaser to optimize read mapping in your study, please consider citing: Moritz Smolka, Philipp Rescheneder, Michael C Schatz, Arndt von Haeseler, Fritz J Sedlazeck Teaser: Individualized benchmarking and optimization of read mapping results for NGS data. First published online September 1, 2015. bioRxiv doi: http://dx.doi.org/10.1101/025858""")
+		page.addSection("Citation", """<b>If you use Teaser to optimize read mapping in your study, please consider citing:</b> Moritz Smolka, Philipp Rescheneder, Michael C Schatz, Arndt von Haeseler, Fritz J Sedlazeck Teaser: Individualized benchmarking and optimization of read mapping results for NGS data. First published online September 1, 2015. bioRxiv doi: http://dx.doi.org/10.1101/025858""")
 
 		if config["teaser"]["server"]["send_usage_information"]:
 			page.addScript("""
