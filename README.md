@@ -42,7 +42,7 @@ cd Teaser
 ```
 
 ##Adapting Teaser: Adding new References, Parameter Sets and Mappers
-The main reason for using a local version of Teaser is the ability to further customize Teaser.
+A main reason for using a local version (virtual machine image or installation) is the ability to further customize Teaser.
 
 ###Adding a reference sequence
 To add your desired reference sequence to Teaser, simply copy the FASTA file into the `Teaser/references` directory. Afterwards, you will be able to select the newly added reference on the web interface data set creation page.
