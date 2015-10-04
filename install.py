@@ -19,14 +19,21 @@ if major != 2:
 print("Installing Python package dependencies...")
 sub("pip install --user intervaltree tornado pyaml psutil")
 
-print("Downloading software packages...")
-sub("wget http://www.cibiv.at/~moritz/teaser_software.tar.gz")
+print("Downloading software packages (Mappers and Simulators)...")
+sub("wget http://www.cibiv.at/software/teaser/teaser_software.tar.gz")
 sub("tar -xvzf teaser_software.tar.gz")
 
 print("Downloading example reference genome (E. coli)...")
 os.chdir("references")
-sub("wget http://www.cibiv.at/~moritz/E_coli.fasta")
+sub("wget http://www.cibiv.at/software/teaser/E_coli.fasta")
 os.chdir("..")
+
+print("Building BWA...")
+os.chdir("software/bwa_build")
+sub("make")
+os.chdir("..")
+sub("mv bwa bwa_prebuilt")
+sub("cp bwa_build/bwa bwa")
 
 print("Building NGM...")
 os.chdir("software/ngm_build")
@@ -37,6 +44,14 @@ sub("make")
 os.chdir("../../../")
 sub("cp -R ngm_build/bin/ngm-0.4.13/* ngm")
 os.chdir("..")
+
+print("Building DWGSIM...")
+os.chdir("software/dwgsim_build")
+sub("make")
+os.chdir("..")
+sub("mv dwgsim dwgsim_prebuilt")
+sub("cp dwgsim_build/dwgsim dwgsim")
+
 sub("rm teaser_software.tar.gz")
 
 if len(errors)==0:
