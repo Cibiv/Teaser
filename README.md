@@ -1,5 +1,5 @@
 # Teaser
-Welcome to the official Github page of Teaser, an analytical framework for benchmarking NGS read mappers. Teaser allows researchers to identify the optimal mapper, parameter set and mapping quality thresholds for data sets that mimic their real data. Teaser is easy-to-use, flexible and fast thanks to its genome subsampling process, allowing users to test a variety of scenarios within minutes. Teaser is available as [web application](http://teaser.cibiv.univie.ac.at), a virtual machine image and as installable version.
+Welcome to the official Github page of Teaser, an analytical framework for benchmarking NGS read mappers. Teaser allows researchers to identify the optimal mapper, parameter set and mapping quality thresholds for data sets that mimic their real data. Teaser is easy-to-use, flexible and fast thanks to its genome subsampling process, allowing users to test a variety of scenarios within minutes. Teaser is available as [web application](http://teaser.cibiv.univie.ac.at), a [virtual machine image](https://github.com/Cibiv/Teaser#advanced-users-virtual-machine-image) and as [installable version](https://github.com/Cibiv/Teaser#advanced-users-installation).
 
 # Quickstart
 Getting started with Teaser takes just a few minutes. The following sections contain possible next steps for beginners and advanced users.
@@ -14,9 +14,13 @@ To quickly get started with testing mappers for a personalized data set, Teaser 
 For topics such as adding support for new mappers or creating customized parameter sets or even test procedures, please see our [Github Wiki](https://github.com/Cibiv/Teaser/wiki) for detailed information regarding the usage and extension of Teaser.
 
 ## Advanced Users: Virtual Machine Image
-Using the virtual machine / installed version of Teaser enables features such as adding new reference genomes, parameter sets and mappers. We provide a ready-to-go installation as a VirtualBox virtual machine image.
+Using a local version of Teaser enables features such as adding new reference genomes, parameter sets, mappers and importing custom read data. We provide a ready-to-go installation as a virtual machine image in Open Virtualization Format (OVA).
 
-The Teaser virtual machine image will be made available soon.
+The Teaser virtual machine image is available for [download](http://www.cibiv.at/software/teaser/Teaser_current.ova) (2.4GB) from the CIBIV servers. The image is tested for compatibility with [VirtualBox](https://www.virtualbox.org/).
+
+Please note that the memory limit of the machine may have to be adapted, especially when mapping reads to large reference genomes.
+
+The image contains a pre-installed default version of Teaser. Please consult the documentation in the [Github Wiki](https://github.com/Cibiv/Teaser/wiki) for details on the usage and extension.
 
 ## Advanced Users: Installation
 For advanced users we recommend installing Teaser directly on your computer. Using the virtual machine / installed version of Teaser enables features such as adding new reference genomes, parameter sets and mappers. Teaser is bundled with an installation script that will download and install a predefined set of read mappers and read simulators.
@@ -42,7 +46,7 @@ cd Teaser
 ```
 
 ##Adapting Teaser: Adding new References, Parameter Sets and Mappers
-The main reason for using a local version of Teaser is the ability to further customize Teaser.
+A main reason for using a local version (virtual machine image or installation) is the ability to further customize Teaser.
 
 ###Adding a reference sequence
 To add your desired reference sequence to Teaser, simply copy the FASTA file into the `Teaser/references` directory. Afterwards, you will be able to select the newly added reference on the web interface data set creation page.
