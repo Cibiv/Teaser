@@ -14,9 +14,9 @@ To quickly get started with testing mappers for a personalized data set, Teaser 
 For topics such as adding support for new mappers or creating customized parameter sets or even test procedures, please see our [Github Wiki](https://github.com/Cibiv/Teaser/wiki) for detailed information regarding the usage and extension of Teaser.
 
 ## Advanced Users: Virtual Machine Image
-Using the virtual machine / installed version of Teaser enables features such as adding new reference genomes, parameter sets and mappers. We provide a ready-to-go installation as a VirtualBox virtual machine image.
+Using the virtual machine or installed version of Teaser enables features such as adding new reference genomes, parameter sets and mappers and importing custom read data. We provide a ready-to-go installation as a virtual machine image in Open Virtualization Format (OVA).
 
-The Teaser virtual machine image will be made available soon.
+The Teaser virtual machine image is available for download at [CIBIV](http://www.cibiv.at/software/teaser/Teaser_current.ova) (2.4GB). The image is tested for compatibility with [VirtualBox](https://www.virtualbox.org/).
 
 ## Advanced Users: Installation
 For advanced users we recommend installing Teaser directly on your computer. Using the virtual machine / installed version of Teaser enables features such as adding new reference genomes, parameter sets and mappers. Teaser is bundled with an installation script that will download and install a predefined set of read mappers and read simulators.
