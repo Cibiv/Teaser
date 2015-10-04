@@ -11,6 +11,9 @@ def error(msg):
 def sub(cmd):
 	if os.system(cmd) != 0:
 		errors.append("Command failed: %s"%cmd)
+		return False
+	else:
+		return True
 
 print("Checking Python version...")
 if major != 2:
@@ -30,10 +33,11 @@ os.chdir("..")
 
 print("Building BWA...")
 os.chdir("software/bwa_build")
-sub("make")
+bwa_build_success=sub("make")
 os.chdir("..")
-sub("mv bwa bwa_prebuilt")
-sub("cp bwa_build/bwa bwa")
+if bwa_build_success:
+	sub("mv bwa bwa_prebuilt")
+	sub("cp bwa_build/bwa bwa")
 os.chdir("..")
 
 print("Building NGM...")
@@ -48,10 +52,11 @@ os.chdir("..")
 
 print("Building DWGSIM...")
 os.chdir("software/dwgsim_build")
-sub("make")
+dwgsim_build_success=sub("make")
 os.chdir("..")
-sub("mv dwgsim dwgsim_prebuilt")
-sub("cp dwgsim_build/dwgsim dwgsim")
+if dwgsim_build_success:
+	sub("mv dwgsim dwgsim_prebuilt")
+	sub("cp dwgsim_build/dwgsim dwgsim")
 os.chdir("..")
 
 sub("rm teaser_software.tar.gz")
