@@ -34,6 +34,7 @@ sub("make")
 os.chdir("..")
 sub("mv bwa bwa_prebuilt")
 sub("cp bwa_build/bwa bwa")
+os.chdir("..")
 
 print("Building NGM...")
 os.chdir("software/ngm_build")
@@ -51,6 +52,7 @@ sub("make")
 os.chdir("..")
 sub("mv dwgsim dwgsim_prebuilt")
 sub("cp dwgsim_build/dwgsim dwgsim")
+os.chdir("..")
 
 sub("rm teaser_software.tar.gz")
 
