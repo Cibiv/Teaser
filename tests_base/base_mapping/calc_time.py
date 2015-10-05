@@ -38,4 +38,5 @@ def calc_time(self):
 	stats_out.usrtime = mapper_result["usrtime"]
 	stats_out.systime = mapper_result["systime"]
 
+
 	stats_out.memory = mapper_result["memory"]

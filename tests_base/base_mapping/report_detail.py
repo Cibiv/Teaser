@@ -156,11 +156,11 @@ def report_detail(self, gen, page):
 	html += "<tr><th class=\"col-md-6\">Secondary Alignments</th><td class=\"col-md-4\">%s</td></tr>" % str(
 		stats.ignored_testee)
 	html += "<tr><th><abbr title=\"Harmonic Mean of Precision and Recall\">F-Measure</abbr></th>"
-	html += "<td>%f</td>" % results.fmeasure
+	html += "<td>%f</td>" % round(results.fmeasure,4)
 	html += "</tr><tr><th><abbr title=\"Correctly Mapped / (Correctly Mapped + Wrongly Mapped)\">Precision</abbr></th>"
-	html += "<td>%f</td>" % results.precision
+	html += "<td>%f</td>" % round(results.precision,4)
 	html += "</tr><tr><th><abbr title=\"Correctly Mapped / (Correctly Mapped + Unmapped)\">Recall</abbr></th>"
-	html += "<td>%f</td>" % results.recall
+	html += "<td>%f</td>" % round(results.recall,4)
 	html += "</tbody>"
 	html += "</table></div>"
 	page.addSection("Advanced Statistics", html)

@@ -8,7 +8,7 @@ import sys
 import resource
 
 import yaml
-import psutil
+
 
 from lib import util
 
@@ -467,10 +467,11 @@ class Test:
 								   close_fds=True)
 
 		if measure_detailed:
-			if self.mate.measure_use_resource_module:
-				self.log("Measuring using Python resource module...")
+			if not self.mate.measure_psutil:
+				
 				res_start = resource.getrusage(resource.RUSAGE_CHILDREN)
 			else:
+				self.log("Monitoring processes using psutil resource module")
 				from multiprocessing import Process
 				from multiprocessing import Queue
 
@@ -484,9 +485,9 @@ class Test:
 		end_time = time.time()
 
 		if measure_detailed:
-			if self.mate.measure_use_resource_module:
+			if not self.mate.measure_psutil:
 				res_end = resource.getrusage(resource.RUSAGE_CHILDREN)
-				peak_mem = res_end.ru_maxrss
+				peak_mem = res_end.ru_maxrss * 1000  #KB-> B
 				metrics={0:{"usrtime":res_end.ru_utime-res_start.ru_utime,"systime":res_end.ru_stime-res_start.ru_stime}}
 			else:
 

@@ -2,7 +2,6 @@ import copy
 import os
 import hashlib
 import glob
-import psutil
 import yaml
 import time
 import sys
@@ -15,6 +14,8 @@ STATUS_NORMAL=1
 STATUS_MAX_MEMORY_EXCEEDED=2
 STATUS_MAX_RUNTIME_EXCEEDED=3
 def measureProcess(queue, initial_pids, command, measurement_interval=1, max_runtime=0, max_memory=0, debug=False):
+	import psutil
+
 	if debug:
 		print("[MEASUREMENT] Finding and attaching to target...")
 	targets = []

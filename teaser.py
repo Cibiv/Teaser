@@ -629,7 +629,7 @@ class Mate:
 		parser.add_argument("-mcpu", "--measurecputime", help="Measure mapper CPU time instead of wall clock time", default=False, action="store_true")
 		parser.add_argument("-mpre", "--measurepreload", help="Initialize mappers once before measuring initialization time to avoid cache effects", default=True, action="store_true")
 		parser.add_argument("-mnopre", "--nomeasurepreload", help="Do not initialize mappers once before measuring initialization time to avoid cache effects", default=False, action="store_true")
-		parser.add_argument("-mures", "--measureuseresource", help="Use Python resource module for CPU time and memory measurements", default=False, action="store_true")
+		parser.add_argument("-ps", "--psutil", help="Monitor processes using psutil instead of the Python resource module", default=False, action="store_true")
 		parser.add_argument("-pc", "--picard", help="Use picard-tools for sorting alignment output files", default=False, action="store_true")
 
 		parser.add_argument("-lm", "--listmappers", help="List available mappers", default=False, action="store_true")
@@ -684,7 +684,7 @@ class Mate:
 
 		self.measure_cputime = args.measurecputime
 		self.measure_preload = not args.nomeasurepreload
-		self.measure_use_resource_module = args.measureuseresource
+		self.measure_psutil = args.psutil
 		self.list_mappers = args.listmappers
 		self.list_parameters = args.listparameters
 
@@ -704,35 +704,9 @@ class Mate:
 		if args.reportname != None:
 			self.config["report"]["name"] = args.reportname
 
-		"""if args.ignore != None:
-			if args.ignore == "":
-				self.config["ignore_tags"] = None
-			else:
-				self.config["ignore_tags"] = args.ignore.split(",")
-
-		if args.include != None:
-			if args.include == "":
-				self.config["include_tags"] = None
-			else:
-				self.config["include_tags"] = args.include.split(",")
-
-		if args.mappertestee != None:
-			self.config["mapper_testee"] = args.mappertestee
-
-		if args.mapperbase != None:
-			self.config["mapper_base"] = args.mapperbase"""
 
 		if args.forceclean == True:
 			self.config["force_clean"] = True
-
-		#if args.pubexport != None:
-		#	self.publicate_export = True
-
-		#if args.qrun != False:
-		#	self.is_stats_run = False
-
-		#if args.listtests != False:
-		#	self.list_tests = True
 
 		if args.picard:
 			self.log("Using picard-tools for sorting")
