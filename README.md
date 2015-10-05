@@ -34,7 +34,7 @@ Packages that may need to be installed before downloading and installing Teaser:
 * python-dev
 
 Packages that may be needed for the automatic building of mapper binaries:
-* build-essentials
+* build-essentials (gcc,g++,etc.)
 * cmake
 * zlib
 
