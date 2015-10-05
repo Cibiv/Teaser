@@ -359,7 +359,7 @@ def generateMappingQualityOverview(page, test_objects):
 		data_dist.append(column_dist)
 
 	page.addSection("Mapping Quality",
-					"""<div id="plot_mapq_rating"></div><p>&nbsp;</p><div id="plot_mapq_dist"></div>""",
+					"""<div align="right"><a href="javascript:exportSVG('plot_mapq_rating');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_mapq_rating"></div><p>&nbsp;</p><div id="plot_mapq_dist"></div>""",
 					None,
 					"This section represents an overview of the distribution of mapping quality values for all mappers. The plot shows the total number of reads for each mapping quality value.")
 
