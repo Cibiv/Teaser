@@ -20,7 +20,10 @@ if major != 2:
 	error("Teaser currently requires Python 2! Version: %s"%str(sys.version_info))
 
 print("Installing Python package dependencies...")
-sub("pip install --user intervaltree tornado pyaml")
+sub("pip install --user intervaltree")
+sub("pip install --user tornado")
+sub("pip install --user pyaml")
+sub("pip install --user psutil")
 
 print("Downloading software packages (Mappers and Simulators)...")
 sub("wget http://www.cibiv.at/software/teaser/teaser_software.tar.gz")

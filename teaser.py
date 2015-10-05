@@ -628,8 +628,9 @@ class Mate:
 		#parser.add_argument("-px", "--pubexport", help="", default=None, action="store_true")
 		parser.add_argument("-mcpu", "--measurecputime", help="Measure mapper CPU time instead of wall clock time", default=False, action="store_true")
 		parser.add_argument("-mpre", "--measurepreload", help="Initialize mappers once before measuring initialization time to avoid cache effects", default=True, action="store_true")
-		parser.add_argument("-mnopre", "--nomeasurepreload", help="Do not initialize mappers once before measuring initialization time to avoid cache effects", default=False, action="store_true")
-		parser.add_argument("-ps", "--psutil", help="Monitor processes using psutil instead of the Python resource module", default=False, action="store_true")
+		parser.add_argument("-mnopre", "--nomeasurepreload", help="Do not initialize mappers an additional time before measuring initialization time to avoid cache effects", default=False, action="store_true")
+		parser.add_argument("-mps", "--measurepsutil", help="Measure mapper CPU time and memory usage with psutil instead of the Python resource module", default=False, action="store_true")
+		parser.add_argument("-nm", "--nomonitor", help="Do not monitor mappers for exceeding resource limits using psutil", default=False, action="store_true")
 		parser.add_argument("-pc", "--picard", help="Use picard-tools for sorting alignment output files", default=False, action="store_true")
 
 		parser.add_argument("-lm", "--listmappers", help="List available mappers", default=False, action="store_true")
@@ -659,8 +660,7 @@ class Mate:
 				self.config["teaser"]["dwgsim_path"] = os.path.abspath(self.config["teaser"]["dwgsim_path"])
 
 			if "reference_directory" in self.config["teaser"]:
-				self.config["teaser"]["reference_directory"] = os.path.abspath(
-					self.config["teaser"]["reference_directory"])
+				self.config["teaser"]["reference_directory"] = os.path.abspath(self.config["teaser"]["reference_directory"])
 
 	def initFromArgs(self):
 		parser = self.createArgParser()
@@ -684,7 +684,13 @@ class Mate:
 
 		self.measure_cputime = args.measurecputime
 		self.measure_preload = not args.nomeasurepreload
-		self.measure_psutil = args.psutil
+		self.measure_psutil = args.measurepsutil
+		self.nomonitor = args.nomonitor
+
+		if self.measure_psutil and self.nomonitor:
+			self.log("Cannot use --nomonitor with --measurepsutil")
+			return False
+
 		self.list_mappers = args.listmappers
 		self.list_parameters = args.listparameters
 

@@ -468,10 +468,9 @@ class Test:
 
 		if measure_detailed:
 			if not self.mate.measure_psutil:
-				
 				res_start = resource.getrusage(resource.RUSAGE_CHILDREN)
-			else:
-				self.log("Monitoring processes using psutil resource module")
+
+			if not self.mate.nomonitor:
 				from multiprocessing import Process
 				from multiprocessing import Queue
 
@@ -489,13 +488,18 @@ class Test:
 				res_end = resource.getrusage(resource.RUSAGE_CHILDREN)
 				peak_mem = res_end.ru_maxrss * 1000  #KB-> B
 				metrics={0:{"usrtime":res_end.ru_utime-res_start.ru_utime,"systime":res_end.ru_stime-res_start.ru_stime}}
-			else:
 
+			if not self.mate.nomonitor:
 				q.put("Stop")
 				measurer.join()
 				status = q.get()
-				metrics = q.get()
-				peak_mem = q.get()
+				metrics_psutil = q.get()
+				peak_mem_psutil = q.get()
+
+				if self.mate.measure_psutil:
+					self.log("Using psutil for mapper resource measurement")
+					metrics = metrics_psutil
+					peak_mem = peak_mem_psutil
 
 				if status != util.STATUS_NORMAL:
 					if status == util.STATUS_MAX_MEMORY_EXCEEDED:
