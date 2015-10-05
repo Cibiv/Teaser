@@ -103,7 +103,7 @@ def generateMappingStatisticsPlot(page, test_objects):
 
 		groups.append(test.getMapper().getTitle())
 	page.addSection("Mapping Statistics",
-					"""<div align="right">MAPQ cutoff (0-255):&nbsp;<input type="number" onchange="javascript:updateMapstatsChart(this.value);" value="0" min="0" max="255"></div><div id="plot_mapstats"></div>""",
+					"""<div align="right">MAPQ cutoff (0-255):&nbsp;<input type="number" onchange="javascript:updateMapstatsChart(this.value);" value="0" min="0" max="255">&nbsp;<a href="javascript:exportSVG('plot_mapstats');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_mapstats"></div>""",
 					None,
 					"This plot shows the fractions of mapped and not mapped reads for each mapper and the selected mapping quality cutoff. Reads that have been filtered using the mapping quality cutoff are shown as unmapped.")
 	page.addScript("""
@@ -198,7 +198,7 @@ def generateOverallScatterPlot(self, page, test_objects):
 
 		csv += test.getMapper().getName() + "" + test.getMapper().param_string + ",%f,%f" % (round(correct,3),throughput) + "\n"
 
-	page.addSection("Results Overview", generateTestList(self,test_objects) + """<p style="margin-top:15px;">The figure below visualizes above results by directly mapped percentage and throughput.</p> <div id="plot_os"></div>""", None, """Mappers were evaluated for the given test <a href="#section2">data set</a>. The table below shows the used parameters, mapping statistics and throughput for each mapper. Detailed results for a mapper can be displayed by clicking on its name in the table or the navigation on top.""")
+	page.addSection("Results Overview", generateTestList(self,test_objects) + """<p style="margin-top:15px;">The figure below visualizes above results by directly mapped percentage and throughput.</p> <div align="right"><a href="javascript:exportSVG('plot_os');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div> <div id="plot_os"></div>""", None, """Mappers were evaluated for the given test <a href="#section2">data set</a>. The table below shows the used parameters, mapping statistics and throughput for each mapper. Detailed results for a mapper can be displayed by clicking on its name in the table or the navigation on top.""")
 
 	show_legend = len(columns) < 30
 
@@ -293,7 +293,7 @@ def generateResourcePlot(page, test_objects, measure):
 			except ZeroDivisionError:
 				columns[0].append(0)
 
-	page.addSection(section_title, """<div id="plot_resource_%s"></div>""" % measure)
+	page.addSection(section_title, """<div align="right"><a href="javascript:exportSVG('plot_resource_%s');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_resource_%s"></div>""" % (measure,measure))
 	page.addScript("""
 var chart = c3.generate({
 bindto: '#plot_resource_%s',
