@@ -1,6 +1,5 @@
 from lib import util
 
-
 def generateTestList(self, tests):
 	html = ""
 
@@ -18,6 +17,8 @@ def generateTestList(self, tests):
 	html += "<th>Throughput (reads/s)</th>"
 	html += "</tr>"
 	html += "</thead>"
+
+	csv = "mapper,additional_parameters,correctly_mapped_percent,wrongly_mapped_percent,not_mapped_percent,throughput_reads_per_sec\n"
 
 	for test in tests:
 		warnings = 0
@@ -76,12 +77,21 @@ def generateTestList(self, tests):
 		html += "<td>%d</td>" % throughput
 		html += "</tr>"
 
+		csv+="%s,%s,%.4f,%.4f,%.4f,%d\n" % (test.getMapper().getTitle(),test.getMapper().param_string,correct,wrong,not_mapped,throughput)
+
+	csv_filename = self.writeCSV("overview",csv)
+
 	html += "</table>"
+	html += util.makeExportDropdown("",csv_filename) 
+
+
 	return html
 
 
-def generateMappingStatisticsPlot(page, test_objects):
+def generateMappingStatisticsPlot(self, page, test_objects):
 	import json
+
+	csv = "mapper,mapq_threshold,correctly_mapped_percent,wrongly_mapped_percent,not_mapped_percent\n"
 
 	columns_mapqs = []
 	for i in range(256):
@@ -105,15 +115,21 @@ result.mapq_cumulated[curr]["correct"] + result.mapq_cumulated[curr]["wrong"])) 
 			columns_mapqs[curr][1].append(wrong)
 			columns_mapqs[curr][2].append(not_mapped)
 
+			csv += "%s,%d,%.4f,%.4f,%.4f\n" % (test.getMapper().getTitle(), curr, correct, wrong, not_mapped)
+
 		groups.append(test.getMapper().getTitle())
+
+	csv_filename = self.writeCSV("mapping_statistics",csv)
+
 	page.addSection("Mapping Statistics",
-					"""<div align="right">MAPQ cutoff (0-255):&nbsp;<input type="number" onchange="javascript:updateMapstatsChart(this.value);" value="0" min="0" max="255">&nbsp;<a href="javascript:exportSVG('plot_mapstats');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_mapstats"></div>""",
+					"""MAPQ threshold&nbsp;<input type="number" onchange="javascript:updateMapstatsChart(this.value);" value="0" min="0" max="255" size="5">&nbsp;<div id="plot_mapstats"></div>%s""" % util.makeExportDropdown("plot_mapstats",csv_filename),
 					None,
 					"This plot shows the fractions of correctly, wrongly and not mapped reads for each mapper and the selected mapping quality cutoff. Reads that have been filtered using the mapping quality cutoff are shown as unmapped. The interactive legend can be used to, for example, display only the number of wrongly and not mapped reads.")
 	page.addScript("""
 var column_mapqs=%s;
 function updateMapstatsChart(cutoff)
 {
+	mapstats_chart.axis.labels({x:"Mappers (MAPQ Threshold "+cutoff+")"});
 	mapstats_chart.load({columns: column_mapqs[cutoff], type:'bar',groups: [['Not Mapped','Wrong','Correct']],order: null});
 }
 var mapstats_chart = c3.generate({
@@ -138,7 +154,7 @@ grid: {
 },
 axis: {
   x: {
-    label: { text: "Mapper", position: "outer-middle" },
+    label: { text: "Mapper (MAPQ Threshold 0)", position: "outer-middle" },
     type: "category",
     categories: %s
   },
@@ -205,7 +221,9 @@ def generateOverallScatterPlot(self, page, test_objects):
 
 		csv += test.getMapper().getName() + "" + test.getMapper().param_string + ",%f,%f" % (round(correct,3),throughput) + "\n"
 
-	page.addSection("Results Overview", generateTestList(self,test_objects) + """<p style="margin-top:15px;">The figure below visualizes above results by directly comparing accuracy and throughput. The optimal mapper showing both highest accuracy and throughput, if any, will be located in the top right corner. <div align="right"><a href="javascript:exportSVG('plot_os');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div> <div id="plot_os"></div>""", None, """Mappers were evaluated for the given test <a href="#section2">data set</a>. The table below shows the used parameters, mapping statistics and throughput for each mapper. Detailed results for a mapper can be displayed by clicking on its name in the table or the navigation on top.""")
+	csv_filename = self.writeCSV("overview_scatter",csv)
+
+	page.addSection("Results Overview", generateTestList(self,test_objects) + """<p style="margin-top:15px;">The figure below visualizes above results by directly comparing accuracy and throughput. The optimal mapper showing both highest accuracy and throughput, if any, will be located in the top right corner. <div id="plot_os"></div>%s""" % util.makeExportDropdown("plot_os",csv_filename), None, """Mappers were evaluated for the given test <a href="#section2">data set</a>. The table below shows the used parameters, mapping statistics and throughput for each mapper. Detailed results for a mapper can be displayed by clicking on its name in the table or the navigation on top.""")
 
 	show_legend = len(columns) < 30
 
@@ -268,9 +286,10 @@ tooltip: {
 });""" % (json.dumps(labels), json.dumps(xs), json.dumps(columns), str(show_legend).lower()))
 
 
-def generatePrecisionRecallPlot(page, test_objects):
+def generatePrecisionRecallPlot(self, page, test_objects):
 	import json
 
+	csv = "mapper,precision,recall\n"
 	columns = [["Precision"], ["Recall"]]
 	groups = []
 
@@ -282,7 +301,11 @@ def generatePrecisionRecallPlot(page, test_objects):
 		columns[0].append(round(result.precision, 4))
 		columns[1].append(round(result.recall, 4))
 
-	page.addSection("Precision and Recall", """<div align="right"><a href="javascript:exportSVG('plot_pr');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_pr"></div>""")
+		csv += "%s,%.4f,%.4f\n" % (test.getMapper().getTitle(),result.precision,result.recall)
+
+	csv_filename = self.writeCSV("precision_recall",csv)
+
+	page.addSection("Precision and Recall", """<div id="plot_pr"></div>%s""" % util.makeExportDropdown("plot_pr",csv_filename) )
 	page.addScript("""
 var chart = c3.generate({
 bindto: '#plot_pr',
@@ -315,7 +338,7 @@ tooltip: {
 });""" % (json.dumps(columns), json.dumps(groups)))
 
 
-def generateResourcePlot(page, test_objects, measure):
+def generateResourcePlot(self, page, test_objects, measure):
 	import json
 
 	if measure == "runtime":
@@ -332,6 +355,8 @@ def generateResourcePlot(page, test_objects, measure):
 		section_title = "Correctly Mapped/s"
 	groups = []
 
+	csv = "mapper,%s\n" % measure
+
 	for test in sorted(test_objects, key=lambda k: k.getMapper().getTitle()):
 		result = test.getRunResults()
 		if result == None:
@@ -347,7 +372,11 @@ def generateResourcePlot(page, test_objects, measure):
 			except ZeroDivisionError:
 				columns[0].append(0)
 
-	page.addSection(section_title, """<div align="right"><a href="javascript:exportSVG('plot_resource_%s');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_resource_%s"></div>""" % (measure,measure))
+		csv += "%s,%f\n" % (test.getMapper().getTitle(),columns[0][-1])
+
+	csv_filename = self.writeCSV(measure,csv)
+
+	page.addSection(section_title, """<div id="plot_resource_%s"></div>%s""" % (measure,util.makeExportDropdown("plot_resource_%s"%measure,csv_filename)))
 	page.addScript("""
 var chart = c3.generate({
 bindto: '#plot_resource_%s',
@@ -382,8 +411,11 @@ legend: {
 });""" % (measure, json.dumps(columns), json.dumps(groups), title))
 
 
-def generateMappingQualityOverview(page, test_objects):
+def generateMappingQualityOverview(self, page, test_objects):
 	import json
+
+	csv_rating = "mapper,mapq_threshold,filtered_wrong_per_filtered_correct\n"
+	csv_distribution = "mapper,mapq_value,read_count\n"
 
 	data = []
 	data_dist = []
@@ -409,11 +441,17 @@ def generateMappingQualityOverview(page, test_objects):
 			else:
 				column_dist.append(0)
 
+			csv_rating += "%s,%d,%.4f\n" % (test.getMapper().getTitle(),curr,column[-1])
+			csv_distribution += "%s,%d,%d\n" % (test.getMapper().getTitle(),curr,column_dist[-1])
+
 		data.append(column)
 		data_dist.append(column_dist)
 
+	csv_filename_rating = self.writeCSV("mapq_rating",csv_rating)
+	csv_filename_distribution = self.writeCSV("mapq_distribution",csv_distribution)
+
 	page.addSection("Mapping Quality",
-					"""<div align="right"><a href="javascript:exportSVG('plot_mapq_rating');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_mapq_rating"></div><div align="right"><a href="javascript:exportSVG('plot_mapq_dist');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><p>&nbsp;</p><div id="plot_mapq_dist"></div>""",
+					"""<div id="plot_mapq_rating"></div>%s<p>&nbsp;</p><div id="plot_mapq_dist"></div>%s""" % (util.makeExportDropdown("plot_mapq_rating",csv_filename_rating), util.makeExportDropdown("plot_mapq_dist",csv_filename_distribution)),
 					None,
 					"This section represents an overview of the distribution of mapping quality values for all mappers. A detailed evaluation of mapping qualities for specific mappers can be found on the respective mapper results page (accessible using the navigation on top). The first plot rates each mapping quality threshold (0-255) by comparing the numbers of wrongly and correctly mapped reads that would be removed due to falling under the threshold. The second plot shows the total number of reads for each mapping quality value.")
 	page.addScript("""
@@ -636,11 +674,11 @@ window.onload = function () {$('.selectpicker').selectpicker();}""")
 
 	generateOverallScatterPlot(self, page, test_objects)
 	generateDataSetInfo(self, page, test_objects[0])
-	generateMappingStatisticsPlot(page, test_objects)
-	generateMappingQualityOverview(page, test_objects)
-	generatePrecisionRecallPlot(page, test_objects)
-	generateResourcePlot(page, test_objects, "corrects")
-	generateResourcePlot(page, test_objects, "runtime")
-	generateResourcePlot(page, test_objects, "memory")
+	generateMappingStatisticsPlot(self, page, test_objects)
+	generateMappingQualityOverview(self, page, test_objects)
+	generatePrecisionRecallPlot(self, page, test_objects)
+	generateResourcePlot(self, page, test_objects, "corrects")
+	generateResourcePlot(self, page, test_objects, "runtime")
+	generateResourcePlot(self, page, test_objects, "memory")
 	
 	return ""

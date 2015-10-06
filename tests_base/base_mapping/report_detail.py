@@ -11,6 +11,8 @@ def generateMappingQualityPlot(self, page):
 
 	columns = [["Correct"], ["Wrong"]]
 
+	csv = "mapq_threshold,correct,wrong\n"
+
 	correct = []
 	wrong = []
 	mc = max(1, float(results.total))
@@ -22,8 +24,11 @@ def generateMappingQualityPlot(self, page):
 	for curr in mapqs:
 		columns[0].append(results.mapq_cumulated[curr]["correct"] / float(mc))
 		columns[1].append((-results.mapq_cumulated[curr]["wrong"] / float(mw)) * wrong_scale)
+		csv += "%d,%d,%d\n" % (curr,results.mapq_cumulated[curr]["correct"],results.mapq_cumulated[curr]["wrong"])
 
-	page.addSection("Mapping Quality Thresholds", """<div align="right"><a href="javascript:exportSVG('plot_mapq_tresh');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_mapq_tresh"></div>""",None,"The plot below shows the percentages of correctly and wrongly mapped reads for all mapping quality thresholds for this mapper. The values at threshold 0 therefore correspond to the unfiltered results.")
+	csv_filename = self.writeCSV(self.getMapper().getName() + "_mapqs",csv)
+
+	page.addSection("Mapping Quality Thresholds", """<div id="plot_mapq_thresh"></div>%s""" % util.makeExportDropdown("plot_mapq_thresh",csv_filename),None,"The plot below shows the percentages of correctly and wrongly mapped reads for all mapping quality thresholds for this mapper. The values at threshold 0 therefore correspond to the unfiltered results.")
 	page.addScript("""
 var cols=%s;
 var a=0;
@@ -59,7 +64,7 @@ function updateRange()
 setTimeout(updateRange,500);
 
 var chart = c3.generate({
-bindto: '#plot_mapq_tresh',
+bindto: '#plot_mapq_thresh',
 data: {
   columns: %s,
   type: "area"

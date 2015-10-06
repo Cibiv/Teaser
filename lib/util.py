@@ -351,5 +351,20 @@ def sanitize_string(s):
 		s=s.replace(r,"")
 	return s
 
+def makeExportDropdown(plot_id,csv_filename):
+	item_plot = """<li><a href="javascript:exportSVG('%s');">Plot (.svg)</a></li>""" % plot_id if plot_id != "" else ""
+	item_csv = """<li><a href="%s">Raw Data  (.csv)</a></li>""" % csv_filename if csv_filename != "" else ""
+
+	return """<div align="right" style="margin-top:5px;"><div class="dropdown">
+  <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <span class="glyphicon glyphicon-download-alt" aria-hidden="true"> Export
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+    %s
+    %s
+  </ul>
+</div></div>""" % (item_plot,item_csv)
+
 import pydoc
 locate = pydoc.locate

@@ -81,7 +81,7 @@ class Mate:
 		return self.warnings
 
 	def version(self):
-		return "1.0b-dev"
+		return "1.1b-public"
 
 	def getLogPrefix(self):
 		return self.log_prefix[len(self.log_prefix) - 1]

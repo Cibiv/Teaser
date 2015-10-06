@@ -413,7 +413,7 @@ class ReportHTMLGenerator:
 			if len(tests) != 0 and tests[0]._("base") == "tests_base/base_mapping":
 				titles.append(tests[0].getTitle())
 		# titles=["0%","75%","90%","95%","99%"]
-		page.addSection("Results: %s" % title_section, """<div align="right"><a href="javascript:exportSVG('plot_%s');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_%s"></div>""" % (measure,measure))
+		page.addSection("Results: %s" % title_section, """<div id="plot_%s"></div>%s""" % (measure,util.makeExportDropdown("plot_%s"%measure,"")))
 		page.addScript("""
 var chart_%s = c3.generate({
     bindto: '#plot_%s',
