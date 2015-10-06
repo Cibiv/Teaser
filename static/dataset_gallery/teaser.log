@@ -1,176 +1,316 @@
-[20:00:52] [Main        ] framework cmd:  ./teaser.py paper
-[20:00:52] [Main        ] framework hash: vevev
-[20:00:52] [Main        ] deployment mode: devel (True)
-[20:00:52] [Main        ] Teaser Example Dataset Evaluation - "Examples showcasing mapper differences across datasets"
+[15:47:16] [Main        ] framework cmd:  ./teaser.py paper
+[15:47:16] [Main        ] framework hash: vevev
+[15:47:16] [Main        ] deployment mode: devel (True)
+[15:47:16] [Main        ] Teaser Example Dataset Evaluation - "Examples showcasing mapper differences across datasets"
 
-[20:00:52] [Main        ] Using Teaser for data set creation
-[20:00:52] [Teaser      ] Init. Creating 10 test datasets.
-[20:00:52] [Teaser      ] Data set H1_n already exists, not creating.
-[20:00:52] [Teaser      ] Data set H2_n already exists, not creating.
-[20:00:52] [Teaser      ] Data set D1_n already exists, not creating.
-[20:00:52] [Teaser      ] Data set M1_n already exists, not creating.
-[20:00:52] [Teaser      ] Data set D2_n already exists, not creating.
-[20:00:52] [Teaser      ] Data set M2_n already exists, not creating.
-[20:00:52] [Teaser      ] Data set D3_n already exists, not creating.
-[20:00:52] [Teaser      ] Data set M3_n already exists, not creating.
-[20:00:52] [Teaser      ] Data set D4_n already exists, not creating.
-[20:00:52] [Teaser      ] Data set M4_n already exists, not creating.
-[20:00:52] [Main        ] Data set creation completed
-[20:00:52] [Main        ] 
-[20:00:52] [Load H1_n] Loading cached version of H1_n<ngm> /project/teaser/cache/dev_cca299c02fcf620dea5c5ea7ceb21764.test
-[20:00:53] [Load H2_n] Loading cached version of H2_n<ngm> /project/teaser/cache/dev_74d2b798367d6f426f678df7c75fffeb.test
-[20:00:53] [Load D1_n] Loading cached version of D1_n<ngm> /project/teaser/cache/dev_e525765f6e09f10291b168afbc3f62a3.test
-[20:00:53] [Load M1_n] Loading cached version of M1_n<ngm> /project/teaser/cache/dev_54f653a0038ef37d27e2294e518e25e9.test
-[20:00:53] [Load D2_n] Loading cached version of D2_n<ngm> /project/teaser/cache/dev_14cb9e9467ae19b1332406ce4dbc7964.test
-[20:00:53] [Load M2_n] Loading cached version of M2_n<ngm> /project/teaser/cache/dev_4701577f0e3fdac2e0cba09a16901ce1.test
-[20:00:53] [Load D3_n] Loading cached version of D3_n<ngm> /project/teaser/cache/dev_b2b9e907a17a100d3f57042fae8f72fa.test
-[20:00:53] [Load M3_n] Loading cached version of M3_n<ngm> /project/teaser/cache/dev_69dfe4bff6abfb0146f2339e99d9041b.test
-[20:00:53] [Load D4_n] Loading cached version of D4_n<ngm> /project/teaser/cache/dev_89b3226f0f42dcfba89be33b207fc21e.test
-[20:00:53] [Load M4_n] Loading cached version of M4_n<ngm> /project/teaser/cache/dev_9239ebd1ee5b38b6582fdb1b9ebaff6a.test
-[20:00:53] [Load H1_n] Loading cached version of H1_n<bowtie2> /project/teaser/cache/dev_7ae5e511948ca67a75432ecb432cc00b.test
-[20:00:53] [Load H2_n] Loading cached version of H2_n<bowtie2> /project/teaser/cache/dev_2e7215f6834caad8a6bc04d2509e8330.test
-[20:00:53] [Load D1_n] Loading cached version of D1_n<bowtie2> /project/teaser/cache/dev_6ce3250281640ea491cf43dac43f8279.test
-[20:00:53] [Load M1_n] Loading cached version of M1_n<bowtie2> /project/teaser/cache/dev_1a61b5134623503d28ac63ba46a65262.test
-[20:00:53] [Load D2_n] Loading cached version of D2_n<bowtie2> /project/teaser/cache/dev_c21cbbf8399d0ed202e67f7c8f83eb6b.test
-[20:00:53] [Load M2_n] Loading cached version of M2_n<bowtie2> /project/teaser/cache/dev_f3183ea8c9274445f8a3122fb877ddbc.test
-[20:00:53] [Load D3_n] Loading cached version of D3_n<bowtie2> /project/teaser/cache/dev_b31c1fafbdffd09060e34d6ce010714c.test
-[20:00:53] [Load M3_n] Loading cached version of M3_n<bowtie2> /project/teaser/cache/dev_d9a82d05dde31c9aacf7f395dbbc9047.test
-[20:00:53] [Load D4_n] Loading cached version of D4_n<bowtie2> /project/teaser/cache/dev_04a5d1821208ca104e48fe2d2bf392a7.test
-[20:00:53] [Load M4_n] Loading cached version of M4_n<bowtie2> /project/teaser/cache/dev_111788b39477cb1b234e8808d8794152.test
-[20:00:53] [Load H1_n] Loading cached version of H1_n<bwa> /project/teaser/cache/dev_3e4a7ecb924d078c36900df48aa452e8.test
-[20:00:53] [Load H2_n] Loading cached version of H2_n<bwa> /project/teaser/cache/dev_13108935e7dedf3ddfc2599cd68ec6b7.test
-[20:00:53] [Load D1_n] Loading cached version of D1_n<bwa> /project/teaser/cache/dev_ed967a97032f5518b25fa6a245f7720a.test
-[20:00:53] [Load M1_n] Loading cached version of M1_n<bwa> /project/teaser/cache/dev_2683cf8823d91178b5c82625866590d2.test
-[20:00:53] [Load D2_n] Loading cached version of D2_n<bwa> /project/teaser/cache/dev_98272e98e9efbe92112c0738b35e17d3.test
-[20:00:53] [Load M2_n] Loading cached version of M2_n<bwa> /project/teaser/cache/dev_c8b676755e4f8bb4adc98b0f0eed62ac.test
-[20:00:53] [Load D3_n] Loading cached version of D3_n<bwa> /project/teaser/cache/dev_8e0fd8cb08244389184d53126a0fa3f5.test
-[20:00:53] [Load M3_n] Loading cached version of M3_n<bwa> /project/teaser/cache/dev_ef5219bd1505f35e002a75a9f6500cf4.test
-[20:00:53] [Load D4_n] Loading cached version of D4_n<bwa> /project/teaser/cache/dev_f237777af29a7481d677f4b4e3d9ed7f.test
-[20:00:53] [Load M4_n] Loading cached version of M4_n<bwa> /project/teaser/cache/dev_b45f802ae19832e519e0aada5c53feda.test
-[20:00:53] [Load H1_n] Loading cached version of H1_n<bwamem> /project/teaser/cache/dev_ad272b8a5fa20a27866c27fcf3b3f782.test
-[20:00:53] [Load H2_n] Loading cached version of H2_n<bwamem> /project/teaser/cache/dev_47262d6a264ff8d89d6d47feaf8c6919.test
-[20:00:53] [Load D1_n] Loading cached version of D1_n<bwamem> /project/teaser/cache/dev_f0c7eeb174faacfad8a8b8dae2b1e97d.test
-[20:00:53] [Load M1_n] Loading cached version of M1_n<bwamem> /project/teaser/cache/dev_2821cb2a8e6e18e165168c09bf3263cb.test
-[20:00:53] [Load D2_n] Loading cached version of D2_n<bwamem> /project/teaser/cache/dev_5770fb30900dfbcaa62fe6762445f889.test
-[20:00:53] [Load M2_n] Loading cached version of M2_n<bwamem> /project/teaser/cache/dev_68702983ef9b76b2fd1693138f380e37.test
-[20:00:53] [Load D3_n] Loading cached version of D3_n<bwamem> /project/teaser/cache/dev_29c367627a76dc1bb0f2ea11862c22f1.test
-[20:00:53] [Load M3_n] Loading cached version of M3_n<bwamem> /project/teaser/cache/dev_fb1d761bf78af9fbaf444a57baf8bc83.test
-[20:00:53] [Load D4_n] Loading cached version of D4_n<bwamem> /project/teaser/cache/dev_4bdb7ecf3f72111f6faf068091a32b9b.test
-[20:00:53] [Load M4_n] Loading cached version of M4_n<bwamem> /project/teaser/cache/dev_1b073781c435501b5d08e0f681fdab63.test
-[20:00:53] [Load H1_n] Loading cached version of H1_n<bwasw> /project/teaser/cache/dev_253122cda578d66995928fd923180d35.test
-[20:00:53] [Load H2_n] Loading cached version of H2_n<bwasw> /project/teaser/cache/dev_7a1a2526bc2a4a4339cdcf1e3d9a59b0.test
-[20:00:53] [Load D1_n] Loading cached version of D1_n<bwasw> /project/teaser/cache/dev_b956b5e7c2e9090d7acb3384e1c35988.test
-[20:00:53] [Load M1_n] Loading cached version of M1_n<bwasw> /project/teaser/cache/dev_44edbcc405ca01aff6fc132cb5e2b4c5.test
-[20:00:53] [Load D2_n] Loading cached version of D2_n<bwasw> /project/teaser/cache/dev_dbf7839caa47f8f030f6fd323dd88a83.test
-[20:00:53] [Load M2_n] Loading cached version of M2_n<bwasw> /project/teaser/cache/dev_d2e3d30634ca7e142c4c0bd803430e7a.test
-[20:00:53] [Load D3_n] Loading cached version of D3_n<bwasw> /project/teaser/cache/dev_b411c89cb194ed88fa35a1de15e7c633.test
-[20:00:53] [Load M3_n] Loading cached version of M3_n<bwasw> /project/teaser/cache/dev_832ab95dd355583e9c1f068745b217a0.test
-[20:00:53] [Load D4_n] Loading cached version of D4_n<bwasw> /project/teaser/cache/dev_dd3913a0bbe0eeab0e497c951ac53dc3.test
-[20:00:53] [Load M4_n] Loading cached version of M4_n<bwasw> /project/teaser/cache/dev_4fae1631c660b863b27dd1aeeabff0a5.test
-[20:00:53] [ngm         ] Skip: D1_n<ngm> (already run)
+[15:47:17] [Main        ] Using Teaser for data set creation
+[15:47:18] [Teaser      ] Init. Creating 10 test datasets.
+[15:47:18] [Teaser      ] Data set H1_n already exists, not creating.
+[15:47:18] [Teaser      ] Data set H2_n already exists, not creating.
+[15:47:18] [Teaser      ] Data set D1_n already exists, not creating.
+[15:47:18] [Teaser      ] Data set M1_n already exists, not creating.
+[15:47:18] [Teaser      ] Data set D2_n already exists, not creating.
+[15:47:18] [Teaser      ] Data set M2_n already exists, not creating.
+[15:47:18] [Teaser      ] Data set D3_n already exists, not creating.
+[15:47:18] [Teaser      ] Data set M3_n already exists, not creating.
+[15:47:18] [Teaser      ] Data set D4_n already exists, not creating.
+[15:47:18] [Teaser      ] Data set M4_n already exists, not creating.
+[15:47:18] [Main        ] Data set creation completed
+[15:47:18] [Main        ] 
+[15:47:18] [Load H1_n] Loading cached version of H1_n<ngm> /project/teaser/cache/dev_cca299c02fcf620dea5c5ea7ceb21764.test
+[15:47:18] [Load H2_n] Loading cached version of H2_n<ngm> /project/teaser/cache/dev_74d2b798367d6f426f678df7c75fffeb.test
+[15:47:18] [Load D1_n] Loading cached version of D1_n<ngm> /project/teaser/cache/dev_e525765f6e09f10291b168afbc3f62a3.test
+[15:47:18] [Load M1_n] Loading cached version of M1_n<ngm> /project/teaser/cache/dev_54f653a0038ef37d27e2294e518e25e9.test
+[15:47:18] [Load D2_n] Loading cached version of D2_n<ngm> /project/teaser/cache/dev_14cb9e9467ae19b1332406ce4dbc7964.test
+[15:47:19] [Load M2_n] Loading cached version of M2_n<ngm> /project/teaser/cache/dev_4701577f0e3fdac2e0cba09a16901ce1.test
+[15:47:19] [Load D3_n] Loading cached version of D3_n<ngm> /project/teaser/cache/dev_b2b9e907a17a100d3f57042fae8f72fa.test
+[15:47:19] [Load M3_n] Loading cached version of M3_n<ngm> /project/teaser/cache/dev_69dfe4bff6abfb0146f2339e99d9041b.test
+[15:47:19] [Load D4_n] Loading cached version of D4_n<ngm> /project/teaser/cache/dev_89b3226f0f42dcfba89be33b207fc21e.test
+[15:47:19] [Load M4_n] Loading cached version of M4_n<ngm> /project/teaser/cache/dev_9239ebd1ee5b38b6582fdb1b9ebaff6a.test
+[15:47:19] [Load H1_n] Loading cached version of H1_n<bowtie2> /project/teaser/cache/dev_7ae5e511948ca67a75432ecb432cc00b.test
+[15:47:19] [Load H2_n] Loading cached version of H2_n<bowtie2> /project/teaser/cache/dev_2e7215f6834caad8a6bc04d2509e8330.test
+[15:47:19] [Load D1_n] Loading cached version of D1_n<bowtie2> /project/teaser/cache/dev_6ce3250281640ea491cf43dac43f8279.test
+[15:47:19] [Load M1_n] Loading cached version of M1_n<bowtie2> /project/teaser/cache/dev_1a61b5134623503d28ac63ba46a65262.test
+[15:47:19] [Load D2_n] Loading cached version of D2_n<bowtie2> /project/teaser/cache/dev_c21cbbf8399d0ed202e67f7c8f83eb6b.test
+[15:47:19] [Load M2_n] Loading cached version of M2_n<bowtie2> /project/teaser/cache/dev_f3183ea8c9274445f8a3122fb877ddbc.test
+[15:47:19] [Load D3_n] Loading cached version of D3_n<bowtie2> /project/teaser/cache/dev_b31c1fafbdffd09060e34d6ce010714c.test
+[15:47:19] [Load M3_n] Loading cached version of M3_n<bowtie2> /project/teaser/cache/dev_d9a82d05dde31c9aacf7f395dbbc9047.test
+[15:47:19] [Load D4_n] Loading cached version of D4_n<bowtie2> /project/teaser/cache/dev_04a5d1821208ca104e48fe2d2bf392a7.test
+[15:47:19] [Load M4_n] Loading cached version of M4_n<bowtie2> /project/teaser/cache/dev_111788b39477cb1b234e8808d8794152.test
+[15:47:19] [Load H1_n] Loading cached version of H1_n<bwa> /project/teaser/cache/dev_3e4a7ecb924d078c36900df48aa452e8.test
+[15:47:19] [Load H2_n] Loading cached version of H2_n<bwa> /project/teaser/cache/dev_13108935e7dedf3ddfc2599cd68ec6b7.test
+[15:47:19] [Load D1_n] Loading cached version of D1_n<bwa> /project/teaser/cache/dev_ed967a97032f5518b25fa6a245f7720a.test
+[15:47:19] [Load M1_n] Loading cached version of M1_n<bwa> /project/teaser/cache/dev_2683cf8823d91178b5c82625866590d2.test
+[15:47:19] [Load D2_n] Loading cached version of D2_n<bwa> /project/teaser/cache/dev_98272e98e9efbe92112c0738b35e17d3.test
+[15:47:19] [Load M2_n] Loading cached version of M2_n<bwa> /project/teaser/cache/dev_c8b676755e4f8bb4adc98b0f0eed62ac.test
+[15:47:19] [Load D3_n] Loading cached version of D3_n<bwa> /project/teaser/cache/dev_8e0fd8cb08244389184d53126a0fa3f5.test
+[15:47:19] [Load M3_n] Loading cached version of M3_n<bwa> /project/teaser/cache/dev_ef5219bd1505f35e002a75a9f6500cf4.test
+[15:47:19] [Load D4_n] Loading cached version of D4_n<bwa> /project/teaser/cache/dev_f237777af29a7481d677f4b4e3d9ed7f.test
+[15:47:19] [Load M4_n] Loading cached version of M4_n<bwa> /project/teaser/cache/dev_b45f802ae19832e519e0aada5c53feda.test
+[15:47:19] [Load H1_n] Loading cached version of H1_n<bwamem> /project/teaser/cache/dev_ad272b8a5fa20a27866c27fcf3b3f782.test
+[15:47:19] [Load H2_n] Loading cached version of H2_n<bwamem> /project/teaser/cache/dev_47262d6a264ff8d89d6d47feaf8c6919.test
+[15:47:19] [Load D1_n] Loading cached version of D1_n<bwamem> /project/teaser/cache/dev_f0c7eeb174faacfad8a8b8dae2b1e97d.test
+[15:47:19] [Load M1_n] Loading cached version of M1_n<bwamem> /project/teaser/cache/dev_2821cb2a8e6e18e165168c09bf3263cb.test
+[15:47:19] [Load D2_n] Loading cached version of D2_n<bwamem> /project/teaser/cache/dev_5770fb30900dfbcaa62fe6762445f889.test
+[15:47:19] [Load M2_n] Loading cached version of M2_n<bwamem> /project/teaser/cache/dev_68702983ef9b76b2fd1693138f380e37.test
+[15:47:19] [Load D3_n] Loading cached version of D3_n<bwamem> /project/teaser/cache/dev_29c367627a76dc1bb0f2ea11862c22f1.test
+[15:47:19] [Load M3_n] Loading cached version of M3_n<bwamem> /project/teaser/cache/dev_fb1d761bf78af9fbaf444a57baf8bc83.test
+[15:47:19] [Load D4_n] Loading cached version of D4_n<bwamem> /project/teaser/cache/dev_4bdb7ecf3f72111f6faf068091a32b9b.test
+[15:47:19] [Load M4_n] Loading cached version of M4_n<bwamem> /project/teaser/cache/dev_1b073781c435501b5d08e0f681fdab63.test
+[15:47:19] [Load H1_n] Loading cached version of H1_n<bwasw> /project/teaser/cache/dev_253122cda578d66995928fd923180d35.test
+[15:47:19] [Load H2_n] Loading cached version of H2_n<bwasw> /project/teaser/cache/dev_7a1a2526bc2a4a4339cdcf1e3d9a59b0.test
+[15:47:19] [Load D1_n] Loading cached version of D1_n<bwasw> /project/teaser/cache/dev_b956b5e7c2e9090d7acb3384e1c35988.test
+[15:47:19] [Load M1_n] Loading cached version of M1_n<bwasw> /project/teaser/cache/dev_44edbcc405ca01aff6fc132cb5e2b4c5.test
+[15:47:19] [Load D2_n] Loading cached version of D2_n<bwasw> /project/teaser/cache/dev_dbf7839caa47f8f030f6fd323dd88a83.test
+[15:47:19] [Load M2_n] Loading cached version of M2_n<bwasw> /project/teaser/cache/dev_d2e3d30634ca7e142c4c0bd803430e7a.test
+[15:47:19] [Load D3_n] Loading cached version of D3_n<bwasw> /project/teaser/cache/dev_b411c89cb194ed88fa35a1de15e7c633.test
+[15:47:19] [Load M3_n] Loading cached version of M3_n<bwasw> /project/teaser/cache/dev_832ab95dd355583e9c1f068745b217a0.test
+[15:47:20] [Load D4_n] Loading cached version of D4_n<bwasw> /project/teaser/cache/dev_dd3913a0bbe0eeab0e497c951ac53dc3.test
+[15:47:20] [Load M4_n] Loading cached version of M4_n<bwasw> /project/teaser/cache/dev_4fae1631c660b863b27dd1aeeabff0a5.test
+[15:47:20] [ngm         ] Skip: D1_n<ngm> (already run)
 
-[20:00:53] [ngm         ] Skip: D2_n<ngm> (already run)
+[15:47:20] [ngm         ] Skip: D2_n<ngm> (already run)
 
-[20:00:53] [ngm         ] Skip: D3_n<ngm> (already run)
+[15:47:20] [ngm         ] Skip: D3_n<ngm> (already run)
 
-[20:00:53] [ngm         ] Skip: D4_n<ngm> (already run)
+[15:47:20] [ngm         ] Skip: D4_n<ngm> (already run)
 
-[20:00:53] [ngm         ] Skip: H1_n<ngm> (already run)
+[15:47:20] [ngm         ] Skip: H1_n<ngm> (already run)
 
-[20:00:53] [ngm         ] Skip: H2_n<ngm> (already run)
+[15:47:20] [ngm         ] Skip: H2_n<ngm> (already run)
 
-[20:00:53] [ngm         ] Skip: M1_n<ngm> (already run)
+[15:47:20] [ngm         ] Skip: M1_n<ngm> (already run)
 
-[20:00:53] [ngm         ] Skip: M2_n<ngm> (already run)
+[15:47:20] [ngm         ] Skip: M2_n<ngm> (already run)
 
-[20:00:53] [ngm         ] Skip: M3_n<ngm> (already run)
+[15:47:20] [ngm         ] Skip: M3_n<ngm> (already run)
 
-[20:00:53] [ngm         ] Skip: M4_n<ngm> (already run)
+[15:47:20] [ngm         ] Skip: M4_n<ngm> (already run)
 
-[20:00:53] [bowtie2     ] Skip: D1_n<bowtie2> (already run)
+[15:47:20] [bowtie2     ] Skip: D1_n<bowtie2> (already run)
 
-[20:00:53] [bowtie2     ] Skip: D2_n<bowtie2> (already run)
+[15:47:20] [bowtie2     ] Skip: D2_n<bowtie2> (already run)
 
-[20:00:53] [bowtie2     ] Skip: D3_n<bowtie2> (already run)
+[15:47:20] [bowtie2     ] Skip: D3_n<bowtie2> (already run)
 
-[20:00:53] [bowtie2     ] Skip: D4_n<bowtie2> (already run)
+[15:47:20] [bowtie2     ] Skip: D4_n<bowtie2> (already run)
 
-[20:00:53] [bowtie2     ] Skip: H1_n<bowtie2> (already run)
+[15:47:20] [bowtie2     ] Skip: H1_n<bowtie2> (already run)
 
-[20:00:53] [bowtie2     ] Skip: H2_n<bowtie2> (already run)
+[15:47:20] [bowtie2     ] Skip: H2_n<bowtie2> (already run)
 
-[20:00:53] [bowtie2     ] Skip: M1_n<bowtie2> (already run)
+[15:47:20] [bowtie2     ] Skip: M1_n<bowtie2> (already run)
 
-[20:00:53] [bowtie2     ] Skip: M2_n<bowtie2> (already run)
+[15:47:20] [bowtie2     ] Skip: M2_n<bowtie2> (already run)
 
-[20:00:53] [bowtie2     ] Skip: M3_n<bowtie2> (already run)
+[15:47:20] [bowtie2     ] Skip: M3_n<bowtie2> (already run)
 
-[20:00:53] [bowtie2     ] Skip: M4_n<bowtie2> (already run)
+[15:47:20] [bowtie2     ] Skip: M4_n<bowtie2> (already run)
 
-[20:00:53] [bwa         ] Skip: D1_n<bwa> (already run)
+[15:47:20] [bwa         ] Skip: D1_n<bwa> (already run)
 
-[20:00:53] [bwa         ] Skip: D2_n<bwa> (already run)
+[15:47:20] [bwa         ] Skip: D2_n<bwa> (already run)
 
-[20:00:53] [bwa         ] Skip: D3_n<bwa> (already run)
+[15:47:20] [bwa         ] Skip: D3_n<bwa> (already run)
 
-[20:00:53] [bwa         ] Skip: D4_n<bwa> (already run)
+[15:47:20] [bwa         ] Skip: D4_n<bwa> (already run)
 
-[20:00:53] [bwa         ] Skip: H1_n<bwa> (already run)
+[15:47:20] [bwa         ] Skip: H1_n<bwa> (already run)
 
-[20:00:53] [bwa         ] Skip: H2_n<bwa> (already run)
+[15:47:20] [bwa         ] Skip: H2_n<bwa> (already run)
 
-[20:00:53] [bwa         ] Skip: M1_n<bwa> (already run)
+[15:47:20] [bwa         ] Skip: M1_n<bwa> (already run)
 
-[20:00:53] [bwa         ] Skip: M2_n<bwa> (already run)
+[15:47:20] [bwa         ] Skip: M2_n<bwa> (already run)
 
-[20:00:53] [bwa         ] Skip: M3_n<bwa> (already run)
+[15:47:20] [bwa         ] Skip: M3_n<bwa> (already run)
 
-[20:00:53] [bwa         ] Skip: M4_n<bwa> (already run)
+[15:47:20] [bwa         ] Skip: M4_n<bwa> (already run)
 
-[20:00:53] [bwamem      ] Skip: D1_n<bwamem> (already run)
+[15:47:20] [bwamem      ] Skip: D1_n<bwamem> (already run)
 
-[20:00:53] [bwamem      ] Skip: D2_n<bwamem> (already run)
+[15:47:20] [bwamem      ] Skip: D2_n<bwamem> (already run)
 
-[20:00:53] [bwamem      ] Skip: D3_n<bwamem> (already run)
+[15:47:20] [bwamem      ] Skip: D3_n<bwamem> (already run)
 
-[20:00:53] [bwamem      ] Skip: D4_n<bwamem> (already run)
+[15:47:20] [bwamem      ] Skip: D4_n<bwamem> (already run)
 
-[20:00:53] [bwamem      ] Skip: H1_n<bwamem> (already run)
+[15:47:20] [bwamem      ] Skip: H1_n<bwamem> (already run)
 
-[20:00:53] [bwamem      ] Skip: H2_n<bwamem> (already run)
+[15:47:20] [bwamem      ] Skip: H2_n<bwamem> (already run)
 
-[20:00:53] [bwamem      ] Skip: M1_n<bwamem> (already run)
+[15:47:20] [bwamem      ] Skip: M1_n<bwamem> (already run)
 
-[20:00:53] [bwamem      ] Skip: M2_n<bwamem> (already run)
+[15:47:20] [bwamem      ] Skip: M2_n<bwamem> (already run)
 
-[20:00:53] [bwamem      ] Skip: M3_n<bwamem> (already run)
+[15:47:20] [bwamem      ] Skip: M3_n<bwamem> (already run)
 
-[20:00:53] [bwamem      ] Skip: M4_n<bwamem> (already run)
+[15:47:20] [bwamem      ] Skip: M4_n<bwamem> (already run)
 
-[20:00:53] [bwasw       ] Skip: D1_n<bwasw> (already run)
+[15:47:20] [bwasw       ] Skip: D1_n<bwasw> (already run)
 
-[20:00:53] [bwasw       ] Skip: D2_n<bwasw> (already run)
+[15:47:20] [bwasw       ] Skip: D2_n<bwasw> (already run)
 
-[20:00:53] [bwasw       ] Skip: D3_n<bwasw> (already run)
+[15:47:20] [bwasw       ] Skip: D3_n<bwasw> (already run)
 
-[20:00:53] [bwasw       ] Skip: D4_n<bwasw> (already run)
+[15:47:20] [bwasw       ] Skip: D4_n<bwasw> (already run)
 
-[20:00:53] [bwasw       ] Skip: H1_n<bwasw> (already run)
+[15:47:20] [bwasw       ] Skip: H1_n<bwasw> (already run)
 
-[20:00:53] [bwasw       ] Skip: H2_n<bwasw> (already run)
+[15:47:20] [bwasw       ] Skip: H2_n<bwasw> (already run)
 
-[20:00:53] [bwasw       ] Skip: M1_n<bwasw> (already run)
+[15:47:20] [bwasw       ] Skip: M1_n<bwasw> (already run)
 
-[20:00:53] [bwasw       ] Skip: M2_n<bwasw> (already run)
+[15:47:20] [bwasw       ] Skip: M2_n<bwasw> (already run)
 
-[20:00:53] [bwasw       ] Skip: M3_n<bwasw> (already run)
+[15:47:20] [bwasw       ] Skip: M3_n<bwasw> (already run)
 
-[20:00:53] [bwasw       ] Skip: M4_n<bwasw> (already run)
+[15:47:20] [bwasw       ] Skip: M4_n<bwasw> (already run)
 
-[20:00:53] [Main        ] Generate HTML report -> /home/CIBIV/moritz/public_html/paper_benchmarks/main...
+[15:47:20] [Main        ] Generate HTML report -> /home/CIBIV/moritz/public_html/paper_benchmarks/main...
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D1_n_overview_scatter.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D1_n_overview.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D1_n_mapping_statistics.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D1_n_mapq_rating.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D1_n_mapq_distribution.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D1_n_precision_recall.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D1_n_corrects.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D1_n_runtime.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D1_n_memory.csv
+[15:47:20] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D1_n_ngm_mapqs.csv
+[15:47:20] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D1_n_bwa_mapqs.csv
+[15:47:20] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D1_n_bwamem_mapqs.csv
+[15:47:20] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D1_n_bwasw_mapqs.csv
+[15:47:20] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D1_n_bowtie2_mapqs.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D2_n_overview_scatter.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D2_n_overview.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D2_n_mapping_statistics.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D2_n_mapq_rating.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D2_n_mapq_distribution.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D2_n_precision_recall.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D2_n_corrects.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D2_n_runtime.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D2_n_memory.csv
+[15:47:20] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D2_n_ngm_mapqs.csv
+[15:47:20] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D2_n_bwa_mapqs.csv
+[15:47:20] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D2_n_bwamem_mapqs.csv
+[15:47:20] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D2_n_bwasw_mapqs.csv
+[15:47:20] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D2_n_bowtie2_mapqs.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D3_n_overview_scatter.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D3_n_overview.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D3_n_mapping_statistics.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D3_n_mapq_rating.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D3_n_mapq_distribution.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D3_n_precision_recall.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D3_n_corrects.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D3_n_runtime.csv
+[15:47:20] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D3_n_memory.csv
+[15:47:20] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D3_n_ngm_mapqs.csv
+[15:47:20] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D3_n_bwa_mapqs.csv
+[15:47:20] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D3_n_bwamem_mapqs.csv
+[15:47:20] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D3_n_bwasw_mapqs.csv
+[15:47:20] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D3_n_bowtie2_mapqs.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D4_n_overview_scatter.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D4_n_overview.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D4_n_mapping_statistics.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D4_n_mapq_rating.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D4_n_mapq_distribution.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D4_n_precision_recall.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D4_n_corrects.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D4_n_runtime.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D4_n_memory.csv
+[15:47:21] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D4_n_ngm_mapqs.csv
+[15:47:21] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D4_n_bwa_mapqs.csv
+[15:47:21] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D4_n_bwamem_mapqs.csv
+[15:47:21] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D4_n_bwasw_mapqs.csv
+[15:47:21] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/D4_n_bowtie2_mapqs.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H1_n_overview_scatter.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H1_n_overview.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H1_n_mapping_statistics.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H1_n_mapq_rating.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H1_n_mapq_distribution.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H1_n_precision_recall.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H1_n_corrects.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H1_n_runtime.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H1_n_memory.csv
+[15:47:21] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H1_n_ngm_mapqs.csv
+[15:47:21] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H1_n_bwa_mapqs.csv
+[15:47:21] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H1_n_bwamem_mapqs.csv
+[15:47:21] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H1_n_bwasw_mapqs.csv
+[15:47:21] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H1_n_bowtie2_mapqs.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H2_n_overview_scatter.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H2_n_overview.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H2_n_mapping_statistics.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H2_n_mapq_rating.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H2_n_mapq_distribution.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H2_n_precision_recall.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H2_n_corrects.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H2_n_runtime.csv
+[15:47:21] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H2_n_memory.csv
+[15:47:21] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H2_n_ngm_mapqs.csv
+[15:47:21] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H2_n_bwa_mapqs.csv
+[15:47:21] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H2_n_bwamem_mapqs.csv
+[15:47:21] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H2_n_bwasw_mapqs.csv
+[15:47:21] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/H2_n_bowtie2_mapqs.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M1_n_overview_scatter.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M1_n_overview.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M1_n_mapping_statistics.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M1_n_mapq_rating.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M1_n_mapq_distribution.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M1_n_precision_recall.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M1_n_corrects.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M1_n_runtime.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M1_n_memory.csv
+[15:47:22] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M1_n_ngm_mapqs.csv
+[15:47:22] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M1_n_bwa_mapqs.csv
+[15:47:22] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M1_n_bwamem_mapqs.csv
+[15:47:22] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M1_n_bwasw_mapqs.csv
+[15:47:22] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M1_n_bowtie2_mapqs.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M2_n_overview_scatter.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M2_n_overview.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M2_n_mapping_statistics.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M2_n_mapq_rating.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M2_n_mapq_distribution.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M2_n_precision_recall.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M2_n_corrects.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M2_n_runtime.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M2_n_memory.csv
+[15:47:22] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M2_n_ngm_mapqs.csv
+[15:47:22] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M2_n_bwa_mapqs.csv
+[15:47:22] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M2_n_bwamem_mapqs.csv
+[15:47:22] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M2_n_bwasw_mapqs.csv
+[15:47:22] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M2_n_bowtie2_mapqs.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M3_n_overview_scatter.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M3_n_overview.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M3_n_mapping_statistics.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M3_n_mapq_rating.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M3_n_mapq_distribution.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M3_n_precision_recall.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M3_n_corrects.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M3_n_runtime.csv
+[15:47:22] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M3_n_memory.csv
+[15:47:22] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M3_n_ngm_mapqs.csv
+[15:47:22] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M3_n_bwa_mapqs.csv
+[15:47:23] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M3_n_bwamem_mapqs.csv
+[15:47:23] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M3_n_bwasw_mapqs.csv
+[15:47:23] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M3_n_bowtie2_mapqs.csv
+[15:47:23] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M4_n_overview_scatter.csv
+[15:47:23] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M4_n_overview.csv
+[15:47:23] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M4_n_mapping_statistics.csv
+[15:47:23] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M4_n_mapq_rating.csv
+[15:47:23] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M4_n_mapq_distribution.csv
+[15:47:23] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M4_n_precision_recall.csv
+[15:47:23] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M4_n_corrects.csv
+[15:47:23] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M4_n_runtime.csv
+[15:47:23] [report_overview] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M4_n_memory.csv
+[15:47:23] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M4_n_ngm_mapqs.csv
+[15:47:23] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M4_n_bwa_mapqs.csv
+[15:47:23] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M4_n_bwamem_mapqs.csv
+[15:47:23] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M4_n_bwasw_mapqs.csv
+[15:47:23] [report_detail] Wrote CSV to /home/CIBIV/moritz/public_html/paper_benchmarks/main/M4_n_bowtie2_mapqs.csv
 
-[20:00:55] [Main        ] Cleaning for ngm...
-[20:00:55] [Main        ] Cleaning for bwa...
-[20:00:55] [Main        ] Cleaning for bwamem...
-[20:00:55] [Main        ] Cleaning for bwasw...
-[20:00:55] [Main        ] Cleaning for bowtie2...
+[15:47:24] [Main        ] Cleaning for ngm...
+[15:47:24] [Main        ] Cleaning for bwa...
+[15:47:24] [Main        ] Cleaning for bwamem...
+[15:47:24] [Main        ] Cleaning for bwasw...
+[15:47:24] [Main        ] Cleaning for bowtie2...

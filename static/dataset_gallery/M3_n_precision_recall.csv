@@ -1,0 +1,6 @@
+mapper,precision,recall
+BWA,1.0000,0.0000
+BWA-MEM,0.9048,0.9951
+BWA-SW,0.8239,0.5597
+Bowtie 2,0.9171,0.5386
+NGM,0.9334,0.9999

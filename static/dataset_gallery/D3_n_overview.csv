@@ -1,0 +1,6 @@
+mapper,additional_parameters,correctly_mapped_percent,wrongly_mapped_percent,not_mapped_percent,throughput_reads_per_sec
+NGM,,92.2525,7.7464,0.0011,6868
+BWA,,0.0000,0.0000,100.0000,56497
+BWA-MEM,,89.8017,9.8326,0.3657,5142
+BWA-SW,,54.5626,7.9423,37.4951,6184
+Bowtie 2,,53.4838,4.7245,41.7916,15541
