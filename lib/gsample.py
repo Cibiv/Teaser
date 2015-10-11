@@ -67,7 +67,7 @@ def index(reference):
 				seq_id = id_buffer
 				curr_contig_start = contig_pos
 
-				log("%s, start=%d" % (seq_id, contig_pos))
+				#log("%s, start=%d" % (seq_id, contig_pos))
 				continue
 			else:
 				contig_handle.write(c)
