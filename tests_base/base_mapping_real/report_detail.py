@@ -11,6 +11,8 @@ def generateMappingQualityPlot(self, page):
 
 	columns = [["Mapped"]]
 
+	csv = "mapq_threshold,mapped_reads\n"
+
 	correct = []
 	wrong = []
 	mc = max(1, float(results.total))
@@ -21,8 +23,11 @@ def generateMappingQualityPlot(self, page):
 	mapqs = sorted(results.mapq_cumulated)
 	for curr in mapqs:
 		columns[0].append(results.mapq_cumulated[curr]["correct"] / float(mc))
+		csv += "%d,%d\n" % (curr,results.mapq_cumulated[curr]["correct"])
 
-	page.addSection("Mapping Quality Thresholds", """<div align="right"><a href="javascript:exportSVG('plot_mapq_tresh');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_mapq_tresh"></div>""",None,"The plot below shows the percentages of mapped reads for all mapping quality thresholds for this mapper. The values at threshold 0 therefore correspond to the unfiltered results.")
+	csv_filename = self.writeCSV(self.getMapper().getName() + "_mapqs",csv)
+
+	page.addSection("Mapping Quality Thresholds", """<div id="plot_mapq_tresh"></div>%s""" % util.makeExportDropdown("plot_mapq_thresh",csv_filename), None, "The plot below shows the percentages of mapped reads for all mapping quality thresholds for this mapper. The values at threshold 0 therefore correspond to the unfiltered results.")
 	page.addScript("""
 var cols=%s;
 var a=0;

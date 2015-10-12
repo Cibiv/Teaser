@@ -85,7 +85,7 @@ def generateTestList(self, tests):
 	return html
 
 
-def generateMappingStatisticsPlot(page, test_objects):
+def generateMappingStatisticsPlot(self, page, test_objects):
 	import json
 
 	csv = "mapper,mapq_threshold,mapped_percent,not_mapped_percent\n"
@@ -213,7 +213,7 @@ def generateOverallScatterPlot(self, page, test_objects):
 
 	csv_filename = self.writeCSV("overview_scatter",csv)
 
-	page.addSection("Results Overview", generateTestList(self,test_objects) + """<p style="margin-top:15px;">The figure below visualizes above results by directly mapped percentage and throughput.</p><div id="plot_os"></div>""" % util.makeExportDropdown("plot_os",csv_filename), None, """Mappers were evaluated for the given test <a href="#section2">data set</a>. The table below shows the used parameters, mapping statistics and throughput for each mapper. Detailed results for a mapper can be displayed by clicking on its name in the table or the navigation on top.""")
+	page.addSection("Results Overview", generateTestList(self,test_objects) + """<p style="margin-top:15px;">The figure below visualizes above results by directly mapped percentage and throughput.</p><div id="plot_os"></div>%s""" % util.makeExportDropdown("plot_os",csv_filename), None, """Mappers were evaluated for the given test <a href="#section2">data set</a>. The table below shows the used parameters, mapping statistics and throughput for each mapper. Detailed results for a mapper can be displayed by clicking on its name in the table or the navigation on top.""")
 
 	show_legend = len(columns) < 30
 
@@ -276,7 +276,7 @@ tooltip: {
 });""" % (json.dumps(labels), json.dumps(xs), json.dumps(columns), str(show_legend).lower()))
 
 
-def generateResourcePlot(page, test_objects, measure):
+def generateResourcePlot(self, page, test_objects, measure):
 	import json
 
 	if measure == "runtime":
@@ -349,7 +349,7 @@ legend: {
 });""" % (measure, json.dumps(columns), json.dumps(groups), title))
 
 
-def generateMappingQualityOverview(page, test_objects):
+def generateMappingQualityOverview(self, page, test_objects):
 	import json
 
 	csv_distribution = "mapper,mapq_value,read_count\n"
@@ -385,10 +385,7 @@ def generateMappingQualityOverview(page, test_objects):
 
 	csv_filename_distribution = self.writeCSV("mapq_distribution",csv_distribution)
 
-	page.addSection("Mapping Quality",
-					"""<div id="plot_mapq_dist"></div>%s""" % util.makeExportDropdown("plot_mapq_dist",csv_filename_distribution)),
-					None,
-					"This section represents an overview of the distribution of mapping quality values for all mappers. The plot shows the total number of reads for each mapping quality value.")
+	page.addSection("Mapping Quality", """<div id="plot_mapq_dist"></div>%s""" % util.makeExportDropdown("plot_mapq_dist",csv_filename_distribution), None,"This section represents an overview of the distribution of mapping quality values for all mappers. The plot shows the total number of reads for each mapping quality value.")
 
 	page.addScript("""
 var chart = c3.generate({
@@ -489,9 +486,9 @@ window.onload = function () {$('.selectpicker').selectpicker();}""")
 
 	generateOverallScatterPlot(self, page, test_objects)
 	generateDataSetInfo(self, page, test_objects[0])
-	generateMappingStatisticsPlot(page, test_objects)
-	generateMappingQualityOverview(page, test_objects)
-	generateResourcePlot(page, test_objects, "runtime")
-	generateResourcePlot(page, test_objects, "memory")
+	generateMappingStatisticsPlot(self, page, test_objects)
+	generateMappingQualityOverview(self, page, test_objects)
+	generateResourcePlot(self, page, test_objects, "runtime")
+	generateResourcePlot(self, page, test_objects, "memory")
 	
 	return ""
