@@ -18,6 +18,8 @@ def generateTestList(self, tests):
 	html += "</tr>"
 	html += "</thead>"
 
+	csv = "mapper,additional_parameters,mapped_percent,not_mapped_percent,throughput_reads_per_sec\n"
+
 	for test in tests:
 		warnings = 0
 		errors = 0
@@ -74,12 +76,19 @@ def generateTestList(self, tests):
 		html += "<td>%d</td>" % throughput
 		html += "</tr>"
 
+		csv+="%s,%s,%.4f,%.4f,%d\n" % (test.getMapper().getTitle(),test.getMapper().param_string,correct,not_mapped,throughput)
+
+	csv_filename = self.writeCSV("overview",csv)
+
 	html += "</table>"
+	html += util.makeExportDropdown("",csv_filename) 
 	return html
 
 
 def generateMappingStatisticsPlot(page, test_objects):
 	import json
+
+	csv = "mapper,mapq_threshold,mapped_percent,not_mapped_percent\n"
 
 	columns_mapqs = []
 	for i in range(256):
@@ -100,12 +109,16 @@ def generateMappingStatisticsPlot(page, test_objects):
 
 			columns_mapqs[curr][0].append(correct)
 			columns_mapqs[curr][1].append(not_mapped)
+			csv += "%s,%d,%.4f,%.4f\n" % (test.getMapper().getTitle(), curr, correct, not_mapped)
 
 		groups.append(test.getMapper().getTitle())
+
+	csv_filename = self.writeCSV("mapping_statistics",csv)
+
 	page.addSection("Mapping Statistics",
-					"""<div align="right">MAPQ cutoff (0-255):&nbsp;<input type="number" onchange="javascript:updateMapstatsChart(this.value);" value="0" min="0" max="255">&nbsp;<a href="javascript:exportSVG('plot_mapstats');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_mapstats"></div>""",
+					"""MAPQ threshold&nbsp;<input type="number" onchange="javascript:updateMapstatsChart(this.value);" value="0" min="0" max="255" size="5">&nbsp;<div id="plot_mapstats"></div>%s""" % util.makeExportDropdown("plot_mapstats",csv_filename),
 					None,
-					"This plot shows the fractions of mapped and not mapped reads for each mapper and the selected mapping quality cutoff. Reads that have been filtered using the mapping quality cutoff are shown as unmapped.")
+					"This plot shows the fractions of correctly, wrongly and not mapped reads for each mapper and the selected mapping quality cutoff. Reads that have been filtered using the mapping quality cutoff are shown as unmapped. The interactive legend can be used to, for example, display only the number of wrongly and not mapped reads.")
 	page.addScript("""
 var column_mapqs=%s;
 function updateMapstatsChart(cutoff)
@@ -161,7 +174,7 @@ tooltip: {
 def generateOverallScatterPlot(self, page, test_objects):
 	import json
 
-	csv = "parameter,mapped_percent,runtime\n"
+	csv = "parameter,mapped_percent,throughput_reads_per_sec\n"
 	# csv = "correct_percent,reads_per_sec\n"
 
 	columns = []
@@ -196,9 +209,11 @@ def generateOverallScatterPlot(self, page, test_objects):
 
 		labels[int(result.total / result.maptime)] = test.getMapper().getTitle() + " " + test.getMapper().param_string
 
-		csv += test.getMapper().getName() + "" + test.getMapper().param_string + ",%f,%f" % (round(correct,3),throughput) + "\n"
+		csv += "%s,%s,%f,%f\n" % (test.getMapper().getName(),test.getMapper().param_string,round(correct,3),throughput)
 
-	page.addSection("Results Overview", generateTestList(self,test_objects) + """<p style="margin-top:15px;">The figure below visualizes above results by directly mapped percentage and throughput.</p> <div align="right"><a href="javascript:exportSVG('plot_os');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div> <div id="plot_os"></div>""", None, """Mappers were evaluated for the given test <a href="#section2">data set</a>. The table below shows the used parameters, mapping statistics and throughput for each mapper. Detailed results for a mapper can be displayed by clicking on its name in the table or the navigation on top.""")
+	csv_filename = self.writeCSV("overview_scatter",csv)
+
+	page.addSection("Results Overview", generateTestList(self,test_objects) + """<p style="margin-top:15px;">The figure below visualizes above results by directly mapped percentage and throughput.</p><div id="plot_os"></div>""" % util.makeExportDropdown("plot_os",csv_filename), None, """Mappers were evaluated for the given test <a href="#section2">data set</a>. The table below shows the used parameters, mapping statistics and throughput for each mapper. Detailed results for a mapper can be displayed by clicking on its name in the table or the navigation on top.""")
 
 	show_legend = len(columns) < 30
 
@@ -278,6 +293,8 @@ def generateResourcePlot(page, test_objects, measure):
 		section_title = "Correctly Mapped/s"
 	groups = []
 
+	csv = "mapper,%s\n" % measure
+
 	for test in sorted(test_objects, key=lambda k: k.getMapper().getTitle()):
 		result = test.getRunResults()
 		if result == None:
@@ -293,7 +310,11 @@ def generateResourcePlot(page, test_objects, measure):
 			except ZeroDivisionError:
 				columns[0].append(0)
 
-	page.addSection(section_title, """<div align="right"><a href="javascript:exportSVG('plot_resource_%s');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_resource_%s"></div>""" % (measure,measure))
+		csv += "%s,%f\n" % (test.getMapper().getTitle(),columns[0][-1])
+
+	csv_filename = self.writeCSV(measure,csv)
+
+	page.addSection(section_title, """<div id="plot_resource_%s"></div>%s""" % (measure,util.makeExportDropdown("plot_resource_%s"%measure,csv_filename)))
 	page.addScript("""
 var chart = c3.generate({
 bindto: '#plot_resource_%s',
@@ -331,6 +352,8 @@ legend: {
 def generateMappingQualityOverview(page, test_objects):
 	import json
 
+	csv_distribution = "mapper,mapq_value,read_count\n"
+
 	data = []
 	data_dist = []
 	for test in sorted(test_objects, key=lambda k: k.getMapper().getTitle()):
@@ -355,11 +378,15 @@ def generateMappingQualityOverview(page, test_objects):
 			else:
 				column_dist.append(0)
 
+			csv_distribution += "%s,%d,%d\n" % (test.getMapper().getTitle(),curr,column_dist[-1])
+
 		data.append(column)
 		data_dist.append(column_dist)
 
+	csv_filename_distribution = self.writeCSV("mapq_distribution",csv_distribution)
+
 	page.addSection("Mapping Quality",
-					"""<div align="right"><a href="javascript:exportSVG('plot_mapq_rating');" class="btn btn-primary btn-sm" role="button">Export Plot</a></div><div id="plot_mapq_rating"></div><p>&nbsp;</p><div id="plot_mapq_dist"></div>""",
+					"""<div id="plot_mapq_dist"></div>%s""" % util.makeExportDropdown("plot_mapq_dist",csv_filename_distribution)),
 					None,
 					"This section represents an overview of the distribution of mapping quality values for all mappers. The plot shows the total number of reads for each mapping quality value.")
 

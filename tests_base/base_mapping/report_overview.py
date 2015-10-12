@@ -185,7 +185,7 @@ tooltip: {
 def generateOverallScatterPlot(self, page, test_objects):
 	import json
 
-	csv = "parameter,correct_percent,runtime\n"
+	csv = "parameter,correct_percent,throughput_reads_per_sec\n"
 	# csv = "correct_percent,reads_per_sec\n"
 
 	columns = []
@@ -219,7 +219,7 @@ def generateOverallScatterPlot(self, page, test_objects):
 		columns.append([mapper_name, correct])
 		xs[mapper_name] = mapper_name + "_x"
 
-		csv += test.getMapper().getName() + "" + test.getMapper().param_string + ",%f,%f" % (round(correct,3),throughput) + "\n"
+		csv += "%s,%s,%f,%f\n" % (test.getMapper().getName(),test.getMapper().param_string,round(correct,3),throughput)
 
 	csv_filename = self.writeCSV("overview_scatter",csv)
 
