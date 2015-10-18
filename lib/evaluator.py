@@ -87,8 +87,10 @@ class ThresholdBasedEvaluator(Evaluator):
 					self.stats.total_testee += 1
 				else:
 					if not warned_testee_end:
-						self.warn("Unexpectedly reached end of mapper output", self.testee_filename,
-								  sam_comp.getCurr().qname)
+						if self.stats.total_testee == 0:
+							self.error("Unexpectedly reached end of mapper output", self.testee_filename, sam_comp.getCurr().qname)
+						else:
+							self.warn("Unexpectedly reached end of mapper output", self.testee_filename, sam_comp.getCurr().qname)
 						warned_testee_end = True
 
 					self.stats.not_found += 1

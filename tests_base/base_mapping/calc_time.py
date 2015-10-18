@@ -22,7 +22,7 @@ def calc_time(self):
 		maptime = maptime_raw - inittime
 	else:
 		maptime = maptime_raw
-		self.warn("Runtime < Init runtime, using unadjusted runtime as mapping time")
+		self.error("Runtime < Init runtime, using unadjusted runtime as mapping time")
 
 	stats_out.maptime_raw = maptime_raw
 	stats_out.maptime = maptime

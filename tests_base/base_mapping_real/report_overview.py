@@ -71,12 +71,18 @@ def generateTestList(self, tests):
 		else:
 			throughput=-1
 
-		html += "<td>%.3f%%</td>" % correct
-		html += "<td>%.3f%%</td>" % not_mapped
-		html += "<td>%d</td>" % throughput
-		html += "</tr>"
+		if errors == 0:
+			html += "<td>%.3f%%</td>" % correct
+			html += "<td>%.3f%%</td>" % not_mapped
+			html += "<td>%d</td>" % throughput
+			csv+="%s,%s,%.4f,%.4f,%d\n" % (test.getMapper().getTitle(),test.getMapper().param_string,correct,not_mapped,throughput)
+		else:
+			html += "<td></td>"
+			html += "<td></td>"
+			html += "<td></td>"
+			csv+="%s,%s,-,-,-\n" % (test.getMapper().getTitle(),test.getMapper().param_string)
 
-		csv+="%s,%s,%.4f,%.4f,%d\n" % (test.getMapper().getTitle(),test.getMapper().param_string,correct,not_mapped,throughput)
+		html += "</tr>"
 
 	csv_filename = self.writeCSV("overview",csv)
 
@@ -96,7 +102,7 @@ def generateMappingStatisticsPlot(self, page, test_objects):
 	groups = []
 	for test in sorted(test_objects, key=lambda k: k.getMapper().getTitle()):
 		result = test.getRunResults()
-		if result == None:
+		if result == None or test.getErrorCount():
 			continue
 
 		mapqs = sorted(result.mapq_cumulated)
@@ -127,6 +133,9 @@ function updateMapstatsChart(cutoff)
 }
 var mapstats_chart = c3.generate({
 bindto: '#plot_mapstats',
+size: {
+   height: 500
+},
 data: {
   columns: %s,
   type: 'bar',
@@ -191,7 +200,7 @@ def generateOverallScatterPlot(self, page, test_objects):
 
 	for test in sorted(test_objects, key=lambda k: k.getMapper().getTitle()):
 		result = test.getRunResults()
-		if result == None:
+		if result == None or test.getErrorCount():
 			continue
 
 		mapper_name = test.getMapper().getTitle() + " " + test.getMapper().param_string
@@ -213,7 +222,7 @@ def generateOverallScatterPlot(self, page, test_objects):
 
 	csv_filename = self.writeCSV("overview_scatter",csv)
 
-	page.addSection("Results Overview", generateTestList(self,test_objects) + """<p style="margin-top:15px;">The figure below visualizes above results by directly mapped percentage and throughput.</p><div id="plot_os"></div>%s""" % util.makeExportDropdown("plot_os",csv_filename), None, """Mappers were evaluated for the given test <a href="#section2">data set</a>. The table below shows the used parameters, mapping statistics and throughput for each mapper. Detailed results for a mapper can be displayed by clicking on its name in the table or the navigation on top.""")
+	page.addSection("Results Overview", generateTestList(self,test_objects) + """<p style="margin-top:15px;">The figure below visualizes above results by directly comparing mapped percentage and throughput.</p><div id="plot_os"></div>%s""" % util.makeExportDropdown("plot_os",csv_filename), None, """Mappers were evaluated for the given test <a href="#section2">data set</a>. The table below shows the used parameters, mapping statistics and throughput for each mapper. Detailed results for a mapper can be displayed by clicking on its name in the table or the navigation on top.""")
 
 	show_legend = len(columns) < 30
 
@@ -297,7 +306,7 @@ def generateResourcePlot(self, page, test_objects, measure):
 
 	for test in sorted(test_objects, key=lambda k: k.getMapper().getTitle()):
 		result = test.getRunResults()
-		if result == None:
+		if result == None or test.getErrorCount():
 			continue
 		groups.append(test.getMapper().getTitle())
 		if measure == "runtime":

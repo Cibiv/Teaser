@@ -132,7 +132,7 @@ class Home(tornado.web.RequestHandler):
 class DefineJob(tornado.web.RequestHandler):
 	def makeButton(self, type, selected_type, link):
 		if not type in config["teaser"]["server"]["allowed_types"]:
-			return "<br><i>Please download Teaser for this option</i>"
+			return "<br><i>Please download Teaser to use this option</i>"
 
 		if type == selected_type:
 			return """<a href="#" class="btn btn-default" role="button" disabled>Selected</a>"""
@@ -236,13 +236,6 @@ class DefineJob(tornado.web.RequestHandler):
                 <label for="read_length" class="col-sm-2 control-label">Read Length</label>
                 <div class="col-sm-2">
                   <input type="number" class="form-control" id="read_length" name="read_length" size="1" min="22" max="10000" step="1" value="60">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="coverage" class="col-sm-2 control-label">Coverage</label>
-                <div class="col-sm-2">
-                  <input type="number" class="form-control" id="coverage" name="coverage" size="1" min="0.1" max="5" step="0.1" value="1">
                 </div>
               </div>
 
@@ -384,6 +377,14 @@ class DefineJob(tornado.web.RequestHandler):
                   </select>
                 </div>
               </div>
+
+              <div class="form-group">
+                <label for="coverage" class="col-sm-2 control-label">Read Count Multiplier</label>
+                <div class="col-sm-2">
+                  <input type="number" class="form-control" id="coverage" name="coverage" size="1" min="0.1" max="5" step="0.1" value="1">
+                </div>
+              </div>
+
             </div>
             """ % (config["teaser"]["server"]["max_threads"], config["teaser"]["server"]["default_threads"], config["teaser"]["server"]["max_memory"], config["teaser"]["server"]["default_memory"], config["teaser"]["server"]["max_runtime"], config["teaser"]["server"]["default_runtime"]), """<div class="form-group">
               <a href="#section4" class="btn btn-info" role="button">Back</a> <button type="submit" class="btn btn-primary" id="submitButton" name="submitButton">Run Teaser</button>

@@ -373,7 +373,7 @@ class ReportHTMLGenerator:
 				if len(column) == 0:
 					column.append(test.getMapper().getTitle())
 
-				if test.getRunResults() == None:
+				if test.getRunResults() == None or test.getErrorCount():
 					column.append(0)
 					continue
 
@@ -500,7 +500,7 @@ var chart_%s = c3.generate({
 		csv = "test,mapper,mapq_threshold,correctly_mapped,wrongly_mapped,not_mapped,total,throughput\n"
 		for test_name in self.mate.getTestNameList():
 			for test in self.mate.getTestsByName(test_name):
-				if test.getRunResults() == None:
+				if test.getRunResults() == None or test.getErrorCount():
 					continue
 
 				results=test.getRunResults()

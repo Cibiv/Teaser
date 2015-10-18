@@ -71,13 +71,20 @@ def generateTestList(self, tests):
 		else:
 			throughput=-1
 
-		html += "<td>%.3f%%</td>" % correct
-		html += "<td>%.3f%%</td>" % wrong
-		html += "<td>%.3f%%</td>" % not_mapped
-		html += "<td>%d</td>" % throughput
-		html += "</tr>"
+		if errors == 0:
+			html += "<td>%.3f%%</td>" % correct
+			html += "<td>%.3f%%</td>" % wrong
+			html += "<td>%.3f%%</td>" % not_mapped
+			html += "<td>%d</td>" % throughput
+			csv+="%s,%s,%.4f,%.4f,%.4f,%d\n" % (test.getMapper().getTitle(),test.getMapper().param_string,correct,wrong,not_mapped,throughput)
+		else:
+			html += "<td></td>"
+			html += "<td></td>"
+			html += "<td></td>"
+			html += "<td></td>"
+			csv+="%s,%s,-,-,-,-\n" % (test.getMapper().getTitle(),test.getMapper().param_string)
 
-		csv+="%s,%s,%.4f,%.4f,%.4f,%d\n" % (test.getMapper().getTitle(),test.getMapper().param_string,correct,wrong,not_mapped,throughput)
+		html += "</tr>"
 
 	csv_filename = self.writeCSV("overview",csv)
 
@@ -99,7 +106,7 @@ def generateMappingStatisticsPlot(self, page, test_objects):
 	groups = []
 	for test in sorted(test_objects, key=lambda k: k.getMapper().getTitle()):
 		result = test.getRunResults()
-		if result == None:
+		if result == None or test.getErrorCount():
 			continue
 
 		mapqs = sorted(result.mapq_cumulated)
@@ -194,7 +201,7 @@ def generateOverallScatterPlot(self, page, test_objects):
 
 	max_throughput = 0
 	for test in test_objects:
-		if test.getRunResults() != None:
+		if test.getRunResults() != None and test.getErrorCount() == 0:
 			throughput=-1
 			if test.getRunResults().maptime != 0:
 				throughput=test.getRunResults().correct / test.getRunResults().maptime
@@ -202,7 +209,7 @@ def generateOverallScatterPlot(self, page, test_objects):
 
 	for test in sorted(test_objects, key=lambda k: k.getMapper().getTitle()):
 		result = test.getRunResults()
-		if result == None:
+		if result == None or test.getErrorCount():
 			continue
 
 		mapper_name = test.getMapper().getTitle() + " " + test.getMapper().param_string
@@ -295,7 +302,7 @@ def generatePrecisionRecallPlot(self, page, test_objects):
 
 	for test in sorted(test_objects, key=lambda k: k.getMapper().getTitle()):
 		result = test.getRunResults()
-		if result == None:
+		if result == None or test.getErrorCount():
 			continue
 		groups.append(test.getMapper().getTitle())
 		columns[0].append(round(result.precision, 4))
@@ -359,8 +366,9 @@ def generateResourcePlot(self, page, test_objects, measure):
 
 	for test in sorted(test_objects, key=lambda k: k.getMapper().getTitle()):
 		result = test.getRunResults()
-		if result == None:
+		if result == None or test.getErrorCount():
 			continue
+
 		groups.append(test.getMapper().getTitle())
 		if measure == "runtime":
 			columns[0].append(round(result.maptime / 60.0, 3))
@@ -424,7 +432,7 @@ def generateMappingQualityOverview(self, page, test_objects):
 		column_dist = [test.getMapper().getTitle()]
 		results = test.getRunResults()
 
-		if results == None:
+		if results == None or test.getErrorCount():
 			continue
 
 		mapqs = sorted(results.mapq_cumulated)
