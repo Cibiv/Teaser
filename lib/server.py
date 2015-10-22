@@ -114,7 +114,7 @@ class Home(tornado.web.RequestHandler):
 		</table></div>
 		""" % recent_html)
 
-		page.addSection("Citation", """<b>If you use Teaser to optimize read mapping in your study, please consider citing:</b> Moritz Smolka, Philipp Rescheneder, Michael C Schatz, Arndt von Haeseler, Fritz J Sedlazeck Teaser: Individualized benchmarking and optimization of read mapping results for NGS data. First published online September 1, 2015. bioRxiv doi: http://dx.doi.org/10.1101/025858""")
+		page.addSection("Citation", """<b>If you use Teaser to optimize read mapping in your study, please consider citing:</b> Smolka M, Rescheneder P, Schatz MC, von Haeseler A and Sedlazeck FJ. Teaser: Individualized benchmarking and optimization of read mapping results for NGS data. Genome Biology 2015, 16:235 (22 October 2015). DOI: 10.1186/s13059-015-0803-1""")
 
 		if config["teaser"]["server"]["send_usage_information"]:
 			page.addScript("""
