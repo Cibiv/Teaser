@@ -51,6 +51,8 @@ A main reason for using a local version (virtual machine image or installation) 
 ###Adding a reference sequence
 To add your desired reference sequence to Teaser, simply copy the FASTA file into the `Teaser/references` directory. Afterwards, you will be able to select the newly added reference on the web interface data set creation page.
 
+When mapping reads to a reference sequence for the first time, mappers may require a significant amount of time for building the reference index. To reduce this, we provide the complete set of index files bundled with the original refrence for selected organisms at [http://www.cibiv.at/software/teaser/references]. After downloading the package for your desired reference genome, simply extract the archive and place all the files in the `Teaser/references` directory. 
+
 ###Adding new parameter sets and mappers
 For adding community parameter sets or mapper definitions, copy the downloaded YAML files in the `Teaser/setups` directory. Teaser will automatically load them after which they will be available for selection in the web interface.
 
