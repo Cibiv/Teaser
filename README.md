@@ -91,3 +91,6 @@ Example usage: Running the built-in E. coli example benchmark, only for BWA-MEM 
 
 #License
 Teaser is made available under the MIT License.
+
+#Citation
+If you use Teaser to optimize read mapping in your study, please consider citing: Smolka M, Rescheneder P, Schatz MC, von Haeseler A and Sedlazeck FJ. Teaser: Individualized benchmarking and optimization of read mapping results for NGS data. Genome Biology 2015, 16:235 (22 October 2015). DOI: 10.1186/s13059-015-0803-1
