@@ -29,7 +29,7 @@ teaser:
 
    server:
       port: 8888
-      framework_cmd: "./teaser.py %s > logs/%s.txt"
+      framework_cmd: "(b) ./teaser.py %s > logs/%s.txt"
       default_threads: 1
       max_threads: 32
       default_memory: 16000

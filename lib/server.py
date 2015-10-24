@@ -5,6 +5,7 @@ import tornado.web
 import tornado.wsgi
 import tornado.options
 import yaml
+import sys
 
 from lib import util
 from lib import page
@@ -719,9 +720,11 @@ class SubmitJob(tornado.web.RequestHandler):
 
 	def startTeaser(self, config_path):
 		cmd = config["teaser"]["server"]["framework_cmd"] % (config_path, self.job_id)
+		cmd = cmd.replace("(b)", sys.executable)
 		print("Running Teaser using %s..." % cmd)
 		proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, close_fds=True)
 		return proc
+
 
 	def getJobId(self):
 		return self.job_id
