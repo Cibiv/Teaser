@@ -98,7 +98,7 @@ mappers:
   stampy:
      title: "Stampy"
      type: MapperGeneric
-     bin: /software/local/bin/stampy
+     bin: software/stampy
      index_files:
        - (r)_o.stidx
        - (r)_o.sthash

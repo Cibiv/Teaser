@@ -277,14 +277,31 @@ class DefineJob(tornado.web.RequestHandler):
 
 	def addSectionEvaluation(self, page):
 		mapper_options = ""
+		mappers_missing_binaries=[]
 		for mapper_id in sorted(config["mappers"]):
 			if "title" in config["mappers"][mapper_id]:
 				mapper_title = config["mappers"][mapper_id]["title"]
 			else:
 				mapper_title = mapper_id
 
+			if isinstance(config["mappers"][mapper_id]["bin"], basestring):
+				if not os.path.exists(config["mappers"][mapper_id]["bin"]):
+					mappers_missing_binaries.append((mapper_title,config["mappers"][mapper_id]["bin"]))
+					continue
+
+			else:
+				missing=False
+				for path in config["mappers"][mapper_id]["bin"]:
+					if not os.path.exists(path):
+						mappers_missing_binaries.append((mapper_title,path))
+						missing=True
+						break
+				if missing:
+					continue
+
 			mapper_options += """<optgroup label="%s">""" % mapper_title
-			mapper_options += """<option value="m%s" selected>%s - Default</option>""" % (mapper_id, mapper_title)
+			selected = "selected" if mapper_id in ["bowtie2","ngm","bwamem","bwasw","bwa"] else ""
+			mapper_options += """<option value="m%s" %s>%s - Default</option>""" % (mapper_id, selected, mapper_title)
 
 			if "parameters" in config:
 				for parameter_id in sorted(config["parameters"]):
@@ -299,18 +316,26 @@ class DefineJob(tornado.web.RequestHandler):
 
 			mapper_options += """</optgroup>"""
 
+		missing_binaries_str=""
+		if len(mappers_missing_binaries):
+			missing_binaries_str="""<hr><small><b><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> No executable files were found for the following mappers:</b>"""
+			for mapper,bin in mappers_missing_binaries:
+				missing_binaries_str+="<br>%s: Need '%s'"%(mapper,bin)
+			missing_binaries_str+="</small>"
+
+
 		page.addSection("Evaluation", """
-        	Finally, select the mappers and parameter sets that should be evaluated. Community-created parameter sets are available for download at: <a href="https://github.com/Cibiv/Teaser">https://github.com/Cibiv/Teaser</a>. <br><hr>
+        	Finally, select the mappers and parameter ensembles that should be evaluated. Community-created parameter sets are available for download at: <a href="https://github.com/Cibiv/Teaser">https://github.com/Cibiv/Teaser</a>. <br><hr>
 			<div class="form-horizontal">
                <div class="form-group">
-                <label for="mappers" class="col-sm-2 control-label">Mappers and Parameter Settings</label>
+                <label for="mappers" class="col-sm-2 control-label">Mappers and Parameters</label>
                 <div class="col-sm-4">
                     <select class="selectpicker" name="mappers" id="mappers" data-width="100%" multiple>
                        """ + mapper_options + """
                     </select>
                 </div>
               </div>
-
+              
               <div class="form-group">
                 <label for="evaluator" class="col-sm-2 control-label">Alignment Evaluation Method</label>
                 <div class="col-sm-4">
@@ -335,6 +360,8 @@ class DefineJob(tornado.web.RequestHandler):
                   </select>
                 </div>
               </div>
+
+              """+ missing_binaries_str + """
 
             </div>
             """, """<div class="form-group">
