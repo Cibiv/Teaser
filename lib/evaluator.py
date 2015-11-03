@@ -73,11 +73,11 @@ class BasicEvaluator(Evaluator):
 	def doCompareRows(self, row_testee):
 		if row_testee.is_unmapped:
 			self.stats.not_mapped += 1
-			self.export_read("fail",row_testee,None,"unmapped")
+			#self.export_read("fail",row_testee,None,"unmapped")
 		else:
 			self.stats.correct += 1
 			self.stats.mapq_cumulated[row_testee.mapq]["correct"] += 1
-			self.export_read("pass",row_testee)
+			#self.export_read("pass",row_testee)
 
 class ThresholdBasedEvaluator(Evaluator):
 	def compute(self):
@@ -125,6 +125,7 @@ class ThresholdBasedEvaluator(Evaluator):
 
 				if sam_test.getCurr().qname > sam_comp.getCurr().qname:
 					self.stats.not_found += 1
+					self.export_read("fail", sam_comp.getCurr(), sam_comp.getCurr(), "not_found")
 
 					if not sam_comp.next():
 						self.warn(
@@ -198,7 +199,6 @@ class ThresholdBasedEvaluator(Evaluator):
 		while sam_test.next():
 			self.stats.not_found_comparison += 1
 			self.stats.total_testee += 1
-			self.export_read("fail", sam_test.getCurr(), sam_test.getCurr(), "not_found_comparison")
 
 			if not warned_comp_end:
 				self.warn("Unexpectedly reached end of gold standard", self.comparison_filename,
@@ -253,11 +253,11 @@ class BasicEvaluatorSAM(ThresholdBasedEvaluator):
 	def doCompareRows(self, row_testee, row_comp):
 		if row_testee.is_unmapped:
 			self.stats.not_mapped += 1
-			self.export_read("fail", row_testee, row_comp, "unmapped")
+			#self.export_read("fail", row_testee, row_comp, "unmapped")
 		else:
 			self.stats.mapq_cumulated[row_testee.mapq]["correct"] += 1
 			self.stats.correct += 1
-			self.export_read("pass", row_testee, row_comp)
+			#self.export_read("pass", row_testee, row_comp)
 
 if __name__ == "__main__":
 	import sys

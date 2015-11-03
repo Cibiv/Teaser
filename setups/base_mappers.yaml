@@ -69,8 +69,8 @@ mappers:
       - (r)_bo.rev.2.ebwt
 
     command_index: software/bowtie-build (r) (r)_bo
-    command: (b) (x) -S (r)_bo (q) (o)
-    command_multi_read_files: ''
+    command: (b) --threads (t) (x) -S (r)_bo (q) (o)
+    command_multi_read_files: (b) --threads (t) (x) -S (r)_bo -1 (q1) -2 (q2) (o)
     command_cleanup: ''
     param_paired: ''
 
@@ -114,8 +114,8 @@ mappers:
     index_files:
       - (r).idx
     command_index: (b) -x (r).idx -d (r)
-    command: (b) (x) -r 1 -i (r).idx -d (r) -q (q) > (o)
-    command_multi_read_files: (b) (x) -r 1 -i (r).idx -d (r) -q (q) -m (q2) > (o)
+    command: (b) (x) -r 1 -i (r).idx -d (r) -q (q) --threads (t) > (o)
+    command_multi_read_files: (b) (x) -r 1 -i (r).idx -d (r) -q (q) -m (q2) --threads (t) > (o)
     command_cleanup: ''
     param_paired: ''
 

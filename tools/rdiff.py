@@ -11,7 +11,7 @@ if len(sys.argv) < 3:
 	print("   [not a.ok,a.reason]                        (Output failure reason for all failed reads)")
 	print("   [not a.ok and not b.ok,a.reason==b.reason] (For each failed pair, output if failure reasons were equal)")
 	print("   a.ok and b.ok and c.ok and not d.ok")
-	print("Failure reasons: position, region, unmapped, not_found, not_found_comparison")
+	print("Failure reasons: position, region, unmapped, not_found")
 	print("Output: List of matched read qnames (default)")
 	raise SystemExit
 
@@ -44,34 +44,33 @@ def next_read(handles):
 		qname_counts[qname]+=1
 
 
-	if len(qname_counts)==1 and qname_counts.itervalues().next()==len(lines):
-		globs={}
-
-		for hi, l in enumerate(lines):
-			parts=l.split(",")
-
-			symbol = chr(ord("a")+hi)
-			obj=Object()
-			obj.ok = parts[1].strip()=="pass"
-			obj.fail = not obj.ok
-			obj.reason = parts[2].strip()
-			obj.qname = parts[0].strip()
-			globs[symbol]=obj
-
-		result = eval(criterion,globs)
-
-		if result==0 or result==1:
-			if result:
-				print(qname_counts.iterkeys().next())
-		else:
-			if result[0]:
-				print(result[1])
-
+	if len(qname_counts)!=1 or qname_counts.itervalues().next() != len(lines):
 		return True
 
+	globs={}
 
+	for hi, l in enumerate(lines):
+		parts=l.split(",")
+
+		symbol = chr(ord("a")+hi)
+		obj=Object()
+		obj.ok = parts[1].strip()=="pass"
+		obj.fail = not obj.ok
+		obj.reason = parts[2].strip()
+		obj.qname = parts[0].strip()
+		globs[symbol]=obj
+
+	result = eval(criterion,globs)
+
+	if result==0 or result==1:
+		if result:
+			print(qname_counts.iterkeys().next())
 	else:
-		return True
+		if result[0]:
+			print(result[1])
+
+	return True
+
 
 
 while next_read(handles):
