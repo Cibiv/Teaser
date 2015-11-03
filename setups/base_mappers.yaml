@@ -56,23 +56,23 @@ mappers:
     command_cleanup: ''
     param_paired: ''
 
-  #bowtie:
-  #  title: "Bowtie"
-  #  type: MapperGeneric
-  #  bin: software/bowtie
-  #  index_files:
-  #    - (r)_bo.1.ebwt
-  #    - (r)_bo.2.ebwt
-  #    - (r)_bo.3.ebwt
-  #    - (r)_bo.4.ebwt
-  #    - (r)_bo.rev.1.ebwt
-  #    - (r)_bo.rev.2.ebwt
+  bowtie:
+    title: "Bowtie"
+    type: MapperGeneric
+    bin: software/bowtie
+    index_files:
+      - (r)_bo.1.ebwt
+      - (r)_bo.2.ebwt
+      - (r)_bo.3.ebwt
+      - (r)_bo.4.ebwt
+      - (r)_bo.rev.1.ebwt
+      - (r)_bo.rev.2.ebwt
 
-  #  command_index: software/bowtie-build (r) (r)_bo
-  #  command: (b) (x) -S (r)_bo (q) (o)
-  #  command_multi_read_files: ''
-  #  command_cleanup: ''
-  #  param_paired: ''
+    command_index: software/bowtie-build (r) (r)_bo
+    command: (b) (x) -S (r)_bo (q) (o)
+    command_multi_read_files: ''
+    command_cleanup: ''
+    param_paired: ''
 
   bowtie2:
     title: "Bowtie 2"
@@ -95,29 +95,45 @@ mappers:
     command_cleanup: ''
     param_paired: ''
 
-  #stampy:
-  #   title: "Stampy"
-  #   type: MapperGeneric
-  #   bin: /software/local/bin/stampy
-  #   index_files:
-  #     - (r)_o.stidx
-  #     - (r)_o.sthash
-  #   command_index: (b) -G (r)_o (r); (b) -g (r)_o -H (r)_o
-  #   command: (b) (x) -t (t) -g (r)_o -h (r)_o -M (q) -o (o)
-  #   command_multi_read_files: (b) (x) -t (t) -g (r)_o -h (r)_o -o (o) -M (q1) (q2)
-  #   command_cleanup: ''
-  #   param_paired: ''
+  stampy:
+     title: "Stampy"
+     type: MapperGeneric
+     bin: /software/local/bin/stampy
+     index_files:
+       - (r)_o.stidx
+       - (r)_o.sthash
+     command_index: (b) -G (r)_o (r); (b) -g (r)_o -H (r)_o
+     command: (b) (x) -t (t) -g (r)_o -h (r)_o -M (q) -o (o)
+     command_multi_read_files: (b) (x) -t (t) -g (r)_o -h (r)_o -o (o) -M (q1) (q2)
+     command_cleanup: ''
+     param_paired: ''
 
-  #segemehl:
-  #  type: MapperGeneric
-  #  bin: software/segemehl.x
-  #  index_files:
-  #    - (r).idx
-  #  command_index: (b) -x (r).idx -d (r)
-  #  command: (b) (x) -r 1 -i (r).idx -d (r) -q (q) > (o)
-  #  command_multi_read_files: (b) (x) -r 1 -i (r).idx -d (r) -q (q) -m (q2) > (o)
-  #  command_cleanup: ''
-  #  param_paired: ''
+  segemehl:
+    type: MapperGeneric
+    bin: software/segemehl.x
+    index_files:
+      - (r).idx
+    command_index: (b) -x (r).idx -d (r)
+    command: (b) (x) -r 1 -i (r).idx -d (r) -q (q) > (o)
+    command_multi_read_files: (b) (x) -r 1 -i (r).idx -d (r) -q (q) -m (q2) > (o)
+    command_cleanup: ''
+    param_paired: ''
+
+  cushaw3:
+    title: "CUSHAW3"
+    type: MapperGeneric
+    bin: software/cushaw3/cushaw3
+    index_files:
+      - (r)_cushaw3.ann
+      - (r)_cushaw3.map
+      - (r)_cushaw3.pac
+      - (r)_cushaw3.rbwt
+      - (r)_cushaw3.rsa
+    command_index: (b) index -p (r)_cushaw3 (r)
+    command: (b) align -r (r)_cushaw3 -f (q) -o (o) -t (t) -multi 1
+    command_multi_read_files: (b) align -r (r)_cushaw3 -q (q1) (q2) -o (o) -t (t) -multi 1
+    command_cleanup: ''
+    param_paired: ''
 
   ngm:
     title: "NGM"

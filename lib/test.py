@@ -591,9 +591,12 @@ class Test:
 	def setComparisonTest(self, comp):
 		self.comparison_test = comp
 
-	def writeCSV(self,title,csv):
+	def getCSVPath(self,title):
 		filename = self.getName()+"_"+title+".csv"
-		path=self.mate.getReportDirectory()+"/"+filename
+		return filename,self.mate.getReportDirectory()+"/"+filename
+
+	def writeCSV(self,title,csv):
+		filename,path=self.getCSVPath(title)
 		with open(path,"w") as handle:
 			handle.write(csv)
 		self.log("Wrote CSV to %s"%path)

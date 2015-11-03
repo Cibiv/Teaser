@@ -635,6 +635,8 @@ class Mate:
 
 		parser.add_argument("-lm", "--listmappers", help="List available mappers", default=False, action="store_true")
 		parser.add_argument("-lp", "--listparameters", help="List available parameter sets", default=False, action="store_true")
+		parser.add_argument("-er", "--exportreads", help="Export evaluation results for each read", default=False, action="store_true")
+
 		return parser
 
 	def convertConfigPathsToAbs(self):
@@ -693,6 +695,8 @@ class Mate:
 
 		self.list_mappers = args.listmappers
 		self.list_parameters = args.listparameters
+
+		self.export_reads = args.exportreads
 
 		# Load setup configuration file
 		self.config, self.config_original = util.loadConfig(self.config_filename)

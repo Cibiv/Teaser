@@ -31,6 +31,12 @@ def calc_stats(self):
 		self.error("Failed to open comparison file for comparison (" + str(e) + ")", actual_comparison_path, None)
 		raise SystemExit
 
+	if self.mate.export_reads:
+		generator.set_export(True)
+		_,reads_csv_path=self.getCSVPath(self.getMapper().getName()+"_reads")
+		generator.set_export_file(reads_csv_path)
+		self.dbg("Exporting reads to %s"%reads_csv_path)
+
 	generator.compute()
 	stats_out = generator.get_stats()
 

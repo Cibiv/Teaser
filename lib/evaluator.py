@@ -7,9 +7,10 @@ class Evaluator:
 		self.testee_filename = ""
 		self.comparison_filename = ""
 		self.position_threshold = 50
-		self.failed_rows_max = 1000
+		self.export = False
 		self.__warnings = []
 		self.__errors = []
+		self.failed_rows = []
 
 	def set_testee(self, filename):
 		self.testee_filename = filename
@@ -19,6 +20,13 @@ class Evaluator:
 
 	def set_position_threshold(self, t):
 		self.position_threshold = t
+
+	def set_export(self, export):
+		self.export = True
+
+	def set_export_file(self,file):
+		self.export_handle = open(file,"w")
+		self.export_handle.write("qname,status,reason\n")
 
 	def warn(self, msg, filename, pos):
 		print(msg)
@@ -37,8 +45,9 @@ class Evaluator:
 	def get_stats(self):
 		return self.stats
 
-	def add_failed_row(self, testee, comparison, reason):
-		pass
+	def export_read(self, status, testee, comparison=None, reason="none"):
+		if self.export:
+			self.export_handle.write("%s,%s,%s\n"%(testee.qname,status,reason))
 
 	def compute(self):
 		raise NotImplementedError
@@ -64,9 +73,11 @@ class BasicEvaluator(Evaluator):
 	def doCompareRows(self, row_testee):
 		if row_testee.is_unmapped:
 			self.stats.not_mapped += 1
+			self.export_read("fail",row_testee,None,"unmapped")
 		else:
 			self.stats.correct += 1
 			self.stats.mapq_cumulated[row_testee.mapq]["correct"] += 1
+			self.export_read("pass",row_testee)
 
 class ThresholdBasedEvaluator(Evaluator):
 	def compute(self):
@@ -94,6 +105,7 @@ class ThresholdBasedEvaluator(Evaluator):
 						warned_testee_end = True
 
 					self.stats.not_found += 1
+					self.export_read("fail", sam_comp.getCurr(), sam_comp.getCurr(), "not_found")
 					continue
 
 			#Check if source read identifiers are equal
@@ -159,7 +171,7 @@ class ThresholdBasedEvaluator(Evaluator):
 						else:
 							#self.warn("Could not match pair", self.testee_filename, sam_test.getCurr().qname)
 							self.stats.not_found += 1
-
+							self.export_read("fail", sam_comp.getCurr(), sam_comp.getCurr(), "not_found")
 						continue
 
 				elif sam_test.getCurr().is_read2 and sam_comp.getCurr().is_read1:
@@ -178,7 +190,7 @@ class ThresholdBasedEvaluator(Evaluator):
 						else:
 							#self.warn("Could not match pair", self.testee_filename, sam_test.getCurr().qname)
 							self.stats.not_found += 1
-
+							self.export_read("fail", sam_comp.getCurr(), sam_comp.getCurr(), "not_found")
 						continue
 
 			self.doCompareRows(sam_test.getCurr(), sam_comp.getCurr())
@@ -186,6 +198,7 @@ class ThresholdBasedEvaluator(Evaluator):
 		while sam_test.next():
 			self.stats.not_found_comparison += 1
 			self.stats.total_testee += 1
+			self.export_read("fail", sam_test.getCurr(), sam_test.getCurr(), "not_found_comparison")
 
 			if not warned_comp_end:
 				self.warn("Unexpectedly reached end of gold standard", self.comparison_filename,
@@ -204,7 +217,7 @@ class ThresholdBasedEvaluator(Evaluator):
 	def doCompareRows(self, row_testee, row_comp):
 		if row_testee.is_unmapped:
 			self.stats.not_mapped += 1
-			self.add_failed_row(row_testee, row_comp, "unmapped")
+			self.export_read("fail", row_testee, row_comp, "unmapped")
 			return
 
 		if row_testee.rname != row_comp.rname:
@@ -215,34 +228,36 @@ class ThresholdBasedEvaluator(Evaluator):
 				self.stats.wrong += 1
 				self.stats.wrong_chromosome += 1
 				self.stats.mapq_cumulated[row_testee.mapq]["wrong"] += 1
-				self.add_failed_row(row_testee, row_comp, "position")
+				self.export_read("fail",  row_testee, row_comp, "region")
 				return
 
 		if abs(row_testee.pos - row_comp.pos) > self.position_threshold:
 			self.stats.wrong += 1
 			self.stats.wrong_pos += 1
 			self.stats.mapq_cumulated[row_testee.mapq]["wrong"] += 1
-			self.add_failed_row(row_testee, row_comp, "position")
+			self.export_read("fail", row_testee, row_comp, "position")
 			return
 
 		if row_testee.is_reverse != row_comp.is_reverse:
 			self.stats.wrong += 1
 			self.stats.reverse += 1
 			self.stats.mapq_cumulated[row_testee.mapq]["wrong"] += 1
-			self.add_failed_row(row_testee, row_comp, "reverse")
+			self.export_read("fail", row_testee, row_comp, "reverse")
 			return
 
 		self.stats.mapq_cumulated[row_testee.mapq]["correct"] += 1
 		self.stats.correct += 1
+		self.export_read("pass", row_testee, row_comp)
 
 class BasicEvaluatorSAM(ThresholdBasedEvaluator):
 	def doCompareRows(self, row_testee, row_comp):
 		if row_testee.is_unmapped:
 			self.stats.not_mapped += 1
-			self.add_failed_row(row_testee, row_comp, "unmapped")
+			self.export_read("fail", row_testee, row_comp, "unmapped")
 		else:
 			self.stats.mapq_cumulated[row_testee.mapq]["correct"] += 1
-			self.stats.correct += 1	
+			self.stats.correct += 1
+			self.export_read("pass", row_testee, row_comp)
 
 if __name__ == "__main__":
 	import sys
