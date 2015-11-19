@@ -1,0 +1,6 @@
+base: base_mapping
+is_basic: Yes
+
+pipeline:
+   versioned_evaluate:
+     - evaluate

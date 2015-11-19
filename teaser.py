@@ -851,8 +851,10 @@ class Mate:
 		for mapper_id in self.config["test_mappers"]:
 			self.pushLogPrefix(mapper_id)
 			self.runTests(self.tests[mapper_id])
-			self.evaluateTests(self.tests[mapper_id], None)
 			self.popLogPrefix()
+
+		for mapper_id in self.config["test_mappers"]:
+			self.evaluateTests(self.tests[mapper_id], None)
 
 	def mainNormalRun(self):
 		testee_id = self.config["mapper_testee"]
