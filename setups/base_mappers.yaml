@@ -118,7 +118,7 @@ mappers:
       - (r).idx
     command_index: (b) -x (r).idx -d (r)
     command: (b) (x) -r 1 -i (r).idx -d (r) -q (q) > (o)
-    command_multi_read_files: (b) (x) -r 1 -i (r).idx -d (r) -q (q) -m (q2) > (o)
+    command_multi_read_files: (b) (x) -r 1 -i (r).idx -d (r) -q (q1) -p (q2) > (o)
     command_cleanup: ''
     param_paired: ''
 
