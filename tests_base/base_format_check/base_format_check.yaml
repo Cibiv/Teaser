@@ -1,0 +1,85 @@
+#Tests derived from this base work with the following data:
+#	- 1    Reference genome file
+#	- 1-2  Input Read / Query files (input for mapper)
+#	- 1    Comparison file containing the *expected* mapping output
+
+base: base_mapping
+is_basic: Yes
+
+pipeline:
+   main:
+     - base_mapping/map
+     - check_format
+     - base_mapping/calc_time
+
+   report_overview:
+     - report_overview
+
+   report_detail:
+     - report_detail
+
+#################################################################################
+#################################################################################
+
+title: A Basic Simulated Mapping Test
+description: "Maps simulated data, computes and visualizes mapping statistics based on a gold standard alignment"
+
+input_info:
+  simulator: Unknown
+  platform: Unknown
+  read_length: Unknown
+  read_count: Unknown
+  divergence: Unknown
+
+#################################################################################
+#################################################################################
+
+#Default parameters specific to base_mapping
+
+#Mapping Statistics evaluation configuration
+evaluation:
+   class: lib.evaluator.ThresholdBasedEvaluator
+   pos_threshold: 50
+
+#Mapper output file config
+#Exact filename determined by name of executing mapper
+#Usually not needed to be changed
+output:
+   #Will make the mapper output in BAM format if set to true
+   bam: No
+   bam_workaround: Yes
+
+   mapping_prefix: out_
+   #mapping_extension: #Set based on config value "bam"
+
+   #Does testee output mapping need to be sorted?
+   should_sort_testee: Yes
+
+#################################################################################
+#################################################################################
+input:
+   #Reference genome file (relative to working directory)
+   reference: reference.fasta
+
+   #Input read files (relative to working directory)
+   reads:
+   - reads.fastq
+
+   #Is the input (single or multiple files) comprised of paired end reads?
+   reads_paired_end: No
+
+   #Reference output file to compare to (relative to working directory)
+   mapping_comparison: mapping_comparison.sam
+
+   #Does in_mapping_comparison need to be sorted?
+   should_sort_comparison: Yes
+
+   #When comparison is sorted, overwrite the original with the sorted version
+   sort_in_place: Yes
+
+   #See BAM problem in output section, this option only affects testing if the mapping comparison
+   #format is BAM
+   bam_workaround: Yes
+
+params:
+  ngm: {}
