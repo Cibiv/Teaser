@@ -26,6 +26,7 @@ teaser:
    import_directory: import
    mason_path: software/mason
    dwgsim_path: software/dwgsim
+   fastindex_path: tools/fastindex
 
    server:
       port: 8888

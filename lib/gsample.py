@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import teaser
 import random
 import sys
 import os
@@ -12,8 +13,27 @@ import intervaltree
 def log(msg):
 	sys.stderr.write(str(msg) + "\n")
 
+def index(reference, fastindex_path = "tools/fastindex"):
+	index_filename = reference + ".teaser.findex"
+	contig_filename = reference + ".teaser.fcontig"
 
-def index(reference):
+	try:
+		index = json.loads(open(index_filename, "r").read())
+		log("Loaded index from " + index_filename)
+	except Exception as e:
+		log("Indexing " + reference)
+		if os.system(fastindex_path + " " + reference) != 0:
+			raise Exception("Indexing failed")
+
+		try:
+			index = json.loads(open(index_filename, "r").read())
+		except Exception as e:
+			raise Exception("Could not read index file")
+
+	return index
+
+
+def index_legacy(reference):
 	index_filename = reference + ".teaser.index"
 	contig_filename = reference + ".teaser.contig"
 
@@ -211,7 +231,7 @@ def downsample(index, contig_filename, downsampled_filename, region_count, targe
 	return sampled_info
 
 
-def csample(infile, region_size, sample_fraction, spacer_len=200):
+def csample(infile, region_size, sample_fraction, spacer_len=200, fastindex_path=""):
 	outfile=infile + ".sampled.%d.%d.%d.fasta" % (int(1/sample_fraction),region_size,spacer_len)
 	outfile_index=outfile+".index"
 
@@ -221,24 +241,24 @@ def csample(infile, region_size, sample_fraction, spacer_len=200):
 		log("Sampled file exists, skip sampling")
 		return outfile,outfile_index
 
-	idx = index(infile)
+	idx = index(infile,fastindex_path)
 	total_size = int(float(sample_fraction) * idx["contig_len"])
 	region_count = int(total_size / region_size)
 	log("Sampling as contig: %d regions of size %d (pad %d), totalling %d base pairs" % (
 	region_count, region_size, spacer_len, total_size))
 
 
-	sampled_info = downsample(idx, infile + ".teaser.contig", outfile, int(region_count),
+	sampled_info = downsample(idx, infile + ".teaser.fcontig", outfile, int(region_count),
 							  int(total_size), True, False, spacer_len)
 	open(outfile + ".index", "w").write(json.dumps(sampled_info))
 
 	return outfile,outfile_index
 
 
-def ctranslate(reference_file, sampled_index_file, sam_file, target_file):
+def ctranslate(reference_file, sampled_index_file, sam_file, target_file, fastindex_path=""):
 	log("Translating SAM file coordinates (as contig)...")
 
-	idx = index(reference_file)
+	idx = index(reference_file,fastindex_path)
 	sampled_idx = json.loads(open(sampled_index_file, "r").read())
 
 	sampled_tree = intervaltree.IntervalTree()
@@ -313,7 +333,7 @@ if __name__ == "__main__":
 		total_size = float(sys.argv[4]) * (1000 * 1000)
 		region_count = int(total_size / region_size)
 
-		downsample(idx, infile + ".teaser.contig", infile + ".sampled.fasta", int(region_count), int(total_size))
+		downsample(idx, infile + ".teaser.fcontig", infile + ".sampled.fasta", int(region_count), int(total_size))
 
 	if sys.argv[1] == "psample":
 		if len(sys.argv) < 4:
@@ -326,7 +346,7 @@ if __name__ == "__main__":
 		total_len = int(idx["contig_len"] * frac)
 		region_count = total_len / (500 * 1000)
 		region_count = max(region_count, 1)
-		downsample(idx, infile + ".teaser.contig", infile + ".sampled.fasta", region_count, total_len)
+		downsample(idx, infile + ".teaser.fcontig", infile + ".sampled.fasta", region_count, total_len)
 		log("Downsampled %d regions totaling %d MB\n" % (region_count, total_len / (1000 * 1000)))
 
 	if sys.argv[1] == "csample":
@@ -344,7 +364,7 @@ if __name__ == "__main__":
 		log("Sampling as contig: %d regions of size %d, totalling %d base pairs" % (
 			region_count, region_size, total_size))
 
-		sampled_info = downsample(idx, infile + ".teaser.contig", infile + ".sampled.fasta", int(region_count),
+		sampled_info = downsample(idx, infile + ".teaser.fcontig", infile + ".sampled.fasta", int(region_count),
 								  int(total_size), True)
 		open(infile + ".sampled.fasta.index", "w").write(json.dumps(sampled_info))
 
@@ -360,7 +380,7 @@ if __name__ == "__main__":
 
 		log("Sampling as contig: List of regions %s." % region_list)
 
-		sampled_info = downsample(idx, infile + ".teaser.contig", infile + ".sampled.fasta", 0, 0, True, region_list)
+		sampled_info = downsample(idx, infile + ".teaser.fcontig", infile + ".sampled.fasta", 0, 0, True, region_list)
 		open(infile + ".sampled.fasta.index", "w").write(json.dumps(sampled_info))
 
 	if sys.argv[1] == "translate":

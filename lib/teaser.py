@@ -174,6 +174,9 @@ class Teaser:
 			self.mate.error("Teaser: Tried to create test of unsupported type '%s': %s"%(test["name"],str(test["type"])))
 			return False
 
+		if "type_override" in test:
+			config["base"]=test["type_override"]
+
 		config["title"] = test["title"]
 		config["tags"] = ["teaser"]
 
@@ -231,7 +234,7 @@ class Teaser:
 	def makeDatasetDS(self, test):
 		self.ch(test)
 
-		idx = gsample.index(test["reference"])
+		idx = gsample.index(test["reference"], self.config["fastindex_path"])
 
 		if test["sampling"]["region_len"] == None:
 			test["sampling"]["region_len"] = self.calcualteRegionLen(test)
@@ -243,7 +246,7 @@ class Teaser:
 			test["sampling"]["ratio"] = self.calculateSamplingRatio(idx["contig_len"])
 
 		sampled_file,sampled_index_file=gsample.csample(test["reference"], test["sampling"]["region_len"], test["sampling"]["ratio"],
-						test["sampling"]["region_pad"])
+						test["sampling"]["region_pad"],self.config["fastindex_path"])
 		
 		test["reference_sim"] = sampled_file
 
@@ -257,7 +260,7 @@ class Teaser:
 
 		self.ch(test)
 		self.mv("mapping_comparison.sam", "mapping_comparison_unfixed.sam")
-		gsample.ctranslate(test["reference"], sampled_index_file, "mapping_comparison_unfixed.sam", "mapping_comparison.sam")
+		gsample.ctranslate(test["reference"], sampled_index_file, "mapping_comparison_unfixed.sam", "mapping_comparison.sam",self.config["fastindex_path"])
 
 		self.rm(sampled_file)
 		self.rm(sampled_index_file)
@@ -265,7 +268,7 @@ class Teaser:
 
 	def makeDatasetNoDS(self, test):
 		if test["read_count"] == None:
-			index = gsample.index(test["reference"])
+			index = gsample.index(test["reference"],self.config["fastindex_path"])
 			test["read_count"] = index["contig_len"] / test["read_length"]
 			#self.mate.error("Teaser: Read count must be set manually when subsampling is disabled, for test '%s'"%test["name"])
 			#raise RuntimeError
@@ -360,7 +363,7 @@ class Teaser:
 				i+=1
 				read=fastq.next_read()
 			avg_len = length_sum/i
-			contig_len = gsample.index(test["reference"])["contig_len"]
+			contig_len = gsample.index(test["reference"],self.config["fastindex_path"])["contig_len"]
 
 			if test["sampling"]["ratio"] == None:
 				sampling_ratio = self.calculateSamplingRatio(contig_len)

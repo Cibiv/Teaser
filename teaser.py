@@ -661,6 +661,9 @@ class Mate:
 			if "dwgsim_path" in self.config["teaser"]:
 				self.config["teaser"]["dwgsim_path"] = os.path.abspath(self.config["teaser"]["dwgsim_path"])
 
+			if "fastindex_path" in self.config["teaser"]:
+				self.config["teaser"]["fastindex_path"] = os.path.abspath(self.config["teaser"]["fastindex_path"])
+
 			if "reference_directory" in self.config["teaser"]:
 				self.config["teaser"]["reference_directory"] = os.path.abspath(self.config["teaser"]["reference_directory"])
 

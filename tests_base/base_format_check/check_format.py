@@ -8,5 +8,8 @@ def check_format(self):
 
 	for line in output.split("\n"):
 		l=line.strip()
+		if "Read groups is empty" in line:
+			continue
+
 		if "ERROR" in line:
 			self.error(line)
