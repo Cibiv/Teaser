@@ -69,7 +69,7 @@ print("Building tools...")
 os.chdir("tools")
 tool_build_success=sub("g++ fastindex.cpp -O3 -o fastindex_build")
 if tool_build_success:
-	sub("fastindex_build fastindex")
+	sub("mv fastindex_build fastindex")
 os.chdir("..")
 
 if len(errors)==0:

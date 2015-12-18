@@ -118,13 +118,13 @@ int main(int argc, char** argv)
 
 	if(seq_id.size())
 	{
-                                      string ostr="";
+		string ostr="";
 
-                                      if(internal_id>1) ostr=",\n";
+		if(internal_id>1) ostr=",\n";
 
-                                        ostr+="{\"id\":\""+seq_id+"\", \"start\": "+tostr(curr_contig_start)+", \"end\": "+tostr(contig_pos)+", \"internal_id\": "+tostr(internal_id)+"}";
-                                        out_index.write(ostr.c_str(),ostr.size());
-                                        internal_id++;
+		ostr+="{\"id\":\""+seq_id+"\", \"start\": "+tostr(curr_contig_start)+", \"end\": "+tostr(contig_pos)+", \"internal_id\": "+tostr(internal_id)+"}";
+		out_index.write(ostr.c_str(),ostr.size());
+		internal_id++;
 	}
 
 
