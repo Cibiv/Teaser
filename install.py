@@ -8,9 +8,10 @@ errors=[]
 def error(msg):
 	errors.append(msg)
 
-def sub(cmd):
+def sub(cmd,ignore_errors=False):
 	if os.system(cmd) != 0:
-		errors.append("Command failed: %s"%cmd)
+		if not ignore_errors:
+			errors.append("Command failed: %s"%cmd)
 		return False
 	else:
 		return True
@@ -20,6 +21,13 @@ if major != 2:
 	error("Teaser currently requires Python 2! Version: %s"%str(sys.version_info))
 
 print("Installing Python package dependencies...")
+
+
+sub("pip2 install --user intervaltree",True)
+sub("pip2 install --user tornado",True)
+sub("pip2 install --user pyaml",True)
+sub("pip2 install --user psutil",True)
+
 sub("pip install --user intervaltree")
 sub("pip install --user tornado")
 sub("pip install --user pyaml")
