@@ -461,85 +461,18 @@ class Test:
 		self.run_time = end_time - start_time
 		self.finished_run = True
 
-	# Spawns a subprocess and catches its output
-	def sub(self, command, description="", measure_detailed=False):
-		process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-								   close_fds=True)
+	def sub(self,command,description="",detailed=False):
+		result = util.runAndMeasure(command, detailed, self.mate._("sub_max_runtime"), self.mate._("sub_max_memory"))
+		status=result["status"]
 
-		if measure_detailed:
-			if not self.mate.measure_psutil:
-				res_start = resource.getrusage(resource.RUSAGE_CHILDREN)
+		if status != util.STATUS_NORMAL:
+			if status == util.STATUS_MAX_MEMORY_EXCEEDED:
+				self.error("Subprocess exceeded maximum allowed memory: %s" % command)
+			elif status == util.STATUS_MAX_RUNTIME_EXCEEDED:
+				self.error("Subprocess exceeded maximum allowed runtime: %s" % command)
+			else:
+				self.error("Unknown error occured executing subprocess: %s" % command)
 
-			if not self.mate.nomonitor:
-				from multiprocessing import Process
-				from multiprocessing import Queue
-
-				q = Queue()
-
-				measurer = Process(target=util.measureProcess, args=(q, [process.pid], command, 1, self.mate._("sub_max_runtime"), self.mate._("sub_max_memory"), self.mate.INDEV()))
-				measurer.start()
-
-		start_time = time.time()
-		out, err = process.communicate()
-		end_time = time.time()
-
-		if measure_detailed:
-			if not self.mate.measure_psutil:
-				res_end = resource.getrusage(resource.RUSAGE_CHILDREN)
-				peak_mem = res_end.ru_maxrss * 1000  #KB-> B
-				metrics={0:{"usrtime":res_end.ru_utime-res_start.ru_utime,"systime":res_end.ru_stime-res_start.ru_stime}}
-
-			if not self.mate.nomonitor:
-				q.put("Stop")
-				measurer.join()
-				status = q.get()
-				metrics_psutil = q.get()
-				peak_mem_psutil = q.get()
-
-				if self.mate.measure_psutil:
-					self.log("Using psutil for mapper resource measurement")
-					metrics = metrics_psutil
-					peak_mem = peak_mem_psutil
-
-				if status != util.STATUS_NORMAL:
-					if status == util.STATUS_MAX_MEMORY_EXCEEDED:
-						self.error("Subprocess exceeded maximum allowed memory: %s" % command)
-					elif status == util.STATUS_MAX_RUNTIME_EXCEEDED:
-						self.error("Subprocess exceeded maximum allowed runtime: %s" % command)
-					else:
-						self.error("Unknown error occured executing subprocess: %s" % command)
-
-		max_len_out = 10000
-
-		if len(out) > max_len_out:
-			out = out[:max_len_out]
-
-		if err != None and len(err) > max_len_out:
-			err = err[:max_len_out]
-
-		result = {}
-		result["command"] = command
-		result["working_directory"] = os.getcwd()
-		result["stdout"] = out
-		result["stderr"] = err
-		result["return"] = process.returncode
-
-		result["time"] = 0
-		result["memory"] = 0
-
-		if measure_detailed:
-			result["memory"] = peak_mem
-			result["usrtime"] = 0
-			result["systime"] = 0
-			for m in metrics:
-				result["usrtime"] += metrics[m]["usrtime"]
-				result["systime"] += metrics[m]["systime"]
-		else:
-			result["memory"] = 0
-			result["usrtime"] = -1
-			result["systime"] = -1
-
-		result["time"] = end_time - start_time
 		self.sub_results.append((result, description))
 
 		self.log("[SUBPROCESS] " + command + "\n" + str(result).decode('string_escape'), 3)

@@ -13,6 +13,136 @@ root_cwd = ""
 STATUS_NORMAL=1
 STATUS_MAX_MEMORY_EXCEEDED=2
 STATUS_MAX_RUNTIME_EXCEEDED=3
+
+MAX_LEN_OUT = 10000
+
+def runAndMeasure(command,detailed=True,maxtime=0,maxmem=0):
+	if not detailed:
+		return runSimple(command)
+
+	return_queue = Queue()
+	runner=Process(target=runAndMeasureInternal, args=(return_queue,command,maxtime,maxmem))
+	runner.start()
+	result = return_queue.get()
+	runner.join()
+
+	if result["stdout"] != None:
+		result["stdout"] = result["stdout"][:MAX_LEN_OUT]
+
+	if result["stderr"] != None:
+		result["stderr"] = result["stderr"][:MAX_LEN_OUT]
+
+	return result
+
+def runSimple(command):
+	process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,close_fds=True)
+	start_time = time.time()
+	out, err = process.communicate()
+	end_time = time.time()
+
+	result = {}
+	result["command"] = command
+	result["working_directory"] = os.getcwd()
+	result["status"]=STATUS_NORMAL
+
+	result["stdout"] = out
+	result["stderr"] = err
+	result["return"] = 1
+	result["time"] = end_time-start_time
+	result["usrtime"] = 0
+	result["systime"] = 0
+
+	return result
+
+def runAndMeasureInternal(return_queue,command,maxtime=0,maxmem=0):
+	control_queue = Queue()
+	process = Process(target=runInternal,args=(control_queue,command,maxmem))
+	process.start()
+
+	start_time = time.time()
+
+	result = {}
+	result["command"] = command
+	result["working_directory"] = os.getcwd()
+	result["status"]=STATUS_NORMAL
+
+	result["stdout"] = ""
+	result["stderr"] = ""
+	result["return"] = 1
+	result["time"] = 0
+	result["usrtime"] = 0
+	result["systime"] = 0
+
+	while control_queue.empty():
+		res_curr = resource.getrusage(resource.RUSAGE_CHILDREN)
+		if maxmem != 0 and res_curr.ru_maxrss/1000 > maxmem:
+			result["status"]=STATUS_MAX_MEMORY_EXCEEDED
+
+			try:
+				process.terminate()
+			except:
+				pass
+
+			return_queue.put(result)
+			sys.exit(1)
+			return 1
+
+		if maxtime != 0 and time.time()-start_time > maxtime:
+			result["status"]=STATUS_MAX_RUNTIME_EXCEEDED
+
+			try:
+				process.terminate()
+			except:
+				pass
+
+			return_queue.put(result)
+			sys.exit(1)
+			return 1
+
+		time.sleep(1)
+
+	process_result = control_queue.get()
+
+	result["stdout"] = process_result["stdout"]
+	result["stderr"] = process_result["stderr"]
+	result["return"] = process_result["return"]
+
+	result["time"] = process_result["time"]
+	result["memory"] = process_result["memory"]
+	result["usrtime"] = process_result["usrtime"]
+	result["systime"] = process_result["systime"]
+
+	return_queue.put(result)
+	sys.exit(0)
+
+def runInternal(control_queue,command,max_memory):
+	result={}
+
+	if max_memory != 0:
+		ulimit_command = "ulimit -v %d; "%(max_memory*1000)
+	else:
+		ulimit_command = ""
+
+	process = subprocess.Popen(ulimit_command + command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, close_fds=True)
+
+	res_start = resource.getrusage(resource.RUSAGE_CHILDREN)
+	start_time = time.time()
+	out, err = process.communicate()
+	end_time = time.time()
+	res_end = resource.getrusage(resource.RUSAGE_CHILDREN)
+
+	result["time"] = end_time-start_time
+	result["usrtime"] = res_end.ru_utime-res_start.ru_utime
+	result["systime"] = res_end.ru_stime-res_start.ru_stime
+	result["memory"] = res_end.ru_maxrss * 1000
+
+	result["stdout"] = out
+	result["stderr"] = err
+	result["return"] = process.returncode
+
+	control_queue.put(result)
+	sys.exit(0)
+
 def measureProcess(queue, initial_pids, command, measurement_interval=1, max_runtime=0, max_memory=0, debug=False):
 	import psutil
 
