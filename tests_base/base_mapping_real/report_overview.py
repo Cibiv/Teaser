@@ -289,8 +289,8 @@ def generateResourcePlot(self, page, test_objects, measure):
 	import json
 
 	if measure == "runtime":
-		columns = [["Runtime"]]
-		title = "Runtime [min]"
+		columns = [["Runtime/mio. reads"]]
+		title = "Runtime [min/mio. reads]"
 		section_title = "Runtime"
 	elif measure == "memory":
 		columns = [["Memory Usage"]]
@@ -308,16 +308,17 @@ def generateResourcePlot(self, page, test_objects, measure):
 		result = test.getRunResults()
 		if result == None or test.getErrorCount():
 			continue
+
 		groups.append(test.getMapper().getTitle())
-		if measure == "runtime":
-			columns[0].append(round(result.maptime / 60.0, 3))
-		elif measure == "memory":
-			columns[0].append(round(result.memory / (1000 * 1000)))
-		elif measure == "corrects":
-			try:
-				columns[0].append(round(result.correct / result.maptime, 3))
-			except ZeroDivisionError:
-				columns[0].append(0)
+		try:
+			if measure == "runtime":
+				columns[0].append(round( (result.maptime / 60.0) * (1000000.0/result.total), 3))
+			elif measure == "memory":
+				columns[0].append(round(result.memory / (1000 * 1000)))
+			elif measure == "corrects":
+				columns[0].append(round((result.correct) / result.maptime, 3))
+		except ZeroDivisionError:
+			columns[0].append(0)
 
 		csv += "%s,%f\n" % (test.getMapper().getTitle(),columns[0][-1])
 
@@ -361,40 +362,54 @@ legend: {
 def generateMappingQualityOverview(self, page, test_objects):
 	import json
 
+	csv_rating = "mapper,mapq_threshold,filtered_wrong_per_filtered_correct\n"
 	csv_distribution = "mapper,mapq_value,read_count\n"
 
 	data = []
 	data_dist = []
+	x_values_dist = []
 	for test in sorted(test_objects, key=lambda k: k.getMapper().getTitle()):
 		column = [test.getMapper().getTitle()]
 		column_dist = [test.getMapper().getTitle()]
+		x_values_dist = []
 		results = test.getRunResults()
 
-		if results == None:
+		if results == None or test.getErrorCount():
 			continue
 
 		mapqs = sorted(results.mapq_cumulated)
 		for curr in mapqs:
 			lost_correct = (results.correct - results.mapq_cumulated[curr]["correct"])
 			lost_wrong = (results.wrong - results.mapq_cumulated[curr]["wrong"])
-			try:
-				column.append(round(lost_wrong / float(lost_correct), 4))
-			except ZeroDivisionError:
-				column.append(0)
+			if curr < 30 or (curr < 100 and curr%10==0) or curr%20==0 or curr==255:
+				try:
+					column.append(round(lost_wrong / float(lost_correct), 4))
+				except ZeroDivisionError:
+					column.append(0)
 
-			if curr < 255:
-				column_dist.append( (results.mapq_cumulated[curr]["correct"]+results.mapq_cumulated[curr]["wrong"]) - (results.mapq_cumulated[curr+1]["correct"]+results.mapq_cumulated[curr+1]["wrong"])  )
-			else:
-				column_dist.append(0)
+				
+				if curr <= 255:
+					column_dist.append( results.total-results.mapq_cumulated[curr]["correct"]-results.mapq_cumulated[curr]["wrong"]  )
+				else:
+					column_dist.append(0)
 
+				x_values_dist.append(curr)
+
+			csv_rating += "%s,%d,%.4f\n" % (test.getMapper().getTitle(),curr,column[-1])
 			csv_distribution += "%s,%d,%d\n" % (test.getMapper().getTitle(),curr,column_dist[-1])
 
 		data.append(column)
 		data_dist.append(column_dist)
 
+	data.append(["x"]+x_values_dist)
+	data_dist.append(["x"]+x_values_dist)
+
 	csv_filename_distribution = self.writeCSV("mapq_distribution",csv_distribution)
 
-	page.addSection("Mapping Quality", """<div id="plot_mapq_dist"></div>%s""" % util.makeExportDropdown("plot_mapq_dist",csv_filename_distribution), None,"This section represents an overview of the distribution of mapping quality values for all mappers. The plot shows the total number of reads for each mapping quality value.")
+	page.addSection("Mapping Quality",
+					"""<div id="plot_mapq_dist"></div>%s""" % (util.makeExportDropdown("plot_mapq_dist",csv_filename_distribution)),
+					None,
+					"This plot shows the total number of mapped reads for each mapping quality threshold (all reads with a mapping quality value smaller or equal to the threshold).")
 
 	page.addScript("""
 var chart = c3.generate({
@@ -403,6 +418,7 @@ var chart = c3.generate({
       height: 500
     },
     data: {
+      x: 'x',
       columns: %s
     },
     grid: {
@@ -412,28 +428,21 @@ var chart = c3.generate({
     },
     axis: {
       x: {
-        label: {text: "Mapping Quality Value", position: "outer-middle"},
+        label: {text: "Mapping Quality Threshold", position: "outer-middle"},
         min: -5
       },
 
       y: {
-        label: {text: "Number of Reads", position: "outer-middle"}
+        label: {text: "Number of Reads Mapped", position: "outer-middle"}
       }
     },
     legend: {
-		position: "inset",
-		show:true,
-		inset: {
-			anchor: 'top-right',
-			x: 20,
-			y: 10,
-			step: 2
-		}
+		show:true
     },
     point: {
     	show: false
     }
-});""" % json.dumps(data_dist))
+});""" % (json.dumps(data_dist)) )
 
 
 def generateDataSetInfo(self,page,test):

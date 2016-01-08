@@ -129,7 +129,20 @@ result.mapq_cumulated[curr]["correct"] + result.mapq_cumulated[curr]["wrong"])) 
 	csv_filename = self.writeCSV("mapping_statistics",csv)
 
 	page.addSection("Mapping Statistics",
-					"""MAPQ threshold&nbsp;<input type="number" onchange="javascript:updateMapstatsChart(this.value);" value="0" min="0" max="255" size="5">&nbsp;<div id="plot_mapstats"></div>%s""" % util.makeExportDropdown("plot_mapstats",csv_filename),
+					"""
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-6">
+									<label for="mapqSelect">MAPQ cutoff (<span id="cutoffText">0</span>):</label>
+									<div class="input-group">
+										<input id="mapqSelect" type="range" oninput="javascript:$('#cutoffText').html(this.value);" onchange="javascript:updateMapstatsChart(this.value);" value="0" min="0" max="255">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="plot_mapstats"></div>%s""" % util.makeExportDropdown("plot_mapstats",csv_filename),
 					None,
 					"This plot shows the fractions of correctly, wrongly and not mapped reads for each mapper and the selected mapping quality cutoff. Reads that have been filtered using the mapping quality cutoff are shown as unmapped. The interactive legend can be used to, for example, display only the number of wrongly and not mapped reads.")
 	page.addScript("""
@@ -344,13 +357,80 @@ tooltip: {
 }
 });""" % (json.dumps(columns), json.dumps(groups)))
 
+def generatePrecisionRecallScatterPlot(self, page, test_objects):
+	import json
+
+	csv = "mapper,precision,recall\n"
+	columns = []
+	xs = {}
+	groups = []
+
+	for test in sorted(test_objects, key=lambda k: k.getMapper().getTitle()):
+		result = test.getRunResults()
+		if result == None or test.getErrorCount():
+			continue
+		groups.append(test.getMapper().getTitle())
+		columns.append([test.getMapper().getTitle()+"_x",round(result.recall, 4), 0])
+		columns.append([test.getMapper().getTitle(),round(result.precision, 4)])
+		xs[test.getMapper().getTitle()] = test.getMapper().getTitle() + "_x"
+
+		csv += "%s,%.4f,%.4f\n" % (test.getMapper().getTitle(),result.precision,result.recall)
+
+	csv_filename = self.writeCSV("precision_recall",csv)
+
+	page.addSection("Precision and Recall", """<div id="plot_pr"></div>%s""" % util.makeExportDropdown("plot_pr",csv_filename) )
+	page.addScript("""
+var chart = c3.generate({
+bindto: '#plot_pr',
+size: { height: 500 },
+data: {
+  xs: %s,
+  columns: %s,
+  type: 'scatter',
+},
+grid: {
+  y: {
+    show: true
+  }
+},
+axis: {
+  x: {
+    label: { text: "Recall", position: "outer-middle" },
+    tick: { fit: false, format: d3.format("10.3f") }
+  },
+
+  y: {
+    label: { text: "Precision", position: "outer-middle"},
+    tick: { format: d3.format("10.3f") }
+  }
+},
+point: {
+  r: 5
+},
+legend: {
+	position: "bottom",
+	inset: {
+		anchor: 'top-left',
+		x: 20,
+		y: 10,
+		step: 2
+	}
+},
+tooltip: {
+	format: {
+		//title: function (d) { return ""; }
+	},
+	grouped: false
+}
+});""" % (json.dumps(xs), json.dumps(columns)))
+
 
 def generateResourcePlot(self, page, test_objects, measure):
 	import json
 
 	if measure == "runtime":
-		columns = [["Runtime"]]
-		title = "Runtime [min]"
+		columns = [["Runtime/mio. reads"]]
+		title = "Runtime [min/mio. reads]"
 		section_title = "Runtime"
 	elif measure == "memory":
 		columns = [["Memory Usage"]]
@@ -370,15 +450,15 @@ def generateResourcePlot(self, page, test_objects, measure):
 			continue
 
 		groups.append(test.getMapper().getTitle())
-		if measure == "runtime":
-			columns[0].append(round(result.maptime / 60.0, 3))
-		elif measure == "memory":
-			columns[0].append(round(result.memory / (1000 * 1000)))
-		elif measure == "corrects":
-			try:
-				columns[0].append(round(result.correct / result.maptime, 3))
-			except ZeroDivisionError:
-				columns[0].append(0)
+		try:
+			if measure == "runtime":
+				columns[0].append(round( (result.maptime / 60.0) * (1000000.0/result.total), 3))
+			elif measure == "memory":
+				columns[0].append(round(result.memory / (1000 * 1000)))
+			elif measure == "corrects":
+				columns[0].append(round((result.correct) / result.maptime, 3))
+		except ZeroDivisionError:
+			columns[0].append(0)
 
 		csv += "%s,%f\n" % (test.getMapper().getTitle(),columns[0][-1])
 
@@ -427,9 +507,11 @@ def generateMappingQualityOverview(self, page, test_objects):
 
 	data = []
 	data_dist = []
+	x_values_dist = []
 	for test in sorted(test_objects, key=lambda k: k.getMapper().getTitle()):
 		column = [test.getMapper().getTitle()]
 		column_dist = [test.getMapper().getTitle()]
+		x_values_dist = []
 		results = test.getRunResults()
 
 		if results == None or test.getErrorCount():
@@ -439,15 +521,19 @@ def generateMappingQualityOverview(self, page, test_objects):
 		for curr in mapqs:
 			lost_correct = (results.correct - results.mapq_cumulated[curr]["correct"])
 			lost_wrong = (results.wrong - results.mapq_cumulated[curr]["wrong"])
-			try:
-				column.append(round(lost_wrong / float(lost_correct), 4))
-			except ZeroDivisionError:
-				column.append(0)
+			if curr < 30 or (curr < 100 and curr%10==0) or curr%20==0 or curr==255:
+				try:
+					column.append(round(lost_wrong / float(lost_correct), 4))
+				except ZeroDivisionError:
+					column.append(0)
 
-			if curr < 255:
-				column_dist.append( (results.mapq_cumulated[curr]["correct"]+results.mapq_cumulated[curr]["wrong"]) - (results.mapq_cumulated[curr+1]["correct"]+results.mapq_cumulated[curr+1]["wrong"])  )
-			else:
-				column_dist.append(0)
+				
+				if curr <= 255:
+					column_dist.append( results.total-results.mapq_cumulated[curr]["correct"]-results.mapq_cumulated[curr]["wrong"]  )
+				else:
+					column_dist.append(0)
+
+				x_values_dist.append(curr)
 
 			csv_rating += "%s,%d,%.4f\n" % (test.getMapper().getTitle(),curr,column[-1])
 			csv_distribution += "%s,%d,%d\n" % (test.getMapper().getTitle(),curr,column_dist[-1])
@@ -455,13 +541,16 @@ def generateMappingQualityOverview(self, page, test_objects):
 		data.append(column)
 		data_dist.append(column_dist)
 
+	data.append(["x"]+x_values_dist)
+	data_dist.append(["x"]+x_values_dist)
+
 	csv_filename_rating = self.writeCSV("mapq_rating",csv_rating)
 	csv_filename_distribution = self.writeCSV("mapq_distribution",csv_distribution)
 
 	page.addSection("Mapping Quality",
 					"""<div id="plot_mapq_rating"></div>%s<p>&nbsp;</p><div id="plot_mapq_dist"></div>%s""" % (util.makeExportDropdown("plot_mapq_rating",csv_filename_rating), util.makeExportDropdown("plot_mapq_dist",csv_filename_distribution)),
 					None,
-					"This section represents an overview of the distribution of mapping quality values for all mappers. A detailed evaluation of mapping qualities for specific mappers can be found on the respective mapper results page (accessible using the navigation on top). The first plot rates each mapping quality threshold (0-255) by comparing the numbers of wrongly and correctly mapped reads that would be removed due to falling under the threshold. The second plot shows the total number of reads for each mapping quality value.")
+					"This section represents an overview of the distribution of mapping quality values for all mappers. A detailed evaluation of mapping qualities for specific mappers can be found on the respective mapper results page (accessible using the navigation on top). The first plot rates each mapping quality threshold (0-255) by comparing the numbers of wrongly and correctly mapped reads that would be removed due to falling under the threshold. The second plot shows the total number of mapped reads for each mapping quality threshold (all reads with a mapping quality value smaller or equal to the threshold).")
 	page.addScript("""
 var chart = c3.generate({
     bindto: '#plot_mapq_rating',
@@ -469,6 +558,7 @@ var chart = c3.generate({
       height: 500
     },
     data: {
+      x: 'x',
       columns: %s
     },
     grid: {
@@ -487,14 +577,7 @@ var chart = c3.generate({
       }
     },
     legend: {
-		position: "inset",
-		show:true,
-		inset: {
-			anchor: 'top-right',
-			x: 20,
-			y: 10,
-			step: 2
-		}
+		show:true
     },
     point: {
     	show: false
@@ -512,6 +595,7 @@ var chart = c3.generate({
       height: 500
     },
     data: {
+      x: 'x',
       columns: %s
     },
     grid: {
@@ -521,28 +605,21 @@ var chart = c3.generate({
     },
     axis: {
       x: {
-        label: {text: "Mapping Quality Value", position: "outer-middle"},
+        label: {text: "Mapping Quality Threshold", position: "outer-middle"},
         min: -5
       },
 
       y: {
-        label: {text: "Number of Reads", position: "outer-middle"}
+        label: {text: "Number of Reads Mapped", position: "outer-middle"}
       }
     },
     legend: {
-		position: "inset",
-		show:true,
-		inset: {
-			anchor: 'top-right',
-			x: 20,
-			y: 10,
-			step: 2
-		}
+		show:true
     },
     point: {
     	show: false
     }
-});""" % json.dumps(data_dist))
+});""" % (json.dumps(data_dist)) )
 
 
 def generateDataSetInfo(self,page,test):
@@ -684,7 +761,7 @@ window.onload = function () {$('.selectpicker').selectpicker();}""")
 	generateDataSetInfo(self, page, test_objects[0])
 	generateMappingStatisticsPlot(self, page, test_objects)
 	generateMappingQualityOverview(self, page, test_objects)
-	generatePrecisionRecallPlot(self, page, test_objects)
+	generatePrecisionRecallScatterPlot(self, page, test_objects)
 	generateResourcePlot(self, page, test_objects, "corrects")
 	generateResourcePlot(self, page, test_objects, "runtime")
 	generateResourcePlot(self, page, test_objects, "memory")
