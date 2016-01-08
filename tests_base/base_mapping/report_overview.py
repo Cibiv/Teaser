@@ -677,6 +677,10 @@ def generateDataSetInfo(self,page,test):
 		html += "<td>%s</td>" % str(test._("input_info:insert_size") if test._("input:reads_paired_end") else "None" )
 		html += "</tr>"
 		html += "<tr>"
+		html += "<th>Insert Size Error</th>"
+		html += "<td>%s</td>" % str(test._("input_info:insert_size_error") if test._("input:reads_paired_end") else "None" )
+		html += "</tr>"
+		html += "<tr>"
 		html += "<th>Subsampling enabled</th>"
 		html += "<td>%s</td>" % util.yes_no(test._("input_info:sampling"))
 		html += "</tr>"

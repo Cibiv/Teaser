@@ -260,11 +260,11 @@ class DefineJob(tornado.web.RequestHandler):
               </label>
               <div class="radio">
                 <label>
-                  <input type="radio" name="paired" id="optionsRadios1" value="false" onClick="javascript:$('#insert_size').prop('disabled',true);" checked>
+                  <input type="radio" name="paired" id="optionsRadios1" value="false" onClick="javascript:$('#insert_size').prop('disabled',true); $('#insert_size_error').prop('disabled',true);" checked>
                   Single-End
                 </label>
                 <label>
-                  <input type="radio" name="paired" id="optionsRadios2" value="true" onClick="javascript:$('#insert_size').prop('disabled',false);">
+                  <input type="radio" name="paired" id="optionsRadios2" value="true" onClick="javascript:$('#insert_size').prop('disabled',false); $('#insert_size_error').prop('disabled',false);">
                   Paired-End
                 </label>
               </div>
@@ -274,6 +274,13 @@ class DefineJob(tornado.web.RequestHandler):
                 <label for="insert_size" class="col-sm-2 control-label">Insert Size</label>
                 <div class="col-sm-2">
                   <input type="number" class="form-control" id="insert_size" name="insert_size" min="0" max="1000" step="1" value="100" disabled>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="insert_size_error" class="col-sm-2 control-label">Insert Size Error</label>
+                <div class="col-sm-2">
+                  <input type="number" class="form-control" id="insert_size_error" name="insert_size_error" min="0" max="1000" step="1" value="50" disabled>
                 </div>
               </div>
 
@@ -719,6 +726,7 @@ class SubmitJob(tornado.web.RequestHandler):
 
 			if test["paired"]:
 				test["insert_size"] = int(self.get_argument('insert_size', ''))
+				test["insert_size_error"] = int(self.get_argument('insert_size_error', ''))
 
 		else:
 			if test["paired"]:

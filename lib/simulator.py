@@ -67,7 +67,7 @@ class Mason(Simulator):
 				params += " --bm %f " % (0.23 * self.dataset["error_rate_mult"])
 
 		if self.dataset["insert_size"] != None:
-			params += " --ll %d --le %d " % (self.dataset["insert_size"], self.dataset["insert_size"] / 10)
+			params += " --ll %d --le %d " % (self.dataset["insert_size"], self.dataset["insert_size_error"])
 
 		params += " --hi %f " % self.dataset["mutation_indel_rate"]
 		params += " --hs %f " % self.dataset["mutation_snp_rate"]
@@ -106,7 +106,7 @@ class Dwgsim(Simulator):
 			read_count = self.dataset["read_count"]
 
 		if self.dataset["insert_size"] != None:
-			params += " -d %d " % self.dataset["insert_size"]
+			params += " -d %d -s %d " % (self.dataset["insert_size"],self.dataset["insert_size_error"])
 
 		if self.dataset["error_rate_mult"] != 1:
 			self.dataset["extra_params"] += " -e %f " % (self.dataset["error_rate_mult"] * 0.02)

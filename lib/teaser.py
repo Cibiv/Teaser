@@ -40,6 +40,7 @@ class Teaser:
 		self.default_test["read_count"] = None
 		self.default_test["paired"] = False
 		self.default_test["insert_size"] = 500
+		self.default_test["insert_size_error"] = 50
 		self.default_test["coverage"] = 1
 		self.default_test["mutation_rate"] = 0.001
 		self.default_test["mutation_indel_frac"] = 0.3
@@ -183,7 +184,7 @@ class Teaser:
 		if test["type"] == "simulated_teaser":
 			config["input_info"] = {"type":test["type"],"simulator": str(test["simulator_cmd"]), "platform": str(test["platform"]),
 								"read_length": str(test["read_length"]), "read_count": str(test["read_count"]),
-								"insert_size": str(test["insert_size"]), "sampling": test["sampling"]["enable"],
+								"insert_size": str(test["insert_size"]), "insert_size_error": str(test["insert_size_error"]), "sampling": test["sampling"]["enable"],
 								"sampling_ratio": str(test["sampling"]["ratio"]),
 								"sampling_region_len": str(test["sampling"]["region_len"]),
 								"divergence": "%.4f overall mutation rate, %.4f indel fraction, %.4f indel average length" % (test["mutation_rate"],test["mutation_indel_frac"],test["mutation_indel_avg_len"])  }
@@ -221,13 +222,13 @@ class Teaser:
 
 	def calcualteRegionLen(self,test):
 		if test["paired"]:
-			return test["sampling"]["region_len_multiplier"] * test["insert_size"]
+			return test["sampling"]["region_len_multiplier"] * (test["insert_size"]+test["insert_size_error"])
 		else:
 			return test["sampling"]["region_len_multiplier"] * test["read_length"]
 
 	def calculateRegionPadding(self,test):
 		if test["paired"]:
-			return 2 * test["insert_size"]
+			return 2 * (test["insert_size"]+test["insert_size_error"])
 		else:
 			return 2 * test["read_length"]		
 
