@@ -389,6 +389,9 @@ data: {
   type: 'scatter',
 },
 grid: {
+  x: {
+    show: true
+  },
   y: {
     show: true
   }
