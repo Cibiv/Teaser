@@ -419,7 +419,8 @@ var chart = c3.generate({
     },
     data: {
       x: 'x',
-      columns: %s
+      columns: %s,
+      type: 'step'
     },
     grid: {
       y: {

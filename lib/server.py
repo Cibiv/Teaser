@@ -26,46 +26,44 @@ class Home(tornado.web.RequestHandler):
     <div class="jumbotron" style="border-radius:10px;">
       <div class="container">
         <h1>Teaser</h1>
-        <p>Rapid Personalized Benchmarks for NGS Read Mapping</p>
+        <p>A tool for fast personalized benchmarks and optimization of NGS read mapping.</p>
         <p><a href="define" class="btn btn-success" role="button"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> Start a mapper benchmark now</a> <a href="static/dataset_gallery" class="btn btn-info" role="button">View Example Report</a> <a href="http://github.com/cibiv/teaser/" class="btn btn-info" role="button">Wiki and Download</a></p>
       </div>
     </div>
 
         <div class="container-fluid">
 			<div class="row-fluid" align="center">
-				<div class="col-md-3"><h2>Find</h2> <p>...a suitable mapper for your NGS application within minutes</p></div>
+				<div class="col-md-3"><h2>Find</h2> <p>...a suitable mapper for your next-gen sequencing data in minutes</p></div>
 				<div class="col-md-3"><h2>Identify</h2> <p>...the right mapping quality thresholds for filtering</p></div>
 				<div class="col-md-3"><h2>Optimize</h2> <p>...mapper parameters for accuracy or throughput</p></div>
 				<div class="col-md-3"><h2>Compare</h2> <p>...simulation and real data results</p></div>
 			</div>
         </div>
 		<br>
-		<br>
-		<br>
 		""", "", "", False)
 
 		page.addStyle("""
-		div.featurebox
-		{
-		padding:10px;
-		background-color:#CCCCCC;
-		margin-left:10px;
-		margin-right:10px;
-		margin-top:10px;
-		margin-bottom:10px;
-		border:solid 1px black;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-		}
+div.featurebox
+{
+padding:10px;
+background-color:#CCCCCC;
+margin-left:10px;
+margin-right:10px;
+margin-top:10px;
+margin-bottom:10px;
+border:solid 1px black;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+}
 		""")
 
-		if config["teaser"]["server"]["news"] != "":
-			page.addSection("Update News", config["teaser"]["server"]["news"])
-
+		page.addNav([{"title": "View on GitHub", "link": "https://github.com/Cibiv/Teaser"}])
+		page.addNav([{"title": "Wiki", "link": "https://github.com/Cibiv/Teaser/wiki"}])
+		page.addNav([{"title": "|", "link": "#"}])
 		page.addNav([{"title": "CIBIV", "link": "http://www.cibiv.at"}])
 		page.addNav([{"title": "CSHL", "link": "http://www.cshl.edu"}])
-		page.addNav([{"title": "Wiki", "link": "https://github.com/Cibiv/Teaser"}])
+
 		page.enableNavSeparators(False)
 		page.enableSidebar(False)
 
@@ -98,7 +96,16 @@ class Home(tornado.web.RequestHandler):
 			if i >= max_i:
 				break
 
-		page.addSection("Recent Benchmarks", """<div class="table-responsive"><table class=table table-striped">
+		if i==0:
+			recent_html = "<tr><td colspan=6><i>No benchmarks were performed yet.</i></td></tr>"
+
+		page.addSection("Summary", "Teaser analyzes the performance of read mappers based on a data set provided by you. After you enter key characteristics such as read length and reference genome, Teaser will simulate read data including the gold standard alignment. After the simulation, Teaser automatically runs and evaluates each mapper for the selected parameters and summarizes the results in a report. Teaser also supports benchmarking mappers on real data or custom simulations, as well as testing new mappers and custom parameter sets. You can start using Teaser right now using this web application, or download and install it to unlock all advanced features.<br><br><b>If you use Teaser to optimize read mapping in your study, please cite:</b> Smolka M, Rescheneder P, Schatz MC, von Haeseler A and Sedlazeck FJ. Teaser: Individualized benchmarking and optimization of read mapping results for NGS data. Genome Biology 2015, 16:235 (22 October 2015). DOI: 10.1186/s13059-015-0803-1")
+
+		if config["teaser"]["server"]["news"] != "":
+			page.addSection("Update News", config["teaser"]["server"]["news"])
+
+		page.addSection("Recent Benchmarks", """
+		<div class="table-responsive"><table class=table table-striped">
 		<thead>
 		<tr>
 		<th>Teaser Accession</th>
@@ -112,10 +119,10 @@ class Home(tornado.web.RequestHandler):
 		<tbody>
 		%s
 		</tbody>
-		</table></div>
+		</table>
+		</div>
 		""" % recent_html)
 
-		page.addSection("Citation", """<b>If you use Teaser to optimize read mapping in your study, please consider citing:</b> Smolka M, Rescheneder P, Schatz MC, von Haeseler A and Sedlazeck FJ. Teaser: Individualized benchmarking and optimization of read mapping results for NGS data. Genome Biology 2015, 16:235 (22 October 2015). DOI: 10.1186/s13059-015-0803-1""")
 
 		if config["teaser"]["server"]["send_usage_information"]:
 			page.addScript("""
