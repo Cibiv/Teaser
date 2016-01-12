@@ -1,7 +1,9 @@
-To   [Teaser web application](http://teaser.cibiv.univie.ac.at).
-
 #Teaser
-Teaser analyzes the performance of read mappers based on a data set provided by you. After you enter key characteristics such as read length and reference genome, Teaser will simulate read data including the gold standard alignment. After the simulation, Teaser automatically runs and evaluates each mapper for the selected parameters and summarizes the results in a report. Teaser also supports benchmarking mappers on real data or custom simulations, as well as testing new mappers and custom parameter sets. You can start using Teaser right now using the [web application](http://teaser.cibiv.univie.ac.at), or download and install it to unlock all advanced features.
+Teaser analyzes the performance of read mappers based on a data set provided by you. After you enter key characteristics such as read length and reference genome, Teaser will simulate read data including the gold standard alignment. After the simulation, Teaser automatically runs and evaluates each mapper for the selected parameters and summarizes the results in a report. Teaser also supports benchmarking read mappers on real data or custom simulations, as well as testing new mappers and custom parameter sets. You can start using Teaser right now using the web application, or download and install it to use all advanced features.
+
+* [Try the Teaser Web Application](http://teaser.cibiv.univie.ac.at)
+* [Installation](https://github.com/Cibiv/Teaser/wiki/Installation)
+* [Virtual Machine Image](https://github.com/Cibiv/Teaser/Virtual-Machine-Image)
 
 ##Documentation
 The [GitHub Wiki](https://github.com/Cibiv/Teaser/wiki) contains all information on how to start benchmarking mappers with Teaser as well as customization and extension options.
