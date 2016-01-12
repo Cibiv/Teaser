@@ -1,7 +1,7 @@
-To try out the Teaser web application, please head to [http://teaser.cibiv.univie.ac.at](http://teaser.cibiv.univie.ac.at).
+To   [Teaser web application](http://teaser.cibiv.univie.ac.at).
 
 #Teaser
-Welcome to the official Github page of Teaser, an analytical framework for benchmarking NGS read mappers. Teaser allows researchers to identify the optimal mapper, parameter set and mapping quality thresholds for data sets that mimic their real data. Teaser is easy-to-use, flexible and fast thanks to its genome subsampling process, allowing users to test a variety of scenarios within minutes. Teaser is available as [web application](http://teaser.cibiv.univie.ac.at), a [virtual machine image](https://github.com/Cibiv/Teaser#advanced-users-virtual-machine-image) and as [installable version](https://github.com/Cibiv/Teaser#advanced-users-installation).
+Teaser analyzes the performance of read mappers based on a data set provided by you. After you enter key characteristics such as read length and reference genome, Teaser will simulate read data including the gold standard alignment. After the simulation, Teaser automatically runs and evaluates each mapper for the selected parameters and summarizes the results in a report. Teaser also supports benchmarking mappers on real data or custom simulations, as well as testing new mappers and custom parameter sets. You can start using Teaser right now using the [web application](http://teaser.cibiv.univie.ac.at), or download and install it to unlock all advanced features.
 
 ##Documentation
 The [GitHub Wiki](https://github.com/Cibiv/Teaser/wiki) contains all information on how to start benchmarking mappers with Teaser as well as customization and extension options.
