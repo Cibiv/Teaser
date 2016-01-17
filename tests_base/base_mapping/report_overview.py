@@ -532,7 +532,7 @@ def generateMappingQualityOverview(self, page, test_objects):
 
 				
 				if curr <= 255:
-					column_dist.append( results.total-results.mapq_cumulated[curr]["correct"]-results.mapq_cumulated[curr]["wrong"]  )
+					column_dist.append(results.mapq_cumulated[curr]["correct"]+results.mapq_cumulated[curr]["wrong"]  )
 				else:
 					column_dist.append(0)
 
