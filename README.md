@@ -5,7 +5,7 @@ Teaser analyzes the performance of read mappers based on a data set provided by 
 
 
 ##Installation
-For a detailed guide, see the [Installation](https://github.com/Cibiv/Teaser/wiki/Installation) page in our wiki or see [Virtual Machine Image](https://github.com/Cibiv/Teaser/Virtual-Machine-Image) for an alternative to installation.
+For a detailed guide, see the [Installation](https://github.com/Cibiv/Teaser/wiki/Installation) page in our wiki or see [Virtual Machine Image](https://github.com/Cibiv/Teaser/Virtual-Machine-Image) for an alternative.
 
 Entering the following commands will install Teaser including a set of popular read mappers:
 ```
