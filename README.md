@@ -3,6 +3,8 @@ Teaser analyzes the performance of read mappers based on a data set provided by 
 
 * [Try the Teaser Web Application](http://teaser.cibiv.univie.ac.at)
 
+##Documentation
+The [GitHub Wiki](https://github.com/Cibiv/Teaser/wiki) contains all information on how to start benchmarking mappers with Teaser as well as customization and extension options.
 
 ##Installation
 For a detailed guide, see the [Installation](https://github.com/Cibiv/Teaser/wiki/Installation) page in our wiki or see [Virtual Machine Image](https://github.com/Cibiv/Teaser/Virtual-Machine-Image) for an alternative.
@@ -19,8 +21,7 @@ To see if everything is working, you can try benchmarking mappers for a simple E
 ./teaser.py example_ecoli.yaml
 ```
 
-##Documentation
-The [GitHub Wiki](https://github.com/Cibiv/Teaser/wiki) contains all information on how to start benchmarking mappers with Teaser as well as customization and extension options.
+Teaser will place results in the `reports` directory.
 
 ##Citation
 If you use Teaser to optimize read mapping in your study, please consider citing: [Smolka M, Rescheneder P, Schatz MC, von Haeseler A and Sedlazeck FJ. Teaser: Individualized benchmarking and optimization of read mapping results for NGS data. Genome Biology 2015, 16:235 (22 October 2015).](http://www.genomebiology.com/2015/16/1/235) DOI: 10.1186/s13059-015-0803-1
