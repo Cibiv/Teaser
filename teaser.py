@@ -1033,8 +1033,8 @@ class Mate:
 		self.executeEvent("onRunPost")
 		self.executeEvent("onReport")
 
-		mate.log("Generate HTML report -> " + self.getReportDirectory() + "...")
 		self.report.generate()
+		mate.log("Benchmark completed. Results were placed in: " + self.getReportDirectory() + "")
 
 		if not self.no_cleanup:
 			self.executeEvent("onCleanup")
@@ -1043,7 +1043,7 @@ class Mate:
 		self.logNewline()
 
 		for mapper_id in self.tests:
-			self.log("Cleaning for " + mapper_id + "...")
+			#self.log("Cleaning for " + mapper_id + "...")
 			self.triggerCleanupEvents(self.tests[mapper_id])
 
 		self.log_file_handle.flush()
