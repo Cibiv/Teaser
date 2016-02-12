@@ -15,6 +15,9 @@ git clone https://github.com/Cibiv/Teaser.git
 cd Teaser
 ./install.py
 ```
+
+Important: Teaser requires an internet connection during installation in order to download the mappers.
+
 To see if everything is working, you can try benchmarking mappers for a simple E. coli dataset using:
 
 ```
