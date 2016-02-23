@@ -32,3 +32,19 @@ parameters:
          - "-L 30"
 
    ngm_sensitivity: {title: NGM Sensitivity Range, mapper: ngm, define: [["-s",0.1,0.9,0.1]]}
+
+   ngm_identities:
+      title: Identities
+      mapper: ngm
+      define:
+        - "-i 0.8"
+        - "-i 0.9"
+        - "-i 0.95"
+        - "-i 0.99"
+
+   ngm_end_to_end:
+      title: E2E
+      mapper: ngm
+      define:
+        - "--end-to-end"
+        - "--end-to-end --affine"

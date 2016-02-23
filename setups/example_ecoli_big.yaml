@@ -1,0 +1,18 @@
+include:
+  - base_teaser.yaml
+
+teaser:
+   tests:
+      ecoli_big:
+         reference: E_coli.fasta
+         read_count: 500000
+         mutation_rate: 0.05
+         sampling:
+            enable: No
+
+evaluation:
+   pos_threshold: 10
+
+threads: 4
+
+report: {name: example_ecoli_big}

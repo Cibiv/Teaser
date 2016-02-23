@@ -143,3 +143,9 @@ mappers:
     type: ngm
     bin: software/ngm/ngm
     param_string: ''
+
+  ngm_bs:
+    title: "NGM"
+    type: ngm
+    bin: software/ngm/ngm
+    param_string: '--bs-mapping'

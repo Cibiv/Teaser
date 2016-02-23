@@ -1,0 +1,38 @@
+include:
+  - base_teaser.yaml
+
+teaser:
+   tests:
+      ecoli_test:
+         reference: E_coli.fasta #/scratch/teaser/references/H_sapiens.fa
+         read_count: 25000
+         mutation_rate: 0
+         read_length: 100
+         error_rate_mult: 0
+
+         #sampling:
+         #   region_len: 100
+         #   fraction: 0.1
+
+         #sampling:
+         #   region_list_file: test2.regions.csv
+
+         methylation:
+            enable: Yes
+            rates:
+               C:
+                  T: 0.1
+
+evaluation:
+   pos_threshold: 10
+
+test_mappers:
+  - ngm
+  #- ngm_bs
+  - bwa
+  - bwamem
+  - bowtie2
+
+threads: 1
+
+report: {name: example_ecoli_methyl, directory: /home/CIBIV/moritz/public_html/reports}

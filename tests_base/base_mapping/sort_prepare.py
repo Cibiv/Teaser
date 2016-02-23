@@ -4,6 +4,10 @@ import os
 def sort_prepare(self):
 	self.enterWorkingDirectory()
 
+	if self.mate.output_bam:
+		self.dbg("Generating BAM output...")
+		os.system("samtools view -bS %s > %s"%(self._("output:testee_path"),self._("output:testee_path")+".bam"))
+
 	self.dbg("Sorting...")
 
 	sorted_testee_filename = util.sort_sam(self._("output:testee_path"),int(self.mate._("threads")))
@@ -22,3 +26,6 @@ def sort_prepare(self):
 			os.remove(self._("input:mapping_comparison"))
 			os.rename(sorted_comparison_filename,self._("input:mapping_comparison"))
 			self.setc("input:sorted_mapping_comparison",self._("input:mapping_comparison"))
+
+
+

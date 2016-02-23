@@ -1,11 +1,6 @@
 import os
 import shutil
-import time
-
-import yaml
-
-from lib import util
-from lib import gsample
+import random
 from tools import fastq2sam
 
 class Simulator:

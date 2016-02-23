@@ -42,9 +42,15 @@ class ReferenceMappingStatistics:
 		#Additional data
 		self.failed_rows = []
 
+		self.methylated_total = 0
+		self.methylated_correctly_called = 0
+		self.methylated_false_positives = 0
+
 		self.mapq_cumulated = {}
+		self.methylation_cumulated = {}
 		for i in range(256):
 			self.mapq_cumulated[i] = {"correct": 0, "wrong": 0}
+			self.methylation_cumulated[i] = {"correct": 0, "wrong": 0}
 
 		#Placeholders
 		self.maptime = -1

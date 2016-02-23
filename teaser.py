@@ -636,6 +636,7 @@ class Mate:
 		parser.add_argument("-lm", "--listmappers", help="List available mappers", default=False, action="store_true")
 		parser.add_argument("-lp", "--listparameters", help="List available parameter sets", default=False, action="store_true")
 		parser.add_argument("-er", "--exportreads", help="Export evaluation results for each read", default=False, action="store_true")
+		parser.add_argument("-ob", "--outputbam", help="Convert mapper output to BAM", default=False, action="store_true")
 
 		return parser
 
@@ -691,6 +692,7 @@ class Mate:
 		self.measure_preload = not args.nomeasurepreload
 		self.measure_psutil = args.measurepsutil
 		self.nomonitor = args.nomonitor
+		self.output_bam = args.outputbam
 
 		if self.measure_psutil and self.nomonitor:
 			self.log("Cannot use --nomonitor with --measurepsutil")

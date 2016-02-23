@@ -6,6 +6,7 @@ import sys
 import os
 import json
 import base64
+import util
 
 import intervaltree
 
@@ -106,8 +107,55 @@ def index_legacy(reference):
 	return index
 
 
-def downsample(index, contig_filename, downsampled_filename, region_count, target_len, single_contig=False,
-			   region_list=False, spacer_len=200):
+def generateDistribution(transition_probabilities):
+	distr = []
+	P = 0
+	for new, p in transition_probabilities.iteritems():
+		distr.append((new,P,P+p))
+		P+=p
+
+	return distr
+
+def sampleDistribution(distribution):
+	k=random.uniform(0,1)
+
+	for new, start, end in distribution:
+		if k>=start and k<end:
+			return new
+	return None
+
+def methylate(base, transition_distributions):
+	if base in transition_distributions:
+		new = sampleDistribution(transition_distributions[base])
+
+		if new != None:
+			return new
+		else:
+			return base
+	else:
+		return base
+
+def methylateSequence(seq, transition_distributions):
+	new_seq = ""
+	transitions=[]
+	for i in range(len(seq)):
+		new_base=methylate(seq[i],transition_distributions)
+		new_seq+=new_base
+
+		if new_base != seq[i]:
+			transitions.append((i,seq[i],new_base))
+
+	return new_seq,transitions
+
+def downsample(index, contig_filename, downsampled_filename, region_count, target_len, single_contig=False, region_list=False, spacer_len=200, methylation={"enable":False}):
+	if methylation["enable"]:
+		transition_distributions = {"A":[],"C":[],"G":[],"T":[]}
+		for base, transitions in methylation["rates"].iteritems():
+			transition_distributions[base] = generateDistribution(transitions)
+
+		methylation_info_handle = open(downsampled_filename+"_methylation_positions.tsv","w")
+		methylation_base_count = 0
+
 	rlist = False
 	if region_list != False:
 		rlist = []
@@ -162,6 +210,11 @@ def downsample(index, contig_filename, downsampled_filename, region_count, targe
 	while sampled_count < region_count:
 		if rlist == False:
 			start = random.randrange(0, index["contig_len"])
+
+			if len(sampled_intervals[(start - min_region_distance):(start + region_len + min_region_distance)]) > 0:
+				# log("Region start too close to already sampled region")
+				continue
+
 		else:
 			if rlist_idx >= len(rlist):
 				break
@@ -173,10 +226,6 @@ def downsample(index, contig_filename, downsampled_filename, region_count, targe
 		# log("Sampling from rlist: %d, len %d"%(start,region_len))
 
 		start_ok = True
-
-		if len(sampled_intervals[(start - min_region_distance):(start + region_len + min_region_distance)]) > 0:
-			# log("Region start too close to already sampled region")
-			continue
 
 		selected_region = None
 		for seq in index["seqs"]:
@@ -208,13 +257,25 @@ def downsample(index, contig_filename, downsampled_filename, region_count, targe
 			# log("Sampled region contained only Ns")
 			continue
 
+		if methylation["enable"]:
+			sample_contig, transitions=methylateSequence(sample_contig,transition_distributions)
+
+			#for pos, old, new in transitions:
+			#	methylation_info_handle.write("%s\t%d\t%s\t%s\n"%(selected_region["id"].split(" ")[0], start - selected_region["start"] + pos, old, new))
+				
+
 		if not single_contig:
-			downsampled_handle.write(
-				">%s_%d\n" % (str(selected_region["internal_id"]), start - selected_region["start"]))
+			downsampled_handle.write(">%s_%d\n" % (str(selected_region["internal_id"]), start - selected_region["start"]))
 		downsampled_handle.write(sample_contig)
 
-		sampled_info.append({"start": downsampled_pos, "end": downsampled_pos + region_len, "source": selected_region,
-							 "source_offset": (start - selected_region["start"])})
+		sampled_info_entry = {"start": downsampled_pos, "end": downsampled_pos + region_len, "source": selected_region, "source_offset": (start - selected_region["start"])}
+
+		if methylation["enable"]:
+			sampled_info_entry["methylation"] = transitions
+			methylation_base_count += len(sampled_info_entry["methylation"])
+				
+
+		sampled_info.append(sampled_info_entry)
 		downsampled_pos += region_len + len(spacer)
 
 		if not single_contig:
@@ -228,35 +289,73 @@ def downsample(index, contig_filename, downsampled_filename, region_count, targe
 			log("%d%%" % percent)
 			old_percent = percent
 
+	if methylation["enable"]:
+		methylation_info_handle.close()
+		print("%d bases were transitioned due to methylation"%methylation_base_count)
+
 	return sampled_info
 
 
-def csample(infile, region_size, sample_fraction, spacer_len=200, fastindex_path=""):
-	outfile=infile + ".sampled.%d.%d.%d.fasta" % (int(1/sample_fraction),region_size,spacer_len)
+def csample(infile, region_size, sample_fraction, spacer_len=200, fastindex_path="", methylation={"enable":False}, region_list_path=False):
+	outfile=infile + ".sampled.%d.%d.%d%s.fasta" % (int(1/sample_fraction),region_size,spacer_len, ".m" if methylation["enable"] else "")
 	outfile_index=outfile+".index"
 
 	log("csample %s %d %f" % (infile, region_size, sample_fraction))
 
-	if os.path.exists(outfile) and os.path.exists(outfile_index):
+	if os.path.exists(outfile) and os.path.exists(outfile_index) and not methylation["enable"]:
 		log("Sampled file exists, skip sampling")
 		return outfile,outfile_index
 
 	idx = index(infile,fastindex_path)
 	total_size = int(float(sample_fraction) * idx["contig_len"])
 	region_count = int(total_size / region_size)
-	log("Sampling as contig: %d regions of size %d (pad %d), totalling %d base pairs" % (
-	region_count, region_size, spacer_len, total_size))
+	log("Sampling as contig: %d regions of size %d (pad %d), totalling %d base pairs" % (region_count, region_size, spacer_len, total_size))
 
-
-	sampled_info = downsample(idx, infile + ".teaser.fcontig", outfile, int(region_count),
-							  int(total_size), True, False, spacer_len)
+	sampled_info = downsample(idx, infile + ".teaser.fcontig", outfile, int(region_count), int(total_size), True, region_list_path, spacer_len, methylation)
 	open(outfile + ".index", "w").write(json.dumps(sampled_info))
 
 	return outfile,outfile_index
 
 
-def ctranslate(reference_file, sampled_index_file, sam_file, target_file, fastindex_path=""):
+def writeReadMethylationInfo(handle,methylation,qname,flag,pos,cigar):
+	cigar_parts = util.parseCIGAR(cigar)
+	start_pos = int(pos)
+	end_pos = int(pos)
+
+	for part, length in cigar_parts:
+		if part in ["D","M","S","H"]:
+			end_pos += length
+
+	print(qname,methylation,start_pos,end_pos)
+
+	for methylation_pos, old, new in methylation:
+		if methylation_pos >= start_pos and methylation_pos <= end_pos:
+			handle.write("%s\t%d\t%s\t%s\n"%(qname,methylation_pos-start_pos+2,old,new))
+
+def compileReadMethylationInfo(methylation,qname,flag,pos,cigar):
+	cigar_parts = util.parseCIGAR(cigar)
+	start_pos = int(pos)
+	end_pos = int(pos)
+
+	for part, length in cigar_parts:
+		if part in ["D","M","S","H"]:
+			end_pos += length
+
+	result=[]
+
+	for methylation_pos, old, new in methylation:
+		if methylation_pos >= start_pos and methylation_pos <= end_pos:
+			result.append((methylation_pos-start_pos+2,old,new))
+
+	return result
+
+def ctranslate(reference_file, sampled_index_file, sam_file, target_file, fastindex_path="", methylation={"enable":False}):
 	log("Translating SAM file coordinates (as contig)...")
+
+	#if methylation["enable"]:
+		#methylation_info_handle = open(sampled_index_file+".methylation.tsv","w")
+		#print("Methylation handle: %s"%(sampled_index_file+".methylation.tsv"))
+
 
 	idx = index(reference_file,fastindex_path)
 	sampled_idx = json.loads(open(sampled_index_file, "r").read())
@@ -302,8 +401,17 @@ def ctranslate(reference_file, sampled_index_file, sam_file, target_file, fastin
 
 		parts[2] = source_seq["id"].split(" ")[0]
 
+		sample_pos = int(parts[3]) - source_sample["start"]
+
 		adjusted_pos = int(parts[3]) - source_sample["start"] + source_sample["source_offset"]
 		parts[3] = str(adjusted_pos)
+
+
+		if "methylation" in source_sample:
+			info=compileReadMethylationInfo(source_sample["methylation"],parts[0],parts[1],sample_pos,parts[5])
+			parts[-1]=parts[-1].strip()
+			parts.append("MT:"+json.dumps(info)+"\n")
+
 
 		out_handle.write("\t".join(parts))
 

@@ -201,6 +201,108 @@ tooltip: {
 
 """ % (json.dumps(columns_mapqs), json.dumps(columns_mapqs[0]), json.dumps(groups)))
 
+def generateMethylationStatisticsPlot(self, page, test_objects):
+	import json
+
+	csv = "mapper,mapq_threshold,correctly_identified_percent,wrongly_identified_percent,not_identified_percent\n"
+
+	columns_mapqs = []
+	for i in range(256):
+		columns_mapqs.append([["False Negatives"], ["True Positives"], ["False Positives"]])
+	groups = []
+	for test in sorted(test_objects, key=lambda k: k.getMapper().getTitle()):
+		result = test.getRunResults()
+		if result == None or test.getErrorCount():
+			continue
+
+		mapqs = sorted(result.methylation_cumulated)
+		for curr in mapqs:
+			correct,wrong,not_mapped=0,0,0
+			if result.methylated_total != 0:
+				correct=result.methylation_cumulated[curr]["correct"]
+				wrong=result.methylation_cumulated[curr]["wrong"]
+				not_mapped=result.methylated_total - result.methylation_cumulated[curr]["correct"]
+
+			columns_mapqs[curr][1].append(correct)
+			columns_mapqs[curr][2].append(wrong)
+			columns_mapqs[curr][0].append(not_mapped)
+
+			csv += "%s,%d,%.4f,%.4f,%.4f\n" % (test.getMapper().getTitle(), curr, correct, wrong, not_mapped)
+
+		groups.append(test.getMapper().getTitle())
+
+	csv_filename = self.writeCSV("methylation_statistics",csv)
+
+	page.addSection("Methylation Call Statistics",
+					"""
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-6">
+									<label for="mapqSelect">MAPQ cutoff (<span id="cutoffText">0</span>):</label>
+									<div class="input-group">
+										<input id="mapqSelect" type="range" oninput="javascript:$('#cutoffText').html(this.value);" onchange="javascript:updateMapstatsChart(this.value);" value="0" min="0" max="255">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="plot_mtstats"></div>%s""" % util.makeExportDropdown("plot_mtstats",csv_filename),
+					None,
+					"This plot shows the fractions of correctly, wrongly and not mapped reads for each mapper and the selected mapping quality cutoff. Reads that have been filtered using the mapping quality cutoff are shown as unmapped. The interactive legend can be used to, for example, display only the number of wrongly and not mapped reads.")
+	page.addScript("""
+var column_methyl=%s;
+function updateMapstatsChart(cutoff)
+{
+	mapstats_chart.axis.labels({x:"Mappers (MAPQ Threshold "+cutoff+")"});
+	mapstats_chart.load({columns: column_methyl[cutoff], type:'bar',groups: [['False Negatives','False Positives','True Positives']],order: null});
+}
+var mapstats_chart = c3.generate({
+bindto: '#plot_mtstats',
+size: {
+  height: 400
+},
+data: {
+  columns: %s,
+  type: 'bar',
+  groups: [['False Negatives','True Positives','False Positives']],
+  order: null,
+  colors: {
+	    "False Negatives": d3.rgb('#1F77B4'),
+	    "True Positives": d3.rgb('#2CA02C'),
+	    "False Positives": d3.rgb('#FF7F0E') }
+},
+grid: {
+  y: {
+    show: true
+  }
+},
+axis: {
+  x: {
+    label: { text: "Mapper (MAPQ Threshold 0)", position: "outer-middle" },
+    type: "category",
+    categories: %s
+  },
+
+  y: {
+    label: { text: "Number of methylations", position: "outer-middle" },
+    padding:
+    {
+    top:15
+    }
+  }
+},
+legend: {
+	position: "bottom"
+},
+tooltip: {
+	grouped: false
+}
+});
+
+
+""" % (json.dumps(columns_mapqs), json.dumps(columns_mapqs[0]), json.dumps(groups)))
+
 
 def generateOverallScatterPlot(self, page, test_objects):
 	import json
@@ -768,6 +870,7 @@ window.onload = function () {$('.selectpicker').selectpicker();}""")
 	generateOverallScatterPlot(self, page, test_objects)
 	generateDataSetInfo(self, page, test_objects[0])
 	generateMappingStatisticsPlot(self, page, test_objects)
+	generateMethylationStatisticsPlot(self, page, test_objects)
 	generateMappingQualityOverview(self, page, test_objects)
 	generatePrecisionRecallScatterPlot(self, page, test_objects)
 	generateResourcePlot(self, page, test_objects, "corrects")

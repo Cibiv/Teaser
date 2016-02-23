@@ -1,5 +1,6 @@
 from stats import *
 from sam import *
+import util
 
 class Evaluator:
 	def __init__(self):
@@ -80,6 +81,9 @@ class BasicEvaluator(Evaluator):
 			#self.export_read("pass",row_testee)
 
 class ThresholdBasedEvaluator(Evaluator):
+	def set_methylation_frequencies(self, frequencies):
+		self.methylation_frequencies = frequencies
+
 	def compute(self):
 		sam_test = SAMFile(self.testee_filename)
 		sam_comp = SAMFile(self.comparison_filename)
@@ -90,6 +94,9 @@ class ThresholdBasedEvaluator(Evaluator):
 
 		while sam_comp.next():
 			self.stats.total += 1
+
+			if sam_comp.getCurr().methylation != None:
+				self.stats.methylated_total += len(sam_comp.getCurr().methylation)
 
 			if dont_advance_test:
 				dont_advance_test = False
@@ -134,6 +141,10 @@ class ThresholdBasedEvaluator(Evaluator):
 						break
 
 					self.stats.total += 1
+
+					if sam_comp.getCurr().methylation != None:
+						self.stats.methylated_total += len(sam_comp.getCurr().methylation)
+
 				else:
 					self.stats.not_found_comparison += 1
 					if not sam_test.next():
@@ -211,14 +222,26 @@ class ThresholdBasedEvaluator(Evaluator):
 		for i in range(254, -1, -1):
 			self.stats.mapq_cumulated[i]["correct"] += self.stats.mapq_cumulated[i + 1]["correct"]
 			self.stats.mapq_cumulated[i]["wrong"] += self.stats.mapq_cumulated[i + 1]["wrong"]
+			self.stats.methylation_cumulated[i]["correct"] += self.stats.methylation_cumulated[i + 1]["correct"]
+			self.stats.methylation_cumulated[i]["wrong"] += self.stats.methylation_cumulated[i + 1]["wrong"]
 
 		self.stats.computeMeasures()
+
+		print("======================= METHYLATION STATISTICS =======================")
+		print("Total: %d"%self.stats.methylated_total)
+		print("TP: %d"%self.stats.methylated_correctly_called)
+		print("FP: %d"%self.stats.methylated_false_positives)
+		print("FN: %d"%(self.stats.methylated_total-self.stats.methylated_correctly_called))
+
 
 	def doCompareRows(self, row_testee, row_comp):
 		if row_testee.is_unmapped:
 			self.stats.not_mapped += 1
 			self.export_read("fail", row_testee, row_comp, "unmapped")
 			return
+
+		if row_comp.methylation != None:
+			self.doEvaluateMethylation(row_testee, row_comp)
 
 		if row_testee.rname != row_comp.rname:
 			#Fix for mappers that treat RNAMEs containing special characters differently
@@ -248,6 +271,46 @@ class ThresholdBasedEvaluator(Evaluator):
 		self.stats.mapq_cumulated[row_testee.mapq]["correct"] += 1
 		self.stats.correct += 1
 		self.export_read("pass", row_testee, row_comp)
+
+	def doEvaluateMethylation(self, row_testee, row_comp):
+		md = None
+		for tag in row_testee.tags:
+			if tag[0:5] == "MD:Z:":
+				md = tag[5:]
+
+		testee_methylation = util.parseMD(md, row_testee.seq)
+		testee_methylation_table = {}
+
+		for pos, old, new in testee_methylation:
+			testee_methylation_table[row_testee.pos + pos] = (old, new)
+
+		for pos, old, new in row_comp.methylation:
+			pos = pos + row_comp.pos
+
+			if pos in testee_methylation_table:
+				mapped_old, mapped_new = testee_methylation_table[pos]
+
+
+				if mapped_old == old and mapped_new == new:
+					self.stats.methylated_correctly_called += 1
+					self.stats.methylation_cumulated[row_testee.mapq]["correct"] += 1
+					del testee_methylation_table[pos]
+				else:
+					pass
+					#print("")
+					#print("TEST",testee_methylation,row_testee.seq)
+					#print("COMP",row_comp.methylation,row_comp.seq)
+					#print("")
+
+		for pos in testee_methylation_table:
+			old, new = testee_methylation_table[pos]
+			if ( old in self.methylation_frequencies and
+			   new in self.methylation_frequencies[old] and
+			   self.methylation_frequencies[old][new] > 0 ):
+
+				self.stats.methylation_cumulated[row_testee.mapq]["wrong"] += 1
+				self.stats.methylated_false_positives += 1
+
 
 class BasicEvaluatorSAM(ThresholdBasedEvaluator):
 	def doCompareRows(self, row_testee, row_comp):

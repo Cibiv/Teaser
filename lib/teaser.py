@@ -31,6 +31,10 @@ class Teaser:
 		self.default_test["sampling"]["region_len_multiplier"] = 10
 		self.default_test["sampling"]["region_len"] = None
 		self.default_test["sampling"]["region_pad"] = None
+		self.default_test["sampling"]["region_list_file"] = False
+
+		self.default_test["methylation"] = {}
+		self.default_test["methylation"]["enable"] = False
 
 		self.default_test["simulator"] = None
 		self.default_test["reference"] = None
@@ -78,6 +82,13 @@ class Teaser:
 					test["reference"] = os.path.abspath(self.config["reference_directory"] + "/" + test["reference"])
 			else:
 				test["reference"] = os.path.abspath(test["reference"])
+
+			if test["sampling"]["region_list_file"] != False:
+				if not os.path.exists(test["sampling"]["region_list_file"]):
+					if os.path.exists(self.config["reference_directory"] + "/" + test["sampling"]["region_list_file"]):
+						test["sampling"]["region_list_file"] = os.path.abspath(self.config["reference_directory"] + "/" + test["sampling"]["region_list_file"])
+				else:
+					test["sampling"]["region_list_file"] = os.path.abspath(test["sampling"]["region_list_file"])				
 
 			if not os.path.exists(test["reference"]):
 				raise RuntimeError("Reference '%s' not found for test '%s'"%(test["reference"],name))
@@ -187,7 +198,8 @@ class Teaser:
 								"insert_size": str(test["insert_size"]), "insert_size_error": str(test["insert_size_error"]), "sampling": test["sampling"]["enable"],
 								"sampling_ratio": str(test["sampling"]["ratio"]),
 								"sampling_region_len": str(test["sampling"]["region_len"]),
-								"divergence": "%.4f overall mutation rate, %.4f indel fraction, %.4f indel average length" % (test["mutation_rate"],test["mutation_indel_frac"],test["mutation_indel_avg_len"])  }
+								"divergence": "%.4f overall mutation rate, %.4f indel fraction, %.4f indel average length" % (test["mutation_rate"],test["mutation_indel_frac"],test["mutation_indel_avg_len"]),
+								"methylation": test["methylation"]  }
 		else:
 			config["input_info"] = {"type": test["type"],"read_count": test["read_count"]}
 
@@ -246,8 +258,13 @@ class Teaser:
 		if test["sampling"]["ratio"] == None:
 			test["sampling"]["ratio"] = self.calculateSamplingRatio(idx["contig_len"])
 
-		sampled_file,sampled_index_file=gsample.csample(test["reference"], test["sampling"]["region_len"], test["sampling"]["ratio"],
-						test["sampling"]["region_pad"],self.config["fastindex_path"])
+		sampled_file,sampled_index_file=gsample.csample(test["reference"],
+														test["sampling"]["region_len"],
+														test["sampling"]["ratio"],
+														test["sampling"]["region_pad"],
+														self.config["fastindex_path"],
+														test["methylation"],
+														test["sampling"]["region_list_file"])
 		
 		test["reference_sim"] = sampled_file
 
@@ -261,10 +278,13 @@ class Teaser:
 
 		self.ch(test)
 		self.mv("mapping_comparison.sam", "mapping_comparison_unfixed.sam")
-		gsample.ctranslate(test["reference"], sampled_index_file, "mapping_comparison_unfixed.sam", "mapping_comparison.sam",self.config["fastindex_path"])
+		gsample.ctranslate(test["reference"], sampled_index_file, "mapping_comparison_unfixed.sam", "mapping_comparison.sam",self.config["fastindex_path"], test["methylation"])
 
-		self.rm(sampled_file)
-		self.rm(sampled_index_file)
+		#if test["methylation"]["enable"]:
+		#	self.mv(sampled_index_file+".methylation.tsv","methylation.tsv")
+
+		#self.rm(sampled_file)
+		#self.rm(sampled_index_file)
 		self.rm("mapping_comparison_unfixed.sam")
 
 	def makeDatasetNoDS(self, test):

@@ -18,6 +18,9 @@ def calc_stats(self):
 	generator = eval_class()
 	generator.set_position_threshold(self._("evaluation:pos_threshold"))
 
+	if self._("input_info:methylation:enable"):
+		generator.set_methylation_frequencies(self._("input_info:methylation")["rates"])
+
 	try:
 		generator.set_testee(self._("output:sorted_testee_path"))
 	except Exception as e:

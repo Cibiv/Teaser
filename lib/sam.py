@@ -1,3 +1,5 @@
+import json
+
 class SAMRow:
 	def __init__(self):
 		self.qname = False
@@ -65,6 +67,14 @@ class SAMFile:
 		row.rname = parts[2]
 		row.pos = int(parts[3])
 		row.mapq = int(parts[4])
+		row.seq = parts[9]
+
+
+		row.tags = parts[11:]
+
+		row.methylation = None
+		if parts[-1][0:3]=="MT:":
+			row.methylation = json.loads(parts[-1][3:])
 
 		row.is_read1 = (flags & 0x40) != 0
 		row.is_read2 = (flags & 0x80) != 0
