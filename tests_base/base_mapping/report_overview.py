@@ -514,11 +514,12 @@ def generateMappingQualityOverview(self, page, test_objects):
 	for test in sorted(test_objects, key=lambda k: k.getMapper().getTitle()):
 		column = [test.getMapper().getTitle()]
 		column_dist = [test.getMapper().getTitle()]
-		x_values_dist = []
 		results = test.getRunResults()
 
 		if results == None or test.getErrorCount():
 			continue
+
+		x_values_dist = []
 
 		mapqs = sorted(results.mapq_cumulated)
 		for curr in mapqs:
