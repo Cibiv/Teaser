@@ -24,7 +24,13 @@ To see if everything is working, you can try benchmarking mappers for a simple E
 ./teaser.py example_ecoli.yaml
 ```
 
-Teaser will place results in the `reports` directory.
+To start the Teaser [graphical interface](https://github.com/Cibiv/Teaser/wiki/Web-Browser-Interface) use:
+
+```
+./server.py
+```
+
+Then head to `http://localhost:8888` in a web browser of your choice.
 
 ##Citation
 If you use Teaser to optimize read mapping in your study, please consider citing: [Smolka M, Rescheneder P, Schatz MC, von Haeseler A and Sedlazeck FJ. Teaser: Individualized benchmarking and optimization of read mapping results for NGS data. Genome Biology 2015, 16:235 (22 October 2015).](http://www.genomebiology.com/2015/16/1/235) DOI: 10.1186/s13059-015-0803-1
