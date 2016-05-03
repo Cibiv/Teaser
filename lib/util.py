@@ -499,5 +499,43 @@ def makeExportDropdown(plot_id,csv_filename):
   </ul>
 </div></div>""" % (item_plot,item_csv)
 
+def parseMD(md,seq):
+	parts=[]
+	if md == None or len(md) == 0 or len(seq) == 0:
+		return parts
+
+	buffer = ""
+	pos=0
+	seq_pos=0
+	
+	i=0
+	while i < len(md):
+		c=md[i]
+		if c.isdigit():
+			buffer += c
+		else:
+			if buffer == "":
+				i+=1
+				continue
+
+			pos+=int(buffer)+1
+			seq_pos+=int(buffer)+1
+			buffer = ""
+
+			if c == "^":
+				i+=1
+				while i < len(md) and not md[i].isdigit():
+					pos+=1
+					i+=1
+				continue
+			else:
+				try:
+					parts.append((pos,c,seq[seq_pos-1]))
+				except:
+					print("Encountered bad position in MD string",(pos,c,seq_pos-1,md,i))
+
+		i+=1
+	return parts
+
 import pydoc
 locate = pydoc.locate

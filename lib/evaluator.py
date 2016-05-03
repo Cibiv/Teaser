@@ -1,5 +1,6 @@
 from stats import *
 from sam import *
+from lib import util
 
 class Evaluator:
 	def __init__(self):
@@ -91,6 +92,11 @@ class ThresholdBasedEvaluator(Evaluator):
 		while sam_comp.next():
 			self.stats.total += 1
 
+			edit_distance = len(util.parseMD(sam_comp.getCurr().getTag("MD"),sam_comp.getCurr().seq))
+			if not edit_distance in self.stats.reads_by_edit_distance:
+				self.stats.reads_by_edit_distance[edit_distance]=0
+			self.stats.reads_by_edit_distance[edit_distance]+=1
+
 			if dont_advance_test:
 				dont_advance_test = False
 			else:
@@ -134,6 +140,11 @@ class ThresholdBasedEvaluator(Evaluator):
 						break
 
 					self.stats.total += 1
+					
+					edit_distance = len(util.parseMD(sam_comp.getCurr().getTag("MD"),sam_comp.getCurr().seq))
+					if not edit_distance in self.stats.reads_by_edit_distance:
+						self.stats.reads_by_edit_distance[edit_distance]=0
+					self.stats.reads_by_edit_distance[edit_distance]+=1
 				else:
 					self.stats.not_found_comparison += 1
 					if not sam_test.next():
@@ -219,6 +230,13 @@ class ThresholdBasedEvaluator(Evaluator):
 			self.stats.not_mapped += 1
 			self.export_read("fail", row_testee, row_comp, "unmapped")
 			return
+
+		edit_distance = len(util.parseMD(row_comp.getTag("MD"),row_comp.seq))
+
+		if not edit_distance in self.stats.mapped_by_edit_distance:
+			self.stats.mapped_by_edit_distance[edit_distance]=0
+
+		self.stats.mapped_by_edit_distance[edit_distance]+=1
 
 		if row_testee.rname != row_comp.rname:
 			#Fix for mappers that treat RNAMEs containing special characters differently

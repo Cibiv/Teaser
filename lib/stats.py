@@ -39,6 +39,9 @@ class ReferenceMappingStatistics:
 		self.memory = 1
 		self.time_measure = "None"
 
+		self.mapped_by_edit_distance = {}
+		self.reads_by_edit_distance = {}
+
 		#Additional data
 		self.failed_rows = []
 

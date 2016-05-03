@@ -94,6 +94,89 @@ def generateTestList(self, tests):
 
 	return html
 
+def generateEditDistancePlot(self, page, test_objects):
+	import json
+
+	data_dist = []
+	max_edit_dist = 0
+
+	reads_by_edit_distance = {}
+	for test in test_objects:
+		results = test.getRunResults()
+		if len(results.reads_by_edit_distance)!=0:
+			reads_by_edit_distance = results.reads_by_edit_distance
+
+	max_edit_dist = max([key for key in reads_by_edit_distance])
+
+	x=[]
+	for key in reads_by_edit_distance:
+		if reads_by_edit_distance[key] > 100:
+			x.append(key)
+
+
+	for test in sorted(test_objects, key=lambda k: k.getMapper().getTitle()):
+		column_dist = [test.getMapper().getTitle()]
+		results = test.getRunResults()
+
+		if results == None or test.getErrorCount():
+			continue
+
+		reads_by_edit_distance = results.reads_by_edit_distance
+		mapped_by_edit_distance = results.mapped_by_edit_distance
+
+		for i in range(max_edit_dist+1):
+			mapped = mapped_by_edit_distance[i] if i in mapped_by_edit_distance else 0
+			reads = reads_by_edit_distance[i] if i in reads_by_edit_distance else 0
+
+			if reads > 100:
+				column_dist.append((reads-mapped)/float(reads))
+			else:
+				pass
+
+		data_dist.append(column_dist)
+		print(column_dist)
+
+	data_dist.append(["x"]+x)
+
+	page.addSection("Edit Distance",
+					"""This plot shows the effect of the number of mismatches introduced in reads on mapping rates.<br><br><div id="plot_edit_dist"></div>%s""" %  util.makeExportDropdown("plot_edit_dist",""),
+					None,
+					"")
+
+	page.addScript("""
+var chart = c3.generate({
+    bindto: '#plot_edit_dist',
+    size: {
+      height: 500
+    },
+    data: {
+      x: 'x',
+      columns: %s
+    },
+    grid: {
+      y: {
+        show: true
+      }
+    },
+    axis: {
+      x: {
+        label: {text: "Edit distance in read", position: "outer-middle"}
+      },
+
+      y: {
+        label: {text: "Not mapped reads [%%]", position: "outer-middle"},
+		tick: {
+		  format: d3.format(".3%%")
+		}
+      }
+    },
+    legend: {
+		show:true
+    },
+    point: {
+    	show: false
+    }
+});""" % json.dumps(data_dist))
 
 def generateMappingStatisticsPlot(self, page, test_objects):
 	import json
@@ -769,6 +852,7 @@ window.onload = function () {$('.selectpicker').selectpicker();}""")
 	generateOverallScatterPlot(self, page, test_objects)
 	generateDataSetInfo(self, page, test_objects[0])
 	generateMappingStatisticsPlot(self, page, test_objects)
+	generateEditDistancePlot(self, page, test_objects)
 	generateMappingQualityOverview(self, page, test_objects)
 	generatePrecisionRecallScatterPlot(self, page, test_objects)
 	generateResourcePlot(self, page, test_objects, "corrects")

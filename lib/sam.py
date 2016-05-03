@@ -2,6 +2,14 @@ class SAMRow:
 	def __init__(self):
 		self.qname = False
 
+	def getTag(self,tag_name):
+		for tag in self.tags:
+			parts=tag.split(":")
+			curr_name,curr_type,curr_value=parts
+			if curr_name==tag_name:
+				return curr_value
+		return None
+
 class SAMFile:
 	def __init__(self, filename):
 		self.handle = open(filename, "r")
@@ -65,6 +73,9 @@ class SAMFile:
 		row.rname = parts[2]
 		row.pos = int(parts[3])
 		row.mapq = int(parts[4])
+		row.cigar = parts[5]
+		row.seq = parts[9]
+		row.tags = parts[11:]
 
 		row.is_read1 = (flags & 0x40) != 0
 		row.is_read2 = (flags & 0x80) != 0
