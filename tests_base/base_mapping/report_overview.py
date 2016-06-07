@@ -711,10 +711,12 @@ var chart = c3.generate({
 
 
 def generateDataSetInfo(self,page,test):
+	import json
+
 	test_name = self.internal_name
 	self.enterWorkingDirectory()
 
-	html = ""
+	html = "This section contains information on the benchmark data set. <center><h4>Simulation Overview</h4></center>"
 	html += "<div class=\"table-responsive\"><table class=\"table table-striped\">"
 	html += "<tbody>"
 
@@ -722,18 +724,17 @@ def generateDataSetInfo(self,page,test):
 
 	input_type_description = "Unknown"
 	if test_input_type == "simulated_teaser":
-		input_type_description = "Simuled data set (created using Teaser)"
+		input_type_description = "Simulated data set (created using Teaser)"
 	elif test_input_type == "simulated_custom":
 		input_type_description = "Simulated data set (imported)"
 	elif test_input_type == "real":
 		input_type_description = "Real data / no gold standard"
 
-
 	html += "<tr>"
-	html += "<th>Input Data Source</th>"
+	html += "<th width=\"25%\">Input Data Source</th>"
 	html += "<td>%s</td>" % input_type_description
 	html += "</tr>"
-	
+
 
 	if test_input_type == "simulated_teaser":
 		html += "<tr>"
@@ -760,19 +761,27 @@ def generateDataSetInfo(self,page,test):
 		html += "<th>Insert Size</th>"
 		html += "<td>%s</td>" % str(test._("input_info:insert_size") if test._("input:reads_paired_end") else "None" )
 		html += "</tr>"
+
 		html += "<tr>"
-		html += "<th>Insert Size Error</th>"
-		html += "<td>%s</td>" % str(test._("input_info:insert_size_error") if test._("input:reads_paired_end") else "None" )
+		html += "<th>Reads by Edit Distance</th>"
+		html += """<td>The edit distance of a read is calculated as the total number of bases that are different to the reference. This includes mutations and sequencing errors.<div id="plot_edit_distr"></div></td>"""
 		html += "</tr>"
+
+		html += "</tbody>"
+		html += "</table></div>"
+
+		html += "<center><h4>Simulation Details</h4></center>"
+		html += "<small><div class=\"table-responsive table-sm\"><table class=\"table table-striped table-sm\">"
+		html += "<tbody>"
 		html += "<tr>"
-		html += "<th>Subsampling enabled</th>"
+		html += "<th width=\"25%\">Subsampling enabled</th>"
 		html += "<td>%s</td>" % util.yes_no(test._("input_info:sampling"))
 		html += "</tr>"
 		html += "<tr>"
 		html += "<th>Simulator</th>"
 		html += "<td>%s</td>" % str(test._("input_info:simulator"))
 		html += "</tr>"
-		
+
 		if test._("input_info:sampling"):
 			html += "<tr>"
 			html += "<th>Sampling ratio</th>"
@@ -782,6 +791,48 @@ def generateDataSetInfo(self,page,test):
 			html += "<th>Sampling region length</th>"
 			html += "<td>%d</td>" % int(test._("input_info:sampling_region_len",-1))
 			html += "</tr>"
+
+		max_nonzero = max(sorted(test.getRunResults().reads_by_edit_distance)) if len(test.getRunResults().reads_by_edit_distance) else 0
+
+		data_dist_edit=[["Percentage of Reads"]+[(test.getRunResults().reads_by_edit_distance[i] if i in test.getRunResults().reads_by_edit_distance else 0)/float(test.getRunResults().total) for i in range(max_nonzero)]]
+
+		page.addScript("""
+	var chart = c3.generate({
+	bindto: '#plot_edit_distr',
+	size: {
+	  height: 200
+	},
+	data: {
+	  columns: %s,
+	  type: "bar",
+	  colors: {
+			"Percentage of Reads": d3.rgb('#FF7F0E')
+	  }
+	},
+	grid: {
+	  y: {
+		show: true
+	  }
+	},
+	axis: {
+	  x: {
+		label: {text: "Edit Distance", position: "outer-middle"}
+	  },
+
+	  y: {
+		label: {text: "Percentage of Reads [%%]", position: "outer-middle"},
+				tick: {
+				  format: d3.format(".3%%")
+				}
+	  }
+	},
+	legend: {
+				show:false
+	},
+	point: {
+		show: false
+	}
+	});""" % json.dumps(data_dist_edit))
 
 	html += "<tr>"
 	html += "<th>Reference Genome File</th>"
@@ -795,11 +846,12 @@ def generateDataSetInfo(self,page,test):
 	html += "<th>Gold Standard Alignment File</th>"
 	html += "<td>%s</td>" % str(util.abs_path(test._("input:mapping_comparison")))
 	html += "</tr>"
+
 	html += "</tbody>"
-	html += "</table></div>"
+	html += "</table></div></small>"
 
 	self.restoreWorkingDirectory()
-	page.addSection("Data Set", html, None, "For data sets that were simulated using Teaser, details regarding the simulation parameters are displayed here.")	
+	page.addSection("Data Set", html, None, "")
 
 
 
