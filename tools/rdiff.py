@@ -58,6 +58,7 @@ def next_read(handles):
 		obj.fail = not obj.ok
 		obj.reason = parts[2].strip()
 		obj.qname = parts[0].strip()
+		obj.mapq = int(parts[3].strip())
 		globs[symbol]=obj
 
 	result = eval(criterion,globs)

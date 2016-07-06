@@ -27,7 +27,7 @@ class Evaluator:
 
 	def set_export_file(self,file):
 		self.export_handle = open(file,"w")
-		self.export_handle.write("qname,status,reason\n")
+		self.export_handle.write("qname,status,reason,mapq\n")
 
 	def warn(self, msg, filename, pos):
 		print(msg)
@@ -48,7 +48,7 @@ class Evaluator:
 
 	def export_read(self, status, testee, comparison=None, reason="none"):
 		if self.export:
-			self.export_handle.write("%s,%s,%s\n"%(testee.qname,status,reason))
+			self.export_handle.write("%s,%s,%s,%d\n"%(testee.qname,status,reason,testee.mapq))
 
 	def compute(self):
 		raise NotImplementedError
