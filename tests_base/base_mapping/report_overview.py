@@ -440,6 +440,91 @@ tooltip: {
 }
 });""" % (json.dumps(columns), json.dumps(groups)))
 
+def generateROCPlot(self, page, test_objects):
+    import json
+    import math
+
+    xs = {}
+    columns = []
+
+    labels=[]
+
+    for test in sorted(test_objects, key=lambda k: k.getMapper().getTitle()):
+        result = test.getRunResults()
+        if result == None or test.getErrorCount():
+            continue
+
+        xs[test.getMapper().getTitle()] = test.getMapper().getTitle() + "_x"
+
+        column_x=[test.getMapper().getTitle()+"_x"]
+        column_data = [test.getMapper().getTitle()]
+
+        for mapq in range(255):
+            correctfrac=result.mapq_cumulated[mapq]["correct"]
+            wrongfrac=result.mapq_cumulated[mapq]["wrong"]
+            if wrongfrac==0 or correctfrac==0:
+                continue
+            correctfrac=math.log(correctfrac,10)
+            wrongfrac=math.log(wrongfrac,10)
+            column_x.append(wrongfrac)
+            column_data.append(correctfrac)
+
+
+        columns.append(column_x)
+        columns.append(column_data)
+
+
+    page.addSection("MAPQ ROC",
+                    """
+                    <div id="mapq_roc"></div>%s""" % (util.makeExportDropdown("mapq_roc","")),
+                    None,
+                    "")
+
+    page.addScript("""
+var roc_plot = c3.generate({
+bindto: '#mapq_roc',
+size: { height: 500 },
+data: {
+  xs: %s,
+  columns: %s
+},
+grid: {
+  x: {
+    show: true
+  },
+  y: {
+    show: true
+  }
+},
+axis: {
+  x: {
+    label: { text: "log10(Wrongly Mapped)", position: "outer-middle" },
+    tick: { fit: false, format: d3.format("10.3f") }
+  },
+
+  y: {
+    label: { text: "log10(Correctly Mapped)", position: "outer-middle"},
+    tick: { format: d3.format("10.3f") }
+  }
+},
+point: {
+  r: 5
+},
+legend: {
+    position: "bottom",
+    inset: {
+        anchor: 'top-left',
+        x: 20,
+        y: 10,
+        step: 2
+    }
+},
+tooltip: {
+	grouped: false
+}});
+
+""" % (json.dumps(xs), json.dumps(columns)))
+
 def generatePrecisionRecallScatterPlot(self, page, test_objects):
 	import json
 
@@ -906,6 +991,7 @@ window.onload = function () {$('.selectpicker').selectpicker();}""")
 	generateMappingStatisticsPlot(self, page, test_objects)
 	generateEditDistancePlot(self, page, test_objects)
 	generateMappingQualityOverview(self, page, test_objects)
+	generateROCPlot(self, page, test_objects)
 	generatePrecisionRecallScatterPlot(self, page, test_objects)
 	generateResourcePlot(self, page, test_objects, "corrects")
 	generateResourcePlot(self, page, test_objects, "runtime")
