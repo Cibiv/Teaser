@@ -8,23 +8,24 @@ The [GitHub Wiki](https://github.com/Cibiv/Teaser/wiki) contains all information
 
 ##Quick Start
 
-###Using [Docker](https://www.docker.com/)
-To run Teaser with Docker, use the following commands:
+###Get Teaser
+First, get Teaser and enter the Teaser directory with:
 ```
 git clone https://github.com/Cibiv/Teaser.git
 cd Teaser
+```
+
+###Using [Docker](https://www.docker.com/)
+To run Teaser with Docker use the following command:
+```
 docker build -t teaser_git . && docker run -v $(pwd):/teaser -it teaser_git "/usr/bin/teaser_shell.sh"
 ```
 
 ###Regular Installation
-To install Teaser directly on your system without using Docker, follow the instructions below.
+To install Teaser directly on your system without using Docker, follow the instructions below. For all installation requirements, see the [Installation](https://github.com/Cibiv/Teaser/wiki/Installation) page in our wiki.
 
-For a detailed guide, see the [Installation](https://github.com/Cibiv/Teaser/wiki/Installation) page in our wiki.
-
-Entering the following commands will install Teaser including a set of popular read mappers:
+To install Teaser use the following command:
 ```
-git clone https://github.com/Cibiv/Teaser.git
-cd Teaser
 ./install.py
 ```
 
