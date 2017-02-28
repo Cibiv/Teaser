@@ -6,7 +6,19 @@ Teaser analyzes the performance of read mappers based on a data set provided by 
 ##Documentation
 The [GitHub Wiki](https://github.com/Cibiv/Teaser/wiki) contains all information on how to start benchmarking mappers with Teaser as well as customization and extension options.
 
-##Installation
+##Quick Start
+
+###Using [Docker](https://www.docker.com/)
+To run Teaser with Docker, use the following commands:
+```
+git clone https://github.com/Cibiv/Teaser.git
+cd Teaser
+docker build -t teaser_git . && docker run -v $(pwd):/teaser -it teaser_git "/usr/bin/teaser_shell.sh"
+```
+
+###Regular Installation
+To install Teaser directly on your system without using Docker, follow the instructions below.
+
 For a detailed guide, see the [Installation](https://github.com/Cibiv/Teaser/wiki/Installation) page in our wiki.
 
 Entering the following commands will install Teaser including a set of popular read mappers:
@@ -17,6 +29,8 @@ cd Teaser
 ```
 
 Important: Teaser requires an internet connection during installation in order to download the mappers.
+
+###Benchmarking Mappers on an E. coli data set
 
 To see if everything is working, you can try benchmarking mappers for a simple E. coli dataset using:
 
