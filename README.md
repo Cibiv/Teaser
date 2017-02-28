@@ -15,13 +15,13 @@ git clone https://github.com/Cibiv/Teaser.git
 cd Teaser
 ```
 
-###Using [Docker](https://www.docker.com/)
+###Run Teaser using [Docker](https://www.docker.com/)
 To run Teaser with Docker use the following command:
 ```
 docker build -t teaser_git . && docker run -v $(pwd):/teaser -it teaser_git "/usr/bin/teaser_shell.sh"
 ```
 
-###Regular Installation
+###Or: Run Teaser directly on your system
 To install Teaser directly on your system without using Docker, follow the instructions below. For all installation requirements, see the [Installation](https://github.com/Cibiv/Teaser/wiki/Installation) page in our wiki.
 
 To install Teaser use the following command:
