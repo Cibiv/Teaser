@@ -3,25 +3,25 @@ Teaser analyzes the performance of read mappers based on a data set provided by 
 
 * [Try the Teaser Web Application](http://teaser.cibiv.univie.ac.at)
 
-##Documentation
+## Documentation
 The [GitHub Wiki](https://github.com/Cibiv/Teaser/wiki) contains all information on how to start benchmarking mappers with Teaser as well as customization and extension options.
 
-##Quick Start
+## Quick Start
 
-###Get Teaser
+### Get Teaser
 First, get Teaser and enter the Teaser directory with:
 ```
 git clone https://github.com/Cibiv/Teaser.git
 cd Teaser
 ```
 
-###Run Teaser using [Docker](https://www.docker.com/)
+### Run Teaser using [Docker](https://www.docker.com/)
 To run Teaser with Docker use the following command:
 ```
 docker build -t teaser_git . && docker run -v $(pwd):/teaser -it teaser_git "/usr/bin/teaser_shell.sh"
 ```
 
-###Or: Run Teaser directly on your system
+### Or: Run Teaser directly on your system
 To install Teaser directly on your system without using Docker, follow the instructions below. For all installation requirements, see the [Installation](https://github.com/Cibiv/Teaser/wiki/Installation) page in our wiki.
 
 To install Teaser use the following command:
@@ -31,7 +31,7 @@ To install Teaser use the following command:
 
 Important: Teaser requires an internet connection during installation in order to download the mappers.
 
-###Benchmarking Mappers on an E. coli data set
+### Benchmarking Mappers on an E. coli data set
 
 To see if everything is working, you can try benchmarking mappers for a simple E. coli dataset using:
 
@@ -47,8 +47,8 @@ To start the Teaser [graphical interface](https://github.com/Cibiv/Teaser/wiki/W
 
 Then head to `http://localhost:8888` in a web browser of your choice.
 
-##Citation
+## Citation
 If you use Teaser to optimize read mapping in your study, please consider citing: [Smolka M, Rescheneder P, Schatz MC, von Haeseler A and Sedlazeck FJ. Teaser: Individualized benchmarking and optimization of read mapping results for NGS data. Genome Biology 2015, 16:235 (22 October 2015).](http://www.genomebiology.com/2015/16/1/235) DOI: 10.1186/s13059-015-0803-1
 
-##License
+## License
 Teaser is made available under the MIT License.
